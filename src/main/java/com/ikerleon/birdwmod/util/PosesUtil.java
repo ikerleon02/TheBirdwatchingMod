@@ -15,6 +15,10 @@ public class PosesUtil {
     public static final ModelStellersEiderSwimming STELLERS_EIDER_SWIMMING_POSE = new ModelStellersEiderSwimming();
 
     //AMERICA
+    public static final ModelEasternBluebird EASTERN_BLUEBIRD_POSE = new ModelEasternBluebird();
+    public static final ModelEasternBluebird_Speaking1 EASTERN_BLUEBIRD_SPEAKING_POSE_1 = new ModelEasternBluebird_Speaking1();
+    public static final ModelEasternBluebird_Speaking2 EASTERN_BLUEBIRD_SPEAKING_POSE_2 = new ModelEasternBluebird_Speaking2();
+
     public static final ModelEasternBluebirdFlying EASTERN_BLUEBIRD_FLYING_POSE = new ModelEasternBluebirdFlying();
 
     public static final ModelKilldeerFlying KILLDEER_FLYING_POSE = new ModelKilldeerFlying();

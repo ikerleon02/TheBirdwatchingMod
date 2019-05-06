@@ -60,7 +60,7 @@ public class ModelEasternBluebirdFlying extends ModelEasternBluebird {
         this.tailmiddle.setRotationPoint(0.0F, 0.3F, 4.5F);
         this.tailmiddle.addBox(-1.0F, 0.0F, 0.0F, 2, 1, 5, 0.0F);
         this.setRotateAngle(tailmiddle, 0.08726646259971647F, 0.0F, 0.0F);
-        this.beak.setRotationPoint(0.0F, -1.4F, 2.0F);
+        this.beak.setRotationPoint(0.0F, -1.4F, 1.5F);
         this.beak.addBox(-0.5F, -0.5F, -3.0F, 1, 1, 2, 0.0F);
         this.setRotateAngle(beak, 0.17453292519943295F, 0.0F, 0.0F);
         this.rightwing3.setRotationPoint(0.1F, 0.6F, 3.5F);
@@ -86,7 +86,7 @@ public class ModelEasternBluebirdFlying extends ModelEasternBluebird {
         this.belly3.setRotationPoint(0.0F, 4.9F, 8.7F);
         this.belly3.addBox(-1.5F, 0.0F, -3.0F, 3, 5, 3, 0.0F);
         this.setRotateAngle(belly3, -1.3089969389957472F, 0.0F, 0.0F);
-        this.beakbase.setRotationPoint(0.0F, -0.6F, 2.2F);
+        this.beakbase.setRotationPoint(0.0F, -0.6F, 1.7F);
         this.beakbase.addBox(-0.5F, -0.5F, -3.0F, 1, 1, 2, 0.0F);
         this.setRotateAngle(beakbase, -0.091106186954104F, 0.0F, 0.0F);
     }

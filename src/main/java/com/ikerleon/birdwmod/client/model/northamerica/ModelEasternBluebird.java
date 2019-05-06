@@ -46,11 +46,11 @@ public class ModelEasternBluebird extends BookwormModelBase {
         this.textureWidth = 128;
         this.textureHeight = 64;
         this.beak = new BookwormModelRenderer(this, 9, 41, "beak");
-        this.beak.setRotationPoint(0.0F, -1.4F, 2.0F);
+        this.beak.setRotationPoint(0.0F, -1.4F, 1.5F);
         this.beak.addBox(-0.5F, -0.5F, -3.0F, 1, 1, 2, 0.0F);
         this.setRotateAngle(beak, 0.17453292519943295F, 0.0F, 0.0F);
         this.beakbase = new BookwormModelRenderer(this, 9, 41, "beakbase");
-        this.beakbase.setRotationPoint(0.0F, -0.6F, 2.2F);
+        this.beakbase.setRotationPoint(0.0F, -0.6F, 1.7F);
         this.beakbase.addBox(-0.5F, -0.5F, -3.0F, 1, 1, 2, 0.0F);
         this.setRotateAngle(beakbase, -0.091106186954104F, 0.0F, 0.0F);
         this.rightfoot = new BookwormModelRenderer(this, 116, 58, "rightfoot");
@@ -220,6 +220,8 @@ public class ModelEasternBluebird extends BookwormModelBase {
                 this.rightwing2.rotateAngleY += MathHelper.cos(bluebird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
                 this.rightwing2_1.rotateAngleY += MathHelper.cos(bluebird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
             }
+
+            bluebird.animator.updateModel(this);
         }
     }
 

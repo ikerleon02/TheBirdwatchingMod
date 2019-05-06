@@ -5,12 +5,15 @@ import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
 import com.ikerleon.birdwmod.init.BirdwmodItems;
 import com.ikerleon.birdwmod.util.PosesUtil;
 import com.ikerleon.birdwmod.util.handlers.SoundHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.soggymustache.bookworm.client.animation.lerp.Animation;
 import net.soggymustache.bookworm.client.animation.lerp.AnimationHandler;
+
+import javax.annotation.Nullable;
 
 public class EntityGreenHeron extends EntityBirdDiurnal {
 
@@ -22,8 +25,8 @@ public class EntityGreenHeron extends EntityBirdDiurnal {
         this.setSize(0.3f, 0.3f);
 
         if(this.world.isRemote) {
-            Animation speak = new Animation(PosesUtil.HERON_FLYING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_POSE);
-            speak.speed = 0.2F;
+            Animation speak = new Animation(PosesUtil.HERON_FLYING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_POSE);
+            speak.speed = 0.6F;
             animator.abruptStopping = false;
             animator.addAnimation(SPEAK, speak);
         }
@@ -40,16 +43,8 @@ public class EntityGreenHeron extends EntityBirdDiurnal {
     }
 
     @Override
-    protected SoundEvent getAmbientSound() {
-        if(!(this.onGround || this.inWater)){
-            if(this.world.isRemote){
-                this.animator.play(SPEAK);
-            }
-            return SoundHandler.HERON_FLYING;
-        }
-        else {
-            return null;
-        }
+    public void playLivingSound() {
+
     }
 
     @Override
@@ -59,15 +54,25 @@ public class EntityGreenHeron extends EntityBirdDiurnal {
             this.dropItem(BirdwmodItems.GREENHERONFEATHER, 1);
             this.timeUntilNextFeather = this.rand.nextInt(10000) + 10000;
         }
+        if(this.rand.nextInt(150) == 0) {
+            if (!(this.onGround || this.inWater)) {
+                if (this.world.isRemote) {
+                    this.animator.play(SPEAK);
+                }
+                this.playSound(SoundHandler.HERON_FLYING, this.getSoundVolume(), this.getSoundPitch());
+            }
+        }
+
         super.onLivingUpdate();
     }
 
     @Override
-    public void onUpdate() {
-        if(this.world.isRemote)
+    public void onEntityUpdate() {
+        if(this.world.isRemote) {
             animator.onEntityUpdate(this);
+        }
 
-        super.onUpdate();
+        super.onEntityUpdate();
     }
 
     @Override
