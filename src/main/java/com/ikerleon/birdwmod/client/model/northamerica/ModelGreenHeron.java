@@ -264,7 +264,6 @@ public class ModelGreenHeron extends BookwormModelBase {
                 this.Wing2R.rotateAngleY += MathHelper.cos(heron.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
                 this.Wing2L.rotateAngleY += MathHelper.cos(heron.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
             }
-
             heron.animator.updateModel(this);
         }
     }

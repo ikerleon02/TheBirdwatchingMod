@@ -3,11 +3,14 @@ package com.ikerleon.birdwmod.client.model.northamerica;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * ModelEasternBluebird_Speaking1 - ikerleon02
  * Created using Tabula 7.0.0
  */
+@SideOnly(Side.CLIENT)
 public class ModelEasternBluebird_Speaking1 extends ModelEasternBluebird {
 
     public ModelEasternBluebird_Speaking1() {

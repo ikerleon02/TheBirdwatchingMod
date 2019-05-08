@@ -127,12 +127,12 @@ public class ModelEurasianBullfinch extends BookwormModelBase {
         this.rightwing3.addBox(0.0F, 0.0F, 0.0F, 1, 2, 3, 0.0F);
         this.setRotateAngle(rightwing3, 0.08726646259971647F, 0.0F, 0.0F);
         this.beakbase = new BookwormModelRenderer(this, 9, 41, "beakbase");
-        this.beakbase.setRotationPoint(0.0F, -0.1F, 1.9F);
-        this.beakbase.addBox(-0.5F, -0.5F, -3.0F, 1, 1, 2, 0.0F);
+        this.beakbase.setRotationPoint(0.0F, -0.4F, -0.1F);
+        this.beakbase.addBox(-0.5F, -0.5F, -1.0F, 1, 1, 2, 0.0F);
         this.setRotateAngle(beakbase, -0.17453292519943295F, 0.0F, 0.0F);
         this.beak = new BookwormModelRenderer(this, 9, 41, "beak");
-        this.beak.setRotationPoint(0.0F, -1.7F, 1.6F);
-        this.beak.addBox(-0.5F, -0.5F, -3.0F, 1, 1, 2, 0.0F);
+        this.beak.setRotationPoint(0.0F, -1.3F, 0.8F);
+        this.beak.addBox(-0.5F, -0.5F, -2.0F, 1, 1, 2, 0.0F);
         this.setRotateAngle(beak, 0.3490658503988659F, 0.0F, 0.0F);
         this.leftfoot = new BookwormModelRenderer(this, 102, 58, "leftfoot");
         this.leftfoot.setRotationPoint(0.0F, 4.4F, -0.6F);

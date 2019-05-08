@@ -8,6 +8,7 @@ import com.ikerleon.birdwmod.util.handlers.SoundHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.soggymustache.bookworm.client.animation.lerp.Animation;
@@ -27,7 +28,6 @@ public class EntityGreenHeron extends EntityBirdDiurnal {
         if(this.world.isRemote) {
             Animation speak = new Animation(PosesUtil.HERON_FLYING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_POSE);
             speak.speed = 0.6F;
-            animator.abruptStopping = false;
             animator.addAnimation(SPEAK, speak);
         }
     }
@@ -40,30 +40,6 @@ public class EntityGreenHeron extends EntityBirdDiurnal {
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
-    }
-
-    @Override
-    public void playLivingSound() {
-
-    }
-
-    @Override
-    public void onLivingUpdate() {
-        if (!this.world.isRemote && !this.isChild() && --this.timeUntilNextFeather <= 0)
-        {
-            this.dropItem(BirdwmodItems.GREENHERONFEATHER, 1);
-            this.timeUntilNextFeather = this.rand.nextInt(10000) + 10000;
-        }
-        if(this.rand.nextInt(150) == 0) {
-            if (!(this.onGround || this.inWater)) {
-                if (this.world.isRemote) {
-                    this.animator.play(SPEAK);
-                }
-                this.playSound(SoundHandler.HERON_FLYING, this.getSoundVolume(), this.getSoundPitch());
-            }
-        }
-
-        super.onLivingUpdate();
     }
 
     @Override
