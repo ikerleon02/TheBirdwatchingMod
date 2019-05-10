@@ -202,25 +202,25 @@ public class ModelEurasianBullfinch extends BookwormModelBase {
             float globalSpeed = 1.5f;
             float globalDegree = 1.25F;
 
-            this.rightleg.rotateAngleX += MathHelper.cos(limbSwing * 0.5f * globalSpeed + 0) * 0.5f * globalDegree * 1 * limbSwingAmount + 0.2f * limbSwingAmount;
-            this.leftleg.rotateAngleX += MathHelper.cos(limbSwing * 0.5f * globalSpeed + 0) * 0.5f * globalDegree * -1 * limbSwingAmount + 0.2f * limbSwingAmount;
-            this.head.rotateAngleX += MathHelper.cos(limbSwing * 0.8f * globalSpeed + 2.5F) * 0.05f * globalDegree * -1 * limbSwingAmount + 0 * limbSwingAmount;
-            this.body2.rotateAngleX += MathHelper.cos(limbSwing * 0.8f * globalSpeed + 2.5F) * 0.1f * globalDegree * -1 * limbSwingAmount + 0 * limbSwingAmount;
+            this.rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f * globalSpeed) * 0.5f * globalDegree * 1 * limbSwingAmount + 0.75f * 0.5f;
+            this.leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f * globalSpeed) * 0.5f * globalDegree * -1 * limbSwingAmount + 0.75f * 0.5f;
+            this.head.rotateAngleX = MathHelper.cos(limbSwing * 0.8f * globalSpeed) * 0.05f * globalDegree * -1 * limbSwingAmount - 0.65F * 0.5f;
+            this.body2.rotateAngleX = MathHelper.cos(limbSwing * 0.8f * globalSpeed) * 0.1f * globalDegree * -1 * limbSwingAmount + 0 * 0.5f;
 
-            this.body2.rotateAngleX += MathHelper.cos(bullfinch.ticksExisted * 0.17f + 2.5F) * 0.05F * 1 * 0.5f + 0 * 0.5f;
-            this.head.rotateAngleX += MathHelper.cos(bullfinch.ticksExisted * 0.2f + 2.5F) * 0.06F * 1 * 0.5f + 0 * 0.5f;
-            this.rightwing.rotateAngleX += MathHelper.cos(bullfinch.ticksExisted * 0.17f + 2.5F) * 0.03F * -1 * 0.5f + 0 * 0.5f;
-            this.rightwing_1.rotateAngleX += MathHelper.cos(bullfinch.ticksExisted * 0.17f + 2.5F) * 0.03F * -1 * 0.5f + 0 * 0.5f;
+            this.body2.rotateAngleX = MathHelper.cos(bullfinch.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f - 0.25F * 0.5f;
+            this.head.rotateAngleX = MathHelper.cos(bullfinch.ticksExisted * 0.2f) * 0.06F * 1 * 0.5f + 1.7F * 0.5f;
+            this.rightwing.rotateAngleX = MathHelper.cos(bullfinch.ticksExisted * 0.17f) * 0.03F * -1 * 0.5f;
+            this.rightwing_1.rotateAngleX = MathHelper.cos(bullfinch.ticksExisted * 0.17f) * 0.03F * -1 * 0.5f;
 
             if (!bullfinch.onGround && !bullfinch.isInWater() && !bullfinch.isChild()) {
                 interpolateToPose(PosesUtil.EURASIAN_BULLFINCH_FLYING_POSE, bullfinch.timer);
 
-                this.rightwing.rotateAngleX += MathHelper.cos(bullfinch.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f + 0 * 0.5f;
-                this.rightwing_1.rotateAngleX += MathHelper.cos(bullfinch.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f + 0 * 0.5f;
-                this.rightwing.rotateAngleZ += MathHelper.cos(bullfinch.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
-                this.rightwing_1.rotateAngleZ += MathHelper.cos(bullfinch.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
-                this.rightwing2.rotateAngleY += MathHelper.cos(bullfinch.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
-                this.rightwing2_1.rotateAngleY += MathHelper.cos(bullfinch.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
+                this.rightwing.rotateAngleX = MathHelper.cos(bullfinch.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 2.5F * 0.5f;
+                this.rightwing_1.rotateAngleX = MathHelper.cos(bullfinch.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 2.5F * 0.5f;
+                this.rightwing.rotateAngleZ = MathHelper.cos(bullfinch.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 3F * 0.5f;
+                this.rightwing_1.rotateAngleZ = MathHelper.cos(bullfinch.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f - 3F * 0.5f;
+                this.rightwing2.rotateAngleY = MathHelper.cos(bullfinch.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
+                this.rightwing2_1.rotateAngleY = MathHelper.cos(bullfinch.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
             }
         }
     }

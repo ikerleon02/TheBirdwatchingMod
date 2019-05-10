@@ -228,31 +228,31 @@ public class ModelStellersEider extends BookwormModelBase {
             float globalSpeed = 1.5f;
             float globalDegree = 1.25F;
 
-            this.rightleg.rotateAngleX += MathHelper.cos(limbSwing * 0.5f * globalSpeed + 0) * 0.5f * globalDegree * 1 * limbSwingAmount + 0.2f * limbSwingAmount;
-            this.leftleg.rotateAngleX += MathHelper.cos(limbSwing * 0.5f * globalSpeed + 0) * 0.5f * globalDegree * -1 * limbSwingAmount + 0.2f * limbSwingAmount;
-            this.neck.rotateAngleX += MathHelper.cos(limbSwing * 0.8f * globalSpeed + 2.5F) * 0.05f * globalDegree * -1 * limbSwingAmount + 0 * limbSwingAmount;
-            this.body2.rotateAngleX += MathHelper.cos(limbSwing * 0.8f * globalSpeed + 2.5F) * 0.1f * globalDegree * -1 * limbSwingAmount + 0 * limbSwingAmount;
+            this.rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f * globalSpeed) * 0.5f * globalDegree * 1 * limbSwingAmount - 4f * 0.5f;
+            this.leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f * globalSpeed) * 0.5f * globalDegree * -1 * limbSwingAmount - 4f * 0.5f;
+            this.neck.rotateAngleX = MathHelper.cos(limbSwing * 0.8f * globalSpeed) * 0.05f * globalDegree * -1 * limbSwingAmount + 5.25F * 0.5f;
+            this.body2.rotateAngleX = MathHelper.cos(limbSwing * 0.8f * globalSpeed) * 0.1f * globalDegree * -1 * limbSwingAmount + 0 * 0.5f;
 
-            this.body2.rotateAngleX += MathHelper.cos(eider.ticksExisted * 0.17f + 2.5F) * 0.05F * 1 * 0.5f + 0 * 0.5f;
-            this.head.rotateAngleX += MathHelper.cos(eider.ticksExisted * 0.2f + 2.5F) * 0.06F * 1 * 0.5f + 0 * 0.5f;
-            this.rightwing.rotateAngleX += MathHelper.cos(eider.ticksExisted * 0.17f + 2.5F) * 0.03F * -1 * 0.5f + 0 * 0.5f;
-            this.leftwing.rotateAngleX += MathHelper.cos(eider.ticksExisted * 0.17f + 2.5F) * 0.03F * -1 * 0.5f + 0 * 0.5f;
+            this.body2.rotateAngleX = MathHelper.cos(eider.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f + 0.25F * 0.5f;
+            this.head.rotateAngleX = MathHelper.cos(eider.ticksExisted * 0.2f) * 0.06F * 1 * 0.5f + 2.8F * 0.5f;
+            this.rightwing.rotateAngleX = MathHelper.cos(eider.ticksExisted * 0.17f) * 0.03F * -1 * 0.5f;
+            this.leftwing.rotateAngleX = MathHelper.cos(eider.ticksExisted * 0.17f) * 0.03F * -1 * 0.5f;
 
             if ((!eider.onGround && !eider.isInWater() && !eider.isChild()) && entityIn.world.getBlockState(pos).getMaterial() != Material.WATER) {
                 interpolateToPose(PosesUtil.STELLERS_EIDER_FLYING_POSE, eider.timer);
 
-                this.rightwing.rotateAngleX += MathHelper.cos(eider.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * 1 * 0.5f + 0 * 0.5f;
-                this.leftwing.rotateAngleX += MathHelper.cos(eider.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * 1 * 0.5f + 0 * 0.5f;
-                this.rightwing.rotateAngleY += MathHelper.cos(eider.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
-                this.leftwing.rotateAngleY += MathHelper.cos(eider.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
-                this.rightwing2.rotateAngleY += MathHelper.cos(eider.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
-                this.leftwing2.rotateAngleY += MathHelper.cos(eider.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
+                this.rightwing.rotateAngleX = MathHelper.cos(eider.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f + 2.5F * 0.5f;
+                this.leftwing.rotateAngleX = MathHelper.cos(eider.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f + 2.5F * 0.5f;
+                this.rightwing.rotateAngleY = MathHelper.cos(eider.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f - 3F * 0.5f;
+                this.leftwing.rotateAngleY = MathHelper.cos(eider.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 3F * 0.5f;
+                this.rightwing2.rotateAngleZ = MathHelper.cos(eider.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
+                this.leftwing2.rotateAngleZ = MathHelper.cos(eider.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
             }
             else if(eider.isInWater() || entityIn.world.getBlockState(pos).getMaterial() == Material.WATER){
                 interpolateToPose(PosesUtil.STELLERS_EIDER_SWIMMING_POSE, eider.timer);
 
-                this.rightleg.rotateAngleX += MathHelper.cos(eider.ticksExisted * 0.2f * globalSpeed + 0) * 0.5f * globalDegree * -1 * 0.5f + 0 * 0.5f;
-                this.leftleg.rotateAngleX += MathHelper.cos(eider.ticksExisted * 0.2f * globalSpeed + 0) * 0.5f * globalDegree * 1 * 0.5f + 0 * 0.5f;
+                this.rightleg.rotateAngleX = MathHelper.cos(eider.ticksExisted * 0.2f * globalSpeed + 0) * 0.5f * globalDegree * -1 * 0.5f - 4 * 0.5f;
+                this.leftleg.rotateAngleX = MathHelper.cos(eider.ticksExisted * 0.2f * globalSpeed + 0) * 0.5f * globalDegree * 1 * 0.5f + - 4 * 0.5f;
             }
         }
     }

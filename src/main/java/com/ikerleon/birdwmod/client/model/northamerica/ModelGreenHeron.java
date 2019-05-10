@@ -244,25 +244,25 @@ public class ModelGreenHeron extends BookwormModelBase {
             float globalSpeed = 1.5f;
             float globalDegree = 1.25F;
 
-            this.ThighR.rotateAngleX += MathHelper.cos(limbSwing * 0.5f * globalSpeed + 0) * 0.5f * globalDegree * 1 * limbSwingAmount + 0.2f * limbSwingAmount;
-            this.ThighL.rotateAngleX += MathHelper.cos(limbSwing * 0.5f * globalSpeed + 0) * 0.5f * globalDegree * -1 * limbSwingAmount + 0.2f * limbSwingAmount;
-            this.Neck.rotateAngleX += MathHelper.cos(limbSwing * 0.8f * globalSpeed + 2.5F) * 0.05f * globalDegree * -1 * limbSwingAmount + 0 * limbSwingAmount;
-            this.Tailtop.rotateAngleX += MathHelper.cos(limbSwing * 0.8f * globalSpeed + 2.5F) * 0.1f * globalDegree * -1 * limbSwingAmount + 0 * limbSwingAmount;
+            this.ThighR.rotateAngleX = MathHelper.cos(limbSwing * 0.5f * globalSpeed) * 0.5f * globalDegree * 1 * limbSwingAmount + 1.85f * 0.5f;
+            this.ThighL.rotateAngleX = MathHelper.cos(limbSwing * 0.5f * globalSpeed) * 0.5f * globalDegree * -1 * limbSwingAmount + 1.85f * 0.5f;
+            this.Neck.rotateAngleX = MathHelper.cos(limbSwing * 0.8f * globalSpeed) * 0.05f * globalDegree * -1 * limbSwingAmount - 2.75F * 0.5f;
+            this.Tailtop.rotateAngleX = MathHelper.cos(limbSwing * 0.8f * globalSpeed) * 0.1f * globalDegree * -1 * limbSwingAmount + 0 * 0.5f;
 
-            this.Tailtop.rotateAngleX += MathHelper.cos(heron.ticksExisted * 0.17f + 2.5F) * 0.05F * 1 * 0.5f + 0 * 0.5f;
-            this.Head.rotateAngleX += MathHelper.cos(heron.ticksExisted * 0.2f + 2.5F) * 0.06F * 1 * 0.5f + 0 * 0.5f;
-            this.WingR.rotateAngleX += MathHelper.cos(heron.ticksExisted * 0.17f + 2.5F) * 0.03F * -1 * 0.5f + 0 * 0.5f;
-            this.WingL.rotateAngleX += MathHelper.cos(heron.ticksExisted * 0.17f + 2.5F) * 0.03F * -1 * 0.5f + 0 * 0.5f;
+            this.Tailtop.rotateAngleX = MathHelper.cos(heron.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f - 0.25F * 0.5f;
+            this.Head.rotateAngleX = MathHelper.cos(heron.ticksExisted * 0.2f) * 0.06F * 1 * 0.5f + 4.85F * 0.5f;
+            this.WingR.rotateAngleX = MathHelper.cos(heron.ticksExisted * 0.17f) * 0.03F * -1 * 0.5f;
+            this.WingL.rotateAngleX = MathHelper.cos(heron.ticksExisted * 0.17f) * 0.03F * -1 * 0.5f;
 
             if (!heron.onGround && !heron.isInWater() && !heron.isChild()) {
                 interpolateToPose(PosesUtil.HERON_FLYING_POSE, heron.timer);
 
-                this.WingR.rotateAngleX += MathHelper.cos(heron.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f + 0 * 0.5f;
-                this.WingL.rotateAngleX += MathHelper.cos(heron.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f + 0 * 0.5f;
-                this.WingR.rotateAngleZ += MathHelper.cos(heron.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
-                this.WingL.rotateAngleZ += MathHelper.cos(heron.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
-                this.Wing2R.rotateAngleY += MathHelper.cos(heron.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
-                this.Wing2L.rotateAngleY += MathHelper.cos(heron.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
+                this.WingR.rotateAngleX = MathHelper.cos(heron.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 2.5F * 0.5f;
+                this.WingL.rotateAngleX = MathHelper.cos(heron.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 2.5F * 0.5f;
+                this.WingR.rotateAngleZ = MathHelper.cos(heron.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 3F * 0.5f;
+                this.WingL.rotateAngleZ = MathHelper.cos(heron.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f - 3F * 0.5f;
+                this.Wing2R.rotateAngleY = MathHelper.cos(heron.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
+                this.Wing2L.rotateAngleY = MathHelper.cos(heron.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
             }
             heron.animator.updateModel(this);
         }

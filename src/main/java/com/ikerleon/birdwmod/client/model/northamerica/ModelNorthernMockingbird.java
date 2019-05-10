@@ -217,25 +217,25 @@ public class ModelNorthernMockingbird extends BookwormModelBase {
             float globalSpeed = 1.5f;
             float globalDegree = 1.25F;
 
-            this.rightleg.rotateAngleX += MathHelper.cos(limbSwing * 0.5f * globalSpeed + 0) * 0.5f * globalDegree * 1 * limbSwingAmount + 0.2f * limbSwingAmount;
-            this.leftleg.rotateAngleX += MathHelper.cos(limbSwing * 0.5f * globalSpeed + 0) * 0.5f * globalDegree * -1 * limbSwingAmount + 0.2f * limbSwingAmount;
-            this.necktop.rotateAngleX += MathHelper.cos(limbSwing * 0.8f * globalSpeed + 2.5F) * 0.05f * globalDegree * -1 * limbSwingAmount + 0 * limbSwingAmount;
-            this.body2.rotateAngleX += MathHelper.cos(limbSwing * 0.8f * globalSpeed + 2.5F) * 0.1f * globalDegree * -1 * limbSwingAmount + 0 * limbSwingAmount;
+            this.rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f * globalSpeed) * 0.5f * globalDegree * 1 * limbSwingAmount + 1f * 0.5f;
+            this.leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f * globalSpeed) * 0.5f * globalDegree * -1 * limbSwingAmount + 1f * 0.5f;
+            this.necktop.rotateAngleX = MathHelper.cos(limbSwing * 0.8f * globalSpeed) * 0.05f * globalDegree * -1 * limbSwingAmount + 1.75F * 0.5f;
+            this.body2.rotateAngleX = MathHelper.cos(limbSwing * 0.8f * globalSpeed) * 0.1f * globalDegree * -1 * limbSwingAmount + 0 * 0.5f;
 
-            this.body2.rotateAngleX += MathHelper.cos(mockingbird.ticksExisted * 0.17f + 2.5F) * 0.05F * 1 * 0.5f + 0 * 0.5f;
-            this.head.rotateAngleX += MathHelper.cos(mockingbird.ticksExisted * 0.2f + 2.5F) * 0.06F * 1 * 0.5f + 0 * 0.5f;
-            this.rightwing.rotateAngleX += MathHelper.cos(mockingbird.ticksExisted * 0.17f + 2.5F) * 0.03F * -1 * 0.5f + 0 * 0.5f;
-            this.rightwing_1.rotateAngleX += MathHelper.cos(mockingbird.ticksExisted * 0.17f + 2.5F) * 0.03F * -1 * 0.5f + 0 * 0.5f;
+            this.body2.rotateAngleX = MathHelper.cos(mockingbird.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f + 3.25F * 0.5f;
+            this.head.rotateAngleX = MathHelper.cos(mockingbird.ticksExisted * 0.2f) * 0.06F * 1 * 0.5f + 0.5F * 0.5f;
+            this.rightwing.rotateAngleX = MathHelper.cos(mockingbird.ticksExisted * 0.17f) * 0.03F * -1 * 0.5f;
+            this.rightwing_1.rotateAngleX = MathHelper.cos(mockingbird.ticksExisted * 0.17f) * 0.03F * -1 * 0.5f;
 
             if (!mockingbird.onGround && !mockingbird.isInWater() && !mockingbird.isChild()) {
                 interpolateToPose(PosesUtil.NORTHERN_MOCKINGBIRD_FLYING_POSE, mockingbird.timer);
 
-                this.rightwing.rotateAngleX += MathHelper.cos(mockingbird.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f + 0 * 0.5f;
-                this.rightwing_1.rotateAngleX += MathHelper.cos(mockingbird.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f + 0 * 0.5f;
-                this.rightwing.rotateAngleZ += MathHelper.cos(mockingbird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
-                this.rightwing_1.rotateAngleZ += MathHelper.cos(mockingbird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
-                this.rightwing2.rotateAngleY += MathHelper.cos(mockingbird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
-                this.rightwing2_1.rotateAngleY += MathHelper.cos(mockingbird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
+                this.rightwing.rotateAngleX = MathHelper.cos(mockingbird.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 2.5F * 0.5f;
+                this.rightwing_1.rotateAngleX = MathHelper.cos(mockingbird.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 2.5F * 0.5f;
+                this.rightwing.rotateAngleZ = MathHelper.cos(mockingbird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 3F * 0.5f;
+                this.rightwing_1.rotateAngleZ = MathHelper.cos(mockingbird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f - 3F * 0.5f;
+                this.rightwing2.rotateAngleY = MathHelper.cos(mockingbird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
+                this.rightwing2_1.rotateAngleY = MathHelper.cos(mockingbird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
             }
         }
     }

@@ -23,7 +23,7 @@ public class EntityGreenHeron extends EntityBirdDiurnal {
 
     public EntityGreenHeron(World worldIn) {
         super(worldIn);
-        this.setSize(0.3f, 0.3f);
+        this.setSize(0.3f, 0.5f);
 
         if(this.world.isRemote) {
             Animation speak = new Animation(PosesUtil.HERON_FLYING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_POSE);

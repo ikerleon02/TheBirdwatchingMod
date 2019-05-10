@@ -1,7 +1,5 @@
 package com.ikerleon.birdwmod;
 
-import com.ikerleon.birdwmod.events.EventBinocularRim;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Logger;
@@ -23,8 +21,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class Main {
 	@Instance
 	public static Main instance;
-
-	private static Logger logger;
 
 	@SidedProxy(clientSide = Reference.CLIENT, serverSide = Reference.COMMON)
 	public static CommonProxy proxy;
