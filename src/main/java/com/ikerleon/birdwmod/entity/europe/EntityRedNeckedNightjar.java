@@ -42,6 +42,17 @@ public class EntityRedNeckedNightjar extends EntityBirdNocturnal{
 	}
 
 	@Override
+	protected boolean isMovementBlocked() {
+		if(this.rand.nextInt(100)>90) {
+			return super.isMovementBlocked();
+		}
+		else{
+			return this.onGround;
+		}
+
+	}
+
+	@Override
 	public void onLivingUpdate() {
 		if (!this.world.isRemote && !this.isChild() && --this.timeUntilNextFeather <= 0)
 		{

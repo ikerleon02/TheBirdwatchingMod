@@ -215,7 +215,7 @@ public class ModelGreenHeron extends BookwormModelBase {
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         if(this.isChild){
-            float scaleFactor= 0.35F;
+            float scaleFactor= 0.3F;
 
             GlStateManager.pushMatrix();
             GlStateManager.translate(0F, 1.5F-1.5F*scaleFactor, 0F);
@@ -224,7 +224,7 @@ public class ModelGreenHeron extends BookwormModelBase {
             GlStateManager.popMatrix();
         }
         else {
-            float scaleFactor = 0.7F;
+            float scaleFactor = 0.55F;
 
             GlStateManager.pushMatrix();
             GlStateManager.translate(0F, 1.5F - 1.5F * scaleFactor, 0F);
