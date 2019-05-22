@@ -32,6 +32,17 @@ public class EntityGreenHeron extends EntityBirdDiurnal {
         }
     }
 
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        if(!isSleeping() && !onGround){
+            return SoundHandler.HERON_FLYING;
+        }
+        else{
+            return null;
+        }
+    }
+
     @Override
     public int setBirdVariants() {
         return 3;

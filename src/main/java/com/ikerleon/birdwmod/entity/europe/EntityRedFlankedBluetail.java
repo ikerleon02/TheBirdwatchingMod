@@ -23,7 +23,7 @@ public class EntityRedFlankedBluetail extends EntityBirdDiurnal{
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		if(this.onGround) {
+		if(this.onGround && !isSleeping()) {
 			return SoundHandler.BLUETAIL_CALL;
 		}
 		else{

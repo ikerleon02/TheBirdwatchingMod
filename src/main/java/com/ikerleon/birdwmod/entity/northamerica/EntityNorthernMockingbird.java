@@ -27,21 +27,23 @@ public class EntityNorthernMockingbird extends EntityBirdDiurnal {
     @Override
     protected SoundEvent getAmbientSound() {
         int mimic = this.random.nextInt(10) + 1;
-        if(mimic <= 5){
-            if(this.getGender() == 0){
-                return SoundHandler.MOCKINGBIRD_SONG;
-            }
-            else{
-                return SoundHandler.MOCKINGBIRD_CALL;
+        if(!isSleeping()) {
+            if (mimic <= 5) {
+                if (this.getGender() == 0) {
+                    return SoundHandler.MOCKINGBIRD_SONG;
+                } else {
+                    return SoundHandler.MOCKINGBIRD_CALL;
+                }
+            } else {
+                if (mimic <= 7) {
+                    return SoundHandler.BLUEBIRD_CALL;
+                } else {
+                    return SoundHandler.KILLDEER_CALL;
+                }
             }
         }
         else{
-            if(mimic <= 7){
-                return SoundHandler.BLUEBIRD_CALL;
-            }
-            else{
-                return SoundHandler.KILLDEER_CALL;
-            }
+            return null;
         }
     }
 

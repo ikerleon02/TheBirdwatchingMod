@@ -8,4 +8,16 @@ public abstract class EntityBirdDiurnal extends EntityBird{
 		super(worldIn);
 	}
 
+	@Override
+	public void onLivingUpdate() {
+		if(this.onGround) {
+			if (world.isDaytime()) {
+				this.sleeping = false;
+			}
+			else {
+				this.sleeping = true;
+			}
+		}
+		super.onLivingUpdate();
+	}
 }

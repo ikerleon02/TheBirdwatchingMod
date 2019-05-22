@@ -34,16 +34,21 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 
 public abstract class EntityBird extends EntityAnimal implements EntityFlying {
-	
+
+
+    //Variables
 	protected static final DataParameter<Integer> GENDER = EntityDataManager.createKey(EntityBird.class, DataSerializers.VARINT);
 	protected static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityBird.class, DataSerializers.VARINT);
 
     public float timer;
     public int timeUntilNextFeather;
+    protected static boolean sleeping;
 
     protected EntityFlyHelper MoveHelper = new EntityFlyHelper(this);
     protected EntityAIWanderAvoidWaterFlying WanderFlying = new EntityAIWanderAvoidWaterFlying(this, 1.0D);
 
+
+    //Entity constructor and stuff
 	public EntityBird(World worldIn) {
         super(worldIn);
         this.setGender(this.getRNG().nextInt(2));
@@ -70,6 +75,8 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
         this.dataManager.register(VARIANT, Integer.valueOf(0));
     }
 
+
+    //NBT write and read methods
     public void writeEntityToNBT(NBTTagCompound tagCompound) {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setInteger("Gender", this.getGender());
@@ -82,6 +89,8 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
         this.setVariant(tagCompound.getInteger("Variant"));
     }
 
+
+    //Entity stuff
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
@@ -90,6 +99,8 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
         getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.19D);
     }
 
+
+    //Flying code
     protected PathNavigate createNavigator(World worldIn)
     {
         if (isChild()) {
@@ -118,14 +129,13 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
         }
     }
 
+
+    //Entity stuff
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
 
-        if(!onGround && !isInWater()) {
-            timer+=0.05F;
-        }
-        else if(this instanceof EntityStellersEider && isInWater()){
+        if((!onGround && !isInWater()) || (this instanceof EntityStellersEider && isInWater()) || (isSleeping())) {
             timer+=0.05F;
         }
         else{
@@ -153,6 +163,24 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
         return distance < d0 * d0;
     }
 
+
+    //Sleeping code
+    public boolean isSleeping() {
+        return this.sleeping;
+    }
+
+    @Override
+    protected boolean isMovementBlocked() {
+	    if(this.onGround) {
+            return super.isMovementBlocked() || isSleeping();
+        }
+	    else{
+            return super.isMovementBlocked();
+        }
+    }
+
+
+    //NBT Tags getters and setters
     public int getGender() {
         return this.dataManager.get(GENDER);
     }
@@ -168,9 +196,13 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
     public void setVariant(int value) {
     	this.dataManager.set(VARIANT, Integer.valueOf(value));
     }
-    
+
+
+    //Variant setter
     public abstract int setBirdVariants();
 
+
+	//Gender enum
     public enum Gender {
         MALE(0), FEMALE(1);
         

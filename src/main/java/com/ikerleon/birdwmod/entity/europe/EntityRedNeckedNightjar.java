@@ -27,7 +27,7 @@ public class EntityRedNeckedNightjar extends EntityBirdNocturnal{
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		if(world.getWorldTime()>=12516.6 && this.onGround) {
+		if(!world.isDaytime() && this.onGround  && !isSleeping()) {
 			return SoundHandler.NIGHTJAR_SONG;
 		}
 		else{
@@ -47,7 +47,7 @@ public class EntityRedNeckedNightjar extends EntityBirdNocturnal{
 			return super.isMovementBlocked();
 		}
 		else{
-			return this.onGround;
+			return super.isMovementBlocked() || this.onGround;
 		}
 
 	}

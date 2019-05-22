@@ -200,28 +200,39 @@ public class ModelEasternBluebird extends BookwormModelBase {
             float globalSpeed = 1.5f;
             float globalDegree = 1.25F;
 
-            this.rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f * globalSpeed) * 0.5f * globalDegree * 1 * limbSwingAmount + 0f * 0.5f;
-            this.leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f * globalSpeed) * 0.5f * globalDegree * -1 * limbSwingAmount + 0f * 0.5f;
-            this.shape13.rotateAngleX = MathHelper.cos(limbSwing * 0.8f * globalSpeed) * 0.05f * globalDegree * -1 * limbSwingAmount - 0.7F * 0.5f;
-            this.body2.rotateAngleX = MathHelper.cos(limbSwing * 0.8f * globalSpeed) * 0.1f * globalDegree * -1 * limbSwingAmount + 0 * 0.5f;
+            if (bluebird.isSleeping()){
+                loadPosedModel(PosesUtil.EASTERN_BLUEBIRD_SLEEPING_POSE);
+                //interpolateToPose(PosesUtil.EASTERN_BLUEBIRD_SLEEPING_POSE, bluebird.timer);
 
-            this.body2.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f - 0.25F * 0.5f;
-            this.head.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.2f) * 0.06F * 1 * 0.5f + 1.25F * 0.5f;
-            this.rightwing.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.17f) * 0.03F * - 1 * 0.5f;
-            this.rightwing_1.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.17f) * 0.03F *  - 1 * 0.5f;
-
-            if (!bluebird.onGround && !bluebird.isInWater() && !bluebird.isChild()) {
-                interpolateToPose(PosesUtil.EASTERN_BLUEBIRD_FLYING_POSE, bluebird.timer);
-
-                this.rightwing.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 2.5F * 0.5f;
-                this.rightwing_1.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 2.5F * 0.5f;
-                this.rightwing.rotateAngleZ = MathHelper.cos(bluebird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 3F * 0.5f;
-                this.rightwing_1.rotateAngleZ = MathHelper.cos(bluebird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f - 3F * 0.5f;
-                this.rightwing2.rotateAngleY = MathHelper.cos(bluebird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
-                this.rightwing2_1.rotateAngleY = MathHelper.cos(bluebird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
+                this.body2.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f - 0.25F * 0.5f;
+                this.head.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.2f) * 0.06F * 1 * 0.5f + 1.25F * 0.5f;
+                this.rightwing.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.17f) * 0.03F * -1 * 0.5f;
+                this.rightwing_1.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.17f) * 0.03F * -1 * 0.5f;
             }
 
-            bluebird.animator.updateModel(this);
+            else {
+                this.rightleg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f * globalSpeed) * 0.5f * globalDegree * 1 * limbSwingAmount + 0f * 0.5f;
+                this.leftleg.rotateAngleX = MathHelper.cos(limbSwing * 0.5f * globalSpeed) * 0.5f * globalDegree * -1 * limbSwingAmount + 0f * 0.5f;
+                this.shape13.rotateAngleX = MathHelper.cos(limbSwing * 0.8f * globalSpeed) * 0.05f * globalDegree * -1 * limbSwingAmount - 0.7F * 0.5f;
+                this.body2.rotateAngleX = MathHelper.cos(limbSwing * 0.8f * globalSpeed) * 0.1f * globalDegree * -1 * limbSwingAmount + 0 * 0.5f;
+
+
+                this.body2.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f - 0.25F * 0.5f;
+                this.head.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.2f) * 0.06F * 1 * 0.5f + 1.25F * 0.5f;
+                this.rightwing.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.17f) * 0.03F * -1 * 0.5f;
+                this.rightwing_1.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.17f) * 0.03F * -1 * 0.5f;
+
+                if (!bluebird.onGround && !bluebird.isInWater() && !bluebird.isChild()) {
+                    interpolateToPose(PosesUtil.EASTERN_BLUEBIRD_FLYING_POSE, bluebird.timer);
+
+                    this.rightwing.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 2.5F * 0.5f;
+                    this.rightwing_1.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 2.5F * 0.5f;
+                    this.rightwing.rotateAngleZ = MathHelper.cos(bluebird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 3F * 0.5f;
+                    this.rightwing_1.rotateAngleZ = MathHelper.cos(bluebird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f - 3F * 0.5f;
+                    this.rightwing2.rotateAngleY = MathHelper.cos(bluebird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
+                    this.rightwing2_1.rotateAngleY = MathHelper.cos(bluebird.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
+                }
+            }
         }
     }
 

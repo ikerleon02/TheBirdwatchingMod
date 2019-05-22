@@ -23,11 +23,15 @@ public class EntityKilldeer extends EntityBirdDiurnal{
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		if(this.onGround){
-			return SoundHandler.KILLDEER_CALL;
+		if(!isSleeping()) {
+			if (this.onGround) {
+				return SoundHandler.KILLDEER_CALL;
+			} else {
+				return SoundHandler.KILLDEER_FLYING;
+			}
 		}
 		else{
-			return SoundHandler.KILLDEER_FLYING;
+			return null;
 		}
 	}
 

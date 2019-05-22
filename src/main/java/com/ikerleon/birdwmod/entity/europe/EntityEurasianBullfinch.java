@@ -24,7 +24,7 @@ public class EntityEurasianBullfinch extends EntityBirdDiurnal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        if(this.onGround){
+        if(this.onGround && !isSleeping()){
             return SoundHandler.BULLFINCH_CALL;
         }
         else{

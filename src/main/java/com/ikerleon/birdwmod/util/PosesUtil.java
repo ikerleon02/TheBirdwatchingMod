@@ -31,6 +31,7 @@ public class PosesUtil {
     public static final ModelEasternBluebird_Speaking1 EASTERN_BLUEBIRD_SPEAKING_POSE_1 = new ModelEasternBluebird_Speaking1();
     public static final ModelEasternBluebird_Speaking2 EASTERN_BLUEBIRD_SPEAKING_POSE_2 = new ModelEasternBluebird_Speaking2();
     public static final ModelEasternBluebirdFlying EASTERN_BLUEBIRD_FLYING_POSE = new ModelEasternBluebirdFlying();
+    public static final ModelEasternBluebirdSleeping EASTERN_BLUEBIRD_SLEEPING_POSE = new ModelEasternBluebirdSleeping();
 
     public static final ModelKilldeer KILLDEER_POSE = new ModelKilldeer();
     public static final ModelKilldeer_Speaking KILLDEER_SPEAKING_POSE_1 = new ModelKilldeer_Speaking();
