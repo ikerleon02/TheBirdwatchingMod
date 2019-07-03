@@ -1,0 +1,30 @@
+{
+  "parent": "birdwmod:block/birdfeeder",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [ 40, -120, 0 ],
+      "translation": [ 0, 4, 2.4 ],
+      "scale": [ 0.5, 0.5, 0.5 ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [ 40, -120, 0 ],
+      "translation": [ 0, 4, 2.4 ],
+      "scale": [ 0.5, 0.5, 0.5 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 0, -135, 5 ],
+      "translation": [ 0, 5, 0 ],
+      "scale": [ 0.6, 0.6, 0.6 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 0, -135, 5 ],
+      "translation": [ 0, 5, 0 ],
+      "scale": [ 0.6, 0.6, 0.6 ]
+    },
+    "gui": {
+      "rotation": [ 0, 50, 0 ],
+      "translation": [ 0, 0, 0 ],
+      "scale": [ 0.7, 0.7, 0.7 ]
+    }
+  }
+}

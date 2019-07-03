@@ -4,10 +4,13 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
+import com.ikerleon.birdwmod.blocks.BlockBirdfeeder;
 import com.ikerleon.birdwmod.entity.ai.EntityAIWanderAvoidWaterFlying;
 import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
 import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
 import com.ikerleon.birdwmod.entity.move.EntityFlyHelper;
+import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
+import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -30,6 +33,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.soggymustache.bookworm.util.BookwormRandom;
 
 import javax.annotation.Nullable;
 
@@ -39,10 +43,15 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
     //Variables
 	protected static final DataParameter<Integer> GENDER = EntityDataManager.createKey(EntityBird.class, DataSerializers.VARINT);
 	protected static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityBird.class, DataSerializers.VARINT);
+    protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.createKey(EntityBird.class, DataSerializers.BOOLEAN);
 
     public float timer;
     public int timeUntilNextFeather;
-    protected static boolean sleeping;
+    protected boolean blink = false;
+    private byte nextBlink = 0;
+    private byte blinkTime = 0;
+    private byte blinkSec = 0;
+    private BookwormRandom rando = new BookwormRandom();
 
     protected EntityFlyHelper MoveHelper = new EntityFlyHelper(this);
     protected EntityAIWanderAvoidWaterFlying WanderFlying = new EntityAIWanderAvoidWaterFlying(this, 1.0D);
@@ -73,6 +82,7 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
         super.entityInit();
         this.dataManager.register(GENDER, Integer.valueOf(0));
         this.dataManager.register(VARIANT, Integer.valueOf(0));
+        this.dataManager.register(SLEEPING, Boolean.valueOf(false));
     }
 
 
@@ -81,12 +91,14 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
         super.writeEntityToNBT(tagCompound);
         tagCompound.setInteger("Gender", this.getGender());
         tagCompound.setInteger("Variant", this.getVariant());
+        tagCompound.setBoolean("Sleeping", this.isSleeping());
     }
 
     public void readEntityFromNBT(NBTTagCompound tagCompound) {
         super.readEntityFromNBT(tagCompound);
         this.setGender(tagCompound.getInteger("Gender"));
         this.setVariant(tagCompound.getInteger("Variant"));
+        this.setSleeping(tagCompound.getBoolean("Sleeping"));
     }
 
 
@@ -141,6 +153,50 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
         else{
             timer = 0.0F;
         }
+        if(!this.isSleeping()) {
+            if (this.rand.nextInt(5) == 3) {
+                this.blinkSec = ((byte) (this.rando.nextByte((byte) 50) + 30));
+            }
+            if (!this.blink) {
+                this.nextBlink = ((byte) (this.nextBlink + 1));
+            }
+            if (this.nextBlink >= this.blinkSec) {
+                this.blink = true;
+                this.nextBlink = 0;
+            }
+            if (this.blink) {
+                this.blinkTime = ((byte) (this.blinkTime + 1));
+            }
+            if (this.blinkTime >= 3) {
+                this.blink = false;
+                this.blinkTime = 0;
+            }
+        }
+        if(!this.isSleeping()){
+            if(rand.nextInt(100)==1) {
+                if(!(this instanceof EntityStellersEider || this instanceof EntityGreenHeron || this instanceof EntityRedNeckedNightjar || this instanceof EntityNorthernMockingbird)) {
+                    this.searchFeeder();
+                }
+            }
+        }
+    }
+
+    public void searchFeeder(){
+	    BlockPos pos = new BlockPos(this);
+	    int distance = 30;
+	    for (int i = -distance; i < distance; i++) {
+	        for (int j = -distance; j < distance; j++) {
+	            for (int k = -distance; k < distance; k++) {
+	                BlockPos b = pos.add(i, j, k);
+	                if ((this.world.getBlockState(b).getBlock() instanceof BlockBirdfeeder)) {
+                        BlockBirdfeeder feeder = (BlockBirdfeeder)this.world.getBlockState(b).getBlock();
+	                    if(feeder.isFilled()) {
+                            getNavigator().tryMoveToXYZ(b.getX(), b.getY(), b.getZ(), 1.26D);
+                        }
+	                }
+	            }
+	        }
+	    }
     }
 
     @Override
@@ -166,7 +222,10 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
 
     //Sleeping code
     public boolean isSleeping() {
-        return this.sleeping;
+        return this.dataManager.get(SLEEPING);
+    }
+    public void setSleeping(boolean value) {
+        this.dataManager.set(SLEEPING, Boolean.valueOf(value));
     }
 
     @Override
@@ -177,6 +236,13 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
 	    else{
             return super.isMovementBlocked();
         }
+    }
+
+
+    //Blinking code
+    public boolean getBlinking()
+    {
+        return this.blink;
     }
 
 

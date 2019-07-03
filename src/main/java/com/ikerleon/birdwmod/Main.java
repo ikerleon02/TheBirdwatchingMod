@@ -1,5 +1,6 @@
 package com.ikerleon.birdwmod;
 
+import com.ikerleon.birdwmod.init.BirdwmodBlocks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +18,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, dependencies="required-before:bookworm@[1.12.2-2.2.0,);")
+@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, dependencies="required-before:bookworm@[1.12.2-2.3.0,);")
 public class Main {
 	@Instance
 	public static Main instance;
@@ -29,6 +30,7 @@ public class Main {
 
 	@EventHandler
 	public static void preInit(FMLPreInitializationEvent event) {
+		BirdwmodBlocks.registerBlocks();
 		BirdwmodItems.registerItems();
 		proxy.preInit(event);
 		proxy.registerRenders();

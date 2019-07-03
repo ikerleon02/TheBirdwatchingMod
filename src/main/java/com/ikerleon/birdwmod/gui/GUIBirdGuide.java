@@ -134,8 +134,8 @@ public class GUIBirdGuide extends GuiScreen {
 			EntityStellersEider entity2 = new EntityStellersEider(mc.world);
 			entity2.setGender(1);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			this.drawEntityOnScreen(offLeft + 185, 75 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-			this.drawEntityOnScreen(offLeft + 250, 75 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+			drawEntityOnScreen(offLeft + 185, 75 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+			drawEntityOnScreen(offLeft + 250, 75 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
 		}
 
 		else if(currPage==2){
@@ -161,9 +161,9 @@ public class GUIBirdGuide extends GuiScreen {
 			EntityGreenHeron entity3 = new EntityGreenHeron(mc.world);
 			entity3.setVariant(3);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			this.drawEntityOnScreen(offLeft + 175, 70 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
-			this.drawEntityOnScreen(offLeft + 215, 80 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-			this.drawEntityOnScreen(offLeft + 255, 70 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+			drawEntityOnScreen(offLeft + 175, 70 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
+			drawEntityOnScreen(offLeft + 215, 80 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+			drawEntityOnScreen(offLeft + 255, 70 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
 		}
 
 		else if(currPage==3) {
@@ -189,9 +189,9 @@ public class GUIBirdGuide extends GuiScreen {
             EntityKilldeer entity3 = new EntityKilldeer(mc.world);
             entity3.setVariant(3);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawEntityOnScreen(offLeft + 175, 60 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            this.drawEntityOnScreen(offLeft + 215, 80 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-            this.drawEntityOnScreen(offLeft + 255, 60 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
+            drawEntityOnScreen(offLeft + 175, 60 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            drawEntityOnScreen(offLeft + 215, 80 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            drawEntityOnScreen(offLeft + 255, 60 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
 		}
 		else if(currPage==4){
 			this.fontRenderer.drawString(page4Title, offLeft + 15, 15 + offTop, 0);
@@ -216,9 +216,9 @@ public class GUIBirdGuide extends GuiScreen {
             EntityRedNeckedNightjar entity3 = new EntityRedNeckedNightjar(mc.world);
             entity3.setVariant(3);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawEntityOnScreen(offLeft + 175, 60 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            this.drawEntityOnScreen(offLeft + 215, 80 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-            this.drawEntityOnScreen(offLeft + 255, 60 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
+            drawEntityOnScreen(offLeft + 175, 60 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            drawEntityOnScreen(offLeft + 215, 80 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            drawEntityOnScreen(offLeft + 255, 60 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
 		}
 		else if(currPage==5){
 			this.fontRenderer.drawString(page5Title, offLeft + 13, 15 + offTop, 0);
@@ -243,9 +243,9 @@ public class GUIBirdGuide extends GuiScreen {
 			EntityNorthernMockingbird entity3 = new EntityNorthernMockingbird(mc.world);
 			entity3.setVariant(3);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			this.drawEntityOnScreen(offLeft + 175, 60 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-			this.drawEntityOnScreen(offLeft + 215, 80 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-			this.drawEntityOnScreen(offLeft + 255, 60 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
+			drawEntityOnScreen(offLeft + 175, 60 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+			drawEntityOnScreen(offLeft + 215, 80 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+			drawEntityOnScreen(offLeft + 255, 60 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
 		}
 		else if(currPage==6){
 			this.fontRenderer.drawString(page6Title, offLeft + 25, 15 + offTop, 0);
@@ -268,8 +268,8 @@ public class GUIBirdGuide extends GuiScreen {
             EntityEasternBluebird entity2 = new EntityEasternBluebird(mc.world);
             entity2.setGender(1);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawEntityOnScreen(offLeft + 185, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            this.drawEntityOnScreen(offLeft + 250, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            drawEntityOnScreen(offLeft + 185, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            drawEntityOnScreen(offLeft + 250, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
 		}
 		else if(currPage==7){
 			this.fontRenderer.drawString(page7Title, offLeft + 15, 15 + offTop, 0);
@@ -292,8 +292,8 @@ public class GUIBirdGuide extends GuiScreen {
             EntityRedFlankedBluetail entity2 = new EntityRedFlankedBluetail(mc.world);
             entity2.setGender(1);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawEntityOnScreen(offLeft + 185, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            this.drawEntityOnScreen(offLeft + 250, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            drawEntityOnScreen(offLeft + 185, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            drawEntityOnScreen(offLeft + 250, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
 		}
 
 		else if(currPage==8){
@@ -317,8 +317,8 @@ public class GUIBirdGuide extends GuiScreen {
 			EntityEurasianBullfinch entity2 = new EntityEurasianBullfinch(mc.world);
 			entity2.setGender(1);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			this.drawEntityOnScreen(offLeft + 185, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-			this.drawEntityOnScreen(offLeft + 250, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+			drawEntityOnScreen(offLeft + 185, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+			drawEntityOnScreen(offLeft + 250, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
 		}
 		
 		super.drawScreen(parWidth, parHeight, p_73863_3_);

@@ -43,7 +43,7 @@ public class EntityRedNeckedNightjar extends EntityBirdNocturnal{
 
 	@Override
 	protected boolean isMovementBlocked() {
-		if(this.rand.nextInt(100)>90) {
+		if(this.rand.nextInt(100)>80) {
 			return super.isMovementBlocked();
 		}
 		else{

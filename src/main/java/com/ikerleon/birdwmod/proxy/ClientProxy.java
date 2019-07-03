@@ -18,6 +18,7 @@ import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
 import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
 import com.ikerleon.birdwmod.events.EventBinocularRim;
+import com.ikerleon.birdwmod.init.BirdwmodBlocks;
 import com.ikerleon.birdwmod.init.BirdwmodItems;
 
 import com.ikerleon.birdwmod.util.handlers.GuiHandler;
@@ -32,6 +33,7 @@ public class ClientProxy extends CommonProxy{
 	@Override
 	public void registerRenders(){
 		BirdwmodItems.registerItemRenders();
+		BirdwmodBlocks.registerRenders();
 		//EUROPE
 		RenderingRegistry.registerEntityRenderingHandler(EntityRedNeckedNightjar.class, new RenderRedNeckedNightjar.RenderFactory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityEurasianBullfinch.class, new RenderEurasianBullfinch.RenderFactory());

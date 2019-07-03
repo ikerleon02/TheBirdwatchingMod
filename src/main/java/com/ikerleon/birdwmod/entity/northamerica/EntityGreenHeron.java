@@ -1,17 +1,12 @@
 package com.ikerleon.birdwmod.entity.northamerica;
 
 import com.ikerleon.birdwmod.entity.EntityBirdDiurnal;
-import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
 import com.ikerleon.birdwmod.init.BirdwmodItems;
-import com.ikerleon.birdwmod.util.PosesUtil;
 import com.ikerleon.birdwmod.util.handlers.SoundHandler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
-import net.soggymustache.bookworm.client.animation.lerp.Animation;
 import net.soggymustache.bookworm.client.animation.lerp.AnimationHandler;
 
 import javax.annotation.Nullable;
@@ -25,11 +20,11 @@ public class EntityGreenHeron extends EntityBirdDiurnal {
         super(worldIn);
         this.setSize(0.3f, 0.5f);
 
-        if(this.world.isRemote) {
+        /*if(this.world.isRemote) {
             Animation speak = new Animation(PosesUtil.HERON_FLYING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_POSE);
             speak.speed = 0.6F;
             animator.addAnimation(SPEAK, speak);
-        }
+        }*/
     }
 
     @Nullable

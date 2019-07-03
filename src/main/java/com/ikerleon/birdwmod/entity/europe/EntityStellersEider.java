@@ -22,7 +22,7 @@ public class EntityStellersEider extends EntityBirdDiurnal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        if((this.onGround || this.inWater) && !isSleeping()) {
+        if((this.onGround) && !isSleeping()) {
             if (this.getGender() == 0) {
                 return SoundHandler.EIDER_CALL;
             } else {
