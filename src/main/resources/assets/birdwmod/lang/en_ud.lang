@@ -38,4 +38,6 @@ item.meatcooked_nightjar.name=Cooked Nightjar Meat
 item.meatcooked_passerine.name=Cooked Passerine Meat
 item.meatcooked_wader.name=Cooked Wader Meat
 
+tile.birdfeeder.name=Bird feeder
+
 itemGroup.birdwatchingmodtab=The Birdwatching Mod

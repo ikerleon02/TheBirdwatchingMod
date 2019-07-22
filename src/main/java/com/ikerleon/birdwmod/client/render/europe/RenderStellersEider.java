@@ -19,8 +19,6 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 public class RenderStellersEider extends RenderBirdBase<EntityStellersEider> {
 
     public static final ModelCMF STELLERS_EIDER = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/stellers_eider/stellers_eider.cmf"));
-    public static final ModelCMF STELLERS_EIDER_DEFAULT = STELLERS_EIDER;
-    public static final ModelCMF STELLERS_EIDER_SPEAKING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/stellers_eider/stellers_eider_speaking.cmf"));
     public static final ModelCMF STELLERS_EIDER_SWIMMING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/stellers_eider/stellers_eider_swimming.cmf"));
     public static final ModelCMF STELLERS_EIDER_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/stellers_eider/stellers_eider_flying.cmf"));
     public static final ModelCMF STELLERS_EIDER_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/stellers_eider/stellers_eider_sleeping.cmf"));

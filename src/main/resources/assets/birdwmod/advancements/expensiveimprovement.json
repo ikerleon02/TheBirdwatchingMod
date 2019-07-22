@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "birdwmod:binocular_pro"
+    },
+    "title": "Expensive improvement",
+    "description": "Craft some professional binoculars",
+    "frame": "task"
+  },
+
+  "parent": "birdwmod:betteroptics",
+
+  "rewards": {
+    "experience": 500
+  },
+
+  "criteria": {
+    "hasprobinos": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:binocular_pro"
+          }
+        ]
+      }
+    }
+  },
+
+  "requirements": [
+    ["hasprobinos"]
+  ]
+}

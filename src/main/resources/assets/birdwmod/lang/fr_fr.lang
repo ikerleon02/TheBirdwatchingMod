@@ -38,4 +38,6 @@ item.meatcooked_nightjar.name=Viande De Engoulevent Cuite
 item.meatcooked_passerine.name=Viande De Passerine Cuite
 item.meatcooked_wader.name=Viande De Limicola Cuite
 
+tile.birdfeeder.name=Mangeoire pour les oiseaux
+
 itemGroup.birdwatchingmodtab=The Birdwatching Mod

@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "birdwmod:binocular_medium"
+    },
+    "title": "Better optics",
+    "description": "Craft some medium binoculars",
+    "frame": "task"
+  },
+
+  "parent": "birdwmod:awholenewworldopensup",
+
+  "rewards": {
+    "recipes": ["birdwmod:binocular_pro"],
+    "experience": 500
+  },
+
+  "criteria": {
+    "hasmediumbinos": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:binocular_medium"
+          }
+        ]
+      }
+    }
+  },
+
+  "requirements": [
+    ["hasmediumbinos"]
+  ]
+}

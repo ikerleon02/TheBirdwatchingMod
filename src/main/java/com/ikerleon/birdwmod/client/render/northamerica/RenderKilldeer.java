@@ -20,8 +20,6 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 public class RenderKilldeer extends RenderBirdBase<EntityKilldeer> {
 
 	public static final ModelCMF KILLDEER = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/killdeer/killdeer.cmf"));
-	public static final ModelCMF KILLDEER_DEFAULT = KILLDEER;
-	public static final ModelCMF KILLDEER_SPEAKING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/killdeer/killdeer_speaking.cmf"));
 	public static final ModelCMF KILLDEER_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/killdeer/killdeer_flying.cmf"));
 	public static final ModelCMF KILLDEER_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/killdeer/killdeer_sleeping.cmf"));
 

@@ -20,9 +20,6 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 public class RenderRedFlankedBluetail extends RenderBirdBase<EntityRedFlankedBluetail> {
 
 	public static final ModelCMF RED_FLANKED_BLUETAIL = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_flanked_bluetail/red_flanked_bluetail.cmf"));
-	public static final ModelCMF RED_FLANKED_BLUETAIL_DEFAULT = RED_FLANKED_BLUETAIL;
-	public static final ModelCMF RED_FLANKED_BLUETAIL_SPEAKING1 = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_flanked_bluetail/red_flanked_bluetail_speaking1.cmf"));
-	public static final ModelCMF RED_FLANKED_BLUETAIL_SPEAKING2 = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_flanked_bluetail/red_flanked_bluetail_speaking2.cmf"));
 	public static final ModelCMF RED_FLANKED_BLUETAIL_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_flanked_bluetail/red_flanked_bluetail_flying.cmf"));
 	public static final ModelCMF RED_FLANKED_BLUETAIL_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_flanked_bluetail/red_flanked_bluetail_sleeping.cmf"));
 

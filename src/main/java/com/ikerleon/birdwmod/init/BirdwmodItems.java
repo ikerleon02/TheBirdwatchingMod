@@ -24,7 +24,6 @@ public class BirdwmodItems {
 
 	public static final Item BIRD_GUIDE = new ItemBirdGuide("bird_guide");
 
-
 	//feathers
 	public static final Item EASTERNBLUEBIRDFEATHER_FEMALE = new ItemFeather("feather_easternbluebirdfemale");
 	public static final Item EASTERNBLUEBIRDFEATHER_MALE = new ItemFeather("feather_easternbluebirdmale");

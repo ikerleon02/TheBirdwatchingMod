@@ -1,21 +1,16 @@
 package com.ikerleon.birdwmod.blocks;
 
 import com.ikerleon.birdwmod.Main;
-import com.ikerleon.birdwmod.entity.EntityBird;
 import com.ikerleon.birdwmod.init.BirdwmodBlocks;
 import com.ikerleon.birdwmod.init.BirdwmodItems;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
-import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,37 +21,66 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Random;
 
-public class BlockBirdfeeder extends BlockContainer {
+public class BlockBirdfeeder extends Block {
 
-    public static final PropertyDirection FACING = BlockHorizontal.FACING;
-    public static final PropertyInteger FILLED = PropertyInteger.create("filled", 0,1);
-    private static final AxisAlignedBB BASE_BOX = new AxisAlignedBB(0, 0, 0, 1, 0.0625 * 2, 1);
-    private static final AxisAlignedBB STICK_BOX = new AxisAlignedBB(0.0625 * 7, 0.0625 * 1, 0.0625 * 7, 0.0625 * 9, 0.0625 * 8, 0.0625 * 9);
-    private static final AxisAlignedBB FEEDER_BOX = new AxisAlignedBB(0.0625 * 5, 0.0625 * 8, 0.0625 * 5, 0.0625 * 11, 0.0625 * 14, 0.0625 * 11);
+    public static final PropertyBool FILLED = PropertyBool.create("filled");
+    public static final PropertyEnum<BlockBirdfeeder.EnumBlockHalf> HALF = PropertyEnum.<BlockBirdfeeder.EnumBlockHalf>create("half", BlockBirdfeeder.EnumBlockHalf.class);
+
+    Random random = new Random();
+
+    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0625 * 0, 0.0625 * 0, 0.0625 * 0, 0.0625 * 16, 0.0625 * 16, 0.0625 * 16);
+
+    private static final AxisAlignedBB BASE_BOX = new AxisAlignedBB(0.0625 * 5, 0, 0.0625 * 5, 0.0625 * 11, 0.0625 * 1, 0.0625 * 11);
+    private static final AxisAlignedBB STICK_BOX = new AxisAlignedBB(0.0625 * 6.5, 0.0625 * 1, 0.0625 * 6.5, 0.0625 * 11.5, 0.0625 * 13, 0.0625 * 11.5);
+    private static final AxisAlignedBB PLATAFORM_BOX = new AxisAlignedBB(0.0625 * 6, 0.0625 * 13, 0.0625 * 6, 0.0625 * 10, 0.0625 * 14, 0.0625 * 10);
+    private static final AxisAlignedBB PLATAFORM2_BOX = new AxisAlignedBB(0.0625 * 4, 0.0625 * 14, 0.0625 * 4, 0.0625 * 12, 0.0625 * 16, 0.0625 * 12);
+
+    private static final AxisAlignedBB FEEDER_BASE_BOX = new AxisAlignedBB(0.0625 * 0, 0.0625 * 0, 0.0625 * 0, 0.0625 * 16, 0.0625 * 1, 0.0625 * 16);
+    private static final AxisAlignedBB FEEDER_BACK_BOX = new AxisAlignedBB(0.0625 * 0, 0.0625 * 1, 0.0625 * 15, 0.0625 * 16, 0.0625 * 3, 0.0625 * 16);
+    private static final AxisAlignedBB FEEDER_FRONT_BOX = new AxisAlignedBB(0.0625 * 0, 0.0625 * 0, 0.0625 * 0, 0.0625 * 16, 0.0625 * 2, 0.0625 * 1);
+    private static final AxisAlignedBB FEEDER_LEFT_BOX = new AxisAlignedBB(0.0625 * 15, 0.0625 * 1, 0.0625 * 1, 0.0625 * 16, 0.0625 * 3, 0.0625 * 15);
+    private static final AxisAlignedBB FEEDER_RIGHT_BOX = new AxisAlignedBB(0.0625 * 0, 0.0625 * 1, 0.0625 * 1, 0.0625 * 1, 0.0625 * 3, 0.0625 * 15);
+    private static final AxisAlignedBB FEEDER_STICK_BOX = new AxisAlignedBB(0.0625 * 6.5, 0.0625 * 1, 0.0625 * 6.5, 0.0625 * 9.5, 0.0625 * 8, 0.0625 * 9.5);
+    private static final AxisAlignedBB FEEDER_PLATAFORM_BOX = new AxisAlignedBB(0.0625 * 5.5, 0.0625 * 8, 0.0625 * 5.5, 0.0625 * 10.5, 0.0625 * 9, 0.0625 * 10.5);
+    private static final AxisAlignedBB FEEDER_STICK2_BOX = new AxisAlignedBB(0.0625 * 6.5, 0.0625 * 9, 0.0625 * 6.5, 0.0625 * 9.5, 0.0625 * 15, 0.0625 * 9.5);
+    private static final AxisAlignedBB FEEDER_TOP_BOX = new AxisAlignedBB(0.0625 * 7, 0.0625 * 15, 0.0625 * 7, 0.0625 * 9, 0.0625 * 16, 0.0625 * 9);
+
     protected static final Logger LOGGER = LogManager.getLogger();
-
-    private static boolean filled = false;
-    private static int seedsremain = 0;
 
     public BlockBirdfeeder(Material materialIn, String name) {
         super(materialIn);
         this.setUnlocalizedName(name);
         this.setRegistryName(name);
+        this.setTickRandomly(true);
+        this.setHardness(2.0F);
         BirdwmodBlocks.BLOCKS.add(this);
         this.setCreativeTab(Main.BIRDWATCHINGMOD);
 
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(FILLED, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FILLED, false).withProperty(HALF, BlockBirdfeeder.EnumBlockHalf.LOWER));
 
         BirdwmodItems.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
+    }
+
+    public void placeAt(World worldIn, BlockPos lowerPos, int flags)
+    {
+        worldIn.setBlockState(lowerPos, this.getDefaultState().withProperty(HALF, BlockBirdfeeder.EnumBlockHalf.LOWER), flags);
+        worldIn.setBlockState(lowerPos.up(), this.getDefaultState().withProperty(HALF, BlockBirdfeeder.EnumBlockHalf.UPPER), flags);
+    }
+
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    {
+        worldIn.setBlockState(pos.up(), this.getDefaultState().withProperty(HALF, BlockBirdfeeder.EnumBlockHalf.UPPER), 2);
     }
 
     @Override
@@ -77,117 +101,166 @@ public class BlockBirdfeeder extends BlockContainer {
 
     @Override
     public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.TRANSLUCENT;
+        return BlockRenderLayer.CUTOUT;
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return BASE_BOX;
-    }
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) { return AABB; }
 
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, STICK_BOX);
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, FEEDER_BOX);
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, BASE_BOX);
+        if(state.getValue(HALF) == BlockBirdfeeder.EnumBlockHalf.LOWER) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, STICK_BOX);
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, PLATAFORM_BOX);
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, BASE_BOX);
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, PLATAFORM2_BOX);
+        }
+        else if(state.getValue(HALF) == BlockBirdfeeder.EnumBlockHalf.UPPER){
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, FEEDER_BASE_BOX);
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, FEEDER_BACK_BOX);
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, FEEDER_FRONT_BOX);
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, FEEDER_LEFT_BOX);
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, FEEDER_RIGHT_BOX);
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, FEEDER_STICK_BOX);
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, FEEDER_PLATAFORM_BOX);
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, FEEDER_STICK2_BOX);
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, FEEDER_TOP_BOX);
+        }
+
+    }
+
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+    {
+        return true;
     }
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack stack = playerIn.getHeldItem(hand);
 
-        if (stack != null && (stack.getItem() == Items.SPAWN_EGG)) {
-            return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
-        }
-        else {
-            if (!this.isFilled()) {
-                if (stack.getItem() == Items.WHEAT && stack.getCount() >= 20) {
-
-                    stack.shrink(20);
-                    filled = true;
-                    worldIn.setBlockState(pos, state.withProperty(FILLED, Integer.valueOf(1)), 4);
-                    this.seedsremain=20;
-                    return true;
-                }
-                else {
-                    filled = false;
-                    worldIn.setBlockState(pos, state.withProperty(FILLED, Integer.valueOf(0)), 4);
-                    return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
-                }
+        if (worldIn.getBlockState(pos).getValue(HALF)== EnumBlockHalf.UPPER && !worldIn.getBlockState(pos).getValue(FILLED)) {
+            if (stack.getItem() == Items.WHEAT_SEEDS && stack.getCount() >= 20) {
+                worldIn.setBlockState(pos, state.withProperty(FILLED, true));
+                stack.shrink(20);
+                return true;
             }
             else {
                 return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
             }
         }
+        else {
+            return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+        }
     }
 
-    public static boolean isFilled() {
-        return filled;
+    public IBlockState getStateFromMeta(int meta) {
+        return (meta & 8) > 0 ? this.getDefaultState().withProperty(HALF, BlockBirdfeeder.EnumBlockHalf.UPPER).withProperty(FILLED, Boolean.valueOf((meta & 2) > 0)) : this.getDefaultState().withProperty(HALF, EnumBlockHalf.LOWER).withProperty(FILLED, false);
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-        if(this.isFilled() && entityIn instanceof EntityBird){
-            seedsremain=seedsremain - 1;
-        }
-
-    }
-
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-        EnumFacing enumfacing = placer.getHorizontalFacing().rotateY();
-
-        try
-        {
-            return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(FACING, enumfacing).withProperty(FILLED, Integer.valueOf(meta >> 1));
-        }
-        catch (IllegalArgumentException var11)
-        {
-            if (!worldIn.isRemote)
-            {
-                LOGGER.warn(String.format("Invalid damage property for feeder at %s. Found %d, must be in [0, 1]", pos, meta >> 1));
-
-                if (placer instanceof EntityPlayer)
-                {
-                    placer.sendMessage(new TextComponentTranslation("Invalid filled property. Please pick in [0, 1]", new Object[0]));
-                }
-            }
-
-            return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, 0, placer).withProperty(FACING, enumfacing).withProperty(FILLED, Integer.valueOf(0));
-        }
-    }
-
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
-    {
-        items.add(new ItemStack(this));
-        items.add(new ItemStack(this, 1, 1));
-    }
-
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta & 3)).withProperty(FILLED, Integer.valueOf((meta & 15) >> 1));
-    }
-
-    public int getMetaFromState(IBlockState state)
-    {
+    public int getMetaFromState(IBlockState state) {
         int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getHorizontalIndex();
-        i = i | ((Integer)state.getValue(FILLED)).intValue() << 1;
+        i = i | (state.getValue(FILLED) ? 2 : 0);
+        i = i | (state.getValue(HALF) == BlockBirdfeeder.EnumBlockHalf.UPPER ? 8 : 0);
         return i;
-    }
-
-    public IBlockState withRotation(IBlockState state, Rotation rot)
-    {
-        return state.getBlock() != this ? state : state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
     }
 
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {FACING, FILLED});
+        return new BlockStateContainer(this, new IProperty[]{FILLED, HALF});
+    }
+
+    @Override
+    public boolean hasTileEntity(IBlockState state) {
+        return super.hasTileEntity(state);
     }
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return null;
+    public TileEntity createTileEntity(World world, IBlockState state) {
+        return super.createTileEntity(world, state);
+    }
+
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
+    }
+
+    public static enum EnumBlockHalf implements IStringSerializable
+    {
+        UPPER,
+        LOWER;
+
+        public String toString()
+        {
+            return this.getName();
+        }
+
+        public String getName()
+        {
+            return this == UPPER ? "upper" : "lower";
+        }
+    }
+
+    @Override
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+        super.updateTick(worldIn, pos, state, rand);
+
+        if(random.nextInt(15)==1) {
+            if (state.getValue(HALF) == EnumBlockHalf.UPPER) {
+                if (state.getValue(FILLED)) {
+                    worldIn.setBlockState(pos, state.withProperty(FILLED, false));
+                }
+            }
+        }
+    }
+
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
+    {
+        if (state.getValue(HALF) == BlockBirdfeeder.EnumBlockHalf.UPPER)
+        {
+            BlockPos blockpos = pos.down();
+            IBlockState iblockstate = worldIn.getBlockState(blockpos);
+
+            if (iblockstate.getBlock() != this)
+            {
+                if(state.getValue(FILLED) && !worldIn.isRemote){
+                    ItemStack seeds = new ItemStack(Items.WHEAT_SEEDS, this.random.nextInt(20));
+                    spawnAsEntity(worldIn, pos, seeds);
+                }
+                worldIn.setBlockToAir(pos);
+            }
+            else if (blockIn != this)
+            {
+                iblockstate.neighborChanged(worldIn, blockpos, blockIn, fromPos);
+            }
+        }
+        else {
+            BlockPos blockpos1 = pos.up();
+            IBlockState iblockstate1 = worldIn.getBlockState(blockpos1);
+
+            if (iblockstate1.getBlock() != this) {
+                worldIn.setBlockToAir(pos);
+            }
+
+            if (!worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos.down(), EnumFacing.UP)) {
+                worldIn.setBlockToAir(pos);
+
+                if (iblockstate1.getBlock() == this) {
+                    worldIn.setBlockToAir(blockpos1);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
+        super.onBlockDestroyedByPlayer(worldIn, pos, state);
+        if(state.getValue(HALF)== EnumBlockHalf.UPPER){
+            if(state.getValue(FILLED) && !worldIn.isRemote){
+                ItemStack seeds = new ItemStack(Items.WHEAT_SEEDS, this.random.nextInt(20));
+                spawnAsEntity(worldIn, pos, seeds);
+            }
+        }
     }
 }

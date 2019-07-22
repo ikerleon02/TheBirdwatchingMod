@@ -19,8 +19,6 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 public class RenderGreenHeron extends RenderBirdBase<EntityGreenHeron> {
 
     public static final ModelCMF GREEN_HERON = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/green_heron/green_heron.cmf"));
-    public static final ModelCMF GREEN_HERON_DEFAULT = GREEN_HERON;
-    public static final ModelCMF GREEN_HERON_SPEAKING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/green_heron/green_heron_speaking.cmf"));
     public static final ModelCMF GREEN_HERON_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/green_heron/green_heron_flying.cmf"));
     public static final ModelCMF GREEN_HERON_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/green_heron/green_heron_sleeping.cmf"));
 

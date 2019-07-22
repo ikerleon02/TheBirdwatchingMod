@@ -38,4 +38,6 @@ item.meatcooked_nightjar.name=Carne De Chotacabras Cocinada
 item.meatcooked_passerine.name=Carne De Passerine Cocinada
 item.meatcooked_wader.name=Carne De Limícola Cocinada
 
+tile.birdfeeder.name=Comedero de pajaros
+
 itemGroup.birdwatchingmodtab=The Birdwatching Mod

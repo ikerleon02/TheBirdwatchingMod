@@ -1,0 +1,73 @@
+{
+  "display": {
+    "icon": {
+      "item": "birdwmod:meatcooked_passerine"
+    },
+    "title": "YOU Monster!!!",
+    "description": "Cooking bird meat",
+    "frame": "task"
+  },
+
+  "parent": "birdwmod:awholenewworldopensup",
+
+  "rewards": {
+    "experience": 500
+  },
+
+  "criteria": {
+    "hasduckcoockedmeat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:meatcooked_duck"
+          }
+        ]
+      }
+    },
+    "hasheroncoockedmeat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:meatcooked_heron"
+          }
+        ]
+      }
+    },
+    "hasnightjarcoockedmeat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:meatcooked_nightjar"
+          }
+        ]
+      }
+    },
+    "haspassercoockedmeat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:meatcooked_passerine"
+          }
+        ]
+      }
+    },
+    "haswadercoockedmeat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:meatcooked_wader"
+          }
+        ]
+      }
+    }
+  },
+
+  "requirements": [
+    ["hasduckcoockedmeat", "hasheroncoockedmeat", "hasnightjarcoockedmeat", "haspassercoockedmeat", "haswadercoockedmeat"]
+  ]
+}

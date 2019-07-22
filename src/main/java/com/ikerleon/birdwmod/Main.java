@@ -1,9 +1,9 @@
 package com.ikerleon.birdwmod;
 
+import com.ikerleon.birdwmod.advancements.ModAdvancementTriggers;
 import com.ikerleon.birdwmod.init.BirdwmodBlocks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.logging.log4j.Logger;
 
 import com.ikerleon.birdwmod.init.BirdwmodItems;
 import com.ikerleon.birdwmod.proxy.CommonProxy;
@@ -34,6 +34,7 @@ public class Main {
 		BirdwmodItems.registerItems();
 		proxy.preInit(event);
 		proxy.registerRenders();
+		ModAdvancementTriggers.init();
 	}
 
 	@EventHandler

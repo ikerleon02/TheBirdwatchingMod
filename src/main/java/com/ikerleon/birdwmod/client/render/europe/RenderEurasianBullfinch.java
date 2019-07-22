@@ -18,9 +18,6 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 public class RenderEurasianBullfinch extends RenderBirdBase<EntityEurasianBullfinch> {
 
     public static final ModelCMF EURASIAN_BULLFINCH = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eurasian_bullfinch/eurasian_bullfinch.cmf"));
-    public static final ModelCMF EURASIAN_BULLFINCH_DEFAULT = EURASIAN_BULLFINCH;
-    public static final ModelCMF EURASIAN_BULLFINCH_SPEAKING1 = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eurasian_bullfinch/eurasian_bullfinch_speaking1.cmf"));
-    public static final ModelCMF EURASIAN_BULLFINCH_SPEAKING2 = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eurasian_bullfinch/eurasian_bullfinch_speaking2.cmf"));
     public static final ModelCMF EURASIAN_BULLFINCH_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eurasian_bullfinch/eurasian_bullfinch_flying.cmf"));
     public static final ModelCMF EURASIAN_BULLFINCH_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eurasian_bullfinch/eurasian_bullfinch_sleeping.cmf"));
 

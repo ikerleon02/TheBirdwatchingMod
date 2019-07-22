@@ -1,12 +1,8 @@
 {
   "variants": {
-    "filled=0,facing=south": { "model": "anvil_undamaged" },
-    "filled=0,facing=west": { "model": "anvil_undamaged", "y": 90 },
-    "filled=0,facing=north": { "model": "anvil_undamaged", "y": 180 },
-    "filled=0,facing=east": { "model": "anvil_undamaged", "y": 270 },
-    "filled=1,facing=south": { "model": "anvil_slightly_damaged" },
-    "filled=1,facing=west": { "model": "anvil_slightly_damaged", "y": 90 },
-    "filled=1,facing=north": { "model": "anvil_slightly_damaged", "y": 180 },
-    "filled=1,facing=east": { "model": "anvil_slightly_damaged", "y": 270 }
+    "filled=false,half=lower": { "model": "birdwmod:birdfeeder_bottom"},
+    "filled=true,half=lower": { "model": "birdwmod:birdfeeder_bottom"},
+    "filled=false,half=upper": { "model": "birdwmod:birdfeeder_top_unfilled"},
+    "filled=true,half=upper": { "model": "birdwmod:birdfeeder_top_filled"}
   }
 }

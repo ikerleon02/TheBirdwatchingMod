@@ -20,9 +20,6 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 public class RenderEasternBluebird extends RenderBirdBase<EntityEasternBluebird> {
 
 	public static final ModelCMF EASTERN_BLUEBIRD = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eastern_bluebird/eastern_bluebird.cmf"));
-	public static final ModelCMF EASTERN_BLUEBIRD_DEFAULT = EASTERN_BLUEBIRD;
-	public static final ModelCMF EASTERN_BLUEBIRD_SPEAKING1 = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eastern_bluebird/eastern_bluebird_speaking1.cmf"));
-	public static final ModelCMF EASTERN_BLUEBIRD_SPEAKING2 = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eastern_bluebird/eastern_bluebird_speaking2.cmf"));
 	public static final ModelCMF EASTERN_BLUEBIRD_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eastern_bluebird/eastern_bluebird_flying.cmf"));
 	public static final ModelCMF EASTERN_BLUEBIRD_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eastern_bluebird/eastern_bluebird_sleeping.cmf"));
 

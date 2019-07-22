@@ -1,16 +1,24 @@
 package com.ikerleon.birdwmod.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
 
+import com.ikerleon.birdwmod.advancements.ModAdvancementTriggers;
 import com.ikerleon.birdwmod.blocks.BlockBirdfeeder;
 import com.ikerleon.birdwmod.entity.ai.EntityAIWanderAvoidWaterFlying;
+import com.ikerleon.birdwmod.entity.europe.EntityEurasianBullfinch;
+import com.ikerleon.birdwmod.entity.europe.EntityRedFlankedBluetail;
 import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
 import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
 import com.ikerleon.birdwmod.entity.move.EntityFlyHelper;
+import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
+import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
 import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
+import com.ikerleon.birdwmod.init.BirdwmodItems;
+import com.ikerleon.birdwmod.items.ItemBinocular;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -19,23 +27,31 @@ import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateFlying;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.soggymustache.bookworm.util.BookwormRandom;
 
 import javax.annotation.Nullable;
+
+import static com.ikerleon.birdwmod.blocks.BlockBirdfeeder.FILLED;
 
 public abstract class EntityBird extends EntityAnimal implements EntityFlying {
 
@@ -179,19 +195,70 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
                 }
             }
         }
+
+        if(!world.isRemote) {
+            List<Entity> Entitylist = this.world.getLoadedEntityList();
+
+            for (int i = 0; i < Entitylist.size(); i++) {
+                Entity Ent = Entitylist.get(i);
+
+                if (Ent instanceof EntityPlayer) {
+                    EntityPlayer player = (EntityPlayer) Ent;
+                    ItemStack itemstack = player.inventory.armorInventory.get(3);
+
+                    Vec3d vec3d = player.getLookVec();
+                    Vec3d vec3d1 = new Vec3d(this.posX - player.posX, this.getEntityBoundingBox().minY + (double) this.getEyeHeight() - (player.posY + (double) player.getEyeHeight()), this.posZ - player.posZ);
+                    double d0 = vec3d1.lengthVector();
+                    vec3d1 = vec3d1.normalize();
+                    double d1 = vec3d.dotProduct(vec3d1);
+
+                    if (d1 > 1.0D - 0.025D / d0 ? player.canEntityBeSeen(Ent) : false) {
+                        if (player instanceof EntityPlayerMP) {
+                            if(itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
+                                ModAdvancementTriggers.BIRDBOX.trigger((EntityPlayerMP) player, 2);
+                            }
+
+                            if(this instanceof EntityRedNeckedNightjar){
+                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 1);
+                            }
+                            if(this instanceof EntityEurasianBullfinch){
+                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 2);
+                            }
+                            if(this instanceof EntityRedFlankedBluetail){
+                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 3);
+                            }
+                            if(this instanceof EntityStellersEider){
+                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 4);
+                            }
+                            if(this instanceof EntityEasternBluebird){
+                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 5);
+                            }
+                            if(this instanceof EntityKilldeer){
+                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 6);
+                            }
+                            if(this instanceof EntityNorthernMockingbird){
+                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 7);
+                            }
+                            if(this instanceof EntityGreenHeron){
+                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 8);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void searchFeeder(){
 	    BlockPos pos = new BlockPos(this);
-	    int distance = 30;
+	    int distance = 80;
 	    for (int i = -distance; i < distance; i++) {
 	        for (int j = -distance; j < distance; j++) {
 	            for (int k = -distance; k < distance; k++) {
 	                BlockPos b = pos.add(i, j, k);
 	                if ((this.world.getBlockState(b).getBlock() instanceof BlockBirdfeeder)) {
-                        BlockBirdfeeder feeder = (BlockBirdfeeder)this.world.getBlockState(b).getBlock();
-	                    if(feeder.isFilled()) {
-                            getNavigator().tryMoveToXYZ(b.getX(), b.getY(), b.getZ(), 1.26D);
+	                    if(this.world.getBlockState(b).getValue(FILLED)) {
+                            getNavigator().tryMoveToXYZ(b.getX(), b.getY() + 1, b.getZ(), 1.26D);
                         }
 	                }
 	            }

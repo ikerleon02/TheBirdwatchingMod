@@ -18,9 +18,6 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 public class RenderRedNeckedNightjar extends RenderBirdBase<EntityRedNeckedNightjar> {
 
 	public static final ModelCMF RED_NECKED_NIGHTJAR = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_necked_nightjar/red_necked_nightjar.cmf"));
-	public static final ModelCMF RED_NECKED_NIGHTJAR_DEFAULT = RED_NECKED_NIGHTJAR;
-	public static final ModelCMF RED_NECKED_NIGHTJAR_SPEAKING1 = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_necked_nightjar/red_necked_nightjar_speaking1.cmf"));
-	public static final ModelCMF RED_NECKED_NIGHTJARSPEAKING2 = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_necked_nightjar/red_necked_nightjar_speaking2.cmf"));
 	public static final ModelCMF RED_NECKED_NIGHTJAR_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_necked_nightjar/red_necked_nightjar_flying.cmf"));
 	public static final ModelCMF RED_NECKED_NIGHTJAR_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_necked_nightjar/red_necked_nightjar_sleeping.cmf"));
 

@@ -18,10 +18,7 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 public class RenderNorthernMockingbird extends RenderBirdBase<EntityNorthernMockingbird> {
 
     public static final ModelCMF NORTHERN_MOCKINGBIRD = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/northern_mockingbird/northern_mockingbird.cmf"));
-    public static final ModelCMF NORTHERN_MOCKINGBIRD_DEFAULT = NORTHERN_MOCKINGBIRD;
-    public static final ModelCMF NORTHERN_MOCKINGBIRD_SPEAKING1 = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/northern_mockingbird/northern_mockingbird_speaking1.cmf"));
-    public static final ModelCMF NORTHERN_MOCKINGBIRD_SPEAKING2 = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/northern_mockingbird/northern_mockingbird_speaking2.cmf"));
-    public static final ModelCMF NORTHERN_MOCKINGBIRD_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/northern_mockingbird/northern_mockingbird_flying.cmf"));
+   public static final ModelCMF NORTHERN_MOCKINGBIRD_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/northern_mockingbird/northern_mockingbird_flying.cmf"));
     public static final ModelCMF NORTHERN_MOCKINGBIRD_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/northern_mockingbird/northern_mockingbird_sleeping.cmf"));
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/northernmockingbird.png");
