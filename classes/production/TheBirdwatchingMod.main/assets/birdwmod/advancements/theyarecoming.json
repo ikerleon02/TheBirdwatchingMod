@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "birdwmod:birdfeeder"
+    },
+    "title": "They are coming...",
+    "description": "Place a bird feeder",
+    "frame": "task"
+  },
+
+  "parent": "birdwmod:awholenewworldopensup",
+
+  "rewards": {
+    "loot": ["birdwmod:advancements/theyarecoming"],
+    "experience": 500
+  },
+
+  "criteria": {
+    "placebirdfeeder": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "birdwmod:birdfeeder"
+      }
+    }
+  },
+
+  "requirements": [
+    ["placebirdfeeder"]
+  ]
+}

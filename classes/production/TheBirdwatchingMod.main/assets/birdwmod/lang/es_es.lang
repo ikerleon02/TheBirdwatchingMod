@@ -1,0 +1,43 @@
+entity.rednecked_nightjar.name=Chotacabras Cuellirojo
+entity.eurasian_bullfinch.name=Camachuelo Común
+entity.redflanked_bluetail.name=Coliazul Cejiblanco
+entity.stellers_eider.name=Eider Chico
+
+entity.eastern_bluebird.name=Azulejo Gorjicanelo
+entity.killdeer.name=Chorlitejo Culirrojo
+entity.northern_mockingbird.name=Sisonte Norteño
+entity.green_heron.name=Garcita Verdosa
+
+item.binocular_basic.name=Primáticos Básicos
+item.binocular_medium.name=Primáticos Normales
+item.binocular_pro.name=Primáticos Pro
+item.bird_guide.name=Guía De Aves
+
+item.feather_easternbluebirdmale.name=Pluma De Macho De Azulejo Gorjicanelo
+item.feather_easternbluebirdfemale.name=Pluma De Hembra De Azulejo Gorjicanelo
+item.feather_eurasianbullfinchmale.name=Pluma De Macho De Camachuelo Común
+item.feather_eurasianbullfinchfemale.name=Pluma De Hembra De Camachuelo Común
+item.feather_greenheron.name=Pluma De Garcita Verdosa
+item.feather_killdeer.name=Pluma De Chorlitejo Culirrojo
+item.feather_northernmockingbird.name=Pluma De Sisonte Norteño
+item.feather_redflanckedbluetailmale.name=Pluma De Macho De Coliazul Cejiblanco
+item.feather_redflanckedbluetailfemale.name=Pluma De Hembra De Coliazul Cejiblanco
+item.feather_redneckednightjar.name=Pluma De Chotacabras Cuellirojo
+item.feather_stellerseidermale.name=Pluma De Macho De Eider Chico
+item.feather_stellerseiderfemale.name=Pluma De Hembra De Eider Chico
+
+item.meatraw_duck.name=Carne De Pato Cruda
+item.meatraw_heron.name=Carne De Garza Cruda
+item.meatraw_nightjar.name=Carne De Chotacabras Cruda
+item.meatraw_passerine.name=Carne De Passerine Cruda
+item.meatraw_wader.name=Carne De Limícola Cruda
+
+item.meatcooked_duck.name=Carne De Pato Cocinada
+item.meatcooked_heron.name=Carne De Garza Cocinada
+item.meatcooked_nightjar.name=Carne De Chotacabras Cocinada
+item.meatcooked_passerine.name=Carne De Passerine Cocinada
+item.meatcooked_wader.name=Carne De Limícola Cocinada
+
+tile.birdfeeder.name=Comedero de pajaros
+
+itemGroup.birdwatchingmodtab=The Birdwatching Mod

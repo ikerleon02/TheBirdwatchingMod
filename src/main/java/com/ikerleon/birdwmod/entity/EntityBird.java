@@ -195,62 +195,11 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
                 }
             }
         }
-
-        if(!world.isRemote) {
-            List<Entity> Entitylist = this.world.getLoadedEntityList();
-
-            for (int i = 0; i < Entitylist.size(); i++) {
-                Entity Ent = Entitylist.get(i);
-
-                if (Ent instanceof EntityPlayer) {
-                    EntityPlayer player = (EntityPlayer) Ent;
-                    ItemStack itemstack = player.inventory.armorInventory.get(3);
-
-                    Vec3d vec3d = player.getLookVec();
-                    Vec3d vec3d1 = new Vec3d(this.posX - player.posX, this.getEntityBoundingBox().minY + (double) this.getEyeHeight() - (player.posY + (double) player.getEyeHeight()), this.posZ - player.posZ);
-                    double d0 = vec3d1.lengthVector();
-                    vec3d1 = vec3d1.normalize();
-                    double d1 = vec3d.dotProduct(vec3d1);
-
-                    if (d1 > 1.0D - 0.025D / d0 ? player.canEntityBeSeen(Ent) : false) {
-                        if (player instanceof EntityPlayerMP) {
-                            if(itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
-                                ModAdvancementTriggers.BIRDBOX.trigger((EntityPlayerMP) player, 2);
-                            }
-
-                            if(this instanceof EntityRedNeckedNightjar){
-                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 1);
-                            }
-                            if(this instanceof EntityEurasianBullfinch){
-                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 2);
-                            }
-                            if(this instanceof EntityRedFlankedBluetail){
-                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 3);
-                            }
-                            if(this instanceof EntityStellersEider){
-                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 4);
-                            }
-                            if(this instanceof EntityEasternBluebird){
-                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 5);
-                            }
-                            if(this instanceof EntityKilldeer){
-                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 6);
-                            }
-                            if(this instanceof EntityNorthernMockingbird){
-                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 7);
-                            }
-                            if(this instanceof EntityGreenHeron){
-                                ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 8);
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     public void searchFeeder(){
-	    BlockPos pos = new BlockPos(this);
+	    return;
+/*	    BlockPos pos = new BlockPos(this);
 	    int distance = 80;
 	    for (int i = -distance; i < distance; i++) {
 	        for (int j = -distance; j < distance; j++) {
@@ -263,7 +212,7 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
 	                }
 	            }
 	        }
-	    }
+	    }*/
     }
 
     @Override

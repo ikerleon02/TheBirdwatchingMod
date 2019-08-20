@@ -1,0 +1,143 @@
+{
+  "display": {
+    "icon": {
+      "item": "birdwmod:feather_stellerseidermale"
+    },
+    "title": "Birds of a feather",
+    "description": "Collect every feather of the mod",
+    "frame": "task"
+  },
+
+  "parent": "birdwmod:awholenewworldopensup",
+
+  "rewards": {
+    "experience": 500
+  },
+
+  "criteria": {
+    "feather_easternbluebirdfemale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_easternbluebirdfemale"
+          }
+        ]
+      }
+    },
+    "feather_easternbluebirdmale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_easternbluebirdmale"
+          }
+        ]
+      }
+    },
+    "feather_eurasianbullfinchfemale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_eurasianbullfinchfemale"
+          }
+        ]
+      }
+    },
+    "feather_eurasianbullfinchmale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_eurasianbullfinchmale"
+          }
+        ]
+      }
+    },
+    "feather_greenheron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_greenheron"
+          }
+        ]
+      }
+    },
+    "feather_killdeer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_killdeer"
+          }
+        ]
+      }
+    },
+    "feather_northernmockingbird": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_northernmockingbird"
+          }
+        ]
+      }
+    },
+    "feather_redflanckedbluetailfemale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_redflanckedbluetailfemale"
+          }
+        ]
+      }
+    },
+    "feather_redflanckedbluetailmale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_redflanckedbluetailmale"
+          }
+        ]
+      }
+    },
+    "feather_redneckednightjar": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_redneckednightjar"
+          }
+        ]
+      }
+    },
+    "feather_stellerseidermale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_stellerseidermale"
+          }
+        ]
+      }
+    },
+    "feather_stellerseiderfemale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_stellerseiderfemale"
+          }
+        ]
+      }
+    }
+  },
+
+  "requirements": [
+    ["feather_easternbluebirdfemale"], ["feather_easternbluebirdmale"], ["feather_eurasianbullfinchfemale"], ["feather_eurasianbullfinchmale"], ["feather_greenheron"], ["feather_killdeer"], ["feather_northernmockingbird"], ["feather_redflanckedbluetailfemale"], ["feather_redflanckedbluetailmale"], ["feather_redneckednightjar"], ["feather_stellerseiderfemale"], ["feather_stellerseidermale"]
+  ]
+}

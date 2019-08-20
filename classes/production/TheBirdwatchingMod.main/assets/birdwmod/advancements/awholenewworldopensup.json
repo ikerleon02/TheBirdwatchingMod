@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "birdwmod:binocular_basic"
+    },
+    "title": "A whole new world opens up",
+    "description": "Craft some basic binoculars",
+    "frame": "task",
+    "background": "minecraft:textures/blocks/log_jungle.png"
+  },
+
+  "rewards": {
+    "recipes": ["birdwmod:binocular_medium"],
+    "experience": 500
+  },
+
+  "criteria": {
+    "hasbasicbinos": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:binocular_basic"
+          }
+        ]
+      }
+    }
+  },
+
+  "requirements": [
+    ["hasbasicbinos"]
+  ]
+}

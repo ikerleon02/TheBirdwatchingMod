@@ -1,0 +1,71 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:paper"
+    },
+    "title": "The student...",
+    "description": "Document (view) a bird",
+    "frame": "task"
+  },
+
+  "parent": "birdwmod:awholenewworldopensup",
+
+  "rewards": {
+    "experience": 500
+  },
+
+  "criteria": {
+    "nightjar": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 1
+      }
+    },
+    "bullfinch": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 2
+      }
+    },
+    "bluetail": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 3
+      }
+    },
+    "eider": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 4
+      }
+    },
+    "bluebird": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 5
+      }
+    },
+    "killdeer": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 6
+      }
+    },
+    "mockingbird": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 7
+      }
+    },
+    "heron": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 8
+      }
+    }
+  },
+
+  "requirements": [
+    ["nightjar", "bullfinch", "bluetail", "eider", "bluebird", "killdeer", "mockingbird", "heron"]
+  ]
+}
