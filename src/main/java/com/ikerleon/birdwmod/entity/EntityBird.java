@@ -1,60 +1,31 @@
 package com.ikerleon.birdwmod.entity;
 
-import java.util.List;
-import java.util.Set;
-
-import com.google.common.collect.Sets;
-
-import com.ikerleon.birdwmod.advancements.ModAdvancementTriggers;
-import com.ikerleon.birdwmod.blocks.BlockBirdfeeder;
 import com.ikerleon.birdwmod.entity.ai.EntityAIWanderAvoidWaterFlying;
-import com.ikerleon.birdwmod.entity.europe.EntityEurasianBullfinch;
-import com.ikerleon.birdwmod.entity.europe.EntityRedFlankedBluetail;
-import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
 import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
 import com.ikerleon.birdwmod.entity.move.EntityFlyHelper;
-import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
-import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
-import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
-import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
-import com.ikerleon.birdwmod.init.BirdwmodItems;
-import com.ikerleon.birdwmod.items.ItemBinocular;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.*;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
+import net.minecraft.entity.ai.EntityAIFollowParent;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateFlying;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.soggymustache.bookworm.util.BookwormRandom;
 
-import javax.annotation.Nullable;
-
-import static com.ikerleon.birdwmod.blocks.BlockBirdfeeder.FILLED;
-
 public abstract class EntityBird extends EntityAnimal implements EntityFlying {
-
 
     //Variables
 	protected static final DataParameter<Integer> GENDER = EntityDataManager.createKey(EntityBird.class, DataSerializers.VARINT);
@@ -188,13 +159,14 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
                 this.blinkTime = 0;
             }
         }
-        if(!this.isSleeping()){
+
+/*        if(!this.isSleeping()){
             if(rand.nextInt(100)==1) {
                 if(!(this instanceof EntityStellersEider || this instanceof EntityGreenHeron || this instanceof EntityRedNeckedNightjar || this instanceof EntityNorthernMockingbird)) {
                     this.searchFeeder();
                 }
             }
-        }
+        }*/
     }
 
     public void searchFeeder(){
@@ -283,15 +255,4 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
     //Variant setter
     public abstract int setBirdVariants();
 
-
-	//Gender enum
-    public enum Gender {
-        MALE(0), FEMALE(1);
-        
-        EntityBird entity;
-
-        Gender(int valueln){
-            valueln = entity.getGender();
-        }
-    }
 }

@@ -25,8 +25,10 @@ public class EventBinocularRim {
 
         ItemStack stack = Minecraft.getMinecraft().player.getHeldItemMainhand();
         if(stack.getItem() instanceof ItemBinocular){
-            if(stack.getTagCompound().getBoolean("zoomed")){
-                overlay.drawScreen();
+            if(stack.getTagCompound() != null && stack.getTagCompound().hasKey("zoomed")) {
+                if (stack.getTagCompound().getBoolean("zoomed")) {
+                    overlay.drawScreen();
+                }
             }
         }
     }

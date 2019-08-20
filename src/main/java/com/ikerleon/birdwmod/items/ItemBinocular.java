@@ -18,11 +18,9 @@ import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
@@ -56,40 +54,39 @@ public class ItemBinocular extends Item{
 
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		stack.setTagCompound(stack.getTagCompound() == null ? new NBTTagCompound() : stack.getTagCompound());
+		if(!isSelected) {
+			super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
+			return;
+		}
+
+		if(stack.getTagCompound() == null)
+			stack.setTagCompound(new NBTTagCompound());
+
+		if (!stack.getTagCompound().getBoolean("zoomed")) {
+			stack.getTagCompound().setFloat("fov", Minecraft.getMinecraft().gameSettings.fovSetting);
+		}
 
 		if((entityIn instanceof EntityPlayer) ) {
 			EntityPlayer playerIn = (EntityPlayer) entityIn;
 
-			if(worldIn.isRemote) {
-				if (Minecraft.getMinecraft().gameSettings.fovSetting >= 30) {
-					stack.getTagCompound().setFloat("fov", Minecraft.getMinecraft().gameSettings.fovSetting);
-				}
+			if (stack.getTagCompound().getBoolean("zoomed")) {
+				Vec3d vec3 = playerIn.getPositionEyes(1.0F);
+				Vec3d vec3a = playerIn.getLook(1.0F);
+				int distance = 12;
+				Vec3d vec3b = vec3.addVector(vec3a.x * distance, vec3a.y * distance, vec3a.z * distance);
 
-				if (!(((EntityPlayer) entityIn).getHeldItemMainhand().getItem() instanceof ItemBinocular)) {
-					Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
-					Minecraft.getMinecraft().gameSettings.smoothCamera = false;
-				}
-			}
-			else {
-				if (stack.getTagCompound().getBoolean("zoomed")) {
-					Vec3d vec3 = playerIn.getPositionEyes(1.0F);
-					Vec3d vec3a = playerIn.getLook(1.0F);
-					int distance = 12;
-					Vec3d vec3b = vec3.addVector(vec3a.x * distance, vec3a.y * distance, vec3a.z * distance);
-
-					Entity ee = BookwormUtils.findEntityOnPath(playerIn, 14.0F, vec3, vec3b, new Predicate() {
-						@Override
-						public boolean apply(@Nullable Object input) {
-							return input instanceof EntityBird;
-						}
-					});
-
-					if(ee != null && !playerIn.world.isRemote){
-						ModAdvancementTriggers.ORNITHOLOGY101.trigger((EntityPlayerMP) playerIn, 2);
+				Entity ee = BookwormUtils.findEntityOnPath(playerIn, 14.0F, vec3, vec3b, new Predicate() {
+					@Override
+					public boolean apply(@Nullable Object input) {
+						return input instanceof EntityBird;
 					}
+				});
+
+				if(ee != null && !playerIn.world.isRemote){
+					ModAdvancementTriggers.ORNITHOLOGY101.trigger((EntityPlayerMP) playerIn, 2);
 				}
 			}
+
 		}
 
 		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
@@ -99,27 +96,28 @@ public class ItemBinocular extends Item{
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
-		itemstack.getTagCompound().setFloat("fov", Minecraft.getMinecraft().gameSettings.fovSetting);
-		Minecraft.getMinecraft().gameSettings.fovSetting = this.ZOOM;
-		Minecraft.getMinecraft().gameSettings.smoothCamera = true;
-		itemstack.getTagCompound().setBoolean("zoomed", true);
+		if(itemstack.getTagCompound() == null)
+			itemstack.setTagCompound(new NBTTagCompound());
+
+		if(!itemstack.getTagCompound().getBoolean("zoomed")) {
+			if (!itemstack.getTagCompound().hasKey("fov"))
+				itemstack.getTagCompound().setFloat("fov", Minecraft.getMinecraft().gameSettings.fovSetting);
+
+			itemstack.getTagCompound().setBoolean("zoomed", true);
+			Minecraft.getMinecraft().gameSettings.fovSetting = this.ZOOM;
+			Minecraft.getMinecraft().gameSettings.smoothCamera = true;
+		}
+
 		playerIn.setActiveHand(handIn);
 
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
+        return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 	}
-	
+
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-		if (entityLiving instanceof EntityPlayer) {
-			stack.getTagCompound().setBoolean("zoomed", false);
-			if (stack.getTagCompound().hasKey("fov")) {
-				Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
-			} else {
-				Minecraft.getMinecraft().gameSettings.fovSetting = 70;
-				System.out.println("[TheBirdwatchingMod] Binocular error happened (FOV not restored. Setting FOV to normal)");
-			}
-			Minecraft.getMinecraft().gameSettings.smoothCamera = false;
-		}
+		stack.getTagCompound().setBoolean("zoomed", false);
+		Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
+		Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 	}
 
 	public EnumAction getItemUseAction(ItemStack stack)
