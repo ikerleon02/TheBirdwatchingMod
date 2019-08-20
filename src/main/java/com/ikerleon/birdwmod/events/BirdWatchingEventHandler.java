@@ -11,16 +11,12 @@ import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
 import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
-import com.ikerleon.birdwmod.util.Util;
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -28,7 +24,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.soggymustache.bookworm.util.BookwormUtils;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID)
 public class BirdWatchingEventHandler {

@@ -6,7 +6,9 @@ import com.ikerleon.birdwmod.items.ItemBinocular;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -14,21 +16,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class EventBinocularRim {
-    private OverlayBinocularRim overlay;
-
-    public EventBinocularRim() {
-        overlay=new OverlayBinocularRim();
-    }
+    private static final OverlayBinocularRim overlay = new OverlayBinocularRim();
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public void eventHandler(RenderGameOverlayEvent.Pre event) {
-        Item item= Minecraft.getMinecraft().player.getHeldItemMainhand().getItem();
+        if (event.getType() != RenderGameOverlayEvent.ElementType.HELMET)
+            return;
 
-        if(item instanceof ItemBinocular) {
-            if(ItemBinocular.zoomed) {
-                if (event.getType() == RenderGameOverlayEvent.ElementType.HELMET) {
-                    overlay.drawScreen();
-                }
+        ItemStack stack = Minecraft.getMinecraft().player.getHeldItemMainhand();
+        if(stack.getItem() instanceof ItemBinocular){
+            if(stack.getTagCompound().getBoolean("zoomed")){
+                overlay.drawScreen();
             }
         }
     }

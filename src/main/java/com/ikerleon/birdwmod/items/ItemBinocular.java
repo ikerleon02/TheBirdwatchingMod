@@ -2,6 +2,7 @@ package com.ikerleon.birdwmod.items;
 
 import javax.annotation.Nullable;
 
+import com.google.common.base.Predicate;
 import com.ikerleon.birdwmod.Main;
 import com.ikerleon.birdwmod.advancements.ModAdvancementTriggers;
 import com.ikerleon.birdwmod.entity.EntityBird;
@@ -28,22 +29,21 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.soggymustache.bookworm.util.BookwormUtils;
 
 import java.util.List;
 
 public class ItemBinocular extends Item{
-	
-	private float zoom;
-	public static boolean zoomed;
 
-	public ItemBinocular(String name, float zoom) {
+	private final int ZOOM;
+
+	public ItemBinocular(String name, int zoom) {
 		this.maxStackSize = 1;
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
 		BirdwmodItems.ITEMS.add(this);
 		this.setCreativeTab(Main.BIRDWATCHINGMOD);
-		this.zoom=zoom;
-
+		this.ZOOM = zoom;
         this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter()
         {
             @SideOnly(Side.CLIENT)
@@ -72,26 +72,21 @@ public class ItemBinocular extends Item{
 				}
 			}
 			else {
-				if (zoomed) {
-					List<Entity> Entitylist = worldIn.getLoadedEntityList();
+				if (stack.getTagCompound().getBoolean("zoomed")) {
+					Vec3d vec3 = playerIn.getPositionEyes(1.0F);
+					Vec3d vec3a = playerIn.getLook(1.0F);
+					int distance = 12;
+					Vec3d vec3b = vec3.addVector(vec3a.x * distance, vec3a.y * distance, vec3a.z * distance);
 
-					for (int i = 0; i < Entitylist.size(); i++) {
-						Entity Ent = Entitylist.get(i);
-
-						if (Ent instanceof EntityBird) {
-							Vec3d vec3d = playerIn.getLookVec();
-							Vec3d vec3d1 = new Vec3d(Ent.posX - playerIn.posX, Ent.getEntityBoundingBox().minY + (double) Ent.getEyeHeight() - (playerIn.posY + (double) playerIn.getEyeHeight()), Ent.posZ - playerIn.posZ);
-							double d0 = vec3d1.lengthVector();
-							vec3d1 = vec3d1.normalize();
-							double d1 = vec3d.dotProduct(vec3d1);
-
-							if (d1 > 1.0D - 0.025D / d0 ? playerIn.canEntityBeSeen(Ent) : false) {
-								if (playerIn instanceof EntityPlayerMP) {
-									System.out.println(d1);
-									ModAdvancementTriggers.ORNITHOLOGY101.trigger((EntityPlayerMP) playerIn, 2);
-								}
-							}
+					Entity ee = BookwormUtils.findEntityOnPath(playerIn, 14.0F, vec3, vec3b, new Predicate() {
+						@Override
+						public boolean apply(@Nullable Object input) {
+							return input instanceof EntityBird;
 						}
+					});
+
+					if(ee != null && !playerIn.world.isRemote){
+						ModAdvancementTriggers.ORNITHOLOGY101.trigger((EntityPlayerMP) playerIn, 2);
 					}
 				}
 			}
@@ -104,9 +99,10 @@ public class ItemBinocular extends Item{
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
-		Minecraft.getMinecraft().gameSettings.fovSetting = this.zoom;
+		itemstack.getTagCompound().setFloat("fov", Minecraft.getMinecraft().gameSettings.fovSetting);
+		Minecraft.getMinecraft().gameSettings.fovSetting = this.ZOOM;
 		Minecraft.getMinecraft().gameSettings.smoothCamera = true;
-		zoomed = true;
+		itemstack.getTagCompound().setBoolean("zoomed", true);
 		playerIn.setActiveHand(handIn);
 
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
@@ -115,8 +111,8 @@ public class ItemBinocular extends Item{
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 		if (entityLiving instanceof EntityPlayer) {
-			zoomed = false;
-			if (stack.getTagCompound().getFloat("fov") != 0) {
+			stack.getTagCompound().setBoolean("zoomed", false);
+			if (stack.getTagCompound().hasKey("fov")) {
 				Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
 			} else {
 				Minecraft.getMinecraft().gameSettings.fovSetting = 70;
