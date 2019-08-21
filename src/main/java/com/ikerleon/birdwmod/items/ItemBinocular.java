@@ -54,16 +54,24 @@ public class ItemBinocular extends Item{
 
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		if(!isSelected) {
-			super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
-			return;
+		stack.setTagCompound(stack.getTagCompound() == null ? new NBTTagCompound() : stack.getTagCompound());
+
+		if (Minecraft.getMinecraft().gameSettings.fovSetting >= 30) {
+			stack.getTagCompound().setFloat("fov", Minecraft.getMinecraft().gameSettings.fovSetting);
 		}
 
-		if(stack.getTagCompound() == null)
-			stack.setTagCompound(new NBTTagCompound());
+		if(isSelected && !stack.getTagCompound().getBoolean("zoomed")){
+			if(stack.getTagCompound().getFloat("fov") >=30){
+				Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
+			}
+			else{
+				Minecraft.getMinecraft().gameSettings.fovSetting = 70;
+			}
+		}
 
-		if (!stack.getTagCompound().getBoolean("zoomed")) {
-			stack.getTagCompound().setFloat("fov", Minecraft.getMinecraft().gameSettings.fovSetting);
+		if (!(((EntityPlayer) entityIn).getHeldItemMainhand().getItem() instanceof ItemBinocular)) {
+			Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
+			Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 		}
 
 		if((entityIn instanceof EntityPlayer) ) {
@@ -88,7 +96,6 @@ public class ItemBinocular extends Item{
 			}
 
 		}
-
 		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
 	}
 
@@ -96,27 +103,25 @@ public class ItemBinocular extends Item{
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
-		if(itemstack.getTagCompound() == null)
-			itemstack.setTagCompound(new NBTTagCompound());
-
-		if(!itemstack.getTagCompound().getBoolean("zoomed")) {
-			if (!itemstack.getTagCompound().hasKey("fov"))
-				itemstack.getTagCompound().setFloat("fov", Minecraft.getMinecraft().gameSettings.fovSetting);
-
-			itemstack.getTagCompound().setBoolean("zoomed", true);
+		if(itemstack.getTagCompound().getFloat("fov") >=30) {
+			playerIn.setActiveHand(handIn);
 			Minecraft.getMinecraft().gameSettings.fovSetting = this.ZOOM;
 			Minecraft.getMinecraft().gameSettings.smoothCamera = true;
+			itemstack.getTagCompound().setBoolean("zoomed", true);
 		}
-
-		playerIn.setActiveHand(handIn);
 
         return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
 	}
 
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
+		if(stack.getTagCompound().getFloat("fov") >=30){
+			Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
+		}
+		else{
+			Minecraft.getMinecraft().gameSettings.fovSetting = 70;
+		}
 		stack.getTagCompound().setBoolean("zoomed", false);
-		Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
 		Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 	}
 
