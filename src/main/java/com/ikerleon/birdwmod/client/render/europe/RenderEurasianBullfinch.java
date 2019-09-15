@@ -66,13 +66,6 @@ public class RenderEurasianBullfinch extends RenderBirdBase<EntityEurasianBullfi
         }
     }
 
-    public static class RenderFactory implements IRenderFactory<EntityEurasianBullfinch> {
-        @Override
-        public Render<? super EntityEurasianBullfinch> createRenderFor(RenderManager manager) {
-            return new RenderEurasianBullfinch(manager);
-        }
-    }
-
     private class EurasianBullfinchAnimator extends CMFAnimator {
 
         private final BookwormModelRenderer rightleg = this.getModel().getPartByName("rightleg");

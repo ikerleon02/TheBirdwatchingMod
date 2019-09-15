@@ -1,8 +1,11 @@
 package com.ikerleon.birdwmod.entity;
 
+import com.ikerleon.birdwmod.blocks.BlockBirdfeeder;
+import com.ikerleon.birdwmod.entity.ai.EntityAIEatFromFeeders;
 import com.ikerleon.birdwmod.entity.ai.EntityAIWanderAvoidWaterFlying;
 import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
 import com.ikerleon.birdwmod.entity.move.EntityFlyHelper;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -20,6 +23,9 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateFlying;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -52,6 +58,7 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
         this.timeUntilNextFeather = this.rand.nextInt(10000) + 10000;
         this.moveHelper = MoveHelper;
         this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(2, new EntityAIEatFromFeeders(this));
         this.tasks.addTask(4, new EntityAIAvoidEntity(this, EntityPlayer.class, 5.0F, 2D, 2D));
         this.tasks.addTask(4, new EntityAIFollowParent(this,1.D));
         this.tasks.addTask(3, WanderFlying);
@@ -159,33 +166,9 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
                 this.blinkTime = 0;
             }
         }
-
-/*        if(!this.isSleeping()){
-            if(rand.nextInt(100)==1) {
-                if(!(this instanceof EntityStellersEider || this instanceof EntityGreenHeron || this instanceof EntityRedNeckedNightjar || this instanceof EntityNorthernMockingbird)) {
-                    this.searchFeeder();
-                }
-            }
-        }*/
     }
 
-    public void searchFeeder(){
-	    return;
-/*	    BlockPos pos = new BlockPos(this);
-	    int distance = 80;
-	    for (int i = -distance; i < distance; i++) {
-	        for (int j = -distance; j < distance; j++) {
-	            for (int k = -distance; k < distance; k++) {
-	                BlockPos b = pos.add(i, j, k);
-	                if ((this.world.getBlockState(b).getBlock() instanceof BlockBirdfeeder)) {
-	                    if(this.world.getBlockState(b).getValue(FILLED)) {
-                            getNavigator().tryMoveToXYZ(b.getX(), b.getY() + 1, b.getZ(), 1.26D);
-                        }
-	                }
-	            }
-	        }
-	    }*/
-    }
+    public abstract boolean goesToFeeders();
 
     @Override
     protected boolean canDespawn() {
@@ -217,7 +200,7 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
     }
 
     @Override
-    protected boolean isMovementBlocked() {
+    public boolean isMovementBlocked() {
 	    if(this.onGround) {
             return super.isMovementBlocked() || isSleeping();
         }

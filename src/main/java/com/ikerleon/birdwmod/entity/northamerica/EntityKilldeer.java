@@ -57,6 +57,11 @@ public class EntityKilldeer extends EntityBirdDiurnal{
 		else
 			this.dropItem(BirdwmodItems.WADERRAWMEAT, 1);
 	}
+
+	@Override
+	public boolean goesToFeeders() {
+		return false;
+	}
 	
 	@Override
 	public EntityAgeable createChild(EntityAgeable ageable) {

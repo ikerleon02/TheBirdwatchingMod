@@ -61,6 +61,11 @@ public class EntityEurasianBullfinch extends EntityBirdDiurnal {
     }
 
     @Override
+    public boolean goesToFeeders() {
+        return true;
+    }
+
+    @Override
     public EntityAgeable createChild(EntityAgeable ageable) {
         return new EntityEurasianBullfinch(this.world);
     }

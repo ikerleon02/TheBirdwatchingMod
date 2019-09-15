@@ -5,6 +5,7 @@ import com.ikerleon.birdwmod.entity.europe.EntityEurasianBullfinch;
 import com.ikerleon.birdwmod.entity.europe.EntityRedFlankedBluetail;
 import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
 import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
+import com.ikerleon.birdwmod.entity.jungle.EntityHoatzin;
 import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
@@ -88,6 +89,9 @@ public class CommonProxy {
 		EntityRegistry.addSpawn(EntityKilldeer.class, 10 , 1, 4, EnumCreatureType.CREATURE, BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.PLAINS));
 		EntityRegistry.addSpawn(EntityNorthernMockingbird.class, 15 , 1, 2, EnumCreatureType.CREATURE, BiomeDictionaryUtil.FusionBiomes(BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.PLAINS), new Biome[] {Biomes.FOREST, Biomes.BIRCH_FOREST}));
 		EntityRegistry.addSpawn(EntityGreenHeron.class, 10 , 1, 2, EnumCreatureType.CREATURE, BiomeDictionaryUtil.FusionBiomes(BiomeDictionaryUtil.getBiomesFromTypes(BiomeDictionary.Type.RIVER, BiomeDictionary.Type.HOT), new Biome[] {Biomes.RIVER, Biomes.SWAMPLAND}));
+		//JUNGLE
+		EntityRegistry.addSpawn(EntityHoatzin.class, 10 , 1, 2, EnumCreatureType.CREATURE, BiomeDictionaryUtil.FusionBiomes(BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.JUNGLE), BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.SWAMP)));
+
 
 		BirdwmodCrafting.init(event);
 	}

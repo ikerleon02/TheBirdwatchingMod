@@ -75,13 +75,6 @@ public class RenderGreenHeron extends RenderBirdBase<EntityGreenHeron> {
         }
     }
 
-    public static class RenderFactory implements IRenderFactory<EntityGreenHeron> {
-        @Override
-        public Render<? super EntityGreenHeron> createRenderFor(RenderManager manager) {
-            return new RenderGreenHeron(manager);
-        }
-    }
-
     private class GreenHeronAnimator extends CMFAnimator {
 
         private final BookwormModelRenderer ThighR = this.getModel().getPartByName("ThighR");

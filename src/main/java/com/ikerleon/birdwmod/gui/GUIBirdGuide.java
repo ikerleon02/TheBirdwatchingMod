@@ -2,6 +2,7 @@ package com.ikerleon.birdwmod.gui;
 
 import com.ikerleon.birdwmod.entity.europe.EntityEurasianBullfinch;
 import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
+import com.ikerleon.birdwmod.entity.jungle.EntityHoatzin;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
 import com.ikerleon.birdwmod.init.BirdwmodItems;
@@ -33,7 +34,7 @@ public class GUIBirdGuide extends GuiScreen {
 	private final int bookImageWidth = 292;
 
     private int currPage = 0;
-    private static final int bookTotalPages = 9;
+    private static final int bookTotalPages = 10;
 
     private GuiButton buttonDone;
     private GuiButton buttonNextPage;
@@ -46,6 +47,7 @@ public class GUIBirdGuide extends GuiScreen {
 	private static String Nightjars = TextFormatting.GRAY + "Nightjars";
 	private static String Passerines = TextFormatting.GRAY + "Passerines";
 	private static String Herons = TextFormatting.GRAY + "Herons";
+	private static String Opisthocomiformes = TextFormatting.GRAY + "Opisthocomiformes";
 
 	private static String CharacteristicsTitle = TextFormatting.BOLD + "Characteristics";
 	private static String BiomesTitle = TextFormatting.BOLD + "Vanilla Biomes";
@@ -80,7 +82,11 @@ public class GUIBirdGuide extends GuiScreen {
 
 	private static String page8Title = TextFormatting.BOLD + "Eurasian bullfinch";
 	private static String page8Subtitle = TextFormatting.ITALIC + "(Pyrrhula pyrrhula)";
-	private static String page8Text = "It's a finch that breeds across Europe and temperate Asia.  It is mainly resident, but many northern birds migrate further south in the winter. Mixed woodland with some conifers is favoured for breeding, including parkland and gardens. The food they eat is mainly seeds and buds of fruit trees.";
+	private static String page8Text = "It's a finch that breeds across Europe and temperate Asia. It is mainly resident, but many northern birds migrate further south in the winter. Mixed woodland with some conifers is favoured for breeding, including parkland and gardens. The food they eat is mainly seeds and buds of fruit trees.";
+
+	private static String page9Title = TextFormatting.BOLD + "Hoatzin";
+	private static String page9Subtitle = TextFormatting.ITALIC + "(Opisthocomus hoazin)";
+	private static String page9Text = "It's a tropical, dinosaur-type bird that can be found in swamps, riparian forests, and mangroves of the Amazon and the Orinoco basins in South America. It is notable for having chicks that have claws on two of their wing digits. The hoatzin is a folivore, in other words it eats the leaves";
 
 	@Override
     public void initGui() 
@@ -320,6 +326,24 @@ public class GUIBirdGuide extends GuiScreen {
 			drawEntityOnScreen(offLeft + 185, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
 			drawEntityOnScreen(offLeft + 250, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
 		}
+		else if(currPage==9){
+			this.fontRenderer.drawString(page9Title, offLeft + 51, 15 + offTop, 0);
+			this.fontRenderer.drawString(page9Subtitle, offLeft + 18, 25 + offTop, 0);
+			this.fontRenderer.drawSplitString(page9Text, offLeft + 13, 40 + offTop, 126, 0);
+			this.fontRenderer.drawString(CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
+			this.fontRenderer.drawString(Opisthocomiformes, offLeft + 171, 25 + offTop, 0);
+			this.fontRenderer.drawString(TextFormatting.ITALIC + "Only variant", offLeft + 188, 80 + offTop, 0);
+			this.fontRenderer.drawString(BiomesTitle, offLeft + 175, 125 + offTop, 0);
+			this.fontRenderer.drawString("- Jungle, Swamp", offLeft + 160, 140 + offTop, 0);
+
+			this.itemRender.renderItemAndEffectIntoGUI(new ItemStack(BirdwmodItems.HOATZINFEATHER, 1), offLeft + 207, 95 + offTop);
+
+			int i = (this.width - this.bookImageWidth) / 2;
+			int j = (this.height - this.bookImageHeight) / 2;
+			EntityHoatzin entity = new EntityHoatzin(mc.world);
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			drawEntityOnScreen(offLeft + 217, 75 + offTop, 40, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+			}
 		
 		super.drawScreen(parWidth, parHeight, p_73863_3_);
 	}

@@ -19,12 +19,6 @@ public class EntityGreenHeron extends EntityBirdDiurnal {
     public EntityGreenHeron(World worldIn) {
         super(worldIn);
         this.setSize(0.3f, 0.5f);
-
-        /*if(this.world.isRemote) {
-            Animation speak = new Animation(PosesUtil.HERON_FLYING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_SPEAKING_POSE, PosesUtil.HERON_FLYING_POSE);
-            speak.speed = 0.6F;
-            animator.addAnimation(SPEAK, speak);
-        }*/
     }
 
     @Nullable
@@ -63,6 +57,11 @@ public class EntityGreenHeron extends EntityBirdDiurnal {
             this.dropItem(BirdwmodItems.HERONCOOCKEDMEAT, 1);
         else
             this.dropItem(BirdwmodItems.HERONRAWMEAT, 1);
+    }
+
+    @Override
+    public boolean goesToFeeders() {
+        return false;
     }
 
     @Override

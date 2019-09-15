@@ -71,6 +71,11 @@ public class EntityNorthernMockingbird extends EntityBirdDiurnal {
     }
 
     @Override
+    public boolean goesToFeeders() {
+        return true;
+    }
+
+    @Override
     public EntityAgeable createChild(EntityAgeable ageable) {
         return new EntityNorthernMockingbird(this.world);
     }

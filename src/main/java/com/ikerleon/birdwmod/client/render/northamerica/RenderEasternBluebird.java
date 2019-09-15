@@ -66,13 +66,6 @@ public class RenderEasternBluebird extends RenderBirdBase<EntityEasternBluebird>
 			}
 		}
 	}
-	
-	public static class RenderFactory implements IRenderFactory<EntityEasternBluebird> {
-		  @Override
-	      public Render<? super EntityEasternBluebird> createRenderFor(RenderManager manager) {
-	            return new RenderEasternBluebird(manager);
-	      }   
-	}
 
 	private class EasternBluebirdAnimator extends CMFAnimator {
 

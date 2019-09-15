@@ -75,13 +75,6 @@ public class RenderNorthernMockingbird extends RenderBirdBase<EntityNorthernMock
         }
     }
 
-    public static class RenderFactory implements IRenderFactory<EntityNorthernMockingbird> {
-        @Override
-        public Render<? super EntityNorthernMockingbird> createRenderFor(RenderManager manager) {
-            return new RenderNorthernMockingbird(manager);
-        }
-    }
-
     private class NorthernMockingbirdAnimator extends CMFAnimator {
 
         private final BookwormModelRenderer rightleg = this.getModel().getPartByName("rightleg");

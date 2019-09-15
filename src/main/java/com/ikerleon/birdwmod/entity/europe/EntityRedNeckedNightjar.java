@@ -42,7 +42,7 @@ public class EntityRedNeckedNightjar extends EntityBirdNocturnal{
 	}
 
 	@Override
-	protected boolean isMovementBlocked() {
+	public boolean isMovementBlocked() {
 		if(this.rand.nextInt(100)>80) {
 			return super.isMovementBlocked();
 		}
@@ -68,6 +68,11 @@ public class EntityRedNeckedNightjar extends EntityBirdNocturnal{
 			this.dropItem(BirdwmodItems.NIGHTJARCOOCKEDMEAT, 1);
 		else
 			this.dropItem(BirdwmodItems.NIGHTJARRAWMEAT, 1);
+	}
+
+	@Override
+	public boolean goesToFeeders() {
+		return false;
 	}
 
 	@Override

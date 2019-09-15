@@ -6,6 +6,7 @@ import com.ikerleon.birdwmod.entity.europe.EntityEurasianBullfinch;
 import com.ikerleon.birdwmod.entity.europe.EntityRedFlankedBluetail;
 import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
 import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
+import com.ikerleon.birdwmod.entity.jungle.EntityHoatzin;
 import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
@@ -28,5 +29,8 @@ public class Birds {
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "eastern_bluebird"),EntityEasternBluebird.class, "eastern_bluebird", id++, Main.instance, 1024, 1, true, 0x2176ff, 0xdce5f4);
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "northern_mockingbird"), EntityNorthernMockingbird.class, "northern_mockingbird", id++, Main.instance, 1024, 1, true, 0xa09d95, 0xe2e2e0);
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "green_heron"), EntityGreenHeron.class, "green_heron", id++, Main.instance, 1024, 1, true, 0x9b360d, 0x50656d);
+		//JUNGLE
+		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "hoatzin"), EntityHoatzin.class, "hoatzin", id++, Main.instance, 1024, 1, true, 0x6b5c3f, 0xe3a734);
+
 	}
 }

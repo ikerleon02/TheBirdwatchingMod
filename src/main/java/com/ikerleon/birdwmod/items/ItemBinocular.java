@@ -33,69 +33,70 @@ import java.util.List;
 
 public class ItemBinocular extends Item{
 
-	private final int ZOOM;
+	private float zoom;
+	public boolean zoomed;
 
-	public ItemBinocular(String name, int zoom) {
+	public ItemBinocular(String name, float zoom) {
 		this.maxStackSize = 1;
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
 		BirdwmodItems.ITEMS.add(this);
 		this.setCreativeTab(Main.BIRDWATCHINGMOD);
-		this.ZOOM = zoom;
-        this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter()
-        {
-            @SideOnly(Side.CLIENT)
-            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
-            {
-                return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
-            }
-        });
+		this.zoom=zoom;
+
+		this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter()
+		{
+			@SideOnly(Side.CLIENT)
+			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
+			{
+				return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
+			}
+		});
 	}
 
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		stack.setTagCompound(stack.getTagCompound() == null ? new NBTTagCompound() : stack.getTagCompound());
 
-		if (Minecraft.getMinecraft().gameSettings.fovSetting >= 30) {
-			stack.getTagCompound().setFloat("fov", Minecraft.getMinecraft().gameSettings.fovSetting);
-		}
-
-		if(isSelected && !stack.getTagCompound().getBoolean("zoomed")){
-			if(stack.getTagCompound().getFloat("fov") >=30){
-				Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
-			}
-			else{
-				Minecraft.getMinecraft().gameSettings.fovSetting = 70;
-			}
-		}
-
-		if (!(((EntityPlayer) entityIn).getHeldItemMainhand().getItem() instanceof ItemBinocular)) {
-			Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
-			Minecraft.getMinecraft().gameSettings.smoothCamera = false;
-		}
-
 		if((entityIn instanceof EntityPlayer) ) {
 			EntityPlayer playerIn = (EntityPlayer) entityIn;
 
-			if (stack.getTagCompound().getBoolean("zoomed")) {
-				Vec3d vec3 = playerIn.getPositionEyes(1.0F);
-				Vec3d vec3a = playerIn.getLook(1.0F);
-				int distance = 12;
-				Vec3d vec3b = vec3.addVector(vec3a.x * distance, vec3a.y * distance, vec3a.z * distance);
+			if(worldIn.isRemote) {
+				if (Minecraft.getMinecraft().gameSettings.fovSetting >= 30) {
+					stack.getTagCompound().setFloat("fov", Minecraft.getMinecraft().gameSettings.fovSetting);
+				}
 
-				Entity ee = BookwormUtils.findEntityOnPath(playerIn, 14.0F, vec3, vec3b, new Predicate() {
-					@Override
-					public boolean apply(@Nullable Object input) {
-						return input instanceof EntityBird;
-					}
-				});
-
-				if(ee != null && !playerIn.world.isRemote){
-					ModAdvancementTriggers.ORNITHOLOGY101.trigger((EntityPlayerMP) playerIn, 2);
+				if (!(((EntityPlayer) entityIn).getHeldItemMainhand().getItem() instanceof ItemBinocular)) {
+					Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
+					Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 				}
 			}
+			else {
+				if (zoomed) {
+					List<Entity> Entitylist = worldIn.getLoadedEntityList();
 
+					for (int i = 0; i < Entitylist.size(); i++) {
+						Entity Ent = Entitylist.get(i);
+
+						if (Ent instanceof EntityBird) {
+							Vec3d vec3d = playerIn.getLookVec();
+							Vec3d vec3d1 = new Vec3d(Ent.posX - playerIn.posX, Ent.getEntityBoundingBox().minY + (double) Ent.getEyeHeight() - (playerIn.posY + (double) playerIn.getEyeHeight()), Ent.posZ - playerIn.posZ);
+							double d0 = vec3d1.lengthVector();
+							vec3d1 = vec3d1.normalize();
+							double d1 = vec3d.dotProduct(vec3d1);
+
+							if (d1 > 1.0D - 0.025D / d0 ? playerIn.canEntityBeSeen(Ent) : false) {
+								if (playerIn instanceof EntityPlayerMP) {
+									System.out.println(d1);
+									ModAdvancementTriggers.ORNITHOLOGY101.trigger((EntityPlayerMP) playerIn, 2);
+								}
+							}
+						}
+					}
+				}
+			}
 		}
+
 		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
 	}
 
@@ -103,35 +104,35 @@ public class ItemBinocular extends Item{
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
-		if(itemstack.getTagCompound().getFloat("fov") >=30) {
-			playerIn.setActiveHand(handIn);
-			Minecraft.getMinecraft().gameSettings.fovSetting = this.ZOOM;
-			Minecraft.getMinecraft().gameSettings.smoothCamera = true;
-			itemstack.getTagCompound().setBoolean("zoomed", true);
-		}
+		Minecraft.getMinecraft().gameSettings.fovSetting = this.zoom;
+		Minecraft.getMinecraft().gameSettings.smoothCamera = true;
+		zoomed = true;
+		playerIn.setActiveHand(handIn);
 
-        return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
 	}
 
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-		if(stack.getTagCompound().getFloat("fov") >=30){
-			Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
+		if (entityLiving instanceof EntityPlayer) {
+			zoomed = false;
+			if (stack.getTagCompound().getFloat("fov") != 0) {
+				Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
+			} else {
+				Minecraft.getMinecraft().gameSettings.fovSetting = 70;
+				System.out.println("[TheBirdwatchingMod] Binocular error happened (FOV not restored. Setting FOV to normal)");
+			}
+			Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 		}
-		else{
-			Minecraft.getMinecraft().gameSettings.fovSetting = 70;
-		}
-		stack.getTagCompound().setBoolean("zoomed", false);
-		Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 	}
 
 	public EnumAction getItemUseAction(ItemStack stack)
-    {
-        return EnumAction.BOW;
-    }
-    
-    public int getMaxItemUseDuration(ItemStack stack)
-    {
-        return 72000;
-    }
+	{
+		return EnumAction.BOW;
+	}
+
+	public int getMaxItemUseDuration(ItemStack stack)
+	{
+		return 72000;
+	}
 }

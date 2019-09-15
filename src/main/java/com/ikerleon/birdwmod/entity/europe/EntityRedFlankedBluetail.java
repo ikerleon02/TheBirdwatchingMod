@@ -58,7 +58,12 @@ public class EntityRedFlankedBluetail extends EntityBirdDiurnal{
 		else
 			this.dropItem(BirdwmodItems.PASSERINERAWMEAT, 1);
 	}
-	
+
+	@Override
+	public boolean goesToFeeders() {
+		return true;
+	}
+
 	@Override
 	public EntityAgeable createChild(EntityAgeable ageable) {
 		return new EntityRedFlankedBluetail(this.world);

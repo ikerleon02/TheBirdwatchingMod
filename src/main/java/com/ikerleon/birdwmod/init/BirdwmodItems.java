@@ -37,6 +37,7 @@ public class BirdwmodItems {
 	public static final Item REDNECKEDNIGHTJARFEATHER = new ItemFeather("feather_redneckednightjar");
 	public static final Item STELLERSEIDERFEATHER_FEMALE = new ItemFeather("feather_stellerseiderfemale");
 	public static final Item STELLERSEIDERFEATHER_MALE = new ItemFeather("feather_stellerseidermale");
+	public static final Item HOATZINFEATHER = new ItemFeather("feather_hoatzin");
 
 	//meats
 	public static final Item DUCKRAWMEAT = new ItemMeat("meatraw_duck", 3, true);

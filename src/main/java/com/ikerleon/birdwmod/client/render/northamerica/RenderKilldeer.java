@@ -75,13 +75,6 @@ public class RenderKilldeer extends RenderBirdBase<EntityKilldeer> {
 				return TEXTURE3;
 		}
 	}
-	
-	public static class RenderFactory implements IRenderFactory<EntityKilldeer> {
-		  @Override
-	      public Render<? super EntityKilldeer> createRenderFor(RenderManager manager) {
-	            return new RenderKilldeer(manager);
-	      }   
-	}
 
 	private class KilldeerAnimator extends CMFAnimator {
 

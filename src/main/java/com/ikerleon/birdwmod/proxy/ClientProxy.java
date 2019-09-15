@@ -5,6 +5,7 @@ import com.ikerleon.birdwmod.client.render.europe.RenderEurasianBullfinch;
 import com.ikerleon.birdwmod.client.render.europe.RenderRedFlankedBluetail;
 import com.ikerleon.birdwmod.client.render.europe.RenderRedNeckedNightjar;
 import com.ikerleon.birdwmod.client.render.europe.RenderStellersEider;
+import com.ikerleon.birdwmod.client.render.jungle.RenderHoatzin;
 import com.ikerleon.birdwmod.client.render.northamerica.RenderEasternBluebird;
 import com.ikerleon.birdwmod.client.render.northamerica.RenderGreenHeron;
 import com.ikerleon.birdwmod.client.render.northamerica.RenderKilldeer;
@@ -13,6 +14,7 @@ import com.ikerleon.birdwmod.entity.europe.EntityEurasianBullfinch;
 import com.ikerleon.birdwmod.entity.europe.EntityRedFlankedBluetail;
 import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
 import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
+import com.ikerleon.birdwmod.entity.jungle.EntityHoatzin;
 import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
@@ -35,15 +37,17 @@ public class ClientProxy extends CommonProxy{
 		BirdwmodItems.registerItemRenders();
 		BirdwmodBlocks.registerRenders();
 		//EUROPE
-		RenderingRegistry.registerEntityRenderingHandler(EntityRedNeckedNightjar.class, new RenderRedNeckedNightjar.RenderFactory());
-		RenderingRegistry.registerEntityRenderingHandler(EntityEurasianBullfinch.class, new RenderEurasianBullfinch.RenderFactory());
-		RenderingRegistry.registerEntityRenderingHandler(EntityRedFlankedBluetail.class, new RenderRedFlankedBluetail.RenderFactory());
-		RenderingRegistry.registerEntityRenderingHandler(EntityStellersEider.class, new RenderStellersEider.RenderFactory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityRedNeckedNightjar.class, RenderRedNeckedNightjar::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityEurasianBullfinch.class, RenderEurasianBullfinch::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRedFlankedBluetail.class,RenderRedFlankedBluetail::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityStellersEider.class, RenderStellersEider::new);
 		//AMERICA
-		RenderingRegistry.registerEntityRenderingHandler(EntityKilldeer.class, new RenderKilldeer.RenderFactory());
-		RenderingRegistry.registerEntityRenderingHandler(EntityEasternBluebird.class, new RenderEasternBluebird.RenderFactory());
-		RenderingRegistry.registerEntityRenderingHandler(EntityNorthernMockingbird.class, new RenderNorthernMockingbird.RenderFactory());
-		RenderingRegistry.registerEntityRenderingHandler(EntityGreenHeron.class, new RenderGreenHeron.RenderFactory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityKilldeer.class, RenderKilldeer::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityEasternBluebird.class, RenderEasternBluebird::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityNorthernMockingbird.class, RenderNorthernMockingbird::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityGreenHeron.class, RenderGreenHeron::new);
+		//JUNGLE
+		RenderingRegistry.registerEntityRenderingHandler(EntityHoatzin.class, RenderHoatzin::new);
 	}
 
 	@Override

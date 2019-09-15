@@ -65,13 +65,6 @@ public class RenderStellersEider extends RenderBirdBase<EntityStellersEider> {
         }
     }
 
-    public static class RenderFactory implements IRenderFactory<EntityStellersEider> {
-        @Override
-        public Render<? super EntityStellersEider> createRenderFor(RenderManager manager) {
-            return new RenderStellersEider(manager);
-        }
-    }
-
     private class StellersEiderAnimator extends CMFAnimator {
 
         private final BookwormModelRenderer rightleg = this.getModel().getPartByName("rightleg");

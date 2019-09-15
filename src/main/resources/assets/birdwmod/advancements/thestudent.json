@@ -62,10 +62,16 @@
       "conditions": {
         "entity": 8
       }
+    },
+    "hoatzin": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 9
+      }
     }
   },
 
   "requirements": [
-    ["nightjar", "bullfinch", "bluetail", "eider", "bluebird", "killdeer", "mockingbird", "heron"]
+    ["nightjar", "bullfinch", "bluetail", "eider", "bluebird", "killdeer", "mockingbird", "heron", "hoatzin"]
   ]
 }

@@ -7,6 +7,7 @@ import com.ikerleon.birdwmod.entity.europe.EntityEurasianBullfinch;
 import com.ikerleon.birdwmod.entity.europe.EntityRedFlankedBluetail;
 import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
 import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
+import com.ikerleon.birdwmod.entity.jungle.EntityHoatzin;
 import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
@@ -76,6 +77,9 @@ public class BirdWatchingEventHandler {
         }
         if (ee instanceof EntityGreenHeron) {
             ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 8);
+        }
+        if (ee instanceof EntityHoatzin) {
+            ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 9);
         }
     }
 

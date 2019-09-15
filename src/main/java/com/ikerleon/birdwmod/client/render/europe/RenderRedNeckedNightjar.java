@@ -74,13 +74,6 @@ public class RenderRedNeckedNightjar extends RenderBirdBase<EntityRedNeckedNight
 				return TEXTURE3;
 		}
 	}
-	
-	public static class RenderFactory implements IRenderFactory<EntityRedNeckedNightjar> {
-		  @Override
-	      public Render<? super EntityRedNeckedNightjar> createRenderFor(RenderManager manager) {
-	            return new RenderRedNeckedNightjar(manager);
-	      }   
-	}
 
 	private class RedNeckedNightjarAnimator extends CMFAnimator {
 

@@ -66,13 +66,6 @@ public class RenderRedFlankedBluetail extends RenderBirdBase<EntityRedFlankedBlu
 			}
 		}
 	}
-	
-	public static class RenderFactory implements IRenderFactory<EntityRedFlankedBluetail> {
-		  @Override
-	      public Render<? super EntityRedFlankedBluetail> createRenderFor(RenderManager manager) {
-	            return new RenderRedFlankedBluetail(manager);
-	      }   
-	}
 
 	private class RedFlankedBluetailAnimator extends CMFAnimator {
 
