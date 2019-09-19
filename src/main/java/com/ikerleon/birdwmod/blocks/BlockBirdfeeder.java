@@ -206,7 +206,7 @@ public class BlockBirdfeeder extends Block {
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         super.updateTick(worldIn, pos, state, rand);
 
-        if(random.nextInt(15)==1) {
+        if(random.nextInt(10)==1) {
             if (state.getValue(HALF) == EnumBlockHalf.UPPER) {
                 if (state.getValue(FILLED)) {
                     worldIn.setBlockState(pos, state.withProperty(FILLED, false));

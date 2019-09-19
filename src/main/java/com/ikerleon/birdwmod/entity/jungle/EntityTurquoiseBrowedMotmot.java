@@ -8,22 +8,22 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntityHoatzin extends EntityBirdDiurnal {
+public class EntityTurquoiseBrowedMotmot extends EntityBirdDiurnal {
 
-    public EntityHoatzin(World worldIn) {
+    public EntityTurquoiseBrowedMotmot(World worldIn) {
         super(worldIn);
-        this.setSize(0.4f, 0.4f);
+        this.setSize(0.3f, 0.3f);
     }
 
     @Override
     public int setBirdVariants() {
-        return 1;
+        return 3;
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
         if(!isSleeping()) {
-            return SoundHandler.HOATZIN_CALL;
+            return SoundHandler.MOTMOT_CALL;
         }
         else{
             return null;
@@ -32,14 +32,14 @@ public class EntityHoatzin extends EntityBirdDiurnal {
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(7.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(5.0D);
     }
 
     @Override
     public void onLivingUpdate() {
         if (!this.world.isRemote && !this.isChild() && --this.timeUntilNextFeather <= 0)
         {
-            this.dropItem(BirdwmodItems.HOATZINFEATHER, 1);
+            this.dropItem(BirdwmodItems.MOTMOTFEATHER, 1);
             this.timeUntilNextFeather = this.rand.nextInt(10000) + 10000;
         }
         super.onLivingUpdate();
@@ -60,7 +60,8 @@ public class EntityHoatzin extends EntityBirdDiurnal {
 
     @Override
     public EntityAgeable createChild(EntityAgeable ageable) {
-        return new EntityHoatzin(this.world);
+        return new EntityTurquoiseBrowedMotmot(this.world);
     }
 }
+
 

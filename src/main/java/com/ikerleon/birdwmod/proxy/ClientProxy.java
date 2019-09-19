@@ -6,6 +6,8 @@ import com.ikerleon.birdwmod.client.render.europe.RenderRedFlankedBluetail;
 import com.ikerleon.birdwmod.client.render.europe.RenderRedNeckedNightjar;
 import com.ikerleon.birdwmod.client.render.europe.RenderStellersEider;
 import com.ikerleon.birdwmod.client.render.jungle.RenderHoatzin;
+import com.ikerleon.birdwmod.client.render.jungle.RenderKingofSaxony;
+import com.ikerleon.birdwmod.client.render.jungle.RenderTurquoiseBrowedMotmot;
 import com.ikerleon.birdwmod.client.render.northamerica.RenderEasternBluebird;
 import com.ikerleon.birdwmod.client.render.northamerica.RenderGreenHeron;
 import com.ikerleon.birdwmod.client.render.northamerica.RenderKilldeer;
@@ -15,6 +17,8 @@ import com.ikerleon.birdwmod.entity.europe.EntityRedFlankedBluetail;
 import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
 import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
 import com.ikerleon.birdwmod.entity.jungle.EntityHoatzin;
+import com.ikerleon.birdwmod.entity.jungle.EntityKingofSaxony;
+import com.ikerleon.birdwmod.entity.jungle.EntityTurquoiseBrowedMotmot;
 import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
@@ -48,6 +52,8 @@ public class ClientProxy extends CommonProxy{
 		RenderingRegistry.registerEntityRenderingHandler(EntityGreenHeron.class, RenderGreenHeron::new);
 		//JUNGLE
 		RenderingRegistry.registerEntityRenderingHandler(EntityHoatzin.class, RenderHoatzin::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityKingofSaxony.class, RenderKingofSaxony::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityTurquoiseBrowedMotmot.class, RenderTurquoiseBrowedMotmot::new);
 	}
 
 	@Override

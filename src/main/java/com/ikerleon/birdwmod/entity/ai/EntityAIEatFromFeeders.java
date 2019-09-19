@@ -2,10 +2,6 @@ package com.ikerleon.birdwmod.entity.ai;
 
 import com.ikerleon.birdwmod.blocks.BlockBirdfeeder;
 import com.ikerleon.birdwmod.entity.EntityBird;
-import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
-import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
-import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
-import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -73,7 +69,7 @@ public class EntityAIEatFromFeeders extends EntityAIBase {
     public void updateTask() {
         if (this.targetBlock != null) {
             Block entity = this.entity.world.getBlockState(this.targetBlock).getBlock();
-            this.entity.getNavigator().tryMoveToXYZ(this.targetBlock.getX(), this.targetBlock.getY() + 1, this.targetBlock.getZ(), 1.0D);
+            this.entity.getNavigator().tryMoveToXYZ(this.targetBlock.getX(), this.targetBlock.getY() + 1, this.targetBlock.getZ(), 0.75D);
             if (entity instanceof BlockBirdfeeder) {
                 BlockBirdfeeder feeder = (BlockBirdfeeder) entity;
                 double distance = this.entity.getDistance(this.targetBlock.getX(), this.targetBlock.getY(), this.targetBlock.getZ());

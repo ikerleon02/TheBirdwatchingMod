@@ -68,10 +68,22 @@
       "conditions": {
         "entity": 9
       }
+    },
+    "kingofsaxony": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 10
+      }
+    },
+    "motmot": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 11
+      }
     }
   },
 
   "requirements": [
-    ["nightjar", "bullfinch", "bluetail", "eider", "bluebird", "killdeer", "mockingbird", "heron", "hoatzin"]
+    ["nightjar", "bullfinch", "bluetail", "eider", "bluebird", "killdeer", "mockingbird", "heron", "hoatzin", "kingofsaxony", "motmot"]
   ]
 }

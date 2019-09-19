@@ -37,13 +37,13 @@ public class RenderNorthernMockingbird extends RenderBirdBase<EntityNorthernMock
         if(entitylivingbaseIn.isChild()){
             float scaleFactor= 0.15F;
 
-            GlStateManager.translate(0F, -0.05, 0F);
+            GlStateManager.translate(0F, -0.025, 0F);
             GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
         }
         else {
             float scaleFactor = 0.3F;
 
-            GlStateManager.translate(0F, -0.05, 0F);
+            GlStateManager.translate(0F, -0.025, 0F);
             GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
         }
     }

@@ -29,7 +29,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.soggymustache.bookworm.util.BookwormUtils;
 
+import java.lang.annotation.RetentionPolicy;
 import java.util.List;
+
+import static java.lang.annotation.ElementType.METHOD;
 
 public class ItemBinocular extends Item{
 
@@ -103,15 +106,17 @@ public class ItemBinocular extends Item{
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
-
-		Minecraft.getMinecraft().gameSettings.fovSetting = this.zoom;
-		Minecraft.getMinecraft().gameSettings.smoothCamera = true;
+		if(worldIn.isRemote) {
+			Minecraft.getMinecraft().gameSettings.fovSetting = this.zoom;
+			Minecraft.getMinecraft().gameSettings.smoothCamera = true;
+		}
 		zoomed = true;
 		playerIn.setActiveHand(handIn);
 
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
 	}
 
+	@SuppressWarnings("java.lang.NoClassDefFoundError")
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 		if (entityLiving instanceof EntityPlayer) {
@@ -120,7 +125,6 @@ public class ItemBinocular extends Item{
 				Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
 			} else {
 				Minecraft.getMinecraft().gameSettings.fovSetting = 70;
-				System.out.println("[TheBirdwatchingMod] Binocular error happened (FOV not restored. Setting FOV to normal)");
 			}
 			Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 		}

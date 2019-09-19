@@ -21,6 +21,11 @@ public class SoundHandler {
     public static SoundEvent MOCKINGBIRD_CALL;
     public static SoundEvent HERON_FLYING;
 
+    public static SoundEvent HOATZIN_CALL;
+    public static SoundEvent KINGOFSAXONY_CALL;
+    public static SoundEvent KINGOFSAXONY_SONG;
+    public static SoundEvent MOTMOT_CALL;
+
     public static void registerSounds() {
         size=SoundEvent.REGISTRY.getKeys().size();
 
@@ -37,6 +42,11 @@ public class SoundHandler {
         MOCKINGBIRD_SONG = registerSound("entity.nmockingbird_song");
         MOCKINGBIRD_CALL = registerSound("entity.nmockingbird_call");
         HERON_FLYING = registerSound("entity.gheron_flying");
+
+        HOATZIN_CALL = registerSound("entity.hoatzin_call");
+        KINGOFSAXONY_CALL = registerSound("entity.kingofsaxony_call");
+        KINGOFSAXONY_SONG = registerSound("entity.kingofsaxony_song");
+        MOTMOT_CALL = registerSound("entity.motmot_call");
     }
 
     private static SoundEvent registerSound(String s) { ResourceLocation l = new ResourceLocation("birdwmod:" + s);

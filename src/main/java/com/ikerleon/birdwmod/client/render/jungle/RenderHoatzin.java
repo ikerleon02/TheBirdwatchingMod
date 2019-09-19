@@ -33,12 +33,13 @@ public class RenderHoatzin extends RenderBirdBase<EntityHoatzin> {
         if(entitylivingbaseIn.isChild()){
             float scaleFactor= 0.3F;
 
+            GlStateManager.translate(0F, -0.075, 0F);
             GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
         }
         else {
-            float scaleFactor = 0.6F;
+            float scaleFactor = 0.5F;
 
-            GlStateManager.translate(0F, -0.1, 0F);
+            GlStateManager.translate(0F, -0.075, 0F);
             GlStateManager.scale(scaleFactor, scaleFactor, scaleFactor);
         }
     }
@@ -117,10 +118,10 @@ public class RenderHoatzin extends RenderBirdBase<EntityHoatzin> {
                     if (!hoatzin.onGround && !hoatzin.isInWater() && !hoatzin.isChild()) {
                         this.getModel().interpolateToPose(RenderHoatzin.HOATZIN_FLYING, hoatzin.timer);
 
-                        this.rightwing.rotateAngleX = MathHelper.cos(hoatzin.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 2.5F * 0.5f;
-                        this.leftwing.rotateAngleX = MathHelper.cos(hoatzin.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 2.5F * 0.5f;
-                        this.rightwing.rotateAngleZ = MathHelper.cos(hoatzin.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 3F * 0.5f;
-                        this.leftwing.rotateAngleZ = MathHelper.cos(hoatzin.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f - 3F * 0.5f;
+                        this.rightwing.rotateAngleX = MathHelper.cos(hoatzin.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - (float)Math.toRadians(165);
+                        this.leftwing.rotateAngleX = MathHelper.cos(hoatzin.ticksExisted * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f  - (float)Math.toRadians(165);
+                        this.rightwing.rotateAngleY = MathHelper.cos(hoatzin.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + (float)Math.toRadians(85);
+                        this.leftwing.rotateAngleY = MathHelper.cos(hoatzin.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f - (float)Math.toRadians(85);
                         this.rightwing2.rotateAngleY = MathHelper.cos(hoatzin.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * 1 * 0.5f + 0 * 0.5f;
                         this.leftwing2.rotateAngleY = MathHelper.cos(hoatzin.ticksExisted * 0.3f * globalSpeed + 0) * 0.4f * globalDegree * -1 * 0.5f + 0 * 0.5f;
 
