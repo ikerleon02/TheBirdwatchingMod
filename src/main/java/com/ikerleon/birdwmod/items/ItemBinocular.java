@@ -74,30 +74,6 @@ public class ItemBinocular extends Item{
 					Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 				}
 			}
-			else {
-				if (zoomed) {
-					List<Entity> Entitylist = worldIn.getLoadedEntityList();
-
-					for (int i = 0; i < Entitylist.size(); i++) {
-						Entity Ent = Entitylist.get(i);
-
-						if (Ent instanceof EntityBird) {
-							Vec3d vec3d = playerIn.getLookVec();
-							Vec3d vec3d1 = new Vec3d(Ent.posX - playerIn.posX, Ent.getEntityBoundingBox().minY + (double) Ent.getEyeHeight() - (playerIn.posY + (double) playerIn.getEyeHeight()), Ent.posZ - playerIn.posZ);
-							double d0 = vec3d1.lengthVector();
-							vec3d1 = vec3d1.normalize();
-							double d1 = vec3d.dotProduct(vec3d1);
-
-							if (d1 > 1.0D - 0.025D / d0 ? playerIn.canEntityBeSeen(Ent) : false) {
-								if (playerIn instanceof EntityPlayerMP) {
-									System.out.println(d1);
-									ModAdvancementTriggers.ORNITHOLOGY101.trigger((EntityPlayerMP) playerIn, 2);
-								}
-							}
-						}
-					}
-				}
-			}
 		}
 
 		super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
@@ -116,17 +92,18 @@ public class ItemBinocular extends Item{
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
 	}
 
-	@SuppressWarnings("java.lang.NoClassDefFoundError")
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 		if (entityLiving instanceof EntityPlayer) {
 			zoomed = false;
-			if (stack.getTagCompound().getFloat("fov") != 0) {
-				Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
-			} else {
-				Minecraft.getMinecraft().gameSettings.fovSetting = 70;
+			if(worldIn.isRemote) {
+				if (stack.getTagCompound().getFloat("fov") != 0) {
+					Minecraft.getMinecraft().gameSettings.fovSetting = stack.getTagCompound().getFloat("fov");
+				} else {
+					Minecraft.getMinecraft().gameSettings.fovSetting = 70;
+				}
+				Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 			}
-			Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 		}
 	}
 

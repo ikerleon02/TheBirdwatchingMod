@@ -3,6 +3,7 @@ package com.ikerleon.birdwmod.events;
 import com.google.common.base.Predicate;
 import com.ikerleon.birdwmod.Reference;
 import com.ikerleon.birdwmod.advancements.ModAdvancementTriggers;
+import com.ikerleon.birdwmod.entity.EntityBird;
 import com.ikerleon.birdwmod.entity.europe.EntityEurasianBullfinch;
 import com.ikerleon.birdwmod.entity.europe.EntityRedFlankedBluetail;
 import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
@@ -14,6 +15,7 @@ import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
 import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
+import com.ikerleon.birdwmod.items.ItemBinocular;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -27,6 +29,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.soggymustache.bookworm.util.BookwormUtils;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID)
 public class BirdWatchingEventHandler {
@@ -36,11 +39,6 @@ public class BirdWatchingEventHandler {
         EntityPlayer player = (EntityPlayer) e.player;
         if (player.world.isRemote)
             return;
-        ItemStack itemstack = player.inventory.armorInventory.get(3);
-
-        if (itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
-            ModAdvancementTriggers.BIRDBOX.trigger((EntityPlayerMP) player, 2);
-        }
 
         Vec3d vec3 = player.getPositionEyes(1.0F);
         Vec3d vec3a = player.getLook(1.0F);
@@ -53,9 +51,22 @@ public class BirdWatchingEventHandler {
                 return true;
             }
         });
-
         if(ee == null)
             return;
+        if(ee instanceof EntityBird) {
+            ItemStack itemstack = player.inventory.armorInventory.get(3);
+
+            if (itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
+                ModAdvancementTriggers.BIRDBOX.trigger((EntityPlayerMP) player, 2);
+            }
+            if (player.getHeldItem(player.getActiveHand()).getItem() instanceof ItemBinocular) {
+                ItemBinocular binos = (ItemBinocular) player.getHeldItem(player.getActiveHand()).getItem();
+
+                if (binos.zoomed) {
+                    ModAdvancementTriggers.ORNITHOLOGY101.trigger((EntityPlayerMP) player, 2);
+                }
+            }
+        }
         if (ee instanceof EntityRedNeckedNightjar) {
             ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 1);
         }

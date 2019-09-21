@@ -8,6 +8,10 @@ entity.killdeer.name=Chorlitejo Culirrojo
 entity.northern_mockingbird.name=Sisonte Norteño
 entity.green_heron.name=Garcita Verdosa
 
+entity.hoatzin.name=Hoacin
+entity.turquoisebrowed_motmot.name=Momoto Cejiazul
+entity.kingofsaxony_bird_of_paradise.name=Ave Del Paraiso Rey De Sajonia
+
 item.binocular_basic.name=Primáticos Básicos
 item.binocular_medium.name=Primáticos Normales
 item.binocular_pro.name=Primáticos Pro
@@ -25,6 +29,10 @@ item.feather_redflanckedbluetailfemale.name=Pluma De Hembra De Coliazul Cejiblan
 item.feather_redneckednightjar.name=Pluma De Chotacabras Cuellirojo
 item.feather_stellerseidermale.name=Pluma De Macho De Eider Chico
 item.feather_stellerseiderfemale.name=Pluma De Hembra De Eider Chico
+item.feather_kingofsaxonymale.name=Pluma De Macho De Ave Del Paraiso Rey De Sajonia
+item.feather_kingofsaxonyfemale.name=Pluma De Hembra De Ave Del Paraiso Rey De Sajonia
+item.feather_motmot.name=Turquoise-Pluma De Momoto Cejiazul
+item.feather_hoatzin.name=Pluma De Hoacin
 
 item.meatraw_duck.name=Carne De Pato Cruda
 item.meatraw_heron.name=Carne De Garza Cruda
