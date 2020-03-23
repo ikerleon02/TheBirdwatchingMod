@@ -38,22 +38,7 @@ public class ClientProxy extends CommonProxy{
 
 	@Override
 	public void registerRenders(){
-		BirdwmodItems.registerItemRenders();
-		BirdwmodBlocks.registerRenders();
-		//EUROPE
-		RenderingRegistry.registerEntityRenderingHandler(EntityRedNeckedNightjar.class, RenderRedNeckedNightjar::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityEurasianBullfinch.class, RenderEurasianBullfinch::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityRedFlankedBluetail.class,RenderRedFlankedBluetail::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityStellersEider.class, RenderStellersEider::new);
-		//AMERICA
-		RenderingRegistry.registerEntityRenderingHandler(EntityKilldeer.class, RenderKilldeer::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityEasternBluebird.class, RenderEasternBluebird::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityNorthernMockingbird.class, RenderNorthernMockingbird::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityGreenHeron.class, RenderGreenHeron::new);
-		//JUNGLE
-		RenderingRegistry.registerEntityRenderingHandler(EntityHoatzin.class, RenderHoatzin::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityKingofSaxony.class, RenderKingofSaxony::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityTurquoiseBrowedMotmot.class, RenderTurquoiseBrowedMotmot::new);
+
 	}
 
 	@Override

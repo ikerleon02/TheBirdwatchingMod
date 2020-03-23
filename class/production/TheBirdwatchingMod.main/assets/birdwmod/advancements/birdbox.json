@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:pumpkin"
+    },
+    "title": "Birdbox",
+    "description": "Look at a bird through a pumpkin",
+    "frame": "task"
+  },
+
+  "parent": "birdwmod:ornithology101",
+
+  "rewards": {
+    "experience": 500
+  },
+
+  "criteria": {
+    "iswatchingbirdthoughpumpkin": {
+      "trigger": "birdwmod:birdbox"
+    }
+  },
+
+  "requirements": [
+    ["iswatchingbirdthoughpumpkin"]
+  ]
+}

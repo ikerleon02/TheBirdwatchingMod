@@ -1,0 +1,51 @@
+entity.rednecked_nightjar.name=Engoulevent À Collier Roux
+entity.eurasian_bullfinch.name=Bouvreuil Pivoine
+entity.redflanked_bluetail.name=Rossignol À Flancs Roux
+entity.stellers_eider.name=Eider De Steller
+
+entity.eastern_bluebird.name=Merlebleu De L'Est
+entity.killdeer.name=Pluvier Kildir
+entity.northern_mockingbird.name=Moqueur Polyglotte
+entity.green_heron.name=Héron Vert
+
+entity.hoatzin.name=Hoazin
+entity.turquoisebrowed_motmot.name=Motmot a Sourcils Bleus
+entity.kingofsaxony_bird_of_paradise.name=Paradisier du Prince Albert
+
+item.binocular_basic.name=Jumelles De Base
+item.binocular_medium.name=Jumelles Normales
+item.binocular_pro.name=Jumelles Pro
+item.bird_guide.name=Guide Des Oiseaux
+
+item.feather_easternbluebirdmale.name=Plume De Mâle De Merlebleu De L'Est
+item.feather_easternbluebirdfemale.name=Plume De Femelle De Merlebleu De L'Est
+item.feather_eurasianbullfinchmale.name=Plume De Mâle De Bouvreuil Pivoine
+item.feather_eurasianbullfinchfemale.name=Plume De Femelle De Bouvreuil Pivoine
+item.feather_greenheron.name=Plume De Héron Vert
+item.feather_killdeer.name=Plume De Pluvier Kildir
+item.feather_northernmockingbird.name=Plume De Moqueur Polyglotte
+item.feather_redflanckedbluetailmale.name=Plume De Mâle De Rossignol À Flancs Roux
+item.feather_redflanckedbluetailfemale.name=Plume De Femelle De Rossignol À Flancs Roux
+item.feather_redneckednightjar.name=Plume De Engoulevent À Collier Roux
+item.feather_stellerseidermale.name=Plume De Mâle De Eider De Steller
+item.feather_stellerseiderfemale.name=Plume De Femelle De Eider De Steller
+item.feather_kingofsaxonymale.name=Plume De Mâle De Paradisier du Prince Albert
+item.feather_kingofsaxonyfemale.name=Plume De Femelle De Paradisier du Prince Albert
+item.feather_motmot.name=Plume De Motmot a Sourcils Bleus
+item.feather_hoatzin.name=Plume De Hoazin
+
+item.meatraw_duck.name=Viande De Canard Crue
+item.meatraw_heron.name=Viande De Héron Crue
+item.meatraw_nightjar.name=Viande De Engoulevent Crue
+item.meatraw_passerine.name=Viande De Passerine Crue
+item.meatraw_wader.name=Viande De Limicola Crue
+
+item.meatcooked_duck.name=Viande De Canard Cuite
+item.meatcooked_heron.name=Viande De Héron Cuite
+item.meatcooked_nightjar.name=Viande De Engoulevent Cuite
+item.meatcooked_passerine.name=Viande De Passerine Cuite
+item.meatcooked_wader.name=Viande De Limicola Cuite
+
+tile.birdfeeder.name=Mangeoire pour les oiseaux
+
+itemGroup.birdwatchingmodtab=The Birdwatching Mod

@@ -1,7 +1,32 @@
 package com.ikerleon.birdwmod;
 
 import com.ikerleon.birdwmod.advancements.ModAdvancementTriggers;
+import com.ikerleon.birdwmod.client.render.europe.RenderEurasianBullfinch;
+import com.ikerleon.birdwmod.client.render.europe.RenderRedFlankedBluetail;
+import com.ikerleon.birdwmod.client.render.europe.RenderRedNeckedNightjar;
+import com.ikerleon.birdwmod.client.render.europe.RenderStellersEider;
+import com.ikerleon.birdwmod.client.render.jungle.RenderHoatzin;
+import com.ikerleon.birdwmod.client.render.jungle.RenderKingofSaxony;
+import com.ikerleon.birdwmod.client.render.jungle.RenderTurquoiseBrowedMotmot;
+import com.ikerleon.birdwmod.client.render.northamerica.RenderEasternBluebird;
+import com.ikerleon.birdwmod.client.render.northamerica.RenderGreenHeron;
+import com.ikerleon.birdwmod.client.render.northamerica.RenderKilldeer;
+import com.ikerleon.birdwmod.client.render.northamerica.RenderNorthernMockingbird;
+import com.ikerleon.birdwmod.entity.europe.EntityEurasianBullfinch;
+import com.ikerleon.birdwmod.entity.europe.EntityRedFlankedBluetail;
+import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
+import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
+import com.ikerleon.birdwmod.entity.jungle.EntityHoatzin;
+import com.ikerleon.birdwmod.entity.jungle.EntityKingofSaxony;
+import com.ikerleon.birdwmod.entity.jungle.EntityTurquoiseBrowedMotmot;
+import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
+import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
+import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
+import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
 import com.ikerleon.birdwmod.init.BirdwmodBlocks;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -46,5 +71,30 @@ public class Main {
 	@EventHandler
 	public static void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
+	}
+
+	@Mod.EventBusSubscriber(modid = Reference.MODID)
+	public static class Handlers {
+
+		@SideOnly(Side.CLIENT)
+		@SubscribeEvent
+		public static void registerRenders(ModelRegistryEvent e) {
+			BirdwmodItems.registerItemRenders();
+			BirdwmodBlocks.registerRenders();
+			//EUROPE
+			RenderingRegistry.registerEntityRenderingHandler(EntityRedNeckedNightjar.class, RenderRedNeckedNightjar::new);
+			RenderingRegistry.registerEntityRenderingHandler(EntityEurasianBullfinch.class, RenderEurasianBullfinch::new);
+			RenderingRegistry.registerEntityRenderingHandler(EntityRedFlankedBluetail.class, RenderRedFlankedBluetail::new);
+			RenderingRegistry.registerEntityRenderingHandler(EntityStellersEider.class, RenderStellersEider::new);
+			//AMERICA
+			RenderingRegistry.registerEntityRenderingHandler(EntityKilldeer.class, RenderKilldeer::new);
+			RenderingRegistry.registerEntityRenderingHandler(EntityEasternBluebird.class, RenderEasternBluebird::new);
+			RenderingRegistry.registerEntityRenderingHandler(EntityNorthernMockingbird.class, RenderNorthernMockingbird::new);
+			RenderingRegistry.registerEntityRenderingHandler(EntityGreenHeron.class, RenderGreenHeron::new);
+			//JUNGLE
+			RenderingRegistry.registerEntityRenderingHandler(EntityHoatzin.class, RenderHoatzin::new);
+			RenderingRegistry.registerEntityRenderingHandler(EntityKingofSaxony.class, RenderKingofSaxony::new);
+			RenderingRegistry.registerEntityRenderingHandler(EntityTurquoiseBrowedMotmot.class, RenderTurquoiseBrowedMotmot::new);
+		}
 	}
 }
