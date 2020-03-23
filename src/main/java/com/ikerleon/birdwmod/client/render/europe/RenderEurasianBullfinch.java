@@ -29,7 +29,7 @@ public class RenderEurasianBullfinch extends RenderBirdBase<EntityEurasianBullfi
 
     public RenderEurasianBullfinch(RenderManager manager) {
         super(manager, EURASIAN_BULLFINCH, 0.15F);
-        EURASIAN_BULLFINCH.setAnimator(new RenderEurasianBullfinch.EurasianBullfinchAnimator(EURASIAN_BULLFINCH));
+        EURASIAN_BULLFINCH.setAnimator(EurasianBullfinchAnimator::new);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class RenderEurasianBullfinch extends RenderBirdBase<EntityEurasianBullfi
                 float globalSpeed = 1.5f;
                 float globalDegree = 1.25F;
 
-                if(bullfinch.isSleeping()){
+                if(bullfinch.isSleeping() && bullfinch.onGround){
                     this.getModel().interpolateToPose(RenderEurasianBullfinch.EURASIAN_BULLFINCH_SLEEPING, bullfinch.timer);
 
                     this.body2.rotateAngleX = MathHelper.cos(bullfinch.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f - 0.25F * 0.5f;

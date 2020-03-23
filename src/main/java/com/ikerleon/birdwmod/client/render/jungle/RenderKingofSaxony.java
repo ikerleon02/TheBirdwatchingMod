@@ -14,9 +14,9 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 
 public class RenderKingofSaxony extends RenderBirdBase<EntityKingofSaxony> {
 
-    public static final ModelCMF KING_OF_SAXONY = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/king-of-saxony/kingofsaxony.cmf"));
-    public static final ModelCMF KING_OF_SAXONY_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/king-of-saxony/kingofsaxonyflying.cmf"));
-    public static final ModelCMF KING_OF_SAXONY_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/king-of-saxony/kingofsaxonysleeping.cmf"));
+    public static final ModelCMF KING_OF_SAXONY = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/king_of_saxony/kingofsaxony.cmf"));
+    public static final ModelCMF KING_OF_SAXONY_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/king_of_saxony/kingofsaxonyflying.cmf"));
+    public static final ModelCMF KING_OF_SAXONY_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/king_of_saxony/kingofsaxonysleeping.cmf"));
 
     public static final ResourceLocation TEXTUREMALE = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/kingofsaxonymale.png");
     public static final ResourceLocation TEXTUREFEMALE = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/kingofsaxonyfemale.png");
@@ -26,7 +26,7 @@ public class RenderKingofSaxony extends RenderBirdBase<EntityKingofSaxony> {
 
     public RenderKingofSaxony(RenderManager manager) {
         super(manager, KING_OF_SAXONY, 0.15F);
-        KING_OF_SAXONY.setAnimator(new RenderKingofSaxony.KingofSaxonyAnimator(KING_OF_SAXONY));
+        KING_OF_SAXONY.setAnimator(KingofSaxonyAnimator::new);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class RenderKingofSaxony extends RenderBirdBase<EntityKingofSaxony> {
                 float globalSpeed = 1.5f;
                 float globalDegree = 1.25F;
 
-                if(kingofSaxony.isSleeping()){
+                if(kingofSaxony.isSleeping() && kingofSaxony.onGround){
                     this.getModel().interpolateToPose(RenderKingofSaxony.KING_OF_SAXONY_SLEEPING, kingofSaxony.timer);
 
                     this.body2.rotateAngleX = MathHelper.cos(kingofSaxony.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f - 0.25F * 0.5f;

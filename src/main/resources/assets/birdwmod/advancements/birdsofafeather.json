@@ -134,10 +134,50 @@
           }
         ]
       }
+    },
+    "feather_hoatzin": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_hoatzin"
+          }
+        ]
+      }
+    },
+    "feather_motmot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_motmot"
+          }
+        ]
+      }
+    },
+    "feather_kingofsaxonymale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_kingofsaxonymale"
+          }
+        ]
+      }
+    },
+    "feather_kingofsaxonyfemale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "birdwmod:feather_kingofsaxonyfemale"
+          }
+        ]
+      }
     }
   },
 
   "requirements": [
-    ["feather_easternbluebirdfemale"], ["feather_easternbluebirdmale"], ["feather_eurasianbullfinchfemale"], ["feather_eurasianbullfinchmale"], ["feather_greenheron"], ["feather_killdeer"], ["feather_northernmockingbird"], ["feather_redflanckedbluetailfemale"], ["feather_redflanckedbluetailmale"], ["feather_redneckednightjar"], ["feather_stellerseiderfemale"], ["feather_stellerseidermale"]
+    ["feather_easternbluebirdfemale"], ["feather_easternbluebirdmale"], ["feather_eurasianbullfinchfemale"], ["feather_eurasianbullfinchmale"], ["feather_greenheron"], ["feather_killdeer"], ["feather_northernmockingbird"], ["feather_redflanckedbluetailfemale"], ["feather_redflanckedbluetailmale"], ["feather_redneckednightjar"], ["feather_stellerseiderfemale"], ["feather_stellerseidermale"], ["feather_hoatzin"], ["feather_motmot"], ["feather_kingofsaxonymale"], ["feather_kingofsaxonyfemale"]
   ]
 }

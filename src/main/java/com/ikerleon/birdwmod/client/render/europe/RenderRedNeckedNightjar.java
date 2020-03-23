@@ -30,7 +30,7 @@ public class RenderRedNeckedNightjar extends RenderBirdBase<EntityRedNeckedNight
 
 	public RenderRedNeckedNightjar(RenderManager manager) {
 		super(manager, RED_NECKED_NIGHTJAR, 0.3F);
-		RED_NECKED_NIGHTJAR.setAnimator(new RenderRedNeckedNightjar.RedNeckedNightjarAnimator(RED_NECKED_NIGHTJAR));
+		RED_NECKED_NIGHTJAR.setAnimator(RedNeckedNightjarAnimator::new);
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class RenderRedNeckedNightjar extends RenderBirdBase<EntityRedNeckedNight
 				float globalSpeed = 1.5f;
 				float globalDegree = 1.25F;
 
-				if(nightjar.isSleeping()){
+				if(nightjar.isSleeping() && nightjar.onGround){
 					this.getModel().interpolateToPose(RenderRedNeckedNightjar.RED_NECKED_NIGHTJAR_SLEEPING, nightjar.timer);
 
 					this.body2.rotateAngleX = MathHelper.cos(nightjar.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f - 0.25F * 0.5f;

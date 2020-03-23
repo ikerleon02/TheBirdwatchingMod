@@ -20,9 +20,3 @@ build
 # other
 eclipse
 run
-
-enkey
-*.class
-*.exe
-*.jks
-*.dll

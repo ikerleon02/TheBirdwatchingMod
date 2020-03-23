@@ -3,6 +3,7 @@ package com.ikerleon.birdwmod.client.render.northamerica;
 import com.ikerleon.birdwmod.Reference;
 import com.ikerleon.birdwmod.client.render.RenderBirdBase;
 import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.soggymustache.bookworm.client.animation.part.BookwormModelRenderer;
 import net.soggymustache.bookworm.client.model.CMFAnimator;
 import net.soggymustache.bookworm.client.model.ModelCMF;
+import org.lwjgl.opengl.GL11;
 
 public class RenderNorthernMockingbird extends RenderBirdBase<EntityNorthernMockingbird> {
 
@@ -29,7 +31,7 @@ public class RenderNorthernMockingbird extends RenderBirdBase<EntityNorthernMock
 
     public RenderNorthernMockingbird(RenderManager manager) {
         super(manager, NORTHERN_MOCKINGBIRD, 0.3F);
-        NORTHERN_MOCKINGBIRD.setAnimator(new RenderNorthernMockingbird.NorthernMockingbirdAnimator(NORTHERN_MOCKINGBIRD));
+        NORTHERN_MOCKINGBIRD.setAnimator(NorthernMockingbirdAnimator::new);
     }
 
     @Override
@@ -103,7 +105,7 @@ public class RenderNorthernMockingbird extends RenderBirdBase<EntityNorthernMock
                 float globalDegree = 1.25F;
 
 
-                if(mockingbird.isSleeping()){
+                if(mockingbird.isSleeping() && mockingbird.onGround){
                     this.getModel().interpolateToPose(RenderNorthernMockingbird.NORTHERN_MOCKINGBIRD_SLEEPING, mockingbird.timer);
 
                     this.body2.rotateAngleX = MathHelper.cos(mockingbird.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f + 3.25F * 0.5f;

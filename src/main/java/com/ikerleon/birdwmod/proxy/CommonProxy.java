@@ -78,6 +78,10 @@ public class CommonProxy {
 		OreDictionary.registerOre("feather", BirdwmodItems.REDNECKEDNIGHTJARFEATHER);
 		OreDictionary.registerOre("feather", BirdwmodItems.STELLERSEIDERFEATHER_FEMALE);
 		OreDictionary.registerOre("feather", BirdwmodItems.STELLERSEIDERFEATHER_MALE);
+		OreDictionary.registerOre("feather", BirdwmodItems.HOATZINFEATHER);
+		OreDictionary.registerOre("feather", BirdwmodItems.KINGOFSAXONYFEATHER_MALE);
+		OreDictionary.registerOre("feather", BirdwmodItems.KINGOFSAXONYFEATHER_FEMALE);
+		OreDictionary.registerOre("feather", BirdwmodItems.MOTMOTFEATHER);
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(Main.instance, new GuiHandler());
 

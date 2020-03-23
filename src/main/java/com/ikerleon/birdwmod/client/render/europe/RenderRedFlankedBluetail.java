@@ -30,7 +30,7 @@ public class RenderRedFlankedBluetail extends RenderBirdBase<EntityRedFlankedBlu
 
 	public RenderRedFlankedBluetail(RenderManager manager) {
 		super(manager, RED_FLANKED_BLUETAIL, 0.15F);
-		RED_FLANKED_BLUETAIL.setAnimator(new RenderRedFlankedBluetail.RedFlankedBluetailAnimator(RED_FLANKED_BLUETAIL));
+		RED_FLANKED_BLUETAIL.setAnimator(RedFlankedBluetailAnimator::new);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class RenderRedFlankedBluetail extends RenderBirdBase<EntityRedFlankedBlu
 				float globalSpeed = 1.5f;
 				float globalDegree = 1.25F;
 
-				if(bluetail.isSleeping()){
+				if(bluetail.isSleeping() && bluetail.onGround){
 					this.getModel().interpolateToPose(RenderRedFlankedBluetail.RED_FLANKED_BLUETAIL_SLEEPING, bluetail.timer);
 
 					this.body2.rotateAngleX = MathHelper.cos(bluetail.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f - 0.25F * 0.5f;

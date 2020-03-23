@@ -30,7 +30,7 @@ public class RenderGreenHeron extends RenderBirdBase<EntityGreenHeron> {
 
     public RenderGreenHeron(RenderManager manager) {
         super(manager, GREEN_HERON, 0.3F);
-        GREEN_HERON.setAnimator(new RenderGreenHeron.GreenHeronAnimator(GREEN_HERON));
+        GREEN_HERON.setAnimator(GreenHeronAnimator::new);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class RenderGreenHeron extends RenderBirdBase<EntityGreenHeron> {
                 float globalSpeed = 1.5f;
                 float globalDegree = 1.25F;
 
-                if(heron.isSleeping()){
+                if(heron.isSleeping() && heron.onGround){
                     this.getModel().interpolateToPose(RenderGreenHeron.GREEN_HERON_SLEEPING, heron.timer);
 
                     this.Tailtop.rotateAngleX = MathHelper.cos(heron.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f - 0.25F * 0.5f;

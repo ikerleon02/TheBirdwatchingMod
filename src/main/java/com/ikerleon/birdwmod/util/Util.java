@@ -24,6 +24,6 @@ import java.util.List;
 
 public class Util {
 
-	public static final ResourceLocation NOTHING = BookwormRenderUtils.none;
+	public static final ResourceLocation NOTHING = BookwormRenderUtils.NONE;
 
 }

@@ -30,7 +30,7 @@ public class RenderStellersEider extends RenderBirdBase<EntityStellersEider> {
 
     public RenderStellersEider(RenderManager manager) {
         super(manager, STELLERS_EIDER, 0.15F);
-        STELLERS_EIDER.setAnimator(new StellersEiderAnimator(STELLERS_EIDER));
+        STELLERS_EIDER.setAnimator(StellersEiderAnimator::new);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class RenderStellersEider extends RenderBirdBase<EntityStellersEider> {
                 float globalSpeed = 1.5f;
                 float globalDegree = 1.25F;
 
-                if(eider.isSleeping()){
+                if(eider.isSleeping() && eider.onGround){
                     this.getModel().interpolateToPose(RenderStellersEider.STELLERS_EIDER_SLEEPING, eider.timer);
 
                     this.body2.rotateAngleX = MathHelper.cos(eider.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f + 0.25F * 0.5f;

@@ -31,7 +31,7 @@ public class RenderKilldeer extends RenderBirdBase<EntityKilldeer> {
 
 	public RenderKilldeer(RenderManager manager) {
 		super(manager, KILLDEER, 0.3F);
-		KILLDEER.setAnimator(new RenderKilldeer.KilldeerAnimator(KILLDEER));
+		KILLDEER.setAnimator(KilldeerAnimator::new);
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class RenderKilldeer extends RenderBirdBase<EntityKilldeer> {
 				float globalSpeed = 1.5f;
 				float globalDegree = 1.25F;
 
-				if(killdeer.isSleeping()){
+				if(killdeer.isSleeping() && killdeer.onGround){
 					this.getModel().interpolateToPose(RenderKilldeer.KILLDEER_SLEEPING, killdeer.timer);
 
 					this.body2.rotateAngleX = MathHelper.cos(killdeer.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f + 2.75F * 0.5f;

@@ -26,7 +26,7 @@ public class RenderTurquoiseBrowedMotmot extends RenderBirdBase<EntityTurquoiseB
 
     public RenderTurquoiseBrowedMotmot(RenderManager manager) {
         super(manager, TURQUOISEBROWED_MOTMOT, 0.3F);
-        TURQUOISEBROWED_MOTMOT.setAnimator(new RenderTurquoiseBrowedMotmot.MotmotAnimator(TURQUOISEBROWED_MOTMOT));
+        TURQUOISEBROWED_MOTMOT.setAnimator(MotmotAnimator::new);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class RenderTurquoiseBrowedMotmot extends RenderBirdBase<EntityTurquoiseB
                 float globalDegree = 1.25F;
 
 
-                if(motmot.isSleeping()){
+                if(motmot.isSleeping() && motmot.onGround){
                     this.getModel().interpolateToPose(RenderTurquoiseBrowedMotmot.TURQUOISEBROWED_MOTMOT_SLEEPING, motmot.timer);
 
                     this.body2.rotateAngleX = MathHelper.cos(motmot.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f + (float)Math.toRadians(-2.5);

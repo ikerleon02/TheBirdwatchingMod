@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.soggymustache.bookworm.client.animation.part.BookwormModelRenderer;
 import net.soggymustache.bookworm.client.model.CMFAnimator;
 import net.soggymustache.bookworm.client.model.ModelCMF;
@@ -30,7 +29,7 @@ public class RenderEasternBluebird extends RenderBirdBase<EntityEasternBluebird>
 
 	public RenderEasternBluebird(RenderManager manager) {
 		super(manager, EASTERN_BLUEBIRD, 0.2F);
-		EASTERN_BLUEBIRD.setAnimator(new RenderEasternBluebird.EasternBluebirdAnimator(EASTERN_BLUEBIRD));
+		EASTERN_BLUEBIRD.setAnimator(EasternBluebirdAnimator::new);
 	}
 
 	@Override
@@ -94,7 +93,7 @@ public class RenderEasternBluebird extends RenderBirdBase<EntityEasternBluebird>
 				float globalSpeed = 1.5f;
 				float globalDegree = 1.25F;
 
-				if (bluebird.isSleeping()) {
+				if (bluebird.isSleeping() && bluebird.onGround) {
 					this.getModel().interpolateToPose(RenderEasternBluebird.EASTERN_BLUEBIRD_SLEEPING, bluebird.timer);
 
 					this.body2.rotateAngleX = MathHelper.cos(bluebird.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f - 0.25F * 0.5f;

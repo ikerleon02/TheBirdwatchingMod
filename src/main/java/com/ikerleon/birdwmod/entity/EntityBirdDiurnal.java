@@ -11,7 +11,7 @@ public abstract class EntityBirdDiurnal extends EntityBird{
 	@Override
 	public void onLivingUpdate() {
 		if(this.onGround) {
-            setSleeping(world.getWorldTime() >= 12516.6);
+			setSleeping(world.getWorldTime() >= 12000 && world.getWorldTime() <= 23000);
 		}
 		super.onLivingUpdate();
 	}

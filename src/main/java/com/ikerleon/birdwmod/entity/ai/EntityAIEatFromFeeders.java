@@ -57,7 +57,11 @@ public class EntityAIEatFromFeeders extends EntityAIBase {
 
     @Override
     public boolean shouldContinueExecuting() {
-        return !this.entity.isMovementBlocked() && targetBlock != null && this.entity.world.getBlockState(targetBlock).getBlock() instanceof BlockBirdfeeder;
+        if (entity.isSleeping()) {
+            return false;
+        } else {
+            return !this.entity.isMovementBlocked() && targetBlock != null && this.entity.world.getBlockState(targetBlock).getBlock() instanceof BlockBirdfeeder;
+        }
     }
 
     public void resetTask(){

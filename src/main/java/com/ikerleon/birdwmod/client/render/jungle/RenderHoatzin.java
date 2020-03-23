@@ -25,7 +25,7 @@ public class RenderHoatzin extends RenderBirdBase<EntityHoatzin> {
 
     public RenderHoatzin(RenderManager manager) {
         super(manager, HOATZIN, 0.3F);
-        HOATZIN.setAnimator(new HoatzinAnimator(HOATZIN));
+        HOATZIN.setAnimator(HoatzinAnimator::new);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class RenderHoatzin extends RenderBirdBase<EntityHoatzin> {
                 float globalDegree = 1.25F;
 
 
-                if (hoatzin.isSleeping()) {
+                if (hoatzin.isSleeping() && hoatzin.onGround) {
                     this.getModel().interpolateToPose(RenderHoatzin.HOATZIN_SLEEPING, hoatzin.timer);
 
                     this.body2.rotateAngleX = MathHelper.cos(hoatzin.ticksExisted * 0.17f) * 0.05F * 1 * 0.5f - 0.174533f;
