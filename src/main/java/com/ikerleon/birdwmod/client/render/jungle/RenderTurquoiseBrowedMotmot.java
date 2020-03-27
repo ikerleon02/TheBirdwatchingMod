@@ -14,9 +14,9 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 
 public class RenderTurquoiseBrowedMotmot extends RenderBirdBase<EntityTurquoiseBrowedMotmot> {
 
-    public static final ModelCMF TURQUOISEBROWED_MOTMOT = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/motmot/motmot.cmf"));
-    public static final ModelCMF TURQUOISEBROWED_MOTMOT_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/motmot/motmotflying.cmf"));
-    public static final ModelCMF TURQUOISEBROWED_MOTMOT_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/motmot/motmotsleeping.cmf"));
+    public static final ModelCMF TURQUOISEBROWED_MOTMOT = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/motmot/motmot.bkm"));
+    public static final ModelCMF TURQUOISEBROWED_MOTMOT_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/motmot/motmotflying.bkm"));
+    public static final ModelCMF TURQUOISEBROWED_MOTMOT_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/motmot/motmotsleeping.bkm"));
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/motmot.png");
     public static final ResourceLocation TEXTURE2 = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/motmot2.png");

@@ -17,9 +17,9 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 
 public class RenderEurasianBullfinch extends RenderBirdBase<EntityEurasianBullfinch> {
 
-    public static final ModelCMF EURASIAN_BULLFINCH = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eurasian_bullfinch/eurasian_bullfinch.cmf"));
-    public static final ModelCMF EURASIAN_BULLFINCH_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eurasian_bullfinch/eurasian_bullfinch_flying.cmf"));
-    public static final ModelCMF EURASIAN_BULLFINCH_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eurasian_bullfinch/eurasian_bullfinch_sleeping.cmf"));
+    public static final ModelCMF EURASIAN_BULLFINCH = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eurasian_bullfinch/eurasian_bullfinch.bkm"));
+    public static final ModelCMF EURASIAN_BULLFINCH_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eurasian_bullfinch/eurasian_bullfinch_flying.bkm"));
+    public static final ModelCMF EURASIAN_BULLFINCH_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eurasian_bullfinch/eurasian_bullfinch_sleeping.bkm"));
 
     public static final ResourceLocation TEXTUREMALE = new ResourceLocation(Reference.MODID + ":textures/entity/europe/eurasianbullfinchmale.png");
     public static final ResourceLocation TEXTUREFEMALE = new ResourceLocation(Reference.MODID + ":textures/entity/europe/eurasianbullfinchfemale.png");

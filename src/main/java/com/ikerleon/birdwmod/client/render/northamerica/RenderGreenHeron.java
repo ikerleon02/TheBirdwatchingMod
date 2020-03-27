@@ -18,9 +18,9 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 
 public class RenderGreenHeron extends RenderBirdBase<EntityGreenHeron> {
 
-    public static final ModelCMF GREEN_HERON = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/green_heron/green_heron.cmf"));
-    public static final ModelCMF GREEN_HERON_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/green_heron/green_heron_flying.cmf"));
-    public static final ModelCMF GREEN_HERON_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/green_heron/green_heron_sleeping.cmf"));
+    public static final ModelCMF GREEN_HERON = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/green_heron/green_heron.bkm"));
+    public static final ModelCMF GREEN_HERON_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/green_heron/green_heron_flying.bkm"));
+    public static final ModelCMF GREEN_HERON_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/green_heron/green_heron_sleeping.bkm"));
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/greenheron.png");
     public static final ResourceLocation TEXTURE2 = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/greenheron2.png");

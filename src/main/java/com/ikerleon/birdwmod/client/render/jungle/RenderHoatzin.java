@@ -15,9 +15,9 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 
 public class RenderHoatzin extends RenderBirdBase<EntityHoatzin> {
 
-    public static final ModelCMF HOATZIN = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/hoatzin/hoatzin.cmf"));
-    public static final ModelCMF HOATZIN_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/hoatzin/hoatzin_flying.cmf"));
-    public static final ModelCMF HOATZIN_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/hoatzin/hoatzin_sleeping.cmf"));
+    public static final ModelCMF HOATZIN = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/hoatzin/hoatzin.bkm"));
+    public static final ModelCMF HOATZIN_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/hoatzin/hoatzin_flying.bkm"));
+    public static final ModelCMF HOATZIN_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/hoatzin/hoatzin_sleeping.bkm"));
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/hoatzin.png");
     public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/hoatzin_chick.png");

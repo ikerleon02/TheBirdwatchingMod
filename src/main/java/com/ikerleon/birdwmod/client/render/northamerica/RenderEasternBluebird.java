@@ -18,9 +18,9 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 
 public class RenderEasternBluebird extends RenderBirdBase<EntityEasternBluebird> {
 
-	public static final ModelCMF EASTERN_BLUEBIRD = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eastern_bluebird/eastern_bluebird.cmf"));
-	public static final ModelCMF EASTERN_BLUEBIRD_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eastern_bluebird/eastern_bluebird_flying.cmf"));
-	public static final ModelCMF EASTERN_BLUEBIRD_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eastern_bluebird/eastern_bluebird_sleeping.cmf"));
+	public static final ModelCMF EASTERN_BLUEBIRD = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eastern_bluebird/eastern_bluebird.bkm"));
+	public static final ModelCMF EASTERN_BLUEBIRD_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eastern_bluebird/eastern_bluebird_flying.bkm"));
+	public static final ModelCMF EASTERN_BLUEBIRD_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/eastern_bluebird/eastern_bluebird_sleeping.bkm"));
 
 	public static final ResourceLocation TEXTUREMALE = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/easternbluebirdmale.png");
 	public static final ResourceLocation TEXTUREFEMALE = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/easternbluebirdfemale.png");

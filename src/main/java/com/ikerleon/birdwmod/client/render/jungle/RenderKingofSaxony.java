@@ -14,9 +14,9 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 
 public class RenderKingofSaxony extends RenderBirdBase<EntityKingofSaxony> {
 
-    public static final ModelCMF KING_OF_SAXONY = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/king_of_saxony/kingofsaxony.cmf"));
-    public static final ModelCMF KING_OF_SAXONY_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/king_of_saxony/kingofsaxonyflying.cmf"));
-    public static final ModelCMF KING_OF_SAXONY_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/king_of_saxony/kingofsaxonysleeping.cmf"));
+    public static final ModelCMF KING_OF_SAXONY = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/king_of_saxony/kingofsaxony.bkm"));
+    public static final ModelCMF KING_OF_SAXONY_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/king_of_saxony/kingofsaxonyflying.bkm"));
+    public static final ModelCMF KING_OF_SAXONY_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/king_of_saxony/kingofsaxonysleeping.bkm"));
 
     public static final ResourceLocation TEXTUREMALE = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/kingofsaxonymale.png");
     public static final ResourceLocation TEXTUREFEMALE = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/kingofsaxonyfemale.png");

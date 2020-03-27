@@ -19,9 +19,9 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 
 public class RenderRedFlankedBluetail extends RenderBirdBase<EntityRedFlankedBluetail> {
 
-	public static final ModelCMF RED_FLANKED_BLUETAIL = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_flanked_bluetail/red_flanked_bluetail.cmf"));
-	public static final ModelCMF RED_FLANKED_BLUETAIL_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_flanked_bluetail/red_flanked_bluetail_flying.cmf"));
-	public static final ModelCMF RED_FLANKED_BLUETAIL_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_flanked_bluetail/red_flanked_bluetail_sleeping.cmf"));
+	public static final ModelCMF RED_FLANKED_BLUETAIL = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_flanked_bluetail/red_flanked_bluetail.bkm"));
+	public static final ModelCMF RED_FLANKED_BLUETAIL_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_flanked_bluetail/red_flanked_bluetail_flying.bkm"));
+	public static final ModelCMF RED_FLANKED_BLUETAIL_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_flanked_bluetail/red_flanked_bluetail_sleeping.bkm"));
 
 	public static final ResourceLocation TEXTUREMALE = new ResourceLocation(Reference.MODID + ":textures/entity/europe/redflankedbluetailmale.png");
 	public static final ResourceLocation TEXTUREFEMALE = new ResourceLocation(Reference.MODID + ":textures/entity/europe/redflankedbluetailfemale.png");

@@ -14,9 +14,9 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 
 public class RenderGreatGreyOwl extends RenderBirdBase<EntityGreatGreyOwl> {
 
-    public static final ModelCMF GREAT_GREY_OWL = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/great_grey_owl/great_grey_owl.cmf"));
-    public static final ModelCMF GREAT_GREY_OWL_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/great_grey_owl/great_grey_owl_flying.cmf"));
-    public static final ModelCMF GREAT_GREY_OWL_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/great_grey_owl/great_grey_owl_sleeping.cmf"));
+    public static final ModelCMF GREAT_GREY_OWL = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/great_grey_owl/great_grey_owl.bkm"));
+    public static final ModelCMF GREAT_GREY_OWL_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/great_grey_owl/great_grey_owl_flying.bkm"));
+    public static final ModelCMF GREAT_GREY_OWL_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/great_grey_owl/great_grey_owl_sleeping.bkm"));
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID + ":textures/entity/release160/greatgreyowl.png");
     public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/release160/greatgreyowl.png");

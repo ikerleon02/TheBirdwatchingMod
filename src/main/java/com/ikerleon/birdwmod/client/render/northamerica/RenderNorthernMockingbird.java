@@ -19,9 +19,9 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderNorthernMockingbird extends RenderBirdBase<EntityNorthernMockingbird> {
 
-    public static final ModelCMF NORTHERN_MOCKINGBIRD = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/northern_mockingbird/northern_mockingbird.cmf"));
-   public static final ModelCMF NORTHERN_MOCKINGBIRD_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/northern_mockingbird/northern_mockingbird_flying.cmf"));
-    public static final ModelCMF NORTHERN_MOCKINGBIRD_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/northern_mockingbird/northern_mockingbird_sleeping.cmf"));
+    public static final ModelCMF NORTHERN_MOCKINGBIRD = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/northern_mockingbird/northern_mockingbird.bkm"));
+   public static final ModelCMF NORTHERN_MOCKINGBIRD_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/northern_mockingbird/northern_mockingbird_flying.bkm"));
+    public static final ModelCMF NORTHERN_MOCKINGBIRD_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/northern_mockingbird/northern_mockingbird_sleeping.bkm"));
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/northernmockingbird.png");
     public static final ResourceLocation TEXTURE2 = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/northernmockingbird2.png");

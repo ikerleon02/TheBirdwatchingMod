@@ -15,10 +15,10 @@ import net.soggymustache.bookworm.client.model.ModelCMF;
 
 public class RenderSabinesGull extends RenderBirdBase<EntitySabinesGull> {
 
-    public static final ModelCMF SABINES_GULL = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/sabines_gull/sabines_gull.cmf"));
-    public static final ModelCMF SABINES_GULL_SWIMMING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/sabines_gull/sabines_gull_swimming.cmf"));
-    public static final ModelCMF SABINES_GULL_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/sabines_gull/sabines_gull_flying.cmf"));
-    public static final ModelCMF SABINES_GULL_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/sabines_gull/sabines_gull_sleeping.cmf"));
+    public static final ModelCMF SABINES_GULL = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/sabines_gull/sabines_gull.bkm"));
+    public static final ModelCMF SABINES_GULL_SWIMMING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/sabines_gull/sabines_gull_swimming.bkm"));
+    public static final ModelCMF SABINES_GULL_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/sabines_gull/sabines_gull_flying.bkm"));
+    public static final ModelCMF SABINES_GULL_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/sabines_gull/sabines_gull_sleeping.bkm"));
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID + ":textures/entity/release160/sabinesgull.png");
     public static final ResourceLocation TEXTURE2 = new ResourceLocation(Reference.MODID + ":textures/entity/release160/sabinesgull2.png");
