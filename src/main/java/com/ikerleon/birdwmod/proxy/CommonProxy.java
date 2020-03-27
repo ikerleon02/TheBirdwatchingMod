@@ -19,8 +19,6 @@ import com.ikerleon.birdwmod.util.BiomeDictionaryUtil;
 
 import com.ikerleon.birdwmod.util.handlers.GuiHandler;
 import com.ikerleon.birdwmod.util.handlers.SoundHandler;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
@@ -30,11 +28,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 public class CommonProxy {
 
@@ -99,6 +93,9 @@ public class CommonProxy {
 		EntityRegistry.addSpawn(EntityHoatzin.class, 10 , 1, 2, EnumCreatureType.CREATURE, BiomeDictionaryUtil.FusionBiomes(BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.JUNGLE), BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.SWAMP)));
 		EntityRegistry.addSpawn(EntityTurquoiseBrowedMotmot.class, 20 , 1, 5, EnumCreatureType.CREATURE, BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.JUNGLE));
 		EntityRegistry.addSpawn(EntityKingofSaxony.class, 15 , 1, 2, EnumCreatureType.CREATURE, BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.JUNGLE));
+		//ARCTIC
+		//EntityRegistry.addSpawn(EntitySabinesGull.class, 10 , 1, 8, EnumCreatureType.CREATURE, BiomeDictionaryUtil.FusionBiomes(BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.COLD), BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.OCEAN)));
+		EntityRegistry.addSpawn(EntityKingofSaxony.class, 15 , 1, 2, EnumCreatureType.CREATURE, BiomeDictionaryUtil.getBiomesFromTypes(BiomeDictionary.Type.COLD, BiomeDictionary.Type.FOREST));
 
 		BirdwmodCrafting.init(event);
 	}

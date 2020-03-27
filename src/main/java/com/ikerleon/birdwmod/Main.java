@@ -12,6 +12,7 @@ import com.ikerleon.birdwmod.client.render.northamerica.RenderEasternBluebird;
 import com.ikerleon.birdwmod.client.render.northamerica.RenderGreenHeron;
 import com.ikerleon.birdwmod.client.render.northamerica.RenderKilldeer;
 import com.ikerleon.birdwmod.client.render.northamerica.RenderNorthernMockingbird;
+import com.ikerleon.birdwmod.client.render.release160.RenderGreatGreyOwl;
 import com.ikerleon.birdwmod.entity.europe.EntityEurasianBullfinch;
 import com.ikerleon.birdwmod.entity.europe.EntityRedFlankedBluetail;
 import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
@@ -23,6 +24,7 @@ import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
 import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
+import com.ikerleon.birdwmod.entity.release160.EntityGreatGreyOwl;
 import com.ikerleon.birdwmod.init.BirdwmodBlocks;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -95,6 +97,9 @@ public class Main {
 			RenderingRegistry.registerEntityRenderingHandler(EntityHoatzin.class, RenderHoatzin::new);
 			RenderingRegistry.registerEntityRenderingHandler(EntityKingofSaxony.class, RenderKingofSaxony::new);
 			RenderingRegistry.registerEntityRenderingHandler(EntityTurquoiseBrowedMotmot.class, RenderTurquoiseBrowedMotmot::new);
+			//1.6.0
+			//RenderingRegistry.registerEntityRenderingHandler(EntitySabinesGull.class, RenderSabinesGull::new);
+			RenderingRegistry.registerEntityRenderingHandler(EntityGreatGreyOwl.class, RenderGreatGreyOwl::new);
 		}
 	}
 }

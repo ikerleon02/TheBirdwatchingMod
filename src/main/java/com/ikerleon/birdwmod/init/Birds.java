@@ -14,6 +14,7 @@ import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
 
 import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
+import com.ikerleon.birdwmod.entity.release160.EntityGreatGreyOwl;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
@@ -35,6 +36,9 @@ public class Birds {
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "hoatzin"), EntityHoatzin.class, "hoatzin", id++, Main.instance, 1024, 1, true, 0x6b5c3f, 0xe3a734);
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "turquoisebrowed_motmot"), EntityTurquoiseBrowedMotmot.class, "turquoisebrowed_motmot", id++, Main.instance, 1024, 1, true, 0x348c43, 0x23e8db);
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "kingofsaxony_bird_of_paradise"), EntityKingofSaxony.class, "kingofsaxony_bird_of_paradise", id++, Main.instance, 1024, 1, true, 0x171a17, 0xffdf29);
+		//1.6.0
+		//EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "sabines_gull"), EntitySabinesGull.class, "sabines_gull", id++, Main.instance, 1024, 1, true, 0xebebeb, 0x858585);
+		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "great_grey_owl"), EntityGreatGreyOwl.class, "great_grey_owl", id++, Main.instance, 1024, 1, true, 0x66686b, 0x989a9c);
 
 	}
 }
