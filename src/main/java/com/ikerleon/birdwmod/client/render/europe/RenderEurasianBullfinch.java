@@ -25,7 +25,7 @@ public class RenderEurasianBullfinch extends RenderBirdBase<EntityEurasianBullfi
     public static final ResourceLocation TEXTUREFEMALE = new ResourceLocation(Reference.MODID + ":textures/entity/europe/eurasianbullfinchfemale.png");
     public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/europe/eurasianbullfinch_chick.png");
     public static final ResourceLocation TEXTUREBLINK = new ResourceLocation(Reference.MODID + ":textures/entity/europe/eurasianbullfinch_sleeping.png");
-
+    private static final ResourceLocation PASSERINE_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/passerine_ring.png");
 
     public RenderEurasianBullfinch(RenderManager manager) {
         super(manager, EURASIAN_BULLFINCH, 0.15F);
@@ -50,6 +50,11 @@ public class RenderEurasianBullfinch extends RenderBirdBase<EntityEurasianBullfi
     public ResourceLocation getBlinkTexture(EntityEurasianBullfinch entity)
     {
         return TEXTUREBLINK;
+    }
+
+    @Override
+    public ResourceLocation getRingTexture(EntityEurasianBullfinch entity) {
+        return PASSERINE_RING;
     }
 
     @Override

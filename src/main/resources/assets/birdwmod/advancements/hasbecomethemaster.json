@@ -80,10 +80,22 @@
       "conditions": {
         "entity": 11
       }
+    },
+    "owl": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 12
+      }
+    },
+    "booby": {
+      "trigger": "birdwmod:documentbird",
+      "conditions": {
+        "entity": 13
+      }
     }
   },
 
   "requirements": [
-    ["nightjar"], ["bullfinch"], ["bluetail"], ["eider"], ["bluebird"], ["killdeer"], ["mockingbird"], ["heron"], ["hoatzin"], ["kingofsaxony"], ["motmot"]
+    ["nightjar"], ["bullfinch"], ["bluetail"], ["eider"], ["bluebird"], ["killdeer"], ["mockingbird"], ["heron"], ["hoatzin"], ["kingofsaxony"], ["motmot"], ["owl"], ["booby"]
   ]
 }

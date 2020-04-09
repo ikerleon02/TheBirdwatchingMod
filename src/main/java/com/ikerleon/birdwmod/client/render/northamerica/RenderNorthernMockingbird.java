@@ -28,6 +28,7 @@ public class RenderNorthernMockingbird extends RenderBirdBase<EntityNorthernMock
     public static final ResourceLocation TEXTURE3 = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/northernmockingbird3.png");
     public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/northernmockingbird_chick.png");
     public static final ResourceLocation TEXTUREBLINK = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/northernmockingbird_sleeping.png");
+    private final ResourceLocation MOCKINGBIRD_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/mockingbird_ring.png");
 
     public RenderNorthernMockingbird(RenderManager manager) {
         super(manager, NORTHERN_MOCKINGBIRD, 0.3F);
@@ -53,6 +54,11 @@ public class RenderNorthernMockingbird extends RenderBirdBase<EntityNorthernMock
     @Override
     public ResourceLocation getBlinkTexture(EntityNorthernMockingbird entity) {
         return TEXTUREBLINK;
+    }
+
+    @Override
+    public ResourceLocation getRingTexture(EntityNorthernMockingbird entity) {
+        return MOCKINGBIRD_RING;
     }
 
     @Override

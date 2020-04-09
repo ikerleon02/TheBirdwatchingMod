@@ -12,6 +12,8 @@ import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
 import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
+import com.ikerleon.birdwmod.entity.release160.EntityBrownBooby;
+import com.ikerleon.birdwmod.entity.release160.EntityGreatGreyOwl;
 import com.ikerleon.birdwmod.init.Birds;
 import com.ikerleon.birdwmod.init.BirdwmodCrafting;
 import com.ikerleon.birdwmod.init.BirdwmodItems;
@@ -76,6 +78,8 @@ public class CommonProxy {
 		OreDictionary.registerOre("feather", BirdwmodItems.KINGOFSAXONYFEATHER_MALE);
 		OreDictionary.registerOre("feather", BirdwmodItems.KINGOFSAXONYFEATHER_FEMALE);
 		OreDictionary.registerOre("feather", BirdwmodItems.MOTMOTFEATHER);
+		OreDictionary.registerOre("feather", BirdwmodItems.GREATGREYOWLFEATHER);
+		OreDictionary.registerOre("feather", BirdwmodItems.BROWNBOOBYFEATHER);
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(Main.instance, new GuiHandler());
 
@@ -95,7 +99,8 @@ public class CommonProxy {
 		EntityRegistry.addSpawn(EntityKingofSaxony.class, 15 , 1, 2, EnumCreatureType.CREATURE, BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.JUNGLE));
 		//ARCTIC
 		//EntityRegistry.addSpawn(EntitySabinesGull.class, 10 , 1, 8, EnumCreatureType.CREATURE, BiomeDictionaryUtil.FusionBiomes(BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.COLD), BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.OCEAN)));
-		EntityRegistry.addSpawn(EntityKingofSaxony.class, 15 , 1, 2, EnumCreatureType.CREATURE, BiomeDictionaryUtil.getBiomesFromTypes(BiomeDictionary.Type.COLD, BiomeDictionary.Type.FOREST));
+		EntityRegistry.addSpawn(EntityGreatGreyOwl.class, 15 , 1, 2, EnumCreatureType.CREATURE, BiomeDictionaryUtil.FusionBiomes(BiomeDictionaryUtil.getBiomesFromTypes(BiomeDictionary.Type.COLD, BiomeDictionary.Type.FOREST), BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.CONIFEROUS)));
+		EntityRegistry.addSpawn(EntityBrownBooby.class, 15 , 1, 7, EnumCreatureType.CREATURE, BiomeDictionaryUtil.removeBiomesOfType( BiomeDictionary.Type.COLD, BiomeDictionaryUtil.FusionBiomes(BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.OCEAN), BiomeDictionaryUtil.getBiomesFromType(BiomeDictionary.Type.BEACH))));
 
 		BirdwmodCrafting.init(event);
 	}

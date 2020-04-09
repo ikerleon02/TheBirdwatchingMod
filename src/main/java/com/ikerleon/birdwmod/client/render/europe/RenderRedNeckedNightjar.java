@@ -21,12 +21,12 @@ public class RenderRedNeckedNightjar extends RenderBirdBase<EntityRedNeckedNight
 	public static final ModelCMF RED_NECKED_NIGHTJAR_FLYING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_necked_nightjar/red_necked_nightjar_flying.bkm"));
 	public static final ModelCMF RED_NECKED_NIGHTJAR_SLEEPING = new ModelCMF(new ResourceLocation(Reference.MODID, "models/entity/red_necked_nightjar/red_necked_nightjar_sleeping.bkm"));
 
-
 	public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID + ":textures/entity/europe/rnnightjar.png");
 	public static final ResourceLocation TEXTURE2 = new ResourceLocation(Reference.MODID + ":textures/entity/europe/rnnightjar2.png");
 	public static final ResourceLocation TEXTURE3 = new ResourceLocation(Reference.MODID + ":textures/entity/europe/rnnightjar3.png");
 	public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/europe/rnnightjar_chick.png");
 	public static final ResourceLocation TEXTUREBLINK = new ResourceLocation(Reference.MODID + ":textures/entity/europe/rnnightjar_sleeping.png");
+	private final ResourceLocation NIGHTJAR_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/nightjar_ring.png");
 
 	public RenderRedNeckedNightjar(RenderManager manager) {
 		super(manager, RED_NECKED_NIGHTJAR, 0.3F);
@@ -51,6 +51,11 @@ public class RenderRedNeckedNightjar extends RenderBirdBase<EntityRedNeckedNight
 	public ResourceLocation getBlinkTexture(EntityRedNeckedNightjar entity)
 	{
 		return TEXTUREBLINK;
+	}
+
+	@Override
+	public ResourceLocation getRingTexture(EntityRedNeckedNightjar entity) {
+		return NIGHTJAR_RING;
 	}
 
 	@Override

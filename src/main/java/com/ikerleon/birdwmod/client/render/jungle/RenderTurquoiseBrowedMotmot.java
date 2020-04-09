@@ -23,6 +23,7 @@ public class RenderTurquoiseBrowedMotmot extends RenderBirdBase<EntityTurquoiseB
     public static final ResourceLocation TEXTURE3 = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/motmot3.png");
     public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/motmot2.png");
     public static final ResourceLocation TEXTUREBLINK = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/motmot_sleeping.png");
+    private final ResourceLocation MOTMOT_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/motmot_ring.png");
 
     public RenderTurquoiseBrowedMotmot(RenderManager manager) {
         super(manager, TURQUOISEBROWED_MOTMOT, 0.3F);
@@ -48,6 +49,11 @@ public class RenderTurquoiseBrowedMotmot extends RenderBirdBase<EntityTurquoiseB
     @Override
     public ResourceLocation getBlinkTexture(EntityTurquoiseBrowedMotmot entity) {
         return TEXTUREBLINK;
+    }
+
+    @Override
+    public ResourceLocation getRingTexture(EntityTurquoiseBrowedMotmot entity) {
+        return MOTMOT_RING;
     }
 
     @Override

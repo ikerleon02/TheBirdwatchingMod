@@ -22,7 +22,7 @@ public class RenderKingofSaxony extends RenderBirdBase<EntityKingofSaxony> {
     public static final ResourceLocation TEXTUREFEMALE = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/kingofsaxonyfemale.png");
     public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/kingofsaxonyfemale.png");
     public static final ResourceLocation TEXTUREBLINK = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/kingofsaxony_sleeping.png");
-
+    private static final ResourceLocation PASSERINE_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/passerine_ring.png");
 
     public RenderKingofSaxony(RenderManager manager) {
         super(manager, KING_OF_SAXONY, 0.15F);
@@ -48,6 +48,11 @@ public class RenderKingofSaxony extends RenderBirdBase<EntityKingofSaxony> {
     public ResourceLocation getBlinkTexture(EntityKingofSaxony entity)
     {
         return TEXTUREBLINK;
+    }
+
+    @Override
+    public ResourceLocation getRingTexture(EntityKingofSaxony entity) {
+        return PASSERINE_RING;
     }
 
     @Override

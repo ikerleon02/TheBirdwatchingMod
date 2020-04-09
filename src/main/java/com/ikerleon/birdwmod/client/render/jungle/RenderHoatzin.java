@@ -22,6 +22,7 @@ public class RenderHoatzin extends RenderBirdBase<EntityHoatzin> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/hoatzin.png");
     public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/hoatzin_chick.png");
     public static final ResourceLocation TEXTUREBLINK = new ResourceLocation(Reference.MODID + ":textures/entity/jungle/hoatzin_sleeping.png");
+    private final ResourceLocation HOATZIN_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/hoatzin_ring.png");
 
     public RenderHoatzin(RenderManager manager) {
         super(manager, HOATZIN, 0.3F);
@@ -47,6 +48,11 @@ public class RenderHoatzin extends RenderBirdBase<EntityHoatzin> {
     @Override
     public ResourceLocation getBlinkTexture(EntityHoatzin entity) {
         return TEXTUREBLINK;
+    }
+
+    @Override
+    public ResourceLocation getRingTexture(EntityHoatzin entity) {
+        return HOATZIN_RING;
     }
 
     @Override

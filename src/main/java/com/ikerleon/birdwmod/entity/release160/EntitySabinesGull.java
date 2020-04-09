@@ -69,6 +69,11 @@ public class EntitySabinesGull extends EntityBirdDiurnal {
     }
 
     @Override
+    public boolean isAquatic() {
+        return true;
+    }
+
+    @Override
     public EntityAgeable createChild(EntityAgeable ageable) {
         return new EntitySabinesGull(this.world);
     }

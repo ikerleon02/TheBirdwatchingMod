@@ -14,6 +14,7 @@ import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
 
 import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
+import com.ikerleon.birdwmod.entity.release160.EntityBrownBooby;
 import com.ikerleon.birdwmod.entity.release160.EntityGreatGreyOwl;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -39,6 +40,6 @@ public class Birds {
 		//1.6.0
 		//EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "sabines_gull"), EntitySabinesGull.class, "sabines_gull", id++, Main.instance, 1024, 1, true, 0xebebeb, 0x858585);
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "great_grey_owl"), EntityGreatGreyOwl.class, "great_grey_owl", id++, Main.instance, 1024, 1, true, 0x66686b, 0x989a9c);
-
+		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID, "brown_booby"), EntityBrownBooby.class, "brown_booby", id++, Main.instance, 1024, 1, true, 0x362206, 0xe8e266);
 	}
 }

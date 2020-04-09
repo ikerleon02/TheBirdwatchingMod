@@ -27,6 +27,7 @@ public class RenderGreenHeron extends RenderBirdBase<EntityGreenHeron> {
     public static final ResourceLocation TEXTURE3 = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/greenheron3.png");
     public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/greenheron3.png");
     public static final ResourceLocation TEXTUREBLINK = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/greenheron_sleeping.png");
+    private final ResourceLocation HERON_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/heron_ring.png");
 
     public RenderGreenHeron(RenderManager manager) {
         super(manager, GREEN_HERON, 0.3F);
@@ -51,6 +52,11 @@ public class RenderGreenHeron extends RenderBirdBase<EntityGreenHeron> {
     public ResourceLocation getBlinkTexture(EntityGreenHeron entity)
     {
         return TEXTUREBLINK;
+    }
+
+    @Override
+    public ResourceLocation getRingTexture(EntityGreenHeron entity) {
+        return HERON_RING;
     }
 
     @Override

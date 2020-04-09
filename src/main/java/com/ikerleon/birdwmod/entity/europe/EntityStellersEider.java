@@ -71,6 +71,11 @@ public class EntityStellersEider extends EntityBirdDiurnal {
     }
 
     @Override
+    public boolean isAquatic() {
+        return true;
+    }
+
+    @Override
     public EntityAgeable createChild(EntityAgeable ageable) {
         return new EntityStellersEider(this.world);
     }

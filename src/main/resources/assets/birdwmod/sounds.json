@@ -16,5 +16,8 @@
    "entity.hoatzin_call":{"category":"ambient", "sounds":[{"name": "birdwmod:entity/hoatzin_call", "stream": true}]},
    "entity.kingofsaxony_call":{"category":"ambient", "sounds":[{"name": "birdwmod:entity/kingofsaxony_call", "stream": true}]},
    "entity.kingofsaxony_song":{"category":"ambient", "sounds":[{"name": "birdwmod:entity/kingofsaxony_song", "stream": true}]},
-   "entity.motmot_call":{"category":"ambient", "sounds":[{"name": "birdwmod:entity/motmot_call", "stream": true}]}
+   "entity.motmot_call":{"category":"ambient", "sounds":[{"name": "birdwmod:entity/motmot_call", "stream": true}]},
+
+   "entity.greatgreyowl_song":{"category":"ambient", "sounds":[{"name": "birdwmod:entity/greatgreyowl_song", "stream": true}]},
+   "entity.booby_call":{"category":"ambient", "sounds":[{"name": "birdwmod:entity/booby_call", "stream": true}]}
 }

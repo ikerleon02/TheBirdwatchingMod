@@ -27,6 +27,7 @@ public class RenderRedFlankedBluetail extends RenderBirdBase<EntityRedFlankedBlu
 	public static final ResourceLocation TEXTUREFEMALE = new ResourceLocation(Reference.MODID + ":textures/entity/europe/redflankedbluetailfemale.png");
 	public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/europe/redflankedbluetail_chick.png");
 	public static final ResourceLocation TEXTUREBLINK = new ResourceLocation(Reference.MODID + ":textures/entity/europe/redflankedbluetail_sleeping.png");
+	private static final ResourceLocation PASSERINE_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/passerine_ring.png");
 
 	public RenderRedFlankedBluetail(RenderManager manager) {
 		super(manager, RED_FLANKED_BLUETAIL, 0.15F);
@@ -51,6 +52,11 @@ public class RenderRedFlankedBluetail extends RenderBirdBase<EntityRedFlankedBlu
 	public ResourceLocation getBlinkTexture(EntityRedFlankedBluetail entity)
 	{
 		return TEXTUREBLINK;
+	}
+
+	@Override
+	public ResourceLocation getRingTexture(EntityRedFlankedBluetail entity) {
+		return PASSERINE_RING;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.ikerleon.birdwmod.client.render;
 
 import com.ikerleon.birdwmod.Reference;
+import com.ikerleon.birdwmod.client.render.release160.RenderGreatGreyOwl;
 import com.ikerleon.birdwmod.entity.EntityBird;
 import com.ikerleon.birdwmod.entity.europe.EntityRedNeckedNightjar;
 import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
@@ -9,6 +10,7 @@ import com.ikerleon.birdwmod.entity.jungle.EntityTurquoiseBrowedMotmot;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
 import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
+import com.ikerleon.birdwmod.entity.release160.EntityGreatGreyOwl;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -34,6 +36,11 @@ public abstract class RenderBirdBase <T extends EntityBird> extends RenderLiving
     }
 
     public ResourceLocation getBlinkTexture(T entity)
+    {
+        return null;
+    }
+
+    public ResourceLocation getRingTexture(T entity)
     {
         return null;
     }
@@ -64,27 +71,56 @@ public abstract class RenderBirdBase <T extends EntityBird> extends RenderLiving
                 this.render.getMainModel().render(e, f, f1, f2, f3, f4, f6);
                 GlStateManager.popMatrix();
             }
+            else if(e instanceof EntityGreatGreyOwl){
+                this.render.bindTexture(RenderGreatGreyOwl.TEXTUREYES);
+                ModelBase mainModel = this.render.getMainModel();
+
+                float alpha = 1.0F;
+
+                GlStateManager.enableBlend();
+                GlStateManager.enableAlpha();
+                GlStateManager.depthMask(!e.isInvisible());
+                GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+                GlStateManager.color(1.0F, 1.0F, 1.0F, alpha);
+
+                mainModel.setLivingAnimations(e, f1, f3, f2);
+                mainModel.setRotationAngles(f, f1, f3, f4, f5, f6, e);
+                mainModel.render(e, f, f1, f2, f3, f5, f6);
+
+                GlStateManager.color(alpha, alpha, alpha, alpha);
+                GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
+                int i = 616800;
+                int j = i % 75536;
+                int k = i / 75536;
+                OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
+                GlStateManager.enableLighting();
+
+                mainModel.setLivingAnimations(e, f1, f3, f2);
+                mainModel.setRotationAngles(f, f1, f3, f4, f5, f6, e);
+                mainModel.render(e, f, f1, f2, f3, f5, f6);
+
+                this.setLightmap(e, f2);
+                GlStateManager.depthMask(true);
+                GlStateManager.disableBlend();
+            }
         }
 
         public boolean shouldCombineTextures()
         {
             return true;
         }
+
+        protected void setLightmap(EntityBird entityLivingIn, float partialTicks) {
+            int i = entityLivingIn.getBrightnessForRender();
+            int j = i % 75536;
+            int k = i / 75536;
+            OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
+        }
     }
 
     @SideOnly(Side.CLIENT)
     public class LayerRing implements LayerRenderer<EntityBird>
     {
-        private final ResourceLocation EIDER_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/eider_ring.png");
-        private final ResourceLocation GULL_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/gull_ring.png");
-        private final ResourceLocation HERON_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/heron_ring.png");
-        private final ResourceLocation HOATZIN_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/hoatzin_ring.png");
-        private final ResourceLocation KILLDEER_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/killdeer_ring.png");
-        private final ResourceLocation MOCKINGBIRD_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/mockingbird_ring.png");
-        private final ResourceLocation MOTMOT_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/motmot_ring.png");
-        private final ResourceLocation NIGHTJAR_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/nightjar_ring.png");
-        private final ResourceLocation PASSERINE_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/passerine_ring.png");
-
         private final RenderBirdBase birdRender;
 
         public LayerRing(RenderBirdBase birdRenderIn)
@@ -94,36 +130,15 @@ public abstract class RenderBirdBase <T extends EntityBird> extends RenderLiving
 
         public void doRenderLayer(EntityBird entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
         {
-            if (!entitylivingbaseIn.isInvisible() && entitylivingbaseIn.hasBeenRinged())
+            if (!entitylivingbaseIn.isInvisible() && entitylivingbaseIn.hasBeenRinged() && this.birdRender.getRingTexture(entitylivingbaseIn) != null)
             {
-                if(entitylivingbaseIn instanceof EntityStellersEider){
-                    this.birdRender.bindTexture(EIDER_RING);
-                }
-                else if(entitylivingbaseIn instanceof EntityGreenHeron){
-                    this.birdRender.bindTexture(HERON_RING);
-                }
-                else if(entitylivingbaseIn instanceof EntityHoatzin){
-                    this.birdRender.bindTexture(HOATZIN_RING);
-                }
-                else if(entitylivingbaseIn instanceof EntityKilldeer){
-                    this.birdRender.bindTexture(KILLDEER_RING);
-                }
-                else if(entitylivingbaseIn instanceof EntityNorthernMockingbird){
-                    this.birdRender.bindTexture(MOCKINGBIRD_RING);
-                }
-                else if(entitylivingbaseIn instanceof EntityTurquoiseBrowedMotmot){
-                    this.birdRender.bindTexture(MOTMOT_RING);
-                }
-                else if(entitylivingbaseIn instanceof EntityRedNeckedNightjar){
-                    this.birdRender.bindTexture(NIGHTJAR_RING);
-                }
-                else{
-                    this.birdRender.bindTexture(PASSERINE_RING);
-                }
+                this.birdRender.bindTexture(this.birdRender.getRingTexture(entitylivingbaseIn));
+                this.birdRender.getMainModel().setModelAttributes(this.birdRender.getMainModel());
                 if(entitylivingbaseIn.getRingColor() != null) {
                     float[] afloat = entitylivingbaseIn.getRingColor().getColorComponentValues();
                     GlStateManager.color(afloat[0], afloat[1], afloat[2]);
                 }
+                this.birdRender.getMainModel().setRotationAngles( limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);
                 this.birdRender.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
             }
         }

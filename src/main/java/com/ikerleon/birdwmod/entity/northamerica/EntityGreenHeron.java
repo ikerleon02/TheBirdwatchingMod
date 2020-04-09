@@ -65,6 +65,11 @@ public class EntityGreenHeron extends EntityBirdDiurnal {
     }
 
     @Override
+    public boolean isAquatic() {
+        return false;
+    }
+
+    @Override
     public EntityAgeable createChild(EntityAgeable ageable) {
         return new EntityGreenHeron(this.world);
     }

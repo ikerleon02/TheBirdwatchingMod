@@ -12,10 +12,14 @@ entity.hoatzin.name=Hoacin
 entity.turquoisebrowed_motmot.name=Momoto Cejiazul
 entity.kingofsaxony_bird_of_paradise.name=Ave Del Paraiso Rey De Sajonia
 
+entity.great_grey_owl.name=Carabo Lapon
+entity.brown_booby.name=Piquero pardo
+
 item.binocular_basic.name=Primáticos Básicos
 item.binocular_medium.name=Primáticos Normales
 item.binocular_pro.name=Primáticos Pro
 item.bird_guide.name=Guía De Aves
+item.ring.name=Anillo De Pajaro
 
 item.feather_easternbluebirdmale.name=Pluma De Macho De Azulejo Gorjicanelo
 item.feather_easternbluebirdfemale.name=Pluma De Hembra De Azulejo Gorjicanelo
@@ -33,6 +37,8 @@ item.feather_kingofsaxonymale.name=Pluma De Macho De Ave Del Paraiso Rey De Sajo
 item.feather_kingofsaxonyfemale.name=Pluma De Hembra De Ave Del Paraiso Rey De Sajonia
 item.feather_motmot.name=Turquoise-Pluma De Momoto Cejiazul
 item.feather_hoatzin.name=Pluma De Hoacin
+item.feather_greatgreyowl.name=Pluma De Carabo Lapon
+item.feather_brownbooby.name=Pluma De Piquero Pardo
 
 item.meatraw_duck.name=Carne De Pato Cruda
 item.meatraw_heron.name=Carne De Garza Cruda
@@ -46,6 +52,7 @@ item.meatcooked_nightjar.name=Carne De Chotacabras Cocinada
 item.meatcooked_passerine.name=Carne De Passerine Cocinada
 item.meatcooked_wader.name=Carne De Limícola Cocinada
 
-tile.birdfeeder.name=Comedero de pajaros
+tile.birdfeeder.name=Comedero De Pajaros
+tile.ringingnet.name=Red De Anillamiento
 
 itemGroup.birdwatchingmodtab=The Birdwatching Mod

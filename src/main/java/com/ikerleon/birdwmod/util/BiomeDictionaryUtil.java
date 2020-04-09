@@ -6,6 +6,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -73,5 +74,16 @@ public class BiomeDictionaryUtil {
 		biomesOutput=biomesList.toArray(biomesOutput);
 
 		return biomesOutput;
+	}
+
+	public static Biome[] removeBiomesOfType(BiomeDictionary.Type type, Biome[] array) {
+		List<Biome> valid = Arrays.asList(array);
+
+		for (Biome b : Biome.REGISTRY) {
+			Set<Type> bom = BiomeDictionary.getTypes(b);
+			if (bom.contains(type))
+				valid.remove(bom);
+		}
+		return valid.toArray(new Biome[0]);
 	}
 }

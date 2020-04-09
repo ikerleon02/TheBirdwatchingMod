@@ -27,6 +27,7 @@ public class RenderStellersEider extends RenderBirdBase<EntityStellersEider> {
     public static final ResourceLocation TEXTUREFEMALE = new ResourceLocation(Reference.MODID + ":textures/entity/europe/stellerseiderfemale.png");
     public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/europe/stellerseider_chick.png");
     public static final ResourceLocation TEXTUREBLINK = new ResourceLocation(Reference.MODID + ":textures/entity/europe/stellerseider_sleeping.png");
+    private final ResourceLocation EIDER_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/eider_ring.png");
 
     public RenderStellersEider(RenderManager manager) {
         super(manager, STELLERS_EIDER, 0.15F);
@@ -49,6 +50,11 @@ public class RenderStellersEider extends RenderBirdBase<EntityStellersEider> {
     public ResourceLocation getBlinkTexture(EntityStellersEider entity)
     {
         return TEXTUREBLINK;
+    }
+
+    @Override
+    public ResourceLocation getRingTexture(EntityStellersEider entity) {
+        return EIDER_RING;
     }
 
     @Override

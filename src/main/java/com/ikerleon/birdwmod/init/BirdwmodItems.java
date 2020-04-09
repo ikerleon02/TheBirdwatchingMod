@@ -3,10 +3,10 @@ package com.ikerleon.birdwmod.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ikerleon.birdwmod.items.ItemBasic;
 import com.ikerleon.birdwmod.items.ItemBinocular;
 import com.ikerleon.birdwmod.items.ItemBirdGuide;
 
-import com.ikerleon.birdwmod.items.ItemFeather;
 import com.ikerleon.birdwmod.items.ItemMeat;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -24,23 +24,27 @@ public class BirdwmodItems {
 
 	public static final Item BIRD_GUIDE = new ItemBirdGuide("bird_guide");
 
+	public static final Item RING = new ItemBasic("ring");
+
 	//feathers
-	public static final Item EASTERNBLUEBIRDFEATHER_FEMALE = new ItemFeather("feather_easternbluebirdfemale");
-	public static final Item EASTERNBLUEBIRDFEATHER_MALE = new ItemFeather("feather_easternbluebirdmale");
-	public static final Item EURASIANBULLFINCHDFEATHER_FEMALE = new ItemFeather("feather_eurasianbullfinchfemale");
-	public static final Item EURASIANBULLFINCHDFEATHER_MALE = new ItemFeather("feather_eurasianbullfinchmale");
-	public static final Item GREENHERONFEATHER = new ItemFeather("feather_greenheron");
-	public static final Item KILLDEERFEATHER = new ItemFeather("feather_killdeer");
-	public static final Item NORTHERNMOCKINGBIRDFEATHER = new ItemFeather("feather_northernmockingbird");
-	public static final Item REDFLANCKEDBLUETAILFEATHER_FEMALE = new ItemFeather("feather_redflanckedbluetailfemale");
-	public static final Item REDFLANCKEDBLUETAILFEATHER_MALE = new ItemFeather("feather_redflanckedbluetailmale");
-	public static final Item REDNECKEDNIGHTJARFEATHER = new ItemFeather("feather_redneckednightjar");
-	public static final Item STELLERSEIDERFEATHER_FEMALE = new ItemFeather("feather_stellerseiderfemale");
-	public static final Item STELLERSEIDERFEATHER_MALE = new ItemFeather("feather_stellerseidermale");
-	public static final Item KINGOFSAXONYFEATHER_MALE = new ItemFeather("feather_kingofsaxonymale");
-	public static final Item KINGOFSAXONYFEATHER_FEMALE = new ItemFeather("feather_kingofsaxonyfemale");
-	public static final Item MOTMOTFEATHER = new ItemFeather("feather_motmot");
-	public static final Item HOATZINFEATHER = new ItemFeather("feather_hoatzin");
+	public static final Item EASTERNBLUEBIRDFEATHER_FEMALE = new ItemBasic("feather_easternbluebirdfemale");
+	public static final Item EASTERNBLUEBIRDFEATHER_MALE = new ItemBasic("feather_easternbluebirdmale");
+	public static final Item EURASIANBULLFINCHDFEATHER_FEMALE = new ItemBasic("feather_eurasianbullfinchfemale");
+	public static final Item EURASIANBULLFINCHDFEATHER_MALE = new ItemBasic("feather_eurasianbullfinchmale");
+	public static final Item GREENHERONFEATHER = new ItemBasic("feather_greenheron");
+	public static final Item KILLDEERFEATHER = new ItemBasic("feather_killdeer");
+	public static final Item NORTHERNMOCKINGBIRDFEATHER = new ItemBasic("feather_northernmockingbird");
+	public static final Item REDFLANCKEDBLUETAILFEATHER_FEMALE = new ItemBasic("feather_redflanckedbluetailfemale");
+	public static final Item REDFLANCKEDBLUETAILFEATHER_MALE = new ItemBasic("feather_redflanckedbluetailmale");
+	public static final Item REDNECKEDNIGHTJARFEATHER = new ItemBasic("feather_redneckednightjar");
+	public static final Item STELLERSEIDERFEATHER_FEMALE = new ItemBasic("feather_stellerseiderfemale");
+	public static final Item STELLERSEIDERFEATHER_MALE = new ItemBasic("feather_stellerseidermale");
+	public static final Item KINGOFSAXONYFEATHER_MALE = new ItemBasic("feather_kingofsaxonymale");
+	public static final Item KINGOFSAXONYFEATHER_FEMALE = new ItemBasic("feather_kingofsaxonyfemale");
+	public static final Item MOTMOTFEATHER = new ItemBasic("feather_motmot");
+	public static final Item HOATZINFEATHER = new ItemBasic("feather_hoatzin");
+	public static final Item GREATGREYOWLFEATHER = new ItemBasic("feather_greatgreyowl");
+	public static final Item BROWNBOOBYFEATHER = new ItemBasic("feather_brownbooby");
 
 	//meats
 	public static final Item DUCKRAWMEAT = new ItemMeat("meatraw_duck", 3, true);

@@ -68,6 +68,11 @@ public class EntityEasternBluebird extends EntityBirdDiurnal{
 	public boolean goesToFeeders() {
 		return true;
 	}
+
+	@Override
+	public boolean isAquatic() {
+		return false;
+	}
 	
 	@Override
 	public EntityAgeable createChild(EntityAgeable ageable) {

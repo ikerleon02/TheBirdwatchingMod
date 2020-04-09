@@ -25,6 +25,7 @@ public class RenderSabinesGull extends RenderBirdBase<EntitySabinesGull> {
     public static final ResourceLocation TEXTURE3 = new ResourceLocation(Reference.MODID + ":textures/entity/release160/sabinesgull3.png");
     public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/release160/sabinesgull.png");
     public static final ResourceLocation TEXTUREBLINK = new ResourceLocation(Reference.MODID + ":textures/entity/release160/sabinesgull_sleeping.png");
+    private final ResourceLocation GULL_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/gull_ring.png");
 
     public RenderSabinesGull(RenderManager manager) {
         super(manager, SABINES_GULL, 0.15F);
@@ -48,6 +49,11 @@ public class RenderSabinesGull extends RenderBirdBase<EntitySabinesGull> {
     public ResourceLocation getBlinkTexture(EntitySabinesGull entity)
     {
         return TEXTUREBLINK;
+    }
+
+    @Override
+    public ResourceLocation getRingTexture(EntitySabinesGull entity) {
+        return GULL_RING;
     }
 
     @Override

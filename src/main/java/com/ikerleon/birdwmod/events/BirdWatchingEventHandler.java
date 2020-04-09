@@ -15,6 +15,8 @@ import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
 import com.ikerleon.birdwmod.entity.northamerica.EntityGreenHeron;
 import com.ikerleon.birdwmod.entity.northamerica.EntityKilldeer;
 import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
+import com.ikerleon.birdwmod.entity.release160.EntityBrownBooby;
+import com.ikerleon.birdwmod.entity.release160.EntityGreatGreyOwl;
 import com.ikerleon.birdwmod.items.ItemBinocular;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,6 +32,7 @@ import net.soggymustache.bookworm.util.BookwormUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID)
 public class BirdWatchingEventHandler {
@@ -67,6 +70,7 @@ public class BirdWatchingEventHandler {
                 }
             }
         }
+
         if (ee instanceof EntityRedNeckedNightjar) {
             ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 1);
         }
@@ -99,6 +103,12 @@ public class BirdWatchingEventHandler {
         }
         if (ee instanceof EntityTurquoiseBrowedMotmot) {
             ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 11);
+        }
+        if (ee instanceof EntityGreatGreyOwl) {
+            ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 12);
+        }
+        if (ee instanceof EntityBrownBooby) {
+            ModAdvancementTriggers.DOCUMENTBIRD.trigger((EntityPlayerMP) player, 13);
         }
     }
 

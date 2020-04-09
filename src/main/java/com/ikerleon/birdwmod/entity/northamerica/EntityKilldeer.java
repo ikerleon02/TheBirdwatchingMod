@@ -62,6 +62,11 @@ public class EntityKilldeer extends EntityBirdDiurnal{
 	public boolean goesToFeeders() {
 		return false;
 	}
+
+	@Override
+	public boolean isAquatic() {
+		return false;
+	}
 	
 	@Override
 	public EntityAgeable createChild(EntityAgeable ageable) {

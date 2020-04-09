@@ -76,6 +76,11 @@ public class EntityRedNeckedNightjar extends EntityBirdNocturnal{
 	}
 
 	@Override
+	public boolean isAquatic() {
+		return false;
+	}
+
+	@Override
 	public EntityAgeable createChild(EntityAgeable ageable) {
 		return new EntityRedNeckedNightjar(this.world);
 	}

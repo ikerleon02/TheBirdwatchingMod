@@ -1,21 +1,19 @@
 package com.ikerleon.birdwmod.entity;
 
-import com.ikerleon.birdwmod.blocks.BlockBirdfeeder;
+import com.ikerleon.birdwmod.blocks.BlockRingingNet;
 import com.ikerleon.birdwmod.entity.ai.EntityAIEatFromFeeders;
 import com.ikerleon.birdwmod.entity.ai.EntityAIWanderAvoidWaterFlying;
-import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
 import com.ikerleon.birdwmod.entity.move.EntityFlyHelper;
+import com.ikerleon.birdwmod.init.BirdwmodBlocks;
+import com.ikerleon.birdwmod.init.BirdwmodItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAIFollowParent;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityFlying;
-import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
@@ -28,9 +26,6 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateFlying;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -53,9 +48,9 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
     private byte blinkSec = 0;
     private BookwormRandom rando = new BookwormRandom();
 
-    protected EntityFlyHelper MoveHelper = new EntityFlyHelper(this);
-    protected EntityAIWanderAvoidWaterFlying WanderFlying = new EntityAIWanderAvoidWaterFlying(this, 1.0D);
-
+    protected EntityAIWanderAvoidWaterFlying WanderFlying;
+    protected EntityAIWanderAvoidWater Wander;
+    private EntityAIAvoidEntity<EntityPlayer> avoidEntity = new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 7.0F, 0.8D, 1.33D);
 
     //Entity constructor and stuff
 	public EntityBird(World worldIn) {
@@ -63,21 +58,39 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
         this.setGender(this.getRNG().nextInt(2));
         this.setVariant(getRNG().nextInt(setBirdVariants()));
         this.timeUntilNextFeather = this.rand.nextInt(10000) + 10000;
-        this.moveHelper = MoveHelper;
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIEatFromFeeders(this));
-        this.tasks.addTask(4, new EntityAIAvoidEntity(this, EntityPlayer.class, 5.0F, 2D, 2D));
-        this.tasks.addTask(4, new EntityAIFollowParent(this,1.D));
-        this.tasks.addTask(3, WanderFlying);
-        if(!(this instanceof EntityStellersEider)){
+        this.tasks.addTask(4, this.avoidEntity);
+        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        if(!(this.isAquatic())){
             this.tasks.addTask(2, new EntityAIWanderAvoidWater(this, 1.0D));
+        }
+        else{
+            this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
         }
     }
 
 	@Override
 	public float getEyeHeight() {
-		return this.height-0.005f;
+		return this.height-this.height*0.1f;
 	}
+
+    @Override
+    protected void initEntityAI() {
+	    this.Wander = new EntityAIWanderAvoidWater(this, 1.0D);
+	    this.WanderFlying = new EntityAIWanderAvoidWaterFlying(this, 1.0D);
+
+        super.initEntityAI();
+        if(this.isChild()){
+            this.moveHelper = new EntityMoveHelper(this);
+            this.tasks.addTask(3, Wander);
+        }
+        else{
+            this.moveHelper = new EntityFlyHelper(this);
+            this.tasks.removeTask(Wander);
+            this.tasks.addTask(3, WanderFlying);
+        }
+    }
 
     public void entityInit() {
         super.entityInit();
@@ -150,13 +163,36 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
         }
     }
 
+    @Override
+    public void move(MoverType type, double x, double y, double z) {
+	    if(this.isInNet()){
+	        if(this.world.getBlockState(new BlockPos(posX, posY, posZ)).getValue(BlockRingingNet.DIRECTION) == BlockRingingNet.EnumBlockDirection.NORTH) {
+                this.posZ = (posZ - posZ % 1) + 0.5;
+            }
+	        else{
+                this.posX = (posX - posX % 1) + 0.5;
+            }
+            this.motionX = 0.0D;
+            this.motionY = 0.0D;
+            this.motionZ = 0.0D;
+        }
+	    else{
+            super.move(type, x, y, z);
+        }
+
+    }
 
     //Entity stuff
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
 
-        if((!onGround && !isInWater()) || (this instanceof EntityStellersEider && isInWater()) || (isSleeping())) {
+        if(this.isInNet()){
+            this.fallDistance = 0.0F;
+            this.onGround = true;
+        }
+
+        if((!onGround && !isInWater()) || (this.isAquatic() && isInWater()) || (isSleeping())) {
             timer+=0.05F;
         }
         else{
@@ -192,6 +228,7 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
     }
 
     public abstract boolean goesToFeeders();
+    public abstract boolean isAquatic();
 
     @Override
     protected boolean canDespawn() {
@@ -217,10 +254,12 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (itemstack.getItem() == Items.IRON_INGOT)
+        if (itemstack.getItem() == BirdwmodItems.RING)
         {
             if(this.hasBeenRinged() == false){
                 this.setRinged(true);
+                player.experienceLevel = player.experienceLevel + 1;
+                itemstack.shrink(1);
             }
             return true;
 
@@ -250,6 +289,11 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
     }
     public void setSleeping(boolean value) {
         this.dataManager.set(SLEEPING, Boolean.valueOf(value));
+    }
+
+    public boolean isInNet(){
+        Block block = this.world.getBlockState(new BlockPos(posX, posY, posZ)).getBlock();
+        return block == BirdwmodBlocks.RINGING_NET;
     }
 
     @Override

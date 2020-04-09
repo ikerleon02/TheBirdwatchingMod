@@ -28,6 +28,7 @@ public class RenderKilldeer extends RenderBirdBase<EntityKilldeer> {
 	public static final ResourceLocation TEXTURE3 = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/killdeer3.png");
 	public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/killdeer_chick.png");
 	public static final ResourceLocation TEXTUREBLINK = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/killdeer_sleeping.png");
+	private final ResourceLocation KILLDEER_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/killdeer_ring.png");
 
 	public RenderKilldeer(RenderManager manager) {
 		super(manager, KILLDEER, 0.3F);
@@ -52,6 +53,11 @@ public class RenderKilldeer extends RenderBirdBase<EntityKilldeer> {
 	public ResourceLocation getBlinkTexture(EntityKilldeer entity)
 	{
 		return TEXTUREBLINK;
+	}
+
+	@Override
+	public ResourceLocation getRingTexture(EntityKilldeer entity) {
+		return KILLDEER_RING;
 	}
 
 	@Override

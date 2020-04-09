@@ -1,6 +1,7 @@
 package com.ikerleon.birdwmod.init;
 
 import com.ikerleon.birdwmod.blocks.BlockBirdfeeder;
+import com.ikerleon.birdwmod.blocks.BlockRingingNet;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -16,6 +17,7 @@ public class BirdwmodBlocks {
     public static final List<Block> BLOCKS = new ArrayList();
 
     public static final Block BIRD_FEEDER = new BlockBirdfeeder(Material.WOOD, "birdfeeder");
+    public static final Block RINGING_NET = new BlockRingingNet(Material.WEB, "ringingnet");
 
     public static void registerBlocks() {
         ForgeRegistries.BLOCKS.registerAll(BirdwmodBlocks.BLOCKS.toArray(new Block[BirdwmodBlocks.BLOCKS.size()]));

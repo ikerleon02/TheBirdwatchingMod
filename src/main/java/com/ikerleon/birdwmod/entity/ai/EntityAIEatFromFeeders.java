@@ -30,7 +30,7 @@ public class EntityAIEatFromFeeders extends EntityAIBase {
     @Override
     public boolean shouldExecute() {
         if(!entity.isSleeping()) {
-            return entity.goesToFeeders();
+            return entity.goesToFeeders() && !entity.isChild();
         }
         else{
             return false;

@@ -2,6 +2,7 @@ package com.ikerleon.birdwmod.client.render.northamerica;
 
 import com.ikerleon.birdwmod.Reference;
 import com.ikerleon.birdwmod.client.render.RenderBirdBase;
+import com.ikerleon.birdwmod.entity.europe.EntityEurasianBullfinch;
 import com.ikerleon.birdwmod.entity.europe.EntityStellersEider;
 import com.ikerleon.birdwmod.entity.northamerica.EntityEasternBluebird;
 
@@ -26,6 +27,7 @@ public class RenderEasternBluebird extends RenderBirdBase<EntityEasternBluebird>
 	public static final ResourceLocation TEXTUREFEMALE = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/easternbluebirdfemale.png");
 	public static final ResourceLocation TEXTURECHICK = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/easternbluebird_chick.png");
 	public static final ResourceLocation TEXTUREBLINK = new ResourceLocation(Reference.MODID + ":textures/entity/northamerica/easternbluebird_sleeping.png");
+	private static final ResourceLocation PASSERINE_RING = new ResourceLocation(Reference.MODID + ":textures/entity/rings/passerine_ring.png");
 
 	public RenderEasternBluebird(RenderManager manager) {
 		super(manager, EASTERN_BLUEBIRD, 0.2F);
@@ -50,6 +52,11 @@ public class RenderEasternBluebird extends RenderBirdBase<EntityEasternBluebird>
 	public ResourceLocation getBlinkTexture(EntityEasternBluebird entity)
 	{
 		return TEXTUREBLINK;
+	}
+
+	@Override
+	public ResourceLocation getRingTexture(EntityEasternBluebird entity) {
+		return PASSERINE_RING;
 	}
 
 	@Override

@@ -1,19 +1,17 @@
 package com.ikerleon.birdwmod.entity.release160;
 
-import com.google.common.base.Predicate;
 import com.ikerleon.birdwmod.entity.EntityBirdNocturnal;
 import com.ikerleon.birdwmod.init.BirdwmodItems;
 import com.ikerleon.birdwmod.util.handlers.SoundHandler;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.monster.EntityEndermite;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityRabbit;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 public class EntityGreatGreyOwl extends EntityBirdNocturnal {
 
@@ -23,40 +21,50 @@ public class EntityGreatGreyOwl extends EntityBirdNocturnal {
         super(worldIn);
         this.setSize(0.3f, 0.5f);
         this.world=worldIn;
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityAnimal.class, 10, true, false, new Predicate<EntityAnimal>()
-        {
-            public boolean apply(@Nullable EntityAnimal p_apply_1_)
-            {
-                return p_apply_1_ instanceof EntityRabbit;
-            }
-        }));
+
+        this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.2, true));
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<EntityRabbit>(this, EntityRabbit.class, true, false));
     }
 
     @Override
     public int setBirdVariants() {
-        return 1;
+        return 3;
     }
 
-    /*@Override
+    @Override
     protected SoundEvent getAmbientSound() {
-        if(!world.isDaytime() && this.onGround  && !isSleeping()) {
-            return SoundHandler.NIGHTJAR_SONG;
+        if(!world.isDaytime() && this.onGround  && !isSleeping() && this.getGender() == 0) {
+            return SoundHandler.GREATGREYOWL_SONG;
         }
         else{
             return null;
         }
-    }*/
+    }
+
+    public boolean attackEntityAsMob(Entity entityIn)
+    {
+        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)(this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
+
+        if (flag)
+        {
+            this.applyEnchantments(this, entityIn);
+        }
+
+        return flag;
+    }
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(20.0D);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
     }
 
     @Override
     public void onLivingUpdate() {
         if (!this.world.isRemote && !this.isChild() && --this.timeUntilNextFeather <= 0)
         {
-            //this.dropItem(BirdwmodItems.REDNECKEDNIGHTJARFEATHER, 1);
+            this.dropItem(BirdwmodItems.GREATGREYOWLFEATHER, 1);
             this.timeUntilNextFeather = this.rand.nextInt(10000) + 10000;
         }
         super.onLivingUpdate();
@@ -72,6 +80,11 @@ public class EntityGreatGreyOwl extends EntityBirdNocturnal {
 
     @Override
     public boolean goesToFeeders() {
+        return false;
+    }
+
+    @Override
+    public boolean isAquatic() {
         return false;
     }
 

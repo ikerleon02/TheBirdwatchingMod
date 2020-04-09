@@ -171,17 +171,6 @@ public class BlockBirdfeeder extends Block {
     }
 
     @Override
-    public boolean hasTileEntity(IBlockState state) {
-        return super.hasTileEntity(state);
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
-        return super.createTileEntity(world, state);
-    }
-
-    @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }
