@@ -3,11 +3,8 @@ package com.ikerleon.birdwmod.init;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ikerleon.birdwmod.items.ItemBasic;
-import com.ikerleon.birdwmod.items.ItemBinocular;
-import com.ikerleon.birdwmod.items.ItemBirdGuide;
+import com.ikerleon.birdwmod.items.*;
 
-import com.ikerleon.birdwmod.items.ItemMeat;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
@@ -25,6 +22,24 @@ public class BirdwmodItems {
 	public static final Item BIRD_GUIDE = new ItemBirdGuide("bird_guide");
 
 	public static final Item RING = new ItemBasic("ring");
+
+	//Spawn eggs
+	public static final Item REDNECKEDNIGHTJAR_SPAWNEGG = new ItemBirdSpawnEgg("rednecked_nightjar");
+	public static final Item EURASIANBULLFINCH_SPAWNEGG = new ItemBirdSpawnEgg("eurasian_bullfinch");
+	public static final Item REDFLANKEDBLUETAIL_SPAWNEGG = new ItemBirdSpawnEgg("redflanked_bluetail");
+	public static final Item STELLERSEIDER_SPAWNEGG = new ItemBirdSpawnEgg("stellers_eider");
+
+	public static final Item KILLDEER_SPAWNEGG = new ItemBirdSpawnEgg("killdeer");
+	public static final Item EASTERNBLUEBIRD_SPAWNEGG = new ItemBirdSpawnEgg("eastern_bluebird");
+	public static final Item NORTHERNMOCKINGBIRD_SPAWNEGG = new ItemBirdSpawnEgg("northern_mockingbird");
+	public static final Item GREENHERON_SPAWNEGG = new ItemBirdSpawnEgg("green_heron");
+
+	public static final Item HOATZIN_SPAWNEGG = new ItemBirdSpawnEgg("hoatzin");
+	public static final Item TURQUOISEBROWEDMOTMOT_SPAWNEGG = new ItemBirdSpawnEgg("turquoisebrowed_motmot");
+	public static final Item KINGOFSAXONY_SPAWNEGG = new ItemBirdSpawnEgg("kingofsaxony_bird_of_paradise");
+
+	public static final Item GREATGREYOWL_SPAWNEGG = new ItemBirdSpawnEgg("great_grey_owl");
+	public static final Item BROWNBOOBY_SPAWNEGG = new ItemBirdSpawnEgg("brown_booby");
 
 	//feathers
 	public static final Item EASTERNBLUEBIRDFEATHER_FEMALE = new ItemBasic("feather_easternbluebirdfemale");

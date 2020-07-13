@@ -52,7 +52,7 @@ public class SoundHandler {
         MOTMOT_CALL = registerSound("entity.motmot_call");
 
         GREATGREYOWL_SONG = registerSound("entity.greatgreyowl_song");
-        GREATGREYOWL_SONG = registerSound("entity.booby_call");
+        BOOBY_CALL = registerSound("entity.booby_call");
     }
 
     private static SoundEvent registerSound(String s) { ResourceLocation l = new ResourceLocation("birdwmod:" + s);

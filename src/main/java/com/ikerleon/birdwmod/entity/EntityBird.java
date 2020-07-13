@@ -1,22 +1,23 @@
 package com.ikerleon.birdwmod.entity;
 
+import com.ikerleon.birdwmod.Reference;
 import com.ikerleon.birdwmod.blocks.BlockRingingNet;
 import com.ikerleon.birdwmod.entity.ai.EntityAIEatFromFeeders;
 import com.ikerleon.birdwmod.entity.ai.EntityAIWanderAvoidWaterFlying;
 import com.ikerleon.birdwmod.entity.move.EntityFlyHelper;
 import com.ikerleon.birdwmod.init.BirdwmodBlocks;
 import com.ikerleon.birdwmod.init.BirdwmodItems;
+import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.MoverType;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityFlying;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -25,8 +26,11 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateFlying;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.soggymustache.bookworm.util.BookwormRandom;
@@ -260,6 +264,41 @@ public abstract class EntityBird extends EntityAnimal implements EntityFlying {
                 this.setRinged(true);
                 player.experienceLevel = player.experienceLevel + 1;
                 itemstack.shrink(1);
+            }
+            return true;
+
+        }
+        else if (itemstack.getItem() instanceof ItemBirdSpawnEgg)
+        {
+            ItemBirdSpawnEgg egg = (ItemBirdSpawnEgg)itemstack.getItem();
+
+            if(egg.ID.equals(EntityRegistry.getEntry(this.getClass()).getName())){
+                if (!this.world.isRemote)
+                {
+                    Class <? extends Entity > oclass = EntityList.getClass(egg.EntityID);
+
+                    if (oclass != null && this.getClass() == oclass)
+                    {
+                        EntityAgeable entityageable = this.createChild(this);
+
+                        if (entityageable != null)
+                        {
+                            entityageable.setGrowingAge(-24000);
+                            entityageable.setLocationAndAngles(this.posX, this.posY, this.posZ, 0.0F, 0.0F);
+                            this.world.spawnEntity(entityageable);
+
+                            if (itemstack.hasDisplayName())
+                            {
+                                entityageable.setCustomNameTag(itemstack.getDisplayName());
+                            }
+
+                            if (!player.capabilities.isCreativeMode)
+                            {
+                                itemstack.shrink(1);
+                            }
+                        }
+                    }
+                }
             }
             return true;
 

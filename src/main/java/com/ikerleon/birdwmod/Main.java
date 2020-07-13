@@ -28,6 +28,7 @@ import com.ikerleon.birdwmod.entity.northamerica.EntityNorthernMockingbird;
 import com.ikerleon.birdwmod.entity.release160.EntityBrownBooby;
 import com.ikerleon.birdwmod.entity.release160.EntityGreatGreyOwl;
 import com.ikerleon.birdwmod.init.BirdwmodBlocks;
+import com.ikerleon.birdwmod.tabs.BirdwmodSpawnEggsTab;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -56,6 +57,7 @@ public class Main {
 	public static CommonProxy proxy;
 	
 	public static final CreativeTabs BIRDWATCHINGMOD = new BirdwmodTab("birdwatchingmodtab");
+	public static final CreativeTabs BIRDWATCHINGMODSPAWNEGGS = new BirdwmodSpawnEggsTab("birdwatchingmodspawneggstab");
 
 	@EventHandler
 	public static void preInit(FMLPreInitializationEvent event) {
