@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "birdwmod",
+  "version": "${version}",
+
+  "name": "The Birdwatching Mod",
+  "description": "This mod will add some rare and unknown bird species to your Minecraft. It will add an accurate spawn according to real life distribution. And finally some items like a bird book and binoculars.",
+  "authors": [
+    "Ikerleon02"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "icon": "assets/birdwmod/logo.png",
+
+  "entrypoints": {
+    "main": [
+      "com.ikerleon.birdwmod.Main"
+    ]
+  },
+  "mixins": [
+    "birdwmod.mixins.json"
+  ]
+}

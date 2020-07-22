@@ -19,5 +19,6 @@
    "entity.motmot_call":{"category":"ambient", "sounds":[{"name": "birdwmod:entity/motmot_call", "stream": true}]},
 
    "entity.greatgreyowl_song":{"category":"ambient", "sounds":[{"name": "birdwmod:entity/greatgreyowl_song", "stream": true}]},
-   "entity.booby_call":{"category":"ambient", "sounds":[{"name": "birdwmod:entity/booby_call", "stream": true}]}
+   "entity.booby_call":{"category":"ambient", "sounds":[{"name": "birdwmod:entity/booby_call", "stream": true}]},
+   "entity.razorbill_call":{"category":"ambient", "sounds":[{"name": "birdwmod:entity/razorbill_call", "stream": true}]}
 }
