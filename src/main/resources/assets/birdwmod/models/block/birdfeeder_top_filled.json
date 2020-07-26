@@ -1,10 +1,9 @@
 {
-	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "blocks/planks_oak",
-		"1": "blocks/stone",
+		"0": "block/oak_planks",
+		"1": "block/stone",
 		"2": "birdwmod:block/birdfeeder/seeds",
-		"particle": "blocks/planks_oak"
+		"particle": "block/oak_planks"
 	},
 	"elements": [
 		{

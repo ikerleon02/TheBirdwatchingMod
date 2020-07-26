@@ -18,6 +18,9 @@
   "entrypoints": {
     "main": [
       "com.ikerleon.birdwmod.Main"
+    ],
+    "client": [
+      "com.ikerleon.birdwmod.MainClient"
     ]
   },
   "mixins": [

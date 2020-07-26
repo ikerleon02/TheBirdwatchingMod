@@ -33,7 +33,7 @@
   "item.birdwmod.feather_northernmockingbird": "Pluma De Sisonte Norteño",
   "item.birdwmod.feather_redflanckedbluetailmale": "Pluma De Macho De Coliazul Cejiblanco",
   "item.birdwmod.feather_redflanckedbluetailfemale": "Pluma De Hembra De Coliazul Cejiblanco",
-  "item.birdwmod.feather_redneckednightjar2": "Pluma De Chotacabras Cuellirojo",
+  "item.birdwmod.feather_redneckednightjar": "Pluma De Chotacabras Cuellirojo",
   "item.birdwmod.feather_stellerseidermale": "Pluma De Macho De Eider Chico",
   "item.birdwmod.feather_stellerseiderfemale": "Pluma De Hembra De Eider Chico",
   "item.birdwmod.feather_kingofsaxonymale": "Pluma De Macho De Ave Del Paraiso Rey De Sajonia",
@@ -55,8 +55,8 @@
   "item.birdwmod.meatcooked_passerine": "Carne de Passerine Cocinada",
   "item.birdwmod.meatcooked_wader": "Carne De Limicola Cocinada",
 
-  "tile.birdwmod.birdfeeder": "Comedero De Pajaros",
-  "tile.birdwmod.ringingnet": "Red De Anillamiento",
+  "block.birdwmod.birdfeeder": "Comedero De Pajaros",
+  "block.birdwmod.ringingnet": "Red De Anillamiento",
 
   "itemGroup.birdwmod.birdwatchingmodtab": "The Birdwatching Mod",
   "itemGroup.birdwmod.birdwatchingmodspawneggstab": "The Birdwatching Mod: Spawn Eggs"

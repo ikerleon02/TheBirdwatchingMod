@@ -1,8 +1,8 @@
 {
   "variants": {
-    "filled=false,half=lower": { "model": "birdwmod:birdfeeder_bottom"},
-    "filled=true,half=lower": { "model": "birdwmod:birdfeeder_bottom"},
-    "filled=false,half=upper": { "model": "birdwmod:birdfeeder_top_unfilled"},
-    "filled=true,half=upper": { "model": "birdwmod:birdfeeder_top_filled"}
+    "filled=false,half=lower": { "model": "birdwmod:block/birdfeeder_bottom"},
+    "filled=true,half=lower": { "model": "birdwmod:block/birdfeeder_bottom"},
+    "filled=false,half=upper": { "model": "birdwmod:block/birdfeeder_top_unfilled"},
+    "filled=true,half=upper": { "model": "birdwmod:block/birdfeeder_top_filled"}
   }
 }

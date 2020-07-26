@@ -6,7 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "BirdwmodMixin"
+    "GameRendererMixin",
+    "InGameHudMixin",
+    "MouseMixin"
   ],
   "injectors": {
     "defaultRequire": 1

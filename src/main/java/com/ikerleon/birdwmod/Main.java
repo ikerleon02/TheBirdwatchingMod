@@ -1,5 +1,7 @@
 package com.ikerleon.birdwmod;
 
+import com.ikerleon.birdwmod.blocks.InitBlocks;
+import com.ikerleon.birdwmod.events.EventHandler;
 import com.ikerleon.birdwmod.items.InitItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -14,5 +16,7 @@ public class Main implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		InitItems.registerItems();
+		InitBlocks.registerBlocks();
+		EventHandler.registerEvents();
 	}
 }

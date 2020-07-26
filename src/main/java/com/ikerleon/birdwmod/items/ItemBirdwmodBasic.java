@@ -7,4 +7,8 @@ public class ItemBirdwmodBasic extends Item {
     public ItemBirdwmodBasic() {
         super(new Item.Settings().group(Main.THE_BIRDWATCHING_MOD));
     }
+
+    public ItemBirdwmodBasic(Item.Settings settings) {
+        super(settings.group(Main.THE_BIRDWATCHING_MOD));
+    }
 }

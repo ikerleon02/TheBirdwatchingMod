@@ -33,7 +33,7 @@
   "item.birdwmod.feather_northernmockingbird": "Northern Mockingbird Feather",
   "item.birdwmod.feather_redflanckedbluetailmale": "Red-Flancked Bluetail Male Feather",
   "item.birdwmod.feather_redflanckedbluetailfemale": "Red-Flancked Bluetail Female Feather",
-  "item.birdwmod.feather_redneckednightjar2": "Red-Necked Nightjar Feather",
+  "item.birdwmod.feather_redneckednightjar": "Red-Necked Nightjar Feather",
   "item.birdwmod.feather_stellerseidermale": "Steller's Eider Male Feather",
   "item.birdwmod.feather_stellerseiderfemale": "Steller's Eider Female Feather",
   "item.birdwmod.feather_kingofsaxonymale": "King-of-Saxony Bird of Paradise Male Feather",
@@ -55,8 +55,8 @@
   "item.birdwmod.meatcooked_passerine": "Cooked Passerine Meat",
   "item.birdwmod.meatcooked_wader": "Cooked Wader Meat",
 
-  "tile.birdwmod.birdfeeder": "Bird Feeder",
-  "tile.birdwmod.ringingnet": "Mist Net",
+  "block.birdwmod.birdfeeder": "Bird Feeder",
+  "block.birdwmod.ringingnet": "Mist Net",
 
   "itemGroup.birdwmod.birdwatchingmodtab": "The Birdwatching Mod",
   "itemGroup.birdwmod.birdwatchingmodspawneggstab": "The Birdwatching Mod: Spawn Eggs"

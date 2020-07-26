@@ -1,12 +1,12 @@
 {
   "variants": {
-    "direction=north,type=normal": { "model": "birdwmod:ringingnet"},
-    "direction=east,type=normal": { "model": "birdwmod:ringingnet","y": 90, "uvlock": true},
-    "direction=north,type=left": { "model": "birdwmod:ringingnetleft"},
-    "direction=east,type=left": { "model": "birdwmod:ringingnetleft","y": 90, "uvlock": true},
-    "direction=north,type=right": { "model": "birdwmod:ringingnetright"},
-    "direction=east,type=right": { "model": "birdwmod:ringingnetright","y": 90, "uvlock": true},
-    "direction=north,type=net": { "model": "birdwmod:ringingnetnet"},
-    "direction=east,type=net": { "model": "birdwmod:ringingnetnet","y": 90, "uvlock": true}
+    "direction=north,type=normal": { "model": "birdwmod:block/ringingnet"},
+    "direction=east,type=normal": { "model": "birdwmod:block/ringingnet","y": 90, "uvlock": false},
+    "direction=north,type=left": { "model": "birdwmod:block/ringingnetleft"},
+    "direction=east,type=left": { "model": "birdwmod:block/ringingnetleft","y": 90, "uvlock": false},
+    "direction=north,type=right": { "model": "birdwmod:block/ringingnetright"},
+    "direction=east,type=right": { "model": "birdwmod:block/ringingnetright","y": 90, "uvlock": false},
+    "direction=north,type=net": { "model": "birdwmod:block/ringingnetnet"},
+    "direction=east,type=net": { "model": "birdwmod:block/ringingnetnet","y": 90, "uvlock": false}
   }
 }
