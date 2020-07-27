@@ -2,16 +2,23 @@ package com.ikerleon.birdwmod.client.render;
 
 import com.ikerleon.birdwmod.entity.BirdEntity;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.soggymustache.bookworm.client.model.ModelCMF;
+import net.soggymustache.bookworm.client.animation.part.BookwormModelBase;
+import net.soggymustache.bookworm.client.render.BookwormEntityRenderer;
+import net.soggymustache.bookworm.client.render.BookwormFeatureRenderer;
+import net.soggymustache.bookworm.client.render.BookwormFeatureRendererContext;
 
-public abstract class BirdBaseRenderer <T extends BirdEntity, F extends ModelCMF> extends MobEntityRenderer<T> {
+public abstract class BirdBaseRenderer <T extends BirdEntity> extends BookwormEntityRenderer<T> {
 
-    public BirdBaseRenderer(RenderManager rendermanagerIn, ModelBase modelbaseIn, float shadowsizeIn){
-        super(rendermanagerIn, modelbaseIn, shadowsizeIn);
-        addLayer(new LayerBlinkSleeping(this));
-        addLayer(new LayerRing(this));
+    public BirdBaseRenderer(EntityRenderDispatcher renderManager, BookwormModelBase model, float f) {
+        super(renderManager, model, f);
+        this.features.add((BookwormFeatureRenderer<T>) new BlinkSleepingFeature(this));
+        this.features.add((BookwormFeatureRenderer<T>) new RingFeature(this));
     }
 
     public Identifier getBlinkTexture(T entity)
@@ -24,27 +31,26 @@ public abstract class BirdBaseRenderer <T extends BirdEntity, F extends ModelCMF
         return null;
     }
 
-    @SideOnly(Side.CLIENT)
-    public class LayerBlinkSleeping implements LayerRenderer<BirdEntity>
-    {
-        private final BirdBaseRenderer render;
+    @Environment(EnvType.CLIENT)
+    public class BlinkSleepingFeature extends BookwormFeatureRenderer<BirdEntity> {
+        private final BookwormFeatureRendererContext ctx;
 
-        public LayerBlinkSleeping(BirdBaseRenderer re)
-        {
-            this.render = re;
+        public BlinkSleepingFeature(BookwormFeatureRendererContext ctx) {
+            super(ctx);
+            this.ctx = ctx;
         }
 
-        public void doRenderLayer(BirdEntity e, float f, float f1, float f2, float f3, float f4, float f5, float f6)
-        {
-            if ((!e.isInvisible() && (e.getBlinking()) || e.isSleeping()) && e.onGround && this.render.getBlinkTexture(e) != null)  {
+        @Override
+        public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BirdEntity birdEntity, float v, float v1, float v2, float v3, float v4, float v5) {
+            if ((!birdEntity.isInvisible() && (birdEntity.getBlinking()) || birdEntity.isSleeping()) && birdEntity.isOnGround() && this.render.getBlinkTexture(birdEntity) != null)  {
                 GlStateManager.pushMatrix();
-                this.render.bindTexture(this.render.getBlinkTexture(e));
+                this.render.bindTexture(this.render.getBlinkTexture(birdEntity));
                 this.render.getMainModel().setModelAttributes(this.render.getMainModel());
-                this.render.getMainModel().setRotationAngles(f, f1, f3, f4, f5, f6, e);
+                this.render.getMainModel().setRotationAngles(f, f1, f3, f4, f5, f6, birdEntity);
                 this.render.getMainModel().render(e, f, f1, f2, f3, f4, f6);
                 GlStateManager.popMatrix();
             }
-            else if(e instanceof EntityGreatGreyOwl){
+            else if(birdEntity instanceof EntityGreatGreyOwl){
                 this.render.bindTexture(RenderGreatGreyOwl.TEXTUREYES);
                 ModelBase mainModel = this.render.getMainModel();
 
@@ -78,47 +84,37 @@ public abstract class BirdBaseRenderer <T extends BirdEntity, F extends ModelCMF
             }
         }
 
-        public boolean shouldCombineTextures()
-        {
-            return true;
-        }
-
         protected void setLightmap(BirdEntity entityLivingIn, float partialTicks) {
-            int i = entityLivingIn.getBrightnessForRender();
-            int j = i % 75536;
-            int k = i / 75536;
+            float i = entityLivingIn.getBrightnessAtEyes();
+            float j = i % 75536;
+            float k = i / 75536;
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j, (float)k);
         }
     }
 
-    @SideOnly(Side.CLIENT)
-    public class LayerRing implements LayerRenderer<BirdEntity>
-    {
-        private final BirdBaseRenderer birdRender;
+    @Environment(EnvType.CLIENT)
+    public class RingFeature extends BookwormFeatureRenderer<BirdEntity>{
 
-        public LayerRing(BirdBaseRenderer birdRenderIn)
-        {
-            this.birdRender = birdRenderIn;
+        private final BookwormFeatureRendererContext ctx;
+
+        public RingFeature(BookwormFeatureRendererContext ctx) {
+            super(ctx);
+            this.ctx = ctx;
         }
 
-        public void doRenderLayer(BirdEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-        {
-            if (!entitylivingbaseIn.isInvisible() && entitylivingbaseIn.hasBeenRinged() && this.birdRender.getRingTexture(entitylivingbaseIn) != null)
+        @Override
+        public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BirdEntity birdEntity, float v, float v1, float v2, float v3, float v4, float v5) {
+            if (!birdEntity.isInvisible() && birdEntity.hasBeenRinged() && ctx.getRingTexture(birdEntity) != null)
             {
                 this.birdRender.bindTexture(this.birdRender.getRingTexture(entitylivingbaseIn));
                 this.birdRender.getMainModel().setModelAttributes(this.birdRender.getMainModel());
-                if(entitylivingbaseIn.getRingColor() != null) {
-                    float[] afloat = entitylivingbaseIn.getRingColor().getColorComponentValues();
-                    GlStateManager.color(afloat[0], afloat[1], afloat[2]);
+                if(birdEntity.getRingColor() != null) {
+                    float[] afloat = birdEntity.getRingColor().getColorComponents();
+                    GlStateManager.color4f(afloat[0], afloat[1], afloat[2], afloat[3]);
                 }
                 this.birdRender.getMainModel().setRotationAngles( limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entitylivingbaseIn);
                 this.birdRender.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
             }
-        }
-
-        public boolean shouldCombineTextures()
-        {
-            return true;
         }
     }
 }
