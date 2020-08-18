@@ -3,6 +3,7 @@ package com.ikerleon.birdwmod.entity.europe;
 import com.ikerleon.birdwmod.entity.BirdEntity;
 import com.ikerleon.birdwmod.entity.DiurnalBirdEntity;
 import com.ikerleon.birdwmod.items.InitItems;
+import com.ikerleon.birdwmod.util.SoundHandler;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -12,6 +13,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 
 public class EurasianBullfinchEntity extends DiurnalBirdEntity {
@@ -25,18 +27,18 @@ public class EurasianBullfinchEntity extends DiurnalBirdEntity {
         return 1;
     }
 
-    /*@Override
+    @Override
     protected SoundEvent getAmbientSound() {
-        if(this.onGround && !isSleeping()){
+        if(this.isOnGround() && !isSleeping()){
             return SoundHandler.BULLFINCH_CALL;
         }
         else{
             return null;
         }
-    }*/
+    }
 
     public static DefaultAttributeContainer.Builder createBirdAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.19D).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.30D).add(EntityAttributes.GENERIC_MAX_HEALTH, 5.0D);
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20D).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.70D).add(EntityAttributes.GENERIC_MAX_HEALTH, 5.0D);
     }
 
     @Override

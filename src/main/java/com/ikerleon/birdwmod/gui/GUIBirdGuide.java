@@ -1,5 +1,10 @@
 package com.ikerleon.birdwmod.gui;
 
+import com.ikerleon.birdwmod.entity.InitEntities;
+import com.ikerleon.birdwmod.entity.europe.EurasianBullfinchEntity;
+import com.ikerleon.birdwmod.entity.europe.RedFlankedBluetailEntity;
+import com.ikerleon.birdwmod.entity.europe.RedNeckedNightjarEntity;
+import com.ikerleon.birdwmod.entity.europe.StellersEiderEntity;
 import com.ikerleon.birdwmod.items.InitItems;
 import net.fabricmc.fabric.impl.object.builder.FabricEntityType;
 import net.minecraft.client.MinecraftClient;
@@ -169,16 +174,16 @@ public class GUIBirdGuide extends Screen {
             this.itemRenderer.renderGuiItemIcon(new ItemStack(InitItems.STELLERSEIDERFEATHER_MALE, 1), offLeft + 175, 95 + offTop);
             this.itemRenderer.renderInGui(new ItemStack(InitItems.STELLERSEIDERFEATHER_FEMALE, 1), offLeft + 240, 95 + offTop);
 
-            
-            
             int i = (this.width - this.bookImageWidth) / 2;
             int j = (this.height - this.bookImageHeight) / 2;
-            CowEntity entity = new CowEntity(EntityType.COW, MinecraftClient.getInstance().world);
-            /*entity.setGender(0);
-            EntityStellersEider entity2 = new EntityStellersEider(mc.world);
-            entity2.setGender(1);*/
-            InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            //InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            StellersEiderEntity entity = new StellersEiderEntity(InitEntities.STELLERS_EIDER_ENTITY, MinecraftClient.getInstance().world);
+            entity.setGender(0);
+            entity.setOnGround(true);
+            StellersEiderEntity entity2 = new StellersEiderEntity(InitEntities.STELLERS_EIDER_ENTITY, MinecraftClient.getInstance().world);
+            entity2.setGender(1);
+            entity2.setOnGround(true);
+            InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 50, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 50, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
         }
 
         else if(currPage==2){
@@ -204,9 +209,9 @@ public class GUIBirdGuide extends Screen {
             EntityGreenHeron entity3 = new EntityGreenHeron(mc.world);
             entity3.setVariant(3);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 175, 70 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
-            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-            InventoryScreen.drawEntity(offLeft + 255, 70 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);*/
+            InventoryScreen.drawEntity(offLeft + 175, 70 + offTop, 50, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
+            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 50, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            InventoryScreen.drawEntity(offLeft + 255, 70 + offTop, 50, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);*/
         }
 
         else if(currPage==3) {
@@ -232,9 +237,9 @@ public class GUIBirdGuide extends Screen {
             EntityKilldeer entity3 = new EntityKilldeer(mc.world);
             entity3.setVariant(3);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 175, 60 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-            InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);*/
+            InventoryScreen.drawEntity(offLeft + 175, 60 + offTop, 50, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 50, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 50, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);*/
         }
         else if(currPage==4){
             this.textRenderer.draw(matrices, page4Title, offLeft + 35, 15 + offTop, 0);
@@ -262,10 +267,10 @@ public class GUIBirdGuide extends Screen {
             EntityBrownBooby entity4 = new EntityBrownBooby(mc.world);
             entity4.setVariant(4);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 175, 85 + offTop, 35, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
-            InventoryScreen.drawEntity(offLeft + 215, 95 + offTop, 35, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-            InventoryScreen.drawEntity(offLeft + 255, 85 + offTop, 35, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 215, 60 + offTop, 35, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity4);*/
+            InventoryScreen.drawEntity(offLeft + 175, 85 + offTop, 35, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
+            InventoryScreen.drawEntity(offLeft + 215, 95 + offTop, 35, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            InventoryScreen.drawEntity(offLeft + 255, 85 + offTop, 35, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 215, 60 + offTop, 35, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity4);*/
         }
         else if(currPage==5){
             this.textRenderer.draw(matrices, page5Title, offLeft + 45, 15 + offTop, 0);
@@ -288,8 +293,8 @@ public class GUIBirdGuide extends Screen {
             entity2.setGender(1);
             entity2.biome = Biomes.COLD_BEACH;
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 190, 75 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 50, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);*/
+            InventoryScreen.drawEntity(offLeft + 190, 75 + offTop, 50, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 50, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);*/
         }
         else if(currPage==6){
             this.textRenderer.draw(matrices, page6Title, offLeft + 30, 15 + offTop, 0);
@@ -314,9 +319,9 @@ public class GUIBirdGuide extends Screen {
             EntityGreatGreyOwl entity3 = new EntityGreatGreyOwl(mc.world);
             entity3.setVariant(3);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 175, 70 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
-            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-            InventoryScreen.drawEntity(offLeft + 255, 70 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);*/
+            InventoryScreen.drawEntity(offLeft + 175, 70 + offTop, 45, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
+            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 45, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            InventoryScreen.drawEntity(offLeft + 255, 70 + offTop, 45, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);*/
         }
         else if(currPage==7){
             this.textRenderer.draw(matrices, page7Title, offLeft + 15, 15 + offTop, 0);
@@ -332,18 +337,21 @@ public class GUIBirdGuide extends Screen {
 
             this.itemRenderer.renderInGui(new ItemStack(InitItems.REDNECKEDNIGHTJARFEATHER, 1), offLeft + 205, 95 + offTop);
 
-            /*int i = (this.width - this.bookImageWidth) / 2;
-            int j = (this.height - this.bookImageHeight) / 2;
-            EntityRedNeckedNightjar entity = new EntityRedNeckedNightjar(mc.world);
+            int i = (this.width - this.bookImageWidth)/2;
+            int j = (this.height - this.bookImageHeight)/2;
+            RedNeckedNightjarEntity entity = new RedNeckedNightjarEntity(InitEntities.RED_NECKED_NIGHTJAR_ENTITY, MinecraftClient.getInstance().world);
             entity.setVariant(1);
-            EntityRedNeckedNightjar entity2 = new EntityRedNeckedNightjar(mc.world);
+            entity.setOnGround(true);
+            RedNeckedNightjarEntity entity2 = new RedNeckedNightjarEntity(InitEntities.RED_NECKED_NIGHTJAR_ENTITY, MinecraftClient.getInstance().world);
             entity2.setVariant(2);
-            EntityRedNeckedNightjar entity3 = new EntityRedNeckedNightjar(mc.world);
+            entity2.setOnGround(true);
+            RedNeckedNightjarEntity entity3 = new RedNeckedNightjarEntity(InitEntities.RED_NECKED_NIGHTJAR_ENTITY, MinecraftClient.getInstance().world);
             entity3.setVariant(3);
+            entity3.setOnGround(true);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 175, 60 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-            InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 45, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);*/
+            InventoryScreen.drawEntity(offLeft + 175, 60 + offTop, 55, (float)(i + 51) - (mousePosX * 2), (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 55, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 55, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
         }
         else if(currPage==8){
             this.textRenderer.draw(matrices, page8Title, offLeft + 13, 15 + offTop, 0);
@@ -368,9 +376,9 @@ public class GUIBirdGuide extends Screen {
             EntityNorthernMockingbird entity3 = new EntityNorthernMockingbird(mc.world);
             entity3.setVariant(3);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 175, 60 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-            InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);*/
+            InventoryScreen.drawEntity(offLeft + 175, 60 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);*/
         }
         else if(currPage==9){
             this.textRenderer.draw(matrices, page9Title, offLeft + 25, 15 + offTop, 0);
@@ -393,8 +401,8 @@ public class GUIBirdGuide extends Screen {
             EntityEasternBluebird entity2 = new EntityEasternBluebird(mc.world);
             entity2.setGender(1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);*/
+            InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);*/
         }
         else if(currPage==10){
             this.textRenderer.draw(matrices, page10Title, offLeft + 15, 15 + offTop, 0);
@@ -410,15 +418,17 @@ public class GUIBirdGuide extends Screen {
             this.itemRenderer.renderInGui(new ItemStack(InitItems.REDFLANCKEDBLUETAILFEATHER_MALE, 1), offLeft + 175, 95 + offTop);
             this.itemRenderer.renderInGui(new ItemStack(InitItems.REDFLANCKEDBLUETAILFEATHER_FEMALE, 1), offLeft + 240, 95 + offTop);
 
-            /*int i = (this.width - this.bookImageWidth) / 2;
+            int i = (this.width - this.bookImageWidth) / 2;
             int j = (this.height - this.bookImageHeight) / 2;
-            EntityRedFlankedBluetail entity = new EntityRedFlankedBluetail(mc.world);
+            RedFlankedBluetailEntity entity = new RedFlankedBluetailEntity(InitEntities.RED_FLANKED_BLUETAIL_ENTITY, MinecraftClient.getInstance().world);
+            entity.setOnGround(true);
             entity.setGender(0);
-            EntityRedFlankedBluetail entity2 = new EntityRedFlankedBluetail(mc.world);
+            RedFlankedBluetailEntity entity2 = new RedFlankedBluetailEntity(InitEntities.RED_FLANKED_BLUETAIL_ENTITY, MinecraftClient.getInstance().world);
+            entity2.setOnGround(true);
             entity2.setGender(1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);*/
+            InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 100, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 100, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
         }
         else if(currPage==11){
             this.textRenderer.draw(matrices, page11Title, offLeft + 18, 15 + offTop, 0);
@@ -434,15 +444,17 @@ public class GUIBirdGuide extends Screen {
             this.itemRenderer.renderInGui(new ItemStack(InitItems.EURASIANBULLFINCHDFEATHER_MALE, 1), offLeft + 175, 95 + offTop);
             this.itemRenderer.renderInGui(new ItemStack(InitItems.EURASIANBULLFINCHDFEATHER_FEMALE, 1), offLeft + 240, 95 + offTop);
 
-            /*int i = (this.width - this.bookImageWidth) / 2;
+            int i = (this.width - this.bookImageWidth) / 2;
             int j = (this.height - this.bookImageHeight) / 2;
-            EntityEurasianBullfinch entity = new EntityEurasianBullfinch(mc.world);
+            EurasianBullfinchEntity entity = new EurasianBullfinchEntity(InitEntities.EURASIAN_BULLFINCH_ENTITY, MinecraftClient.getInstance().world);
+            entity.setOnGround(true);
             entity.setGender(0);
-            EntityEurasianBullfinch entity2 = new EntityEurasianBullfinch(mc.world);
+            EurasianBullfinchEntity entity2 = new EurasianBullfinchEntity(InitEntities.EURASIAN_BULLFINCH_ENTITY, MinecraftClient.getInstance().world);
+            entity2.setOnGround(true);
             entity2.setGender(1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);*/
+            InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 100, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 100, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
         }
         else if(currPage==12){
             this.textRenderer.draw(matrices, page12Title1, offLeft + 28, 15 + offTop, 0);
@@ -466,8 +478,8 @@ public class GUIBirdGuide extends Screen {
             EntityKingofSaxony entity2 = new EntityKingofSaxony(mc.world);
             entity2.setGender(1);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);*/
+            InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);*/
         }
         else if(currPage==13){
             this.textRenderer.draw(matrices, page13Title1, offLeft + 19, 10 + offTop, 0);
@@ -493,12 +505,12 @@ public class GUIBirdGuide extends Screen {
             EntityTurquoiseBrowedMotmot entity3 = new EntityTurquoiseBrowedMotmot(mc.world);
             entity3.setVariant(3);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 175, 60 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-            InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 60, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);*/
+            InventoryScreen.drawEntity(offLeft + 175, 60 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);*/
         }
         else if(currPage==14){
-            this.textRenderer.draw(matrices, page14Title, offLeft + 51, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, page14Title, offLeft, 15 + offTop, 0);
             this.textRenderer.draw(matrices, page14Subtitle, offLeft + 18, 25 + offTop, 0);
             this.textRenderer.drawTrimmed(StringRenderable.plain(page14Text), offLeft + 13, 40 + offTop, 126, 0);
             this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
@@ -513,7 +525,7 @@ public class GUIBirdGuide extends Screen {
             int j = (this.height - this.bookImageHeight) / 2;
             EntityHoatzin entity = new EntityHoatzin(mc.world);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 217, 75 + offTop, 40, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);*/
+            InventoryScreen.drawEntity(offLeft + 217, 75 + offTop, 40, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);*/
         }
 
         super.render(matrices, mouseX, mouseY, delta);

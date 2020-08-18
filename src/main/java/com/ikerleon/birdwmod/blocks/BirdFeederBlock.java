@@ -71,7 +71,17 @@ public class BirdFeederBlock extends Block{
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return AABB;
+        if(state.get(HALF) == EnumBlockHalf.LOWER) {
+
+            return VoxelShapes.union(STICK_BOX, PLATAFORM_BOX, BASE_BOX, PLATAFORM2_BOX);
+        }
+        else if(state.get(HALF) == EnumBlockHalf.UPPER) {
+
+            return VoxelShapes.union(FEEDER_BASE_BOX, FEEDER_BACK_BOX, FEEDER_FRONT_BOX, FEEDER_LEFT_BOX, FEEDER_RIGHT_BOX, FEEDER_STICK_BOX, FEEDER_PLATAFORM_BOX, FEEDER_STICK2_BOX, FEEDER_TOP_BOX);
+        }
+        else{
+            return VoxelShapes.fullCube();
+        }
     }
 
     @Override

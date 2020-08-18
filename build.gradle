@@ -11,7 +11,11 @@ version = "1.7.0"
 group = "com.ikerleon.thebirdwatchingmod"
 
 dependencies {
-	compile files('libs/')
+
+	compile group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.0'
+
+	compile fileTree(dir: 'libs', include: '*.jar')
+
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"

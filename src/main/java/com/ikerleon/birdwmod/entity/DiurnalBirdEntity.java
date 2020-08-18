@@ -11,10 +11,10 @@ public abstract class DiurnalBirdEntity extends BirdEntity{
     }
 
     @Override
-    public void mobTick() {
+    public void tickMovement() {
         if(this.onGround) {
-            setSleeping(world.getTime() >= 12000 && world.getTime() <= 23000);
+            setSleeping(world.getTimeOfDay() >= 12969 && world.getTimeOfDay() <= 23031);
         }
-        super.mobTick();
+        super.tickMovement();
     }
 }

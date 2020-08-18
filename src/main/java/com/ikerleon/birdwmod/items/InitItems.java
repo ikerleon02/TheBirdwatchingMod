@@ -1,5 +1,6 @@
 package com.ikerleon.birdwmod.items;
 
+import com.ikerleon.birdwmod.entity.InitEntities;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
@@ -16,6 +17,26 @@ public class InitItems {
     public static final Item RING = new ItemBirdwmodBasic();
 
     public static final Item BIRD_GUIDE = new ItemBirdGuide();
+
+    //Spawn eggs
+    public static final Item REDNECKEDNIGHTJAR_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_NECKED_NIGHTJAR_ENTITY);
+    public static final Item EURASIANBULLFINCH_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.EURASIAN_BULLFINCH_ENTITY);
+    public static final Item REDFLANKEDBLUETAIL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+    public static final Item STELLERSEIDER_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.STELLERS_EIDER_ENTITY);
+
+    public static final Item KILLDEER_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+    public static final Item EASTERNBLUEBIRD_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+    public static final Item NORTHERNMOCKINGBIRD_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+    public static final Item GREENHERON_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+
+    public static final Item HOATZIN_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+    public static final Item TURQUOISEBROWEDMOTMOT_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+    public static final Item KINGOFSAXONY_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+
+    public static final Item GREATGREYOWL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+    public static final Item BROWNBOOBY_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+
+    //public static final Item RAZORBILL_SPAWNEGG = new ItemBirdSpawnEgg("razorbill");
 
     //feathers
     public static final Item EASTERNBLUEBIRDFEATHER_FEMALE = new ItemBirdwmodBasic();
@@ -57,6 +78,23 @@ public class InitItems {
 
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "ring"), RING);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "bird_guide"), BIRD_GUIDE);
+
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_rednecked_nightjar"), REDNECKEDNIGHTJAR_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_eurasian_bullfinch"), EURASIANBULLFINCH_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_redflanked_bluetail"), REDFLANKEDBLUETAIL_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_stellers_eider"), STELLERSEIDER_SPAWNEGG);
+
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_killdeer"), KILLDEER_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_eastern_bluebird"), EASTERNBLUEBIRD_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_northern_mockingbird"), NORTHERNMOCKINGBIRD_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_green_heron"), GREENHERON_SPAWNEGG);
+
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_hoatzin"), HOATZIN_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_turquoisebrowed_motmot"), KINGOFSAXONY_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_kingofsaxony_bird_of_paradise"), TURQUOISEBROWEDMOTMOT_SPAWNEGG);
+
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_great_grey_owl"), GREATGREYOWL_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_brown_booby"), BROWNBOOBY_SPAWNEGG);
 
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_easternbluebirdfemale"), EASTERNBLUEBIRDFEATHER_FEMALE);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_easternbluebirdmale"), EASTERNBLUEBIRDFEATHER_MALE);

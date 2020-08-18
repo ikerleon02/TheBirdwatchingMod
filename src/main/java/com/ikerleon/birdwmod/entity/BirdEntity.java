@@ -2,6 +2,7 @@ package com.ikerleon.birdwmod.entity;
 
 import com.ikerleon.birdwmod.blocks.InitBlocks;
 import com.ikerleon.birdwmod.blocks.RingingNetBlock;
+import com.ikerleon.birdwmod.entity.europe.EurasianBullfinchEntity;
 import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
 import com.ikerleon.birdwmod.entity.goal.WanderAroundFarFlyingGoal;
 import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
@@ -9,15 +10,10 @@ import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MovementType;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.control.FlightMoveControl;
 import net.minecraft.entity.ai.control.MoveControl;
-import net.minecraft.entity.ai.goal.FleeEntityGoal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -36,9 +32,12 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 
 public abstract class BirdEntity extends AnimalEntity{
@@ -58,8 +57,6 @@ public abstract class BirdEntity extends AnimalEntity{
     private byte blinkSec = 0;
     private Random rando = new Random();
 
-    protected WanderAroundFarFlyingGoal WanderFlying;
-    protected WanderAroundFarGoal Wander;
     private FleeEntityGoal avoidEntity = new FleeEntityGoal(this, PlayerEntity.class, 7.0F, 0.8D, 1.33D);
 
     //Entity constructor and stuff
@@ -68,11 +65,14 @@ public abstract class BirdEntity extends AnimalEntity{
         this.setGender(getRandom().nextInt(2));
         this.setVariant(getRandom().nextInt(setBirdVariants()));
         this.timeUntilNextFeather = this.rando.nextInt(10000) + 10000;
+        this.moveControl = new FlightMoveControl(this, 30, false);
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new EatFromFeedersGoal(this));
-        this.goalSelector.add(4, this.avoidEntity);
+        this.goalSelector.add(2, this.avoidEntity);
+        this.goalSelector.add(3, new EatFromFeedersGoal(this));
+        this.goalSelector.add(5, new FlyOntoTreeGoal(this, 1.0D));
+        this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(2, new WanderAroundFarGoal(this, 1.0D));
+
     }
 
     static {
@@ -95,23 +95,6 @@ public abstract class BirdEntity extends AnimalEntity{
         this.dataTracker.startTracking(SLEEPING, Boolean.valueOf(false));
         this.dataTracker.startTracking(RING_COLOR,Integer.valueOf(DyeColor.GRAY.getId()));
         this.dataTracker.startTracking(RINGED, Boolean.valueOf(false));
-    }
-
-    @Override
-    protected void initGoals() {
-        this.Wander = new WanderAroundFarGoal(this, 1.0D);
-        this.WanderFlying = new WanderAroundFarFlyingGoal(this, 1.0D);
-
-        super.initGoals();
-        if(this.isBaby()){
-            this.moveControl = new MoveControl(this);
-            this.goalSelector.add(3, Wander);
-        }
-        else{
-            this.moveControl = new MoveControlFlying(this);
-            this.goalSelector.remove(Wander);
-            this.goalSelector.add(3, WanderFlying);
-        }
     }
 
     //NBT write and read methods
@@ -172,9 +155,7 @@ public abstract class BirdEntity extends AnimalEntity{
     //Entity stuff
 
     @Override
-    protected void mobTick() {
-        super.mobTick();
-
+    public void tickMovement() {
         if(this.isInNet()){
             this.fallDistance = 0.0F;
             this.onGround = true;
@@ -208,9 +189,11 @@ public abstract class BirdEntity extends AnimalEntity{
         if(this.hasBeenRinged()){
             this.setPersistent();
         }
+        super.tickMovement();
     }
 
     public abstract boolean goesToFeeders();
+
     public abstract boolean isAquatic();
 
     @Override
@@ -237,23 +220,17 @@ public abstract class BirdEntity extends AnimalEntity{
             if(egg.entityType == this.getType()){
                 if (!this.world.isClient())
                 {
-                    PassiveEntity entityageable = this.createChild(this);
+                    Object mobEntity3;
+                    mobEntity3 = ((PassiveEntity)this).createChild((PassiveEntity)this);
+                    ((MobEntity)mobEntity3).setBaby(true);
+                    ((MobEntity)mobEntity3).refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+                    world.spawnEntity((Entity)mobEntity3);
+                    if (itemstack.hasCustomName()) {
+                        ((MobEntity)mobEntity3).setCustomName(itemstack.getName());
+                    }
 
-                    if (entityageable != null)
-                    {
-                        entityageable.setBreedingAge(-24000);
-                        entityageable.setPose(this.getPose());
-                        this.world.spawnEntity(entityageable);
-
-                        if (itemstack.hasCustomName())
-                        {
-                            entityageable.setCustomName(itemstack.getName());
-                        }
-
-                        if (!player.isCreative())
-                        {
-                            itemstack.decrement(1);
-                        }
+                    if (!player.abilities.creativeMode) {
+                        itemstack.decrement(1);
                     }
                 }
             }
@@ -294,15 +271,20 @@ public abstract class BirdEntity extends AnimalEntity{
     }
 
     @Override
-    public boolean canMoveVoluntarily() {
-        if(this.onGround) {
-            return super.canMoveVoluntarily() || isSleeping();
-        }
-        else{
-            return super.canMoveVoluntarily();
-        }
+    protected float getSoundVolume() {
+        return 0.5F;
     }
 
+    @Override
+    public boolean isAiDisabled() {
+        super.isAiDisabled();
+        if(this.isSleeping()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     //Blinking code
     public boolean getBlinking()
