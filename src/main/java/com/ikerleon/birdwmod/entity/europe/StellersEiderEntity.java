@@ -31,7 +31,7 @@ public class StellersEiderEntity extends DiurnalBirdEntity {
             if (this.getGender() == 0) {
                 return SoundHandler.EIDER_CALL;
             } else {
-                return SoundHandler.EIDER_FLYING;
+                return null;
             }
         }
         else{
@@ -64,9 +64,9 @@ public class StellersEiderEntity extends DiurnalBirdEntity {
     @Override
     protected void dropLoot(DamageSource source, boolean causedByPlayer) {
         if(this.isOnFire())
-            this.dropItem(InitItems.DUCKCOOCKEDMEAT, 1);
+            this.dropItem(InitItems.BIGCOOCKEDMEAT, 1);
         else
-            this.dropItem(InitItems.DUCKRAWMEAT, 1);
+            this.dropItem(InitItems.BIGRAWMEAT, 1);
     }
 
     @Override

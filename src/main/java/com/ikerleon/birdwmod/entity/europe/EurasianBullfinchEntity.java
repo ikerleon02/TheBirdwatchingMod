@@ -59,9 +59,9 @@ public class EurasianBullfinchEntity extends DiurnalBirdEntity {
     @Override
     protected void dropLoot(DamageSource source, boolean causedByPlayer) {
         if(this.isOnFire())
-            this.dropItem(InitItems.PASSERINECOOCKEDMEAT, 1);
+            this.dropItem(InitItems.SMALLCOOCKEDMEAT, 1);
         else
-            this.dropItem(InitItems.PASSERINERAWMEAT, 1);
+            this.dropItem(InitItems.SMALLRAWMEAT, 1);
     }
 
     @Override

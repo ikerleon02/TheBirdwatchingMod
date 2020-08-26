@@ -1,4 +1,4 @@
-package com.ikerleon.birdwmod.entity.europe;
+package com.ikerleon.birdwmod.entity.northamerica;
 
 import com.ikerleon.birdwmod.entity.DiurnalBirdEntity;
 import com.ikerleon.birdwmod.items.InitItems;
@@ -13,21 +13,21 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 
-public class RedFlankedBluetailEntity extends DiurnalBirdEntity {
+public class GreenHeronEntity extends DiurnalBirdEntity {
 
-    public RedFlankedBluetailEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
+    public GreenHeronEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
     @Override
     public int setBirdVariants() {
-        return 1;
+        return 3;
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        if(this.isOnGround() && !isSleeping()) {
-            return SoundHandler.BLUETAIL_CALL;
+        if(!isSleeping() && !onGround){
+            return SoundHandler.HERON_FLYING;
         }
         else{
             return null;
@@ -35,19 +35,14 @@ public class RedFlankedBluetailEntity extends DiurnalBirdEntity {
     }
 
     public static DefaultAttributeContainer.Builder createBirdAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20D).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.70D).add(EntityAttributes.GENERIC_MAX_HEALTH, 5.0D);
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20D).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.70D).add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0D);
     }
 
     @Override
     public void mobTick() {
         if (!this.world.isClient() && !this.isBaby() && --this.timeUntilNextFeather <= 0)
         {
-            if(this.getGender()==0){
-                this.dropItem(InitItems.REDFLANCKEDBLUETAILFEATHER_MALE, 1);
-            }
-            else{
-                this.dropItem(InitItems.REDFLANCKEDBLUETAILFEATHER_FEMALE, 1);
-            }
+            this.dropItem(InitItems.GREENHERONFEATHER, 1);
             this.timeUntilNextFeather = this.random.nextInt(10000) + 10000;
         }
         super.mobTick();
@@ -56,14 +51,14 @@ public class RedFlankedBluetailEntity extends DiurnalBirdEntity {
     @Override
     protected void dropLoot(DamageSource source, boolean causedByPlayer) {
         if(this.isOnFire())
-            this.dropItem(InitItems.SMALLCOOCKEDMEAT, 1);
+            this.dropItem(InitItems.BIGCOOCKEDMEAT, 1);
         else
-            this.dropItem(InitItems.SMALLRAWMEAT, 1);
+            this.dropItem(InitItems.BIGRAWMEAT, 1);
     }
 
     @Override
     public boolean goesToFeeders() {
-        return true;
+        return false;
     }
 
     @Override
@@ -73,7 +68,6 @@ public class RedFlankedBluetailEntity extends DiurnalBirdEntity {
 
     @Override
     public PassiveEntity createChild(PassiveEntity mate) {
-        return (RedFlankedBluetailEntity)this.getType().create(this.world);
+        return (GreenHeronEntity)this.getType().create(this.world);
     }
 }
-

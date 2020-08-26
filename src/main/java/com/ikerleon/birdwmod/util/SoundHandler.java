@@ -30,6 +30,8 @@ public class SoundHandler {
 
     public static SoundEvent RAZORBILL_CALL = register("entity.razorbill_call");
 
+    public static SoundEvent HIMALAYAN_MONAL_SONG = register("entity.himonalmale_song");
+
     private static SoundEvent register(String id)
     {
         return Registry.register(Registry.SOUND_EVENT, id, new SoundEvent(new Identifier("birdwmod", id)));

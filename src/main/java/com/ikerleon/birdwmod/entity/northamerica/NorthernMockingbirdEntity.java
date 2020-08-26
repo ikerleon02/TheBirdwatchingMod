@@ -1,4 +1,4 @@
-package com.ikerleon.birdwmod.entity.europe;
+package com.ikerleon.birdwmod.entity.northamerica;
 
 import com.ikerleon.birdwmod.entity.DiurnalBirdEntity;
 import com.ikerleon.birdwmod.items.InitItems;
@@ -13,21 +13,34 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 
-public class RedFlankedBluetailEntity extends DiurnalBirdEntity {
+public class NorthernMockingbirdEntity extends DiurnalBirdEntity {
 
-    public RedFlankedBluetailEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
+    public NorthernMockingbirdEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
     @Override
     public int setBirdVariants() {
-        return 1;
+        return 3;
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        if(this.isOnGround() && !isSleeping()) {
-            return SoundHandler.BLUETAIL_CALL;
+        int mimic = this.random.nextInt(10) + 1;
+        if(!isSleeping()) {
+            if (mimic <= 5) {
+                if (this.getGender() == 0) {
+                    return SoundHandler.MOCKINGBIRD_SONG;
+                } else {
+                    return SoundHandler.MOCKINGBIRD_CALL;
+                }
+            } else {
+                if (mimic <= 7) {
+                    return SoundHandler.BLUEBIRD_CALL;
+                } else {
+                    return SoundHandler.KILLDEER_CALL;
+                }
+            }
         }
         else{
             return null;
@@ -42,12 +55,7 @@ public class RedFlankedBluetailEntity extends DiurnalBirdEntity {
     public void mobTick() {
         if (!this.world.isClient() && !this.isBaby() && --this.timeUntilNextFeather <= 0)
         {
-            if(this.getGender()==0){
-                this.dropItem(InitItems.REDFLANCKEDBLUETAILFEATHER_MALE, 1);
-            }
-            else{
-                this.dropItem(InitItems.REDFLANCKEDBLUETAILFEATHER_FEMALE, 1);
-            }
+            this.dropItem(InitItems.NORTHERNMOCKINGBIRDFEATHER, 1);
             this.timeUntilNextFeather = this.random.nextInt(10000) + 10000;
         }
         super.mobTick();
@@ -73,7 +81,6 @@ public class RedFlankedBluetailEntity extends DiurnalBirdEntity {
 
     @Override
     public PassiveEntity createChild(PassiveEntity mate) {
-        return (RedFlankedBluetailEntity)this.getType().create(this.world);
+        return (NorthernMockingbirdEntity)this.getType().create(this.world);
     }
 }
-

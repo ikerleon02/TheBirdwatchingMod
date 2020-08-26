@@ -43,17 +43,13 @@
     "item.birdwmod.feather_greatgreyowl": "Great Grey Owl Feather",
     "item.birdwmod.feather_brownbooby": "Brown Booby Feather",
 
-    "item.birdwmod.meatraw_duck": "Raw Duck Meat",
-    "item.birdwmod.meatraw_heron": "Raw Heron Meat",
-    "item.birdwmod.meatraw_nightjar": "Raw Nightjar Meat",
-    "item.birdwmod.meatraw_passerine": "Raw Passerine Meat",
-    "item.birdwmod.meatraw_wader": "Raw Wader Meat",
+    "item.birdwmod.meatraw_duck": "Big Raw Meat",
+    "item.birdwmod.meatraw_passerine": "Small Raw Meat",
+    "item.birdwmod.meatraw_wader": "Medium Raw Meat",
 
-    "item.birdwmod.meatcooked_duck": "Cooked Duck Meat",
-    "item.birdwmod.meatcooked_heron": "Cooked Heron Meat",
-    "item.birdwmod.meatcooked_nightjar": "Cooked Nightjar Meat",
-    "item.birdwmod.meatcooked_passerine": "Cooked Passerine Meat",
-    "item.birdwmod.meatcooked_wader": "Cooked Wader Meat",
+    "item.birdwmod.meatcooked_duck": "Big Cooked Meat",
+    "item.birdwmod.meatcooked_passerine": "Small Cooked Meat",
+    "item.birdwmod.meatcooked_wader": "Medium Cooked Meat",
 
     "block.birdwmod.birdfeeder": "Bird Feeder",
     "block.birdwmod.ringingnet": "Mist Net",

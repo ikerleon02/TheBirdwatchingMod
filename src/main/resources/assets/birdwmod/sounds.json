@@ -20,5 +20,7 @@
 
    "entity.greatgreyowl_song":{"category":"neutral", "sounds":[{"name": "birdwmod:entity/greatgreyowl_song", "stream": true}]},
    "entity.booby_call":{"category":"neutral", "sounds":[{"name": "birdwmod:entity/booby_call", "stream": true}]},
-   "entity.razorbill_call":{"category":"neutral", "sounds":[{"name": "birdwmod:entity/razorbill_call", "stream": true}]}
+
+   "entity.razorbill_call":{"category":"neutral", "sounds":[{"name": "birdwmod:entity/razorbill_call", "stream": true}]},
+   "entity.himonalmale_song":{"category":"neutral", "sounds":[{"name": "birdwmod:entity/himonalmale_song", "stream": true}]}
 }

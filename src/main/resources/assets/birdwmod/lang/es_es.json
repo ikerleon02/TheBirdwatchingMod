@@ -43,17 +43,13 @@
   "item.birdwmod.feather_greatgreyowl": "Pluma De Carabo Lapon",
   "item.birdwmod.feather_brownbooby": "Pluma De Piquero Pardo",
 
-  "item.birdwmod.meatraw_duck": "Carne De Pato Cruda",
-  "item.birdwmod.meatraw_heron": "Carne De Garza Cruda",
-  "item.birdwmod.meatraw_nightjar": "Carne De Chotacabras Cruda",
-  "item.birdwmod.meatraw_passerine": "Carne de Passerine Cruda",
-  "item.birdwmod.meatraw_wader": "Carne De Limicola Cruda",
+  "item.birdwmod.meatraw_duck": "Carne Grande Cruda",
+  "item.birdwmod.meatraw_passerine": "Carne Pequeña Cruda",
+  "item.birdwmod.meatraw_wader": "Carne Mediana Cruda",
 
-  "item.birdwmod.meatcooked_duck": "Carne De Pato Cocinada",
-  "item.birdwmod.meatcooked_heron": "Carne De Garza Cocinada",
-  "item.birdwmod.meatcooked_nightjar": "Carne De Chotacabras Cocinada",
-  "item.birdwmod.meatcooked_passerine": "Carne de Passerine Cocinada",
-  "item.birdwmod.meatcooked_wader": "Carne De Limicola Cocinada",
+  "item.birdwmod.meatcooked_duck": "Carne Grande Cocinada",
+  "item.birdwmod.meatcooked_passerine": "Carne Pequeña Cocinada",
+  "item.birdwmod.meatcooked_wader": "Carne Mediana Cocinada",
 
   "block.birdwmod.birdfeeder": "Comedero De Pajaros",
   "block.birdwmod.ringingnet": "Red De Anillamiento",

@@ -1,4 +1,4 @@
-package com.ikerleon.birdwmod.entity.europe;
+package com.ikerleon.birdwmod.entity.northamerica;
 
 import com.ikerleon.birdwmod.entity.DiurnalBirdEntity;
 import com.ikerleon.birdwmod.items.InitItems;
@@ -13,9 +13,9 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 
-public class RedFlankedBluetailEntity extends DiurnalBirdEntity {
+public class EasternBluebirdEntity extends DiurnalBirdEntity {
 
-    public RedFlankedBluetailEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
+    public EasternBluebirdEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -26,8 +26,13 @@ public class RedFlankedBluetailEntity extends DiurnalBirdEntity {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        if(this.isOnGround() && !isSleeping()) {
-            return SoundHandler.BLUETAIL_CALL;
+        if(this.onGround && !isSleeping()){
+            if(this.getGender()==0) {
+                return SoundHandler.BLUEBIRD_SONG;
+            }
+            else{
+                return SoundHandler.BLUEBIRD_CALL;
+            }
         }
         else{
             return null;
@@ -43,10 +48,10 @@ public class RedFlankedBluetailEntity extends DiurnalBirdEntity {
         if (!this.world.isClient() && !this.isBaby() && --this.timeUntilNextFeather <= 0)
         {
             if(this.getGender()==0){
-                this.dropItem(InitItems.REDFLANCKEDBLUETAILFEATHER_MALE, 1);
+                this.dropItem(InitItems.EASTERNBLUEBIRDFEATHER_MALE, 1);
             }
             else{
-                this.dropItem(InitItems.REDFLANCKEDBLUETAILFEATHER_FEMALE, 1);
+                this.dropItem(InitItems.EASTERNBLUEBIRDFEATHER_FEMALE, 1);
             }
             this.timeUntilNextFeather = this.random.nextInt(10000) + 10000;
         }
@@ -73,7 +78,6 @@ public class RedFlankedBluetailEntity extends DiurnalBirdEntity {
 
     @Override
     public PassiveEntity createChild(PassiveEntity mate) {
-        return (RedFlankedBluetailEntity)this.getType().create(this.world);
+        return (EasternBluebirdEntity)this.getType().create(this.world);
     }
 }
-

@@ -24,10 +24,10 @@ public class InitItems {
     public static final Item REDFLANKEDBLUETAIL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
     public static final Item STELLERSEIDER_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.STELLERS_EIDER_ENTITY);
 
-    public static final Item KILLDEER_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
-    public static final Item EASTERNBLUEBIRD_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
-    public static final Item NORTHERNMOCKINGBIRD_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
-    public static final Item GREENHERON_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+    public static final Item KILLDEER_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.KILLDEER_ENTITY);
+    public static final Item EASTERNBLUEBIRD_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.EASTERN_BLUEBIRD_ENTITY);
+    public static final Item NORTHERNMOCKINGBIRD_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.NORTHERN_MOCKINGBIRD_ENTITY);
+    public static final Item GREENHERON_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.GREEN_HERON_ENTITY);
 
     public static final Item HOATZIN_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
     public static final Item TURQUOISEBROWEDMOTMOT_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
@@ -36,7 +36,8 @@ public class InitItems {
     public static final Item GREATGREYOWL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
     public static final Item BROWNBOOBY_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
 
-    //public static final Item RAZORBILL_SPAWNEGG = new ItemBirdSpawnEgg("razorbill");
+    public static final Item RAZORBILL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+    public static final Item HIMALAYANMONAL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.HIMALAYAN_MONAL_ENTITY);
 
     //feathers
     public static final Item EASTERNBLUEBIRDFEATHER_FEMALE = new ItemBirdwmodBasic();
@@ -57,19 +58,18 @@ public class InitItems {
     public static final Item HOATZINFEATHER = new ItemBirdwmodBasic();
     public static final Item GREATGREYOWLFEATHER = new ItemBirdwmodBasic();
     public static final Item BROWNBOOBYFEATHER = new ItemBirdwmodBasic();
+    public static final Item RAZORBILLFEATHER = new ItemBirdwmodBasic();
+    public static final Item HIMALAYANMONALMALEFEATHER = new ItemBirdwmodBasic();
+    public static final Item HIMALAYANMONALFEMALEFEATHER = new ItemBirdwmodBasic();
 
     //meats
-    public static final Item DUCKRAWMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(3).alwaysEdible().meat().build()));
-    public static final Item HERONRAWMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(3).alwaysEdible().meat().build()));
-    public static final Item NIGHTJARRAWMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(2).alwaysEdible().meat().build()));
-    public static final Item PASSERINERAWMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(1).alwaysEdible().meat().build()));
-    public static final Item WADERRAWMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(2).alwaysEdible().meat().build()));
+    public static final Item BIGRAWMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(3).alwaysEdible().meat().build()));
+    public static final Item SMALLRAWMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(1).alwaysEdible().meat().build()));
+    public static final Item MEDIUMRAWMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(2).alwaysEdible().meat().build()));
 
-    public static final Item DUCKCOOCKEDMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(8).alwaysEdible().meat().build()));
-    public static final Item HERONCOOCKEDMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(8).alwaysEdible().meat().build()));
-    public static final Item NIGHTJARCOOCKEDMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(4).alwaysEdible().meat().build()));
-    public static final Item PASSERINECOOCKEDMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(3).alwaysEdible().meat().build()));
-    public static final Item WADERCOOCKEDMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(4).alwaysEdible().meat().build()));
+    public static final Item BIGCOOCKEDMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(8).alwaysEdible().meat().build()));
+    public static final Item SMALLCOOCKEDMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(3).alwaysEdible().meat().build()));
+    public static final Item MEDIUMCOOCKEDMEAT = new ItemBirdwmodBasic(new Item.Settings().food(new FoodComponent.Builder().hunger(4).alwaysEdible().meat().build()));
 
     public static void registerItems(){
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "binocular_basic"), BINOCULAR_BASIC);
@@ -96,6 +96,9 @@ public class InitItems {
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_great_grey_owl"), GREATGREYOWL_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_brown_booby"), BROWNBOOBY_SPAWNEGG);
 
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_razorbill"), RAZORBILL_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_himalayan_monal"), HIMALAYANMONAL_SPAWNEGG);
+
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_easternbluebirdfemale"), EASTERNBLUEBIRDFEATHER_FEMALE);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_easternbluebirdmale"), EASTERNBLUEBIRDFEATHER_MALE);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_eurasianbullfinchfemale"), EURASIANBULLFINCHDFEATHER_FEMALE);
@@ -114,18 +117,17 @@ public class InitItems {
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_hoatzin"), HOATZINFEATHER);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_greatgreyowl"), GREATGREYOWLFEATHER);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_brownbooby"), BROWNBOOBYFEATHER);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_razorbill"), RAZORBILLFEATHER);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_himalayanmonalmale"), HIMALAYANMONALMALEFEATHER);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_himalayanmonalfemale"), HIMALAYANMONALFEMALEFEATHER);
 
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatraw_duck"), DUCKRAWMEAT);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatraw_heron"), HERONRAWMEAT);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatraw_nightjar"), NIGHTJARRAWMEAT);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatraw_passerine"), PASSERINERAWMEAT);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatraw_wader"), WADERRAWMEAT);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatraw_big"), BIGRAWMEAT);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatraw_small"), SMALLRAWMEAT);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatraw_medium"), MEDIUMRAWMEAT);
 
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatcooked_duck"), DUCKCOOCKEDMEAT);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatcooked_heron"), HERONCOOCKEDMEAT);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatcooked_nightjar"), NIGHTJARCOOCKEDMEAT);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatcooked_passerine"), PASSERINECOOCKEDMEAT);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatcooked_wader"), WADERCOOCKEDMEAT);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatcooked_big"), BIGCOOCKEDMEAT);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatcooked_small"), SMALLCOOCKEDMEAT);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatcooked_medium"), MEDIUMCOOCKEDMEAT);
 
     }
 }

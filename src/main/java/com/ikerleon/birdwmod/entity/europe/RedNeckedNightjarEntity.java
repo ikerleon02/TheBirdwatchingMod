@@ -51,9 +51,9 @@ public class RedNeckedNightjarEntity extends NocturnalBirdEntity {
     @Override
     protected void dropLoot(DamageSource source, boolean causedByPlayer) {
         if(this.isOnFire())
-            this.dropItem(InitItems.NIGHTJARCOOCKEDMEAT, 1);
+            this.dropItem(InitItems.MEDIUMCOOCKEDMEAT, 1);
         else
-            this.dropItem(InitItems.NIGHTJARRAWMEAT, 1);
+            this.dropItem(InitItems.MEDIUMRAWMEAT, 1);
     }
 
     @Override

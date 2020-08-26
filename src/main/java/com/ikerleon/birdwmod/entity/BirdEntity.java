@@ -2,22 +2,19 @@ package com.ikerleon.birdwmod.entity;
 
 import com.ikerleon.birdwmod.blocks.InitBlocks;
 import com.ikerleon.birdwmod.blocks.RingingNetBlock;
-import com.ikerleon.birdwmod.entity.europe.EurasianBullfinchEntity;
 import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
-import com.ikerleon.birdwmod.entity.goal.WanderAroundFarFlyingGoal;
 import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
 import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.control.FlightMoveControl;
-import net.minecraft.entity.ai.control.MoveControl;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MovementType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -32,12 +29,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import java.util.Objects;
-import java.util.Optional;
 import java.util.Random;
 
 public abstract class BirdEntity extends AnimalEntity{
@@ -65,7 +59,7 @@ public abstract class BirdEntity extends AnimalEntity{
         this.setGender(getRandom().nextInt(2));
         this.setVariant(getRandom().nextInt(setBirdVariants()));
         this.timeUntilNextFeather = this.rando.nextInt(10000) + 10000;
-        this.moveControl = new FlightMoveControl(this, 30, false);
+        this.moveControl = new MoveControlFlying(this, 30, false);
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, this.avoidEntity);
         this.goalSelector.add(3, new EatFromFeedersGoal(this));
