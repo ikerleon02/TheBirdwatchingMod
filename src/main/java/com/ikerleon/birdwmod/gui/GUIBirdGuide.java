@@ -5,11 +5,18 @@ import com.ikerleon.birdwmod.entity.europe.EurasianBullfinchEntity;
 import com.ikerleon.birdwmod.entity.europe.RedFlankedBluetailEntity;
 import com.ikerleon.birdwmod.entity.europe.RedNeckedNightjarEntity;
 import com.ikerleon.birdwmod.entity.europe.StellersEiderEntity;
+import com.ikerleon.birdwmod.entity.jungle.HoatzinEntity;
+import com.ikerleon.birdwmod.entity.jungle.KingOfSaxonyEntity;
+import com.ikerleon.birdwmod.entity.jungle.TurquoiseBrowedMotmotEntity;
 import com.ikerleon.birdwmod.entity.northamerica.EasternBluebirdEntity;
 import com.ikerleon.birdwmod.entity.northamerica.GreenHeronEntity;
 import com.ikerleon.birdwmod.entity.northamerica.KilldeerEntity;
 import com.ikerleon.birdwmod.entity.northamerica.NorthernMockingbirdEntity;
+import com.ikerleon.birdwmod.entity.release160.BrownBoobyEntity;
+import com.ikerleon.birdwmod.entity.release160.GreatGreyOwlEntity;
 import com.ikerleon.birdwmod.entity.release170.HimalayanMonalEntity;
+import com.ikerleon.birdwmod.entity.release170.RazorbillEntity;
+import com.ikerleon.birdwmod.entity.release170.SabinesGullEntity;
 import com.ikerleon.birdwmod.items.InitItems;
 import net.fabricmc.fabric.impl.object.builder.FabricEntityType;
 import net.minecraft.client.MinecraftClient;
@@ -27,6 +34,7 @@ import net.minecraft.text.StringRenderable;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.Biomes;
 import org.lwjgl.opengl.GL11;
 
 public class GUIBirdGuide extends Screen {
@@ -35,7 +43,7 @@ public class GUIBirdGuide extends Screen {
     private final int bookImageWidth = 292;
 
     private int currPage = 0;
-    private static final int bookTotalPages = 16;
+    private static final int bookTotalPages = 17;
 
     private ButtonWidget buttonDone;
     private ButtonWidget buttonNextPage;
@@ -74,51 +82,55 @@ public class GUIBirdGuide extends Screen {
     private static String page4Subtitle = Formatting.ITALIC + "(Charadrius vociferus)";
     private static String page4Text = "It's a large plover found in the Americas. The killdeer's common name comes from its often-heard call. It primarily feeds on insects, although other invertebrates and seeds are eaten. The non-breeding habitat of the killdeer includes coastal wetlands, beach habitats, and coastal fields.";
 
-    private static String page5Title = Formatting.BOLD + "Brown booby";
-    private static String page5Subtitle = Formatting.ITALIC + "(Sula leucogaster)";
-    private static String page5Text = "It's a large seabird of the Sulidae family, this species breeds on islands and coasts in the pantropical areas of the Atlantic and Pacific oceans. This booby commutes and forages at low height over inshore waters, where they plunge-dive to take small fish, especially when these are driven near the surface.";
+    private static String page5Title = Formatting.BOLD + "Sabine's Gull";
+    private static String page5Subtitle = Formatting.ITALIC + "(Xema sabini)";
+    private static String page5Text = "It's a small gull that breeds in the Arctic, through northernmost North America and Eurasia. It migrates south in late summer. Most of the population winters at sea in the Pacific off western South America and in Atlantic central Africa. It has an extremely pelagic lifestyle out of its breeding grounds.";
 
-    private static String page6Title = Formatting.BOLD + "Razorbill";
-    private static String page6Subtitle = Formatting.ITALIC + "(Alca torda)";
-    private static String page6Text = "It is a seabird, member of the Alcidae family. It is the closest living relative of the extinct great auk. Razorbills are distributed across the North Atlantic, where they feed on mid water fish such as cod, sprats and herring. Both genders are identical in plumage; however, males are larger than females.";
+    private static String page6Title = Formatting.BOLD + "Brown booby";
+    private static String page6Subtitle = Formatting.ITALIC + "(Sula leucogaster)";
+    private static String page6Text = "It's a large seabird of the Sulidae family, this species breeds on islands and coasts in the pantropical areas of the Atlantic and Pacific oceans. This booby commutes and forages at low height over inshore waters, where they plunge-dive to take small fish, especially when these are driven near the surface.";
 
-    private static String page7Title = Formatting.BOLD + "Great grey owl";
-    private static String page7Subtitle = Formatting.ITALIC + "(Strix nebulosa)";
-    private static String page7Text = "It's the documented as the world's largest species of Strix genus. It breeds across the Northern Hemisphere, being the only species of Strix genus found in both Eastern and Western Hemispheres. Their habitat is often the dense coniferous forests of the taiga, near open areas, such as meadows or bogs.";
+    private static String page7Title = Formatting.BOLD + "Razorbill";
+    private static String page7Subtitle = Formatting.ITALIC + "(Alca torda)";
+    private static String page7Text = "It is a seabird, member of the Alcidae family. It is the closest living relative of the extinct great auk. Razorbills are distributed across the North Atlantic, where they feed on mid water fish such as cod, sprats and herring. Both genders are identical in plumage; however, males are larger than females.";
 
-    private static String page8Title = Formatting.BOLD + "Red-necked nightjar";
-    private static String page8Subtitle = Formatting.ITALIC + "(Caprimulgus ruficollis)";
-    private static String page8Text = "It's the largest of the nightjars occurring in Europe. It breeds in Iberia and north Africa, and winters in tropical west Africa. Open sandy heaths with trees or bushes are the haunts of this crepuscular bird. In flight it presents a characteristic silhouette with silent flight and low altitude.";
+    private static String page8Title = Formatting.BOLD + "Great grey owl";
+    private static String page8Subtitle = Formatting.ITALIC + "(Strix nebulosa)";
+    private static String page8Text = "It's the documented as the world's largest species of Strix genus. It breeds across the Northern Hemisphere, being the only species of Strix genus found in both Eastern and Western Hemispheres. Their habitat is often the dense coniferous forests of the taiga, near open areas, such as meadows or bogs.";
 
-    private static String page9Title = Formatting.BOLD + "Northern Mockingbird";
-    private static String page9Subtitle = Formatting.ITALIC + "(Mimus polyglottos)";
-    private static String page9Text = "It's are best known for the habit of mimicking the songs of other birds and the sounds of insects and amphibians. This bird is mainly a permanent resident, but northern birds may move south during harsh weather. Northern mockingbirds are omnivore. It's often found in open areas and forest edges.";
+    private static String page9Title = Formatting.BOLD + "Red-necked nightjar";
+    private static String page9Subtitle = Formatting.ITALIC + "(Caprimulgus ruficollis)";
+    private static String page9Text = "It's the largest of the nightjars occurring in Europe. It breeds in Iberia and north Africa, and winters in tropical west Africa. Open sandy heaths with trees or bushes are the haunts of this crepuscular bird. In flight it presents a characteristic silhouette with silent flight and low altitude.";
 
-    private static String page10Title = Formatting.BOLD + "Eastern bluebird";
-    private static String page10Subtitle = Formatting.ITALIC + "(Sialia sialis)";
-    private static String page10Text = "It's a small thrush found in open woodlands, farmlands, and orchards of North America. The Eastern bluebird is the state bird of New York. About two-thirds of the diet of an adult consists of insects and other invertebrates. Eastern bluebirds tend to live in open country around trees.";
+    private static String page10Title = Formatting.BOLD + "Northern Mockingbird";
+    private static String page10Subtitle = Formatting.ITALIC + "(Mimus polyglottos)";
+    private static String page10Text = "It's are best known for the habit of mimicking the songs of other birds and the sounds of insects and amphibians. This bird is mainly a permanent resident, but northern birds may move south during harsh weather. Northern mockingbirds are omnivore. It's often found in open areas and forest edges.";
 
-    private static String page11Title = Formatting.BOLD + "Red-flanked bluetail";
-    private static String page11Subtitle = Formatting.ITALIC + "(Tarsiger cyanurus)";
-    private static String page11Text = "It's a small passerine bird that lives in the coniferous forests of Eurasia. It breeds in upper-middle and marginally in upper continental latitudes, exclusively boreal and mountain. Its diet is based on insects, also fruits and seeds outside breeding season.";
+    private static String page11Title = Formatting.BOLD + "Eastern bluebird";
+    private static String page11Subtitle = Formatting.ITALIC + "(Sialia sialis)";
+    private static String page11Text = "It's a small thrush found in open woodlands, farmlands, and orchards of North America. The Eastern bluebird is the state bird of New York. About two-thirds of the diet of an adult consists of insects and other invertebrates. Eastern bluebirds tend to live in open country around trees.";
 
-    private static String page12Title = Formatting.BOLD + "Eurasian bullfinch";
-    private static String page12Subtitle = Formatting.ITALIC + "(Pyrrhula pyrrhula)";
-    private static String page12Text = "It's a finch that breeds across Europe and temperate Asia. It is mainly resident, but many northern birds migrate further south in the winter. Mixed woodland with some conifers is favoured for breeding, including parkland and gardens. The food they eat is mainly seeds and buds of fruit trees.";
+    private static String page12Title = Formatting.BOLD + "Red-flanked bluetail";
+    private static String page12Subtitle = Formatting.ITALIC + "(Tarsiger cyanurus)";
+    private static String page12Text = "It's a small passerine bird that lives in the coniferous forests of Eurasia. It breeds in upper-middle and marginally in upper continental latitudes, exclusively boreal and mountain. Its diet is based on insects, also fruits and seeds outside breeding season.";
 
-    private static String page13Title1 = Formatting.BOLD + "King-of-Saxony";
-    private static String page13Title2 = Formatting.BOLD + "bird of paradise";
-    private static String page13Subtitle = Formatting.ITALIC + "(Pteridophora alberti)";
-    private static String page13Text = "It's a bird of paradise endemic to montane forest in New Guinea. The most iconic characteristic of this bird are the two remarkably long (up to 50 cm) brow-plumes, which are so bizarre that when the first specimen was brought to Europe, it was thought to be a fake.";
+    private static String page13Title = Formatting.BOLD + "Eurasian bullfinch";
+    private static String page13Subtitle = Formatting.ITALIC + "(Pyrrhula pyrrhula)";
+    private static String page13Text = "It's a finch that breeds across Europe and temperate Asia. It is mainly resident, but many northern birds migrate further south in the winter. Mixed woodland with some conifers is favoured for breeding, including parkland and gardens. The food they eat is mainly seeds and buds of fruit trees.";
 
-    private static String page14Title1 = Formatting.BOLD + "Turquoise-browed";
-    private static String page14Title2 = Formatting.BOLD + "motmot";
-    private static String page14Subtitle = Formatting.ITALIC + "(Eumomota superciliosa)";
-    private static String page14Text = "It's a colorful bird that lives all across Central America, from south-east Mexico (mostly the Yucatán Peninsula), to Costa Rica. It lives in habitats such as forest edge or gallery forest. it often perches from wires or posts where it scans for prey, such as insects and small reptiles.";
+    private static String page14Title1 = Formatting.BOLD + "King-of-Saxony";
+    private static String page14Title2 = Formatting.BOLD + "bird of paradise";
+    private static String page14Subtitle = Formatting.ITALIC + "(Pteridophora alberti)";
+    private static String page14Text = "It's a bird of paradise endemic to montane forest in New Guinea. The most iconic characteristic of this bird are the two remarkably long (up to 50 cm) brow-plumes, which are so bizarre that when the first specimen was brought to Europe, it was thought to be a fake.";
 
-    private static String page15Title = Formatting.BOLD + "Hoatzin";
-    private static String page15Subtitle = Formatting.ITALIC + "(Opisthocomus hoazin)";
-    private static String page15Text = "It's a tropical, dinosaur-type bird that can be found in swamps, riparian forests, and mangroves of the Amazon and the Orinoco basins in South America. It is notable for having chicks that have claws on two of their wing digits. The hoatzin is a folivore, in other words it eats the leaves";
+    private static String page15Title1 = Formatting.BOLD + "Turquoise-browed";
+    private static String page15Title2 = Formatting.BOLD + "motmot";
+    private static String page15Subtitle = Formatting.ITALIC + "(Eumomota superciliosa)";
+    private static String page15Text = "It's a colorful bird that lives all across Central America, from south-east Mexico (mostly the Yucatán Peninsula), to Costa Rica. It lives in habitats such as forest edge or gallery forest. it often perches from wires or posts where it scans for prey, such as insects and small reptiles.";
+
+    private static String page16Title = Formatting.BOLD + "Hoatzin";
+    private static String page16Subtitle = Formatting.ITALIC + "(Opisthocomus hoazin)";
+    private static String page16Text = "It's a tropical, dinosaur-type bird that can be found in swamps, riparian forests, and mangroves of the Amazon and the Orinoco basins in South America. It is notable for having chicks that have claws on two of their wing digits. The hoatzin is a folivore, in other words it eats the leaves";
 
     public GUIBirdGuide() {
         super(NarratorManager.EMPTY);
@@ -283,9 +295,39 @@ public class GUIBirdGuide extends Screen {
             InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 80, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
         }
         else if(currPage==5){
-            this.textRenderer.draw(matrices, page5Title, offLeft + 35, 15 + offTop, 0);
-            this.textRenderer.draw(matrices, page5Subtitle, offLeft + 25, 25 + offTop, 0);
+            this.textRenderer.draw(matrices, page5Title, offLeft + 40, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, page5Subtitle, offLeft + 40, 25 + offTop, 0);
             this.textRenderer.drawTrimmed(StringRenderable.plain(page5Text), offLeft + 13, 40 + offTop, 126, 0);
+            this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, GullsBoobies, offLeft + 180, 25 + offTop, 0);
+            this.textRenderer.draw(matrices, Formatting.ITALIC + "var. 1", offLeft + 160, 65 + offTop,0);
+            this.textRenderer.draw(matrices, Formatting.ITALIC + "var. 2", offLeft + 200, 85 + offTop,0);
+            this.textRenderer.draw(matrices, Formatting.ITALIC + "var. 3", offLeft + 240, 65 + offTop,0);
+            this.textRenderer.draw(matrices, BiomesTitle, offLeft + 175, 125 + offTop, 0);
+            this.textRenderer.draw(matrices, "- Beach and Ocean", offLeft + 160, 140 + offTop, 0);
+
+            this.itemRenderer.renderInGui(new ItemStack(InitItems.SABINESGULLFEATHER, 1), offLeft + 205, 95 + offTop);
+
+            int i = (this.width - this.bookImageWidth) / 2;
+            int j = (this.height - this.bookImageHeight) / 2;
+            SabinesGullEntity entity = new SabinesGullEntity(InitEntities.SABINES_GULL_ENTITY, MinecraftClient.getInstance().world);
+            entity.setVariant(1);
+            entity.setOnGround(true);
+            SabinesGullEntity entity2 = new SabinesGullEntity(InitEntities.SABINES_GULL_ENTITY, MinecraftClient.getInstance().world);
+            entity2.setVariant(2);
+            entity2.setOnGround(true);
+            SabinesGullEntity entity3 = new SabinesGullEntity(InitEntities.SABINES_GULL_ENTITY, MinecraftClient.getInstance().world);
+            entity3.setVariant(3);
+            entity3.setOnGround(true);
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            InventoryScreen.drawEntity(offLeft + 175, 65 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 215, 85 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            InventoryScreen.drawEntity(offLeft + 255, 65 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
+        }
+        else if(currPage==6){
+            this.textRenderer.draw(matrices, page6Title, offLeft + 35, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, page6Subtitle, offLeft + 25, 25 + offTop, 0);
+            this.textRenderer.drawTrimmed(StringRenderable.plain(page6Text), offLeft + 13, 40 + offTop, 126, 0);
             this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
             this.textRenderer.draw(matrices, GullsBoobies, offLeft + 180, 25 + offTop, 0);
             this.textRenderer.draw(matrices, Formatting.ITALIC + "var. 1", offLeft + 200, 60 + offTop,0);
@@ -297,26 +339,30 @@ public class GUIBirdGuide extends Screen {
 
             this.itemRenderer.renderInGui(new ItemStack(InitItems.BROWNBOOBYFEATHER, 1), offLeft + 205, 102 + offTop);
 
-            /*int i = (this.width - this.bookImageWidth) / 2;
+            int i = (this.width - this.bookImageWidth) / 2;
             int j = (this.height - this.bookImageHeight) / 2;
-            EntityBrownBooby entity = new EntityBrownBooby(mc.world);
+            BrownBoobyEntity entity = new BrownBoobyEntity(InitEntities.BROWN_BOOBY_ENTITY, MinecraftClient.getInstance().world);
             entity.setVariant(1);
-            EntityBrownBooby entity2 = new EntityBrownBooby(mc.world);
+            entity.setOnGround(true);
+            BrownBoobyEntity entity2 = new BrownBoobyEntity(InitEntities.BROWN_BOOBY_ENTITY, MinecraftClient.getInstance().world);
             entity2.setVariant(2);
-            EntityBrownBooby entity3 = new EntityBrownBooby(mc.world);
+            entity2.setOnGround(true);
+            BrownBoobyEntity entity3 = new BrownBoobyEntity(InitEntities.BROWN_BOOBY_ENTITY, MinecraftClient.getInstance().world);
             entity3.setVariant(3);
-            EntityBrownBooby entity4 = new EntityBrownBooby(mc.world);
+            entity3.setOnGround(true);
+            BrownBoobyEntity entity4 = new BrownBoobyEntity(InitEntities.BROWN_BOOBY_ENTITY, MinecraftClient.getInstance().world);
             entity4.setVariant(4);
+            entity4.setOnGround(true);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             InventoryScreen.drawEntity(offLeft + 175, 85 + offTop, 35, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
             InventoryScreen.drawEntity(offLeft + 215, 95 + offTop, 35, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
             InventoryScreen.drawEntity(offLeft + 255, 85 + offTop, 35, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 215, 60 + offTop, 35, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity4);*/
+            InventoryScreen.drawEntity(offLeft + 215, 60 + offTop, 35, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity4);
         }
-        else if(currPage==6){
-            this.textRenderer.draw(matrices, page6Title, offLeft + 45, 15 + offTop, 0);
-            this.textRenderer.draw(matrices, page6Subtitle, offLeft + 40, 25 + offTop, 0);
-            this.textRenderer.drawTrimmed(StringRenderable.plain(page6Text), offLeft + 13, 40 + offTop, 126, 0);
+        else if(currPage==7){
+            this.textRenderer.draw(matrices, page7Title, offLeft + 45, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, page7Subtitle, offLeft + 40, 25 + offTop, 0);
+            this.textRenderer.drawTrimmed(StringRenderable.plain(page7Text), offLeft + 13, 40 + offTop, 126, 0);
             this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
             this.textRenderer.draw(matrices, Auks, offLeft + 208, 25 + offTop, 0);
             this.textRenderer.draw(matrices, Formatting.ITALIC + "Summer", offLeft + 170, 80 + offTop, 0);
@@ -326,21 +372,23 @@ public class GUIBirdGuide extends Screen {
 
             this.itemRenderer.renderInGui(new ItemStack(InitItems.RAZORBILLFEATHER, 1), offLeft + 207, 95 + offTop);
 
-            /*int i = (this.width - this.bookImageWidth) / 2;
+            int i = (this.width - this.bookImageWidth) / 2;
             int j = (this.height - this.bookImageHeight) / 2;
-            EntityRazorbill entity = new EntityRazorbill(mc.world);
+            RazorbillEntity entity = new RazorbillEntity(InitEntities.RAZORBILL_ENTITY, MinecraftClient.getInstance().world);
             entity.setGender(0);
-            EntityRazorbill entity2 = new EntityRazorbill(mc.world);
+            entity.setOnGround(true);
+            RazorbillEntity entity2 = new RazorbillEntity(InitEntities.RAZORBILL_ENTITY, MinecraftClient.getInstance().world);
             entity2.setGender(1);
-            entity2.biome = Biomes.COLD_BEACH;
+            entity2.biome = Biomes.SNOWY_BEACH;
+            entity2.setOnGround(true);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 190, 75 + offTop, 50, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 50, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);*/
+            InventoryScreen.drawEntity(offLeft + 190, 75 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
         }
-        else if(currPage==7){
-            this.textRenderer.draw(matrices, page7Title, offLeft + 30, 15 + offTop, 0);
-            this.textRenderer.draw(matrices, page7Subtitle, offLeft + 34, 25 + offTop, 0);
-            this.textRenderer.drawTrimmed(StringRenderable.plain(page7Text), offLeft + 13, 40 + offTop, 126, 0);
+        else if(currPage==8){
+            this.textRenderer.draw(matrices, page8Title, offLeft + 30, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, page8Subtitle, offLeft + 34, 25 + offTop, 0);
+            this.textRenderer.drawTrimmed(StringRenderable.plain(page8Text), offLeft + 13, 40 + offTop, 126, 0);
             this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
             this.textRenderer.draw(matrices, Owls, offLeft + 208, 25 + offTop, 0);
             this.textRenderer.draw(matrices, Formatting.ITALIC + "var. 1", offLeft + 160, 75 + offTop,0);
@@ -351,23 +399,26 @@ public class GUIBirdGuide extends Screen {
 
             this.itemRenderer.renderInGui(new ItemStack(InitItems.GREATGREYOWLFEATHER, 1), offLeft + 207, 95 + offTop);
 
-            /*int i = (this.width - this.bookImageWidth) / 2;
+            int i = (this.width - this.bookImageWidth) / 2;
             int j = (this.height - this.bookImageHeight) / 2;
-            EntityGreatGreyOwl entity = new EntityGreatGreyOwl(mc.world);
+            GreatGreyOwlEntity entity = new GreatGreyOwlEntity(InitEntities.GREAT_GREY_OWL_ENTITY, MinecraftClient.getInstance().world);
             entity.setVariant(1);
-            EntityGreatGreyOwl entity2 = new EntityGreatGreyOwl(mc.world);
+            entity.setOnGround(true);
+            GreatGreyOwlEntity entity2 = new GreatGreyOwlEntity(InitEntities.GREAT_GREY_OWL_ENTITY, MinecraftClient.getInstance().world);
             entity2.setVariant(2);
-            EntityGreatGreyOwl entity3 = new EntityGreatGreyOwl(mc.world);
+            entity2.setOnGround(true);
+            GreatGreyOwlEntity entity3 = new GreatGreyOwlEntity(InitEntities.GREAT_GREY_OWL_ENTITY, MinecraftClient.getInstance().world);
             entity3.setVariant(3);
+            entity3.setOnGround(true);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 175, 70 + offTop, 45, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
-            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 45, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-            InventoryScreen.drawEntity(offLeft + 255, 70 + offTop, 45, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);*/
+            InventoryScreen.drawEntity(offLeft + 175, 70 + offTop, 55, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
+            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 55, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            InventoryScreen.drawEntity(offLeft + 255, 70 + offTop, 55, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
         }
-        else if(currPage==8){
-            this.textRenderer.draw(matrices, page8Title, offLeft + 15, 15 + offTop, 0);
-            this.textRenderer.draw(matrices, page8Subtitle, offLeft + 15, 25 + offTop, 0);
-            this.textRenderer.drawTrimmed(StringRenderable.plain(page8Text), offLeft + 13, 40 + offTop, 126, 0);
+        else if(currPage==9){
+            this.textRenderer.draw(matrices, page9Title, offLeft + 15, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, page9Subtitle, offLeft + 15, 25 + offTop, 0);
+            this.textRenderer.drawTrimmed(StringRenderable.plain(page9Text), offLeft + 13, 40 + offTop, 126, 0);
             this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
             this.textRenderer.draw(matrices, Nightjars, offLeft + 194, 25 + offTop, 0);
             this.textRenderer.draw(matrices, Formatting.ITALIC + "var. 1", offLeft + 160, 65 + offTop,0);
@@ -394,10 +445,10 @@ public class GUIBirdGuide extends Screen {
             InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 70, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
             InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 70, (float)(i + 51) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
         }
-        else if(currPage==9){
-            this.textRenderer.draw(matrices, page9Title, offLeft + 13, 15 + offTop, 0);
-            this.textRenderer.draw(matrices, page9Subtitle, offLeft + 30, 25 + offTop, 0);
-            this.textRenderer.drawTrimmed( StringRenderable.plain(page9Text), offLeft + 13, 40 + offTop, 126, 0);
+        else if(currPage==10){
+            this.textRenderer.draw(matrices, page10Title, offLeft + 13, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, page10Subtitle, offLeft + 30, 25 + offTop, 0);
+            this.textRenderer.drawTrimmed( StringRenderable.plain(page10Text), offLeft + 13, 40 + offTop, 126, 0);
             this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
             this.textRenderer.draw(matrices, Passerines, offLeft + 192, 25 + offTop, 0);
             this.textRenderer.draw(matrices, Formatting.ITALIC + "var. 1", offLeft + 160, 65 + offTop,0);
@@ -424,10 +475,10 @@ public class GUIBirdGuide extends Screen {
             InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 90, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
             InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 90, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
         }
-        else if(currPage==10){
-            this.textRenderer.draw(matrices, page10Title, offLeft + 25, 15 + offTop, 0);
-            this.textRenderer.draw(matrices, page10Subtitle, offLeft + 40, 25 + offTop, 0);
-            this.textRenderer.drawTrimmed(StringRenderable.plain(page10Text), offLeft + 13, 40 + offTop, 126, 0);
+        else if(currPage==11){
+            this.textRenderer.draw(matrices, page11Title, offLeft + 25, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, page11Subtitle, offLeft + 40, 25 + offTop, 0);
+            this.textRenderer.drawTrimmed(StringRenderable.plain(page11Text), offLeft + 13, 40 + offTop, 126, 0);
             this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
             this.textRenderer.draw(matrices, Passerines, offLeft + 192, 25 + offTop, 0);
             this.textRenderer.draw(matrices, Formatting.ITALIC + "Male", offLeft + 175, 80 + offTop, 0);
@@ -450,10 +501,10 @@ public class GUIBirdGuide extends Screen {
             InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 100, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
             InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 100, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
         }
-        else if(currPage==11){
-            this.textRenderer.draw(matrices, page11Title, offLeft + 15, 15 + offTop, 0);
-            this.textRenderer.draw(matrices, page11Subtitle, offLeft + 25, 25 + offTop, 0);
-            this.textRenderer.drawTrimmed(StringRenderable.plain(page11Text), offLeft + 13, 40 + offTop, 126, 0);
+        else if(currPage==12){
+            this.textRenderer.draw(matrices, page12Title, offLeft + 15, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, page12Subtitle, offLeft + 25, 25 + offTop, 0);
+            this.textRenderer.drawTrimmed(StringRenderable.plain(page12Text), offLeft + 13, 40 + offTop, 126, 0);
             this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
             this.textRenderer.draw(matrices, Passerines, offLeft + 192, 25 + offTop, 0);
             this.textRenderer.draw(matrices, Formatting.ITALIC + "Male", offLeft + 175, 80 + offTop, 0);
@@ -476,10 +527,10 @@ public class GUIBirdGuide extends Screen {
             InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 100, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
             InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 100, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
         }
-        else if(currPage==12){
-            this.textRenderer.draw(matrices, page12Title, offLeft + 18, 15 + offTop, 0);
-            this.textRenderer.draw(matrices, page12Subtitle, offLeft + 20, 25 + offTop, 0);
-            this.textRenderer.drawTrimmed(StringRenderable.plain(page12Text), offLeft + 13, 40 + offTop, 126, 0);
+        else if(currPage==13){
+            this.textRenderer.draw(matrices, page13Title, offLeft + 18, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, page13Subtitle, offLeft + 20, 25 + offTop, 0);
+            this.textRenderer.drawTrimmed(StringRenderable.plain(page13Text), offLeft + 13, 40 + offTop, 126, 0);
             this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
             this.textRenderer.draw(matrices, Passerines, offLeft + 192, 25 + offTop, 0);
             this.textRenderer.draw(matrices, Formatting.ITALIC + "Male", offLeft + 175, 80 + offTop, 0);
@@ -502,11 +553,11 @@ public class GUIBirdGuide extends Screen {
             InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 100, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
             InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 100, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
         }
-        else if(currPage==13){
-            this.textRenderer.draw(matrices, page13Title1, offLeft + 28, 15 + offTop, 0);
-            this.textRenderer.draw(matrices, page13Title2, offLeft + 25, 25 + offTop, 0);
-            this.textRenderer.draw(matrices, page12Subtitle, offLeft + 18, 35 + offTop, 0);
-            this.textRenderer.drawTrimmed(StringRenderable.plain(page13Text), offLeft + 13, 50 + offTop, 126, 0);
+        else if(currPage==14){
+            this.textRenderer.draw(matrices, page14Title1, offLeft + 28, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, page14Title2, offLeft + 25, 25 + offTop, 0);
+            this.textRenderer.draw(matrices, page14Subtitle, offLeft + 18, 35 + offTop, 0);
+            this.textRenderer.drawTrimmed(StringRenderable.plain(page14Text), offLeft + 13, 50 + offTop, 126, 0);
             this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
             this.textRenderer.draw(matrices, Passerines, offLeft + 192, 25 + offTop, 0);
             this.textRenderer.draw(matrices, Formatting.ITALIC + "Male", offLeft + 175, 80 + offTop, 0);
@@ -517,21 +568,23 @@ public class GUIBirdGuide extends Screen {
             this.itemRenderer.renderInGui(new ItemStack(InitItems.KINGOFSAXONYFEATHER_MALE, 1), offLeft + 175, 95 + offTop);
             this.itemRenderer.renderInGui(new ItemStack(InitItems.KINGOFSAXONYFEATHER_FEMALE, 1), offLeft + 240, 95 + offTop);
 
-            /*int i = (this.width - this.bookImageWidth) / 2;
+            int i = (this.width - this.bookImageWidth) / 2;
             int j = (this.height - this.bookImageHeight) / 2;
-            EntityKingofSaxony entity = new EntityKingofSaxony(mc.world);
+            KingOfSaxonyEntity entity = new KingOfSaxonyEntity(InitEntities.KING_OF_SAXONY_ENTITY, MinecraftClient.getInstance().world);
             entity.setGender(0);
-            EntityKingofSaxony entity2 = new EntityKingofSaxony(mc.world);
+            entity.setOnGround(true);
+            KingOfSaxonyEntity entity2 = new KingOfSaxonyEntity(InitEntities.KING_OF_SAXONY_ENTITY, MinecraftClient.getInstance().world);
             entity2.setGender(1);
+            entity2.setOnGround(true);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);*/
+            InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 80, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 80, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
         }
-        else if(currPage==14){
-            this.textRenderer.draw(matrices, page14Title1, offLeft + 19, 10 + offTop, 0);
-            this.textRenderer.draw(matrices, page14Title2, offLeft + 55, 20 + offTop, 0);
-            this.textRenderer.draw(matrices, page14Subtitle, offLeft + 15, 30 + offTop, 0);
-            this.textRenderer.drawTrimmed(StringRenderable.plain(page14Text), offLeft + 13, 45 + offTop, 126, 0);
+        else if(currPage==15){
+            this.textRenderer.draw(matrices, page15Title1, offLeft + 19, 10 + offTop, 0);
+            this.textRenderer.draw(matrices, page15Title2, offLeft + 55, 20 + offTop, 0);
+            this.textRenderer.draw(matrices, page15Subtitle, offLeft + 15, 30 + offTop, 0);
+            this.textRenderer.drawTrimmed(StringRenderable.plain(page15Text), offLeft + 13, 45 + offTop, 126, 0);
             this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
             this.textRenderer.draw(matrices, Coraciiformes, offLeft + 182, 25 + offTop, 0);
             this.textRenderer.draw(matrices, Formatting.ITALIC + "var. 1", offLeft + 160, 65 + offTop,0);
@@ -542,23 +595,26 @@ public class GUIBirdGuide extends Screen {
 
             this.itemRenderer.renderInGui(new ItemStack(InitItems.MOTMOTFEATHER, 1), offLeft + 205, 95 + offTop);
 
-            /*int i = (this.width - this.bookImageWidth) / 2;
+            int i = (this.width - this.bookImageWidth) / 2;
             int j = (this.height - this.bookImageHeight) / 2;
-            EntityTurquoiseBrowedMotmot entity = new EntityTurquoiseBrowedMotmot(mc.world);
+            TurquoiseBrowedMotmotEntity entity = new TurquoiseBrowedMotmotEntity(InitEntities.TURQUOISE_BROWED_MOTMOT_ENTITY, MinecraftClient.getInstance().world);
             entity.setVariant(1);
-            EntityTurquoiseBrowedMotmot entity2 = new EntityTurquoiseBrowedMotmot(mc.world);
+            entity.setOnGround(true);
+            TurquoiseBrowedMotmotEntity entity2 = new TurquoiseBrowedMotmotEntity(InitEntities.TURQUOISE_BROWED_MOTMOT_ENTITY, MinecraftClient.getInstance().world);
             entity2.setVariant(2);
-            EntityTurquoiseBrowedMotmot entity3 = new EntityTurquoiseBrowedMotmot(mc.world);
+            entity2.setOnGround(true);
+            TurquoiseBrowedMotmotEntity entity3 = new TurquoiseBrowedMotmotEntity(InitEntities.TURQUOISE_BROWED_MOTMOT_ENTITY, MinecraftClient.getInstance().world);
             entity3.setVariant(3);
+            entity3.setOnGround(true);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 175, 60 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-            InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);*/
+            InventoryScreen.drawEntity(offLeft + 175, 60 + offTop, 85, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 85, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 85, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
         }
         else if(currPage==15){
-            this.textRenderer.draw(matrices, page15Title, offLeft, 15 + offTop, 0);
-            this.textRenderer.draw(matrices, page15Subtitle, offLeft + 18, 25 + offTop, 0);
-            this.textRenderer.drawTrimmed(StringRenderable.plain(page15Text), offLeft + 13, 40 + offTop, 126, 0);
+            this.textRenderer.draw(matrices, page16Title, 51 + offLeft, 15 + offTop, 0);
+            this.textRenderer.draw(matrices, page16Subtitle, offLeft + 18, 25 + offTop, 0);
+            this.textRenderer.drawTrimmed(StringRenderable.plain(page16Text), offLeft + 13, 40 + offTop, 126, 0);
             this.textRenderer.draw(matrices, CharacteristicsTitle, offLeft + 170, 15 + offTop, 0);
             this.textRenderer.draw(matrices, Opisthocomiformes, offLeft + 171, 25 + offTop, 0);
             this.textRenderer.draw(matrices, Formatting.ITALIC + "Single variant", offLeft + 181, 80 + offTop, 0);
@@ -567,11 +623,12 @@ public class GUIBirdGuide extends Screen {
 
             this.itemRenderer.renderInGui(new ItemStack(InitItems.HOATZINFEATHER, 1), offLeft + 207, 95 + offTop);
 
-            /*int i = (this.width - this.bookImageWidth) / 2;
+            int i = (this.width - this.bookImageWidth) / 2;
             int j = (this.height - this.bookImageHeight) / 2;
-            EntityHoatzin entity = new EntityHoatzin(mc.world);
+            HoatzinEntity entity = new HoatzinEntity(InitEntities.HOATZIN_ENTITY, MinecraftClient.getInstance().world);
+            entity.setOnGround(true);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 217, 75 + offTop, 40, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);*/
+            InventoryScreen.drawEntity(offLeft + 217, 75 + offTop, 55, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
         }
 
         super.render(matrices, mouseX, mouseY, delta);
@@ -581,41 +638,4 @@ public class GUIBirdGuide extends Screen {
     public boolean isPauseScreen() {
         return false;
     }
-
-    /*public static void InventoryScreen.drawEntity(int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity ent)
-    {
-        ent.setOnGround(true);
-        GlStateManager.enableColorMaterial();
-        GlStateManager.pushMatrix();
-        GlStateManager.translate((float)posX, (float)posY, 50.0F);
-        GlStateManager.scale((float)(-scale), (float)scale, (float)scale);
-        GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
-        float f1 = ent.yaw;
-        float f2 = ent.pitch;
-        float f3 = ent.prevHeadYaw;
-        float f4 = ent.headYaw;
-        GlStateManager.rotate(135.0F, 0.0F, 1.0F, 0.0F);
-        Render.enableStandardItemLighting();
-        GlStateManager.rotate(-135.0F, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate(15, 0.0F, 1.0F, 0.0F);
-        ent.renderYawOffset = (float)Math.atan((double)(mouseX / 100.0F)) * 90.0F;
-        ent.rotationYawHead = ent.rotationYaw;
-        ent.prevRotationYawHead = ent.rotationYaw;
-        GlStateManager.translate(0.0F, 0.0F, 0.0F);
-        RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        rendermanager.setPlayerViewY(180.0F);
-        rendermanager.setRenderShadow(false);
-        rendermanager.renderEntity(ent, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, false);
-        rendermanager.setRenderShadow(true);
-        ent.yaw = f1;
-        ent.pitch = f2;
-        ent.prevHeadYaw = f3;
-        ent.headYaw = f4;
-        GlStateManager.popMatrix();
-        RenderHelper.disableStandardItemLighting();
-        GlStateManager.disableRescaleNormal();
-        GlStateManager.activeTexture(GLUtil.lightmapTexUnit);
-        GlStateManager.disableTexture2D();
-        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-    }*/
 }

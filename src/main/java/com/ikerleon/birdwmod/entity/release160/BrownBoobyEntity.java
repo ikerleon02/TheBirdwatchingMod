@@ -1,6 +1,7 @@
-package com.ikerleon.birdwmod.entity.release170;
+package com.ikerleon.birdwmod.entity.release160;
 
 import com.ikerleon.birdwmod.entity.DiurnalBirdEntity;
+import com.ikerleon.birdwmod.entity.NocturnalBirdEntity;
 import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.util.SoundHandler;
 import net.minecraft.entity.EntityType;
@@ -12,22 +13,30 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 
-public class HimalayanMonalEntity extends DiurnalBirdEntity {
+public class BrownBoobyEntity extends DiurnalBirdEntity {
 
-    public HimalayanMonalEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
+    public Biome biome;
+
+    public BrownBoobyEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
     @Override
     public int setBirdVariants() {
-        return 1;
+        return 4;
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        if(this.isOnGround() && !isSleeping() && this.getGender()==0){
-            return SoundHandler.HIMALAYAN_MONAL_SONG;
+        if((this.onGround) && !isSleeping()) {
+            if (this.getGender() == 0) {
+                return SoundHandler.BOOBY_CALL;
+            }
+            else{
+                return null;
+            }
         }
         else{
             return null;
@@ -40,14 +49,12 @@ public class HimalayanMonalEntity extends DiurnalBirdEntity {
 
     @Override
     public void mobTick() {
+        if(this.isTouchingWater() && !this.isBaby()){
+            this.upwardSpeed=0;
+        }
         if (!this.world.isClient() && !this.isBaby() && --this.timeUntilNextFeather <= 0)
         {
-            if(this.getGender()==0){
-                this.dropItem(InitItems.HIMALAYANMONALMALEFEATHER, 1);
-            }
-            else{
-                this.dropItem(InitItems.HIMALAYANMONALFEMALEFEATHER, 1);
-            }
+            this.dropItem(InitItems.BROWNBOOBYFEATHER, 1);
             this.timeUntilNextFeather = this.random.nextInt(10000) + 10000;
         }
         super.mobTick();
@@ -68,11 +75,12 @@ public class HimalayanMonalEntity extends DiurnalBirdEntity {
 
     @Override
     public boolean isAquatic() {
-        return false;
+        return true;
     }
 
     @Override
     public PassiveEntity createChild(PassiveEntity mate) {
-        return (HimalayanMonalEntity)this.getType().create(this.world);
+        return (BrownBoobyEntity)this.getType().create(this.world);
     }
 }
+

@@ -10,7 +10,6 @@ public class SoundHandler {
     public static SoundEvent BLUETAIL_CALL = register("entity.bluetail_call");
     public static SoundEvent BULLFINCH_CALL = register("entity.bullfinch_call");
     public static SoundEvent EIDER_CALL = register("entity.seider_call");
-    public static SoundEvent EIDER_FLYING = register("entity.seider_flying");
 
     public static SoundEvent KILLDEER_FLYING = register("entity.killdeer_flying");
     public static SoundEvent KILLDEER_CALL = register("entity.killdeer_call");
@@ -29,8 +28,8 @@ public class SoundHandler {
     public static SoundEvent BOOBY_CALL = register("entity.booby_call");
 
     public static SoundEvent RAZORBILL_CALL = register("entity.razorbill_call");
-
     public static SoundEvent HIMALAYAN_MONAL_SONG = register("entity.himonalmale_song");
+    public static SoundEvent SABINES_GULL_CALL = register("entity.sabinesgull_call");
 
     private static SoundEvent register(String id)
     {

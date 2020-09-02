@@ -4,6 +4,7 @@
   "package": "com.ikerleon.birdwmod.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "OcelotEntityMixin"
   ],
   "client": [
     "GameRendererMixin",
