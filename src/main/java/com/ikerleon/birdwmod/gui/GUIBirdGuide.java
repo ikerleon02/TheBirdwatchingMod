@@ -607,11 +607,11 @@ public class GUIBirdGuide extends Screen {
             entity3.setVariant(3);
             entity3.setOnGround(true);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 175, 60 + offTop, 85, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 85, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
-            InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 85, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
+            InventoryScreen.drawEntity(offLeft + 175, 60 + offTop, 75, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 215, 80 + offTop, 75, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity2);
+            InventoryScreen.drawEntity(offLeft + 255, 60 + offTop, 75, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity3);
         }
-        else if(currPage==15){
+        else if(currPage==16){
             this.textRenderer.draw(matrices, page16Title, 51 + offLeft, 15 + offTop, 0);
             this.textRenderer.draw(matrices, page16Subtitle, offLeft + 18, 25 + offTop, 0);
             this.textRenderer.drawTrimmed(StringRenderable.plain(page16Text), offLeft + 13, 40 + offTop, 126, 0);
@@ -628,7 +628,7 @@ public class GUIBirdGuide extends Screen {
             HoatzinEntity entity = new HoatzinEntity(InitEntities.HOATZIN_ENTITY, MinecraftClient.getInstance().world);
             entity.setOnGround(true);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            InventoryScreen.drawEntity(offLeft + 217, 75 + offTop, 55, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+            InventoryScreen.drawEntity(offLeft + 217, 75 + offTop, 65, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
         }
 
         super.render(matrices, mouseX, mouseY, delta);

@@ -30,8 +30,6 @@ public class BirdFeederBlock extends Block{
 
     Random random = new Random();
 
-    protected static final VoxelShape AABB = VoxelShapes.cuboid(0.0625 * 0, 0.0625 * 0, 0.0625 * 0, 0.0625 * 16, 0.0625 * 16, 0.0625 * 16);
-
     private static final VoxelShape BASE_BOX = VoxelShapes.cuboid(0.0625 * 5, 0, 0.0625 * 5, 0.0625 * 11, 0.0625 * 1, 0.0625 * 11);
     private static final VoxelShape STICK_BOX = VoxelShapes.cuboid(0.0625 * 6.5, 0.0625 * 1, 0.0625 * 6.5, 0.0625 * 11.5, 0.0625 * 13, 0.0625 * 11.5);
     private static final VoxelShape PLATAFORM_BOX = VoxelShapes.cuboid(0.0625 * 6, 0.0625 * 13, 0.0625 * 6, 0.0625 * 10, 0.0625 * 14, 0.0625 * 10);
@@ -56,12 +54,6 @@ public class BirdFeederBlock extends Block{
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FILLED).add(HALF);
-    }
-
-    public void placedAt(World worldIn, BlockPos lowerPos, int flags)
-    {
-        worldIn.setBlockState(lowerPos, this.getDefaultState().with(HALF, EnumBlockHalf.LOWER), flags);
-        worldIn.setBlockState(lowerPos.up(), this.getDefaultState().with(HALF, EnumBlockHalf.UPPER), flags);
     }
 
     @Override
@@ -168,14 +160,6 @@ public class BirdFeederBlock extends Block{
 
             if (iblockstate1.getBlock() != this) {
                 worldIn.removeBlock(pos, false);
-            }
-
-            if (!worldIn.getBlockState(pos.down()).isSideSolidFullSquare(worldIn, pos.down(), Direction.UP)) {
-                worldIn.removeBlock(pos, false);
-
-                if (iblockstate1.getBlock() == this) {
-                    worldIn.removeBlock(blockpos1, false);
-                }
             }
         }
     }

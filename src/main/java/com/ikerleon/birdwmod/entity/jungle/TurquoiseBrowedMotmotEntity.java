@@ -67,6 +67,11 @@ public class TurquoiseBrowedMotmotEntity extends DiurnalBirdEntity {
     }
 
     @Override
+    public boolean isGroupBird() {
+        return false;
+    }
+
+    @Override
     public PassiveEntity createChild(PassiveEntity mate) {
         return (TurquoiseBrowedMotmotEntity)this.getType().create(this.world);
     }

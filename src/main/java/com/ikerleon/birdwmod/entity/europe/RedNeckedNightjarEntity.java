@@ -67,6 +67,11 @@ public class RedNeckedNightjarEntity extends NocturnalBirdEntity {
     }
 
     @Override
+    public boolean isGroupBird() {
+        return false;
+    }
+
+    @Override
     public PassiveEntity createChild(PassiveEntity mate) {
         return (RedNeckedNightjarEntity)this.getType().create(this.world);
     }

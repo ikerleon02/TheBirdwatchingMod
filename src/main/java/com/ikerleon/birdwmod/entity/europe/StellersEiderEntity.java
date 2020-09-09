@@ -45,9 +45,6 @@ public class StellersEiderEntity extends DiurnalBirdEntity {
 
     @Override
     public void mobTick() {
-        if(this.isTouchingWater() && !this.isBaby()){
-            this.upwardSpeed=0;
-        }
         if (!this.world.isClient() && !this.isBaby() && --this.timeUntilNextFeather <= 0)
         {
             if(this.getGender()==0){
@@ -76,6 +73,11 @@ public class StellersEiderEntity extends DiurnalBirdEntity {
 
     @Override
     public boolean isAquatic() {
+        return true;
+    }
+
+    @Override
+    public boolean isGroupBird() {
         return true;
     }
 

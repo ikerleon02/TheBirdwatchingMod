@@ -2,7 +2,9 @@ package com.ikerleon.birdwmod.entity;
 
 import com.ikerleon.birdwmod.blocks.InitBlocks;
 import com.ikerleon.birdwmod.blocks.RingingNetBlock;
+import com.ikerleon.birdwmod.entity.goal.BirdSwimGoal;
 import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
+import com.ikerleon.birdwmod.entity.goal.FollowLeaderGoal;
 import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
 import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
@@ -17,11 +19,9 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.CatEntity;
-import net.minecraft.entity.passive.OcelotEntity;
-import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -30,12 +30,14 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
 
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
 
 public abstract class BirdEntity extends AnimalEntity{
 
@@ -53,6 +55,8 @@ public abstract class BirdEntity extends AnimalEntity{
     private byte blinkTime = 0;
     private byte blinkSec = 0;
     private Random rando = new Random();
+    private BirdEntity leader;
+    private int groupSize = 1;
 
     //Entity constructor and stuff
     public BirdEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
@@ -61,13 +65,14 @@ public abstract class BirdEntity extends AnimalEntity{
         this.setVariant(getRandom().nextInt(setBirdVariants()));
         this.timeUntilNextFeather = this.rando.nextInt(10000) + 10000;
         this.moveControl = new MoveControlFlying(this, 30, false);
-        this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(1, new BirdSwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0D));
         this.goalSelector.add(2, new FleeEntityGoal(this, OcelotEntity.class, 15.0F, 1.5D, 2D));
         this.goalSelector.add(2, new FleeEntityGoal(this, CatEntity.class, 15.0F, 1.5D, 2D));
         this.goalSelector.add(3, new EatFromFeedersGoal(this));
         this.goalSelector.add(4, new FleeEntityGoal(this, PlayerEntity.class, 15.0F, 1.0D, 1.2D));
         this.goalSelector.add(5, new FlyOntoTreeGoal(this, 1.0D));
+        this.goalSelector.add(5, new FollowLeaderGoal(this));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 
@@ -120,16 +125,6 @@ public abstract class BirdEntity extends AnimalEntity{
         return canMobSpawn(type, world, spawnReason, pos, random);
     }
 
-    @Override
-    public boolean canSpawn(WorldView world) {
-        if(this.isAquatic()){
-            return world.intersectsEntities(this);
-        }
-        else {
-            return super.canSpawn(world);
-        }
-    }
-
     //Flying code
     @Override
     protected EntityNavigation createNavigation(World world) {
@@ -148,7 +143,12 @@ public abstract class BirdEntity extends AnimalEntity{
     @Override
     public void move(MovementType type, Vec3d movement) {
         if(this.isInNet() && (type == MovementType.SELF || type == MovementType.PLAYER)){
-
+            if(this.world.getBlockState(new BlockPos(this.getX(), this.getY(), this.getZ())).get(RingingNetBlock.DIRECTION) == RingingNetBlock.EnumBlockDirection.NORTH) {
+                this.setPos(this.getPos().x, this.getPos().y, (this.getPos().z - this.getPos().z % 1) + 0.5);
+            }
+            else{
+                this.setPos((this.getPos().x - this.getPos().x % 1) + 0.5, this.getPos().y, this.getPos().z);
+            }
         }
         else{
             super.move(type, movement);
@@ -156,6 +156,80 @@ public abstract class BirdEntity extends AnimalEntity{
     }
 
     //Entity stuff
+    public int getLimitPerChunk() {
+        return this.getMaxGroupSize();
+    }
+
+    public int getMaxGroupSize() {
+        return super.getLimitPerChunk();
+    }
+
+    protected boolean hasSelfControl() {
+        return !this.hasLeader();
+    }
+
+    public boolean hasLeader() {
+        return this.leader != null && this.leader.isAlive();
+    }
+
+    public BirdEntity joinGroupOf(BirdEntity groupLeader) {
+        this.leader = groupLeader;
+        groupLeader.increaseGroupSize();
+        return groupLeader;
+    }
+
+    public void leaveGroup() {
+        this.leader.decreaseGroupSize();
+        this.leader = null;
+    }
+
+    private void increaseGroupSize() {
+        ++this.groupSize;
+    }
+
+    private void decreaseGroupSize() {
+        --this.groupSize;
+    }
+
+    public boolean canHaveMoreBirdInGroup() {
+        return this.hasOtherBirdInGroup() && this.groupSize < this.getMaxGroupSize();
+    }
+
+    public boolean hasOtherBirdInGroup() {
+        return this.groupSize > 1;
+    }
+
+    public boolean isCloseEnoughToLeader() {
+        return this.squaredDistanceTo(this.leader) <= 121.0D;
+    }
+
+    public void moveTowardLeader() {
+        if (this.hasLeader()) {
+            this.getNavigation().startMovingTo(this.leader, 1.0D);
+        }
+
+    }
+
+    public void pullInOtherBird(Stream<BirdEntity> fish) {
+        fish.limit((long)(this.getMaxGroupSize() - this.groupSize)).filter((schoolingBirdEntity) -> {
+            return schoolingBirdEntity != this;
+        }).forEach((schoolingBirdEntity) -> {
+            schoolingBirdEntity.joinGroupOf(this);
+        });
+    }
+
+    @Nullable
+    public EntityData initialize(WorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
+        super.initialize(world, difficulty, spawnReason, (EntityData)entityData, entityTag);
+        if (entityData == null) {
+            entityData = new BirdEntity.BirdData(this);
+        } else {
+            this.joinGroupOf(((BirdEntity.BirdData)entityData).leader);
+        }
+
+        return (EntityData)entityData;
+    }
+    
     @Override
     public void tickMovement() {
         if(this.isInNet()){
@@ -194,22 +268,30 @@ public abstract class BirdEntity extends AnimalEntity{
         super.tickMovement();
     }
 
-    @Override
-    public boolean shouldRender(double distance) {
-        double d0 = this.getBoundingBox().getAverageSideLength();
-
-        if (Double.isNaN(d0))
-        {
-            d0 = 1.0D;
+    public void tick() {
+        super.tick();
+        if (this.hasOtherBirdInGroup() && this.world.random.nextInt(200) == 1) {
+            List<BirdEntity> list = this.world.getNonSpectatingEntities(this.getClass(), this.getBoundingBox().expand(8.0D, 8.0D, 8.0D));
+            if (list.size() <= 1) {
+                this.groupSize = 1;
+            }
         }
 
-        d0 = d0 * 64.0D * 4.0D;
-        return distance < d0 * d0;
     }
 
     public abstract boolean goesToFeeders();
 
     public abstract boolean isAquatic();
+
+    public abstract boolean isGroupBird();
+
+    @Override
+    protected void mobTick() {
+        super.mobTick();
+        if(this.isAquatic() && this.isTouchingWater() && !this.isBaby()){
+            this.upwardSpeed=0;
+        }
+    }
 
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -282,7 +364,12 @@ public abstract class BirdEntity extends AnimalEntity{
 
     public boolean isInNet(){
         Block block = this.world.getBlockState(new BlockPos(this.getPos())).getBlock();
-        return block == InitBlocks.RINGING_NET;
+        if(block == InitBlocks.RINGING_NET) {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
@@ -334,6 +421,14 @@ public abstract class BirdEntity extends AnimalEntity{
 
     //Variant setter
     public abstract int setBirdVariants();
+
+    public static class BirdData implements EntityData {
+        public final BirdEntity leader;
+
+        public BirdData(BirdEntity leader) {
+            this.leader = leader;
+        }
+    }
 
 }
 

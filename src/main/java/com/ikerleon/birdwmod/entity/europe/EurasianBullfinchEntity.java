@@ -75,6 +75,11 @@ public class EurasianBullfinchEntity extends DiurnalBirdEntity {
     }
 
     @Override
+    public boolean isGroupBird() {
+        return true;
+    }
+
+    @Override
     public PassiveEntity createChild(PassiveEntity mate) {
         return (EurasianBullfinchEntity)this.getType().create(this.world);
     }

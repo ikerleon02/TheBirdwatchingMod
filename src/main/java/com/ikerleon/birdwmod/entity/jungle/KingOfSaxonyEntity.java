@@ -77,6 +77,11 @@ public class KingOfSaxonyEntity extends DiurnalBirdEntity {
     }
 
     @Override
+    public boolean isGroupBird() {
+        return false;
+    }
+
+    @Override
     public PassiveEntity createChild(PassiveEntity mate) {
         return (KingOfSaxonyEntity)this.getType().create(this.world);
     }

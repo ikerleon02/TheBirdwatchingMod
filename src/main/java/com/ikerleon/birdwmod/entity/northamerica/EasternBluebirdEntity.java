@@ -77,6 +77,11 @@ public class EasternBluebirdEntity extends DiurnalBirdEntity {
     }
 
     @Override
+    public boolean isGroupBird() {
+        return true;
+    }
+
+    @Override
     public PassiveEntity createChild(PassiveEntity mate) {
         return (EasternBluebirdEntity)this.getType().create(this.world);
     }

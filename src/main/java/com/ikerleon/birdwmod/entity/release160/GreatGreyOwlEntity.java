@@ -36,13 +36,8 @@ public class GreatGreyOwlEntity extends NocturnalBirdEntity {
         if (!(target instanceof RabbitEntity)) {
             return false;
         } else {
-            this.world.sendEntityStatus(this, (byte)4);
-            return Hoglin.tryAttack(this, (LivingEntity)target) && !this.isBaby();
+            return !this.isBaby();
         }
-    }
-
-    public boolean damage(DamageSource source, float amount) {
-        return !this.isBaby();
     }
 
     @Override
@@ -61,7 +56,7 @@ public class GreatGreyOwlEntity extends NocturnalBirdEntity {
     }
 
     public static DefaultAttributeContainer.Builder createBirdAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0D).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.70D).add(EntityAttributes.GENERIC_MAX_HEALTH, 5.0D);
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20D).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.70D).add(EntityAttributes.GENERIC_MAX_HEALTH, 5.0D);
     }
 
     @Override
@@ -89,6 +84,11 @@ public class GreatGreyOwlEntity extends NocturnalBirdEntity {
 
     @Override
     public boolean isAquatic() {
+        return false;
+    }
+
+    @Override
+    public boolean isGroupBird() {
         return false;
     }
 

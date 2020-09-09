@@ -17,8 +17,6 @@ import net.minecraft.world.biome.Biome;
 
 public class BrownBoobyEntity extends DiurnalBirdEntity {
 
-    public Biome biome;
-
     public BrownBoobyEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -49,9 +47,7 @@ public class BrownBoobyEntity extends DiurnalBirdEntity {
 
     @Override
     public void mobTick() {
-        if(this.isTouchingWater() && !this.isBaby()){
-            this.upwardSpeed=0;
-        }
+
         if (!this.world.isClient() && !this.isBaby() && --this.timeUntilNextFeather <= 0)
         {
             this.dropItem(InitItems.BROWNBOOBYFEATHER, 1);
@@ -75,6 +71,11 @@ public class BrownBoobyEntity extends DiurnalBirdEntity {
 
     @Override
     public boolean isAquatic() {
+        return true;
+    }
+
+    @Override
+    public boolean isGroupBird() {
         return true;
     }
 

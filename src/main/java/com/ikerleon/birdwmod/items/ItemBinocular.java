@@ -1,6 +1,8 @@
 package com.ikerleon.birdwmod.items;
 
 import com.ikerleon.birdwmod.Main;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.Option;
@@ -22,10 +24,6 @@ public class ItemBinocular extends Item {
     public ItemBinocular(float zoom) {
         super(new Item.Settings().group(Main.THE_BIRDWATCHING_MOD));
         this.zoom=zoom;
-
-        register(this, new Identifier("pulling"), (itemStack, clientWorld, livingEntity) -> {
-            return livingEntity != null && MinecraftClient.getInstance().options.perspective == 0 && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
-        });
     }
 
     @Override

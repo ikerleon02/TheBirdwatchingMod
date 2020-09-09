@@ -40,9 +40,6 @@ public class SabinesGullEntity extends DiurnalBirdEntity {
 
     @Override
     public void mobTick() {
-        if(this.isTouchingWater() && !this.isBaby()){
-            this.upwardSpeed=0;
-        }
         if (!this.world.isClient() && !this.isBaby() && --this.timeUntilNextFeather <= 0)
         {
             this.dropItem(InitItems.SABINESGULLFEATHER, 1);
@@ -66,6 +63,11 @@ public class SabinesGullEntity extends DiurnalBirdEntity {
 
     @Override
     public boolean isAquatic() {
+        return true;
+    }
+
+    @Override
+    public boolean isGroupBird() {
         return true;
     }
 

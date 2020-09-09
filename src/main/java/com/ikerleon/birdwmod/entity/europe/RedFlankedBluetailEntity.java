@@ -72,6 +72,11 @@ public class RedFlankedBluetailEntity extends DiurnalBirdEntity {
     }
 
     @Override
+    public boolean isGroupBird() {
+        return false;
+    }
+
+    @Override
     public PassiveEntity createChild(PassiveEntity mate) {
         return (RedFlankedBluetailEntity)this.getType().create(this.world);
     }

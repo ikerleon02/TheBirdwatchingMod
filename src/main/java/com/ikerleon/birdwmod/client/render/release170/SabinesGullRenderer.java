@@ -131,7 +131,7 @@ public class SabinesGullRenderer extends BirdBaseRenderer<SabinesGullEntity> {
                     this.rightwing.pitch = MathHelper.cos(gull.age * 0.17f) * 0.03F * -1 * 0.5f + 0.0872665F;
                     this.leftwing.pitch = MathHelper.cos(gull.age * 0.17f) * 0.03F * -1 * 0.5f + 0.0872665F;
 
-                    if (!gull.isOnGround() && !gull.isTouchingWater() && !gull.isBaby()) {
+                    if ((!gull.isOnGround() && !gull.isTouchingWater() && !gull.isBaby()) && entityIn.world.getBlockState(pos).getMaterial() != Material.WATER) {
                         this.getModel().interpolateToPose(SabinesGullRenderer.SABINES_GULL_FLYING, gull.timer);
 
                         this.rightwing.pitch = MathHelper.cos(gull.age * 0.6f * globalSpeed + 0) * 0.2f * globalDegree * -1 * 0.5f - 1.48353F;

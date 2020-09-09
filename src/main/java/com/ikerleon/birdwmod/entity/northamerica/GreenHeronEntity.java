@@ -67,6 +67,11 @@ public class GreenHeronEntity extends DiurnalBirdEntity {
     }
 
     @Override
+    public boolean isGroupBird() {
+        return false;
+    }
+
+    @Override
     public PassiveEntity createChild(PassiveEntity mate) {
         return (GreenHeronEntity)this.getType().create(this.world);
     }

@@ -67,6 +67,11 @@ public class HoatzinEntity extends DiurnalBirdEntity {
     }
 
     @Override
+    public boolean isGroupBird() {
+        return false;
+    }
+
+    @Override
     public PassiveEntity createChild(PassiveEntity mate) {
         return (HoatzinEntity)this.getType().create(this.world);
     }
