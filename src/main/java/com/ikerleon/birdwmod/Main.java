@@ -1,6 +1,7 @@
 package com.ikerleon.birdwmod;
 
 import com.ikerleon.birdwmod.blocks.InitBlocks;
+import com.ikerleon.birdwmod.entity.EntityGeneration;
 import com.ikerleon.birdwmod.entity.InitEntities;
 import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.util.SoundHandler;
@@ -22,5 +23,6 @@ public class Main implements ModInitializer {
 		InitItems.registerItems();
 		InitBlocks.registerBlocks();
 		InitEntities.registerAttributes();
+		EntityGeneration.init();
 	}
 }

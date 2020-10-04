@@ -220,14 +220,14 @@ public abstract class BirdEntity extends AnimalEntity{
 
     @Nullable
     public EntityData initialize(WorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
-        super.initialize(world, difficulty, spawnReason, (EntityData)entityData, entityTag);
+        super.initialize(world, difficulty, spawnReason, entityData, entityTag);
         if (entityData == null) {
             entityData = new BirdEntity.BirdData(this);
         } else {
             this.joinGroupOf(((BirdEntity.BirdData)entityData).leader);
         }
 
-        return (EntityData)entityData;
+        return entityData;
     }
     
     @Override
@@ -422,7 +422,7 @@ public abstract class BirdEntity extends AnimalEntity{
     //Variant setter
     public abstract int setBirdVariants();
 
-    public static class BirdData implements EntityData {
+    public static class BirdData extends PassiveData {
         public final BirdEntity leader;
 
         public BirdData(BirdEntity leader) {
