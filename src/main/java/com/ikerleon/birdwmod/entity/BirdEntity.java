@@ -7,14 +7,19 @@ import com.ikerleon.birdwmod.blocks.RingingNetBlock;
 //import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
 //import com.ikerleon.birdwmod.entity.goal.FollowLeaderGoal;
 //import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
+import com.ikerleon.birdwmod.entity.europe.EurasianBullfinchEntity;
 import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
+import com.ikerleon.birdwmod.util.SoundHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -27,6 +32,7 @@ import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
@@ -49,7 +55,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
-public abstract class BirdEntity extends AnimalEntity implements IAnimatable {
+public class BirdEntity extends AnimalEntity implements IAnimatable {
 
     //Variables
     protected static final TrackedData<Integer> GENDER;
@@ -69,7 +75,7 @@ public abstract class BirdEntity extends AnimalEntity implements IAnimatable {
     private int groupSize = 1;
 
     //Entity constructor and stuff
-    public BirdEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
+    public BirdEntity(EntityType type, World worldIn, int dummy) {
         super(type, worldIn);
         this.setGender(getRandom().nextInt(2));
         this.setVariant(getRandom().nextInt(setBirdVariants()));
@@ -307,20 +313,6 @@ public abstract class BirdEntity extends AnimalEntity implements IAnimatable {
 
     }
 
-    public abstract boolean goesToFeeders();
-
-    public abstract boolean isAquatic();
-
-    public abstract boolean isGroupBird();
-
-    @Override
-    protected void mobTick() {
-        super.mobTick();
-        if(this.isAquatic() && this.isTouchingWater() && !this.isBaby()){
-            this.upwardSpeed=0;
-        }
-    }
-
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getStackInHand(hand);
@@ -449,9 +441,6 @@ public abstract class BirdEntity extends AnimalEntity implements IAnimatable {
         this.dataTracker.set(RINGED, value);
     }
 
-    //Variant setter
-    public abstract int setBirdVariants();
-
     public static class BirdData extends PassiveData {
         public final BirdEntity leader;
 
@@ -460,6 +449,64 @@ public abstract class BirdEntity extends AnimalEntity implements IAnimatable {
             super(false);
             this.leader = leader;
         }
+    }
+
+    public int setBirdVariants() {
+        return 1;
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        if(this.isOnGround() && !isSleeping()){
+            return SoundHandler.BULLFINCH_CALL;
+        }
+        else{
+            return null;
+        }
+    }
+
+    public static DefaultAttributeContainer.Builder createBirdAttributes() {
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20D).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.70D).add(EntityAttributes.GENERIC_MAX_HEALTH, 5.0D);
+    }
+
+    @Override
+    public void mobTick() {
+        if (!this.world.isClient() && !this.isBaby() && --this.timeUntilNextFeather <= 0)
+        {
+            if(this.getGender()==0){
+                this.dropItem(InitItems.EURASIANBULLFINCHDFEATHER_MALE, 1);
+            }
+            else{
+                this.dropItem(InitItems.EURASIANBULLFINCHDFEATHER_FEMALE, 1);
+            }
+            this.timeUntilNextFeather = this.random.nextInt(10000) + 10000;
+        }
+        super.mobTick();
+    }
+
+    @Override
+    protected void dropLoot(DamageSource source, boolean causedByPlayer) {
+        if(this.isOnFire())
+            this.dropItem(InitItems.SMALLCOOCKEDMEAT, 1);
+        else
+            this.dropItem(InitItems.SMALLRAWMEAT, 1);
+    }
+
+    public boolean goesToFeeders() {
+        return true;
+    }
+
+    public boolean isAquatic() {
+        return false;
+    }
+
+    public boolean isGroupBird() {
+        return true;
+    }
+
+    @Override
+    public @org.jetbrains.annotations.Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return (BirdEntity)this.getType().create(world);
     }
 
 }
