@@ -1,37 +1,30 @@
 package com.ikerleon.birdwmod.items;
 
 import com.ikerleon.birdwmod.Main;
-import com.ikerleon.birdwmod.init.BirdwmodItems;
-
-import com.ikerleon.birdwmod.proxy.CommonProxy;
-import net.minecraft.entity.player.EntityPlayer;
+//import com.ikerleon.birdwmod.gui.GUIBirdGuide;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.BookEditScreen;
+import net.minecraft.client.util.NarratorManager;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class ItemBirdGuide extends Item{
-	
-	public ItemBirdGuide(String name) {
-		this.maxStackSize = 1;
-		this.setUnlocalizedName(name);
-		this.setRegistryName(name);
-		BirdwmodItems.ITEMS.add(this);
-		this.setCreativeTab(Main.BIRDWATCHINGMOD);
-	}
+public class ItemBirdGuide extends Item {
+    public ItemBirdGuide(){
+        super(new Item.Settings().group(Main.THE_BIRDWATCHING_MOD).maxCount(1));
+    }
 
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		ItemStack itemstack = playerIn.getHeldItem(handIn);
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        ItemStack itemstack = user.getStackInHand(hand);
 
-		playerIn.openBook(itemstack, handIn);
-		playerIn.addStat(StatList.getObjectUseStats(this));
-		if (worldIn.isRemote) {
-			playerIn.openGui(Main.instance, CommonProxy.GUI.BIRD_BOOK.id, worldIn, (int) Math.floor(playerIn.posX), (int) Math.floor(playerIn.posY), (int) Math.floor(playerIn.posZ));
-		}
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
-	}
+        /*if (world.isClient()) {
+            MinecraftClient.getInstance().openScreen(new GUIBirdGuide());
+        }*/
+        return new TypedActionResult<ItemStack>(ActionResult.PASS, itemstack);
+    }
 }
