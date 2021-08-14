@@ -48,7 +48,7 @@ public class InitEntities {
     public static final EntityType<BirdEntity> EURASIAN_BULLFINCH_ENTITY= Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier("birdwmod", "eurasian_bullfinch"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, (EntityType<BirdEntity> type, World worldIn)->new BirdEntity(type, worldIn, 1)).dimensions(EntityDimensions.fixed(0.3f, 0.3f)).build()
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, (EntityType<BirdEntity> type, World worldIn)->new BirdEntity(type, worldIn, new BirdEntity.Settings())).dimensions(EntityDimensions.fixed(0.3f, 0.3f)).build()
     );
     /*public static final EntityType<RedNeckedNightjarEntity> RED_NECKED_NIGHTJAR_ENTITY= Registry.register(
             Registry.ENTITY_TYPE,

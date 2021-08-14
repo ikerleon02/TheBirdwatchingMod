@@ -29,6 +29,7 @@ import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.DyeItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
@@ -64,6 +65,23 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     private static final TrackedData<Integer> RING_COLOR;
     private static final TrackedData<Boolean> RINGED;
 
+    protected static SoundEvent callSound;
+    protected static SoundEvent callSoundFemaleSpecific;
+
+    // TODO Final? Static? Both for all?
+    static int birdVariants;
+    static double movementSpeed;
+    static double flightSpeed;
+    static double maxHealth;
+    static boolean doesGoInWater;
+    static boolean doesGoToFeeders;
+    static boolean doesGroupBird;
+    static MeatSize meatSize;
+    static CallType callType;
+    static FeatherType featherType;
+    static Item featherItem;
+    static Item femaleSpecificFeatherItem;
+
     public float timer;
     public int timeUntilNextFeather;
     protected boolean blink = false;
@@ -74,9 +92,26 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     private BirdEntity leader;
     private int groupSize = 1;
 
+    public enum MeatSize{SMALL, MEDIUM, BIG};
+    public enum CallType{BOTH_CALL, MALES_ONLY, GENDERED_CALLS};
+    public enum FeatherType{BOTH_DROP, MALES_ONLY, GENDERED_DROPS}
+
     //Entity constructor and stuff
-    public BirdEntity(EntityType type, World worldIn, int dummy) {
+    public BirdEntity(EntityType type, World worldIn,  Settings settings) {
         super(type, worldIn);
+        birdVariants = settings.birdVariants;
+        movementSpeed = settings.movementSpeed;
+        flightSpeed = settings.flightSpeed;
+        maxHealth = settings.maxHealth;
+        doesGoInWater = settings.doesGoInWater;
+        doesGoToFeeders = settings.doesGoToFeeders;
+        doesGroupBird = settings.doesGroupBird;
+        meatSize = settings.meatSize;
+        callType = settings.callType;
+        featherType = settings.featherType;
+        featherItem = settings.featherItem;
+        femaleSpecificFeatherItem = settings.femaleSpecificFeatherItem;
+
         this.setGender(getRandom().nextInt(2));
         this.setVariant(getRandom().nextInt(setBirdVariants()));
         this.timeUntilNextFeather = this.rando.nextInt(10000) + 10000;
@@ -92,6 +127,77 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 
+    }
+
+    public static class Settings {
+        int birdVariants = 1;
+        double movementSpeed = 0.2D;
+        double flightSpeed = 0.7D;
+        double maxHealth = 5.0D;
+        boolean doesGoInWater = false;
+        boolean doesGoToFeeders = false;
+        boolean doesGroupBird = false;
+        MeatSize meatSize = MeatSize.SMALL;
+        CallType callType = CallType.BOTH_CALL;
+        FeatherType featherType = FeatherType.BOTH_DROP;
+        Item featherItem = InitItems.EASTERNBLUEBIRDFEATHER_MALE;
+        Item femaleSpecificFeatherItem = InitItems.EASTERNBLUEBIRDFEATHER_FEMALE;
+        SoundEvent callSound = SoundHandler.BLUEBIRD_CALL;
+        SoundEvent callSoundFemaleSpecific = null;
+
+        public Settings withSound(SoundEvent callSound, @Nullable SoundEvent callSoundFemaleSpecific){
+            this.callSound = callSound;
+            this.callSoundFemaleSpecific = callSoundFemaleSpecific;
+            return this;
+        }
+
+        public Settings withFeather(Item featherItem, @Nullable Item femaleSpecificFeatherItem){
+            this.featherItem = featherItem;
+            this.femaleSpecificFeatherItem = femaleSpecificFeatherItem;
+            return this;
+        }
+
+        public Settings withVariants(int numVariants){
+            this.birdVariants = numVariants;
+            return this;
+        }
+
+        public Settings withBirdAttributes(double movementSpeed, double flightSpeed, double maxHealth){
+            this.movementSpeed = movementSpeed;
+            this.flightSpeed = flightSpeed;
+            this.maxHealth = maxHealth;
+            return this;
+        }
+
+        public Settings goesToFeeders(){
+            this.doesGoToFeeders = true;
+            return this;
+        }
+
+        public Settings goesInWater(){
+            this.doesGoInWater = true;
+            return this;
+        }
+
+        public Settings isGroupBird(){
+            this.doesGroupBird = true;
+            return this;
+        }
+
+        public Settings withMeatSize(MeatSize meatSize){
+            this.meatSize = meatSize;
+            return this;
+        }
+
+        public Settings withCallType(CallType callType){
+            this.callType = callType;
+            return this;
+        }
+
+        public Settings withFeatherType(FeatherType featherType){
+            this.featherType = featherType;
+            return this;
+        }
     }
 
     // Required by GeckoLib

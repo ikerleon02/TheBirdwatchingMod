@@ -20,8 +20,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class EurasianBullfinchEntity extends DiurnalBirdEntity {
 
-    public EurasianBullfinchEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
-        super(type, worldIn);
+    public EurasianBullfinchEntity(EntityType<? extends AnimalEntity> type, World worldIn, BirdEntity.Settings settings) {
+        super(type, worldIn, settings);
     }
 
     @Override

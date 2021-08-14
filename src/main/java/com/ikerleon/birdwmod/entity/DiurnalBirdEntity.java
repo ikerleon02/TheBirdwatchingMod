@@ -6,8 +6,8 @@ import net.minecraft.world.World;
 
 public abstract class DiurnalBirdEntity extends BirdEntity{
 
-    public DiurnalBirdEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
-        super(type, worldIn, 1);
+    public DiurnalBirdEntity(EntityType<? extends AnimalEntity> type, World worldIn, BirdEntity.Settings settings) {
+        super(type, worldIn, settings);
     }
 
     @Override
