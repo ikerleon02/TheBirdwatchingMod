@@ -1,28 +1,28 @@
 package com.ikerleon.birdwmod.client.render;
 
+import com.ikerleon.birdwmod.client.model.entity.BirdBaseModel;
 import com.ikerleon.birdwmod.entity.BirdEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.soggymustache.bookworm.client.animation.part.BookwormModelBase;
-import net.soggymustache.bookworm.client.render.BookwormEntityRenderer;
-import net.soggymustache.bookworm.client.render.BookwormFeatureRenderer;
-import net.soggymustache.bookworm.client.render.BookwormFeatureRendererContext;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
-public abstract class BirdBaseRenderer <T extends BirdEntity> extends BookwormEntityRenderer<T> {
+public class BirdBaseRenderer extends GeoEntityRenderer<BirdEntity> {
 
-    public BirdBaseRenderer(EntityRenderDispatcher renderManager, BookwormModelBase model, float f) {
-        super(renderManager, model, f);
-        this.features.add((BookwormFeatureRenderer<T>) new BlinkSleepingFeature(this));
-        this.features.add((BookwormFeatureRenderer<T>) new RingFeature(this));
+    public BirdBaseRenderer(EntityRendererFactory.Context ctx, String model_location, String texture_location, String animation_location) {
+        super(ctx, new BirdBaseModel(model_location, texture_location, animation_location));
+        // TODO: Features?
+        //this.features.add((BookwormFeatureRenderer<T>) new BlinkSleepingFeature(this));
+        //this.features.add((BookwormFeatureRenderer<T>) new RingFeature(this));
     }
 
-    public Identifier getBlinkTexture(T entity)
+    /*public Identifier getBlinkTexture(T entity)
     {
         return null;
     }
@@ -70,5 +70,5 @@ public abstract class BirdBaseRenderer <T extends BirdEntity> extends BookwormEn
                 this.birdRender.model.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(this.birdRender.getRingTexture(birdEntity))), i, LivingEntityRenderer.getOverlay(birdEntity, 0.0F), fs[0], fs[1], fs[2], 1.0F);
             }
         }
-    }
+    }*/
 }

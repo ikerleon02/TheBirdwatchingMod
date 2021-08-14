@@ -21,7 +21,7 @@ public class ItemBirdSpawnEgg extends Item {
     public EntityType<?> entityType;
 
     public ItemBirdSpawnEgg(EntityType<?> type) {
-        super(new Item.Settings());//.group(Main.THE_BIRDWATCHING_MOD_SPAWN_EGGS));
+        super(new Item.Settings().group(Main.THE_BIRDWATCHING_MOD_SPAWN_EGGS));
         this.entityType = type;
     }
 

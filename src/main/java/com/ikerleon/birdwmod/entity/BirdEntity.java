@@ -2,10 +2,11 @@ package com.ikerleon.birdwmod.entity;
 
 import com.ikerleon.birdwmod.blocks.InitBlocks;
 import com.ikerleon.birdwmod.blocks.RingingNetBlock;
-import com.ikerleon.birdwmod.entity.goal.BirdSwimGoal;
-import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
-import com.ikerleon.birdwmod.entity.goal.FollowLeaderGoal;
-import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
+// TODO: re-enable
+//import com.ikerleon.birdwmod.entity.goal.BirdSwimGoal;
+//import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
+//import com.ikerleon.birdwmod.entity.goal.FollowLeaderGoal;
+//import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
 import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
 import net.minecraft.block.Block;
@@ -24,22 +25,31 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
-public abstract class BirdEntity extends AnimalEntity{
+public abstract class BirdEntity extends AnimalEntity implements IAnimatable {
 
     //Variables
     protected static final TrackedData<Integer> GENDER;
@@ -64,19 +74,35 @@ public abstract class BirdEntity extends AnimalEntity{
         this.setGender(getRandom().nextInt(2));
         this.setVariant(getRandom().nextInt(setBirdVariants()));
         this.timeUntilNextFeather = this.rando.nextInt(10000) + 10000;
-        this.moveControl = new MoveControlFlying(this, 30, false);
-        this.goalSelector.add(1, new BirdSwimGoal(this));
+        //this.moveControl = new MoveControlFlying(this, 30, false);
+        //this.goalSelector.add(1, new BirdSwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0D));
         this.goalSelector.add(2, new FleeEntityGoal(this, OcelotEntity.class, 15.0F, 1.5D, 2D));
         this.goalSelector.add(2, new FleeEntityGoal(this, CatEntity.class, 15.0F, 1.5D, 2D));
-        this.goalSelector.add(3, new EatFromFeedersGoal(this));
+        //this.goalSelector.add(3, new EatFromFeedersGoal(this));
         this.goalSelector.add(4, new FleeEntityGoal(this, PlayerEntity.class, 15.0F, 1.0D, 1.2D));
         this.goalSelector.add(5, new FlyOntoTreeGoal(this, 1.0D));
-        this.goalSelector.add(5, new FollowLeaderGoal(this));
+        //this.goalSelector.add(5, new FollowLeaderGoal(this));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 
     }
+
+    // Required by GeckoLib
+    private AnimationFactory factory = new AnimationFactory(this);
+
+    // TODO: need to pass something in here in place of predicate (https://geckolib.com/en/latest/3.0.0/entity_animations/)
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
+    {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.bat.fly", true));
+        return PlayState.CONTINUE;
+    }
+    public void registerControllers(AnimationData data)
+    {
+        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+    }
+    @Override
+    public AnimationFactory getFactory() { return this.factory; }
 
     static {
         GENDER = DataTracker.registerData(BirdEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -100,8 +126,8 @@ public abstract class BirdEntity extends AnimalEntity{
     }
 
     //NBT write and read methods
-    public void writeCustomDataToTag(CompoundTag tagCompound) {
-        super.writeCustomDataToTag(tagCompound);
+    public void writeCustomDataToTag(NbtCompound tagCompound) {
+        super.writeCustomDataToNbt(tagCompound);
         tagCompound.putInt("Gender", this.getGender());
         tagCompound.putInt("Variant", this.getVariant());
         tagCompound.putBoolean("Sleeping", this.isSleeping());
@@ -109,8 +135,8 @@ public abstract class BirdEntity extends AnimalEntity{
         tagCompound.putBoolean("Ringed", this.hasBeenRinged());
     }
 
-    public void readCustomDataFromTag(CompoundTag tagCompound) {
-        super.readCustomDataFromTag(tagCompound);
+    public void readCustomDataFromTag(NbtCompound tagCompound) {
+        super.writeCustomDataToNbt(tagCompound);
         this.setGender(tagCompound.getInt("Gender"));
         this.setVariant(tagCompound.getInt("Variant"));
         this.setSleeping(tagCompound.getBoolean("Sleeping"));
@@ -219,8 +245,9 @@ public abstract class BirdEntity extends AnimalEntity{
     }
 
     @Nullable
-    public EntityData initialize(WorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
-        super.initialize(world, difficulty, spawnReason, entityData, entityTag);
+    public EntityData initialize(WorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
+        // TODO: do we need to check if client world? Literally in a folder called "client"
+        super.initialize((ServerWorldAccess)world, difficulty, spawnReason, entityData, entityTag);
         if (entityData == null) {
             entityData = new BirdEntity.BirdData(this);
         } else {
@@ -270,12 +297,13 @@ public abstract class BirdEntity extends AnimalEntity{
 
     public void tick() {
         super.tick();
-        if (this.hasOtherBirdInGroup() && this.world.random.nextInt(200) == 1) {
+        // TODO: Not sure what's going on here
+        /*if (this.hasOtherBirdInGroup() && this.world.random.nextInt(200) == 1) {
             List<BirdEntity> list = this.world.getNonSpectatingEntities(this.getClass(), this.getBoundingBox().expand(8.0D, 8.0D, 8.0D));
             if (list.size() <= 1) {
                 this.groupSize = 1;
             }
-        }
+        }*/
 
     }
 
@@ -318,7 +346,9 @@ public abstract class BirdEntity extends AnimalEntity{
                 if (!this.world.isClient())
                 {
                     Object mobEntity3;
-                    mobEntity3 = ((PassiveEntity)this).createChild((PassiveEntity)this);
+                    // TODO probably a bad idea making this change blind
+                    //mobEntity3 = ((PassiveEntity)this).createChild((PassiveEntity)this);
+                    mobEntity3 = this.createChild((ServerWorld)this.world, this);
                     ((MobEntity)mobEntity3).setBaby(true);
                     ((MobEntity)mobEntity3).refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
                     world.spawnEntity((Entity)mobEntity3);
@@ -326,7 +356,7 @@ public abstract class BirdEntity extends AnimalEntity{
                         ((MobEntity)mobEntity3).setCustomName(itemstack.getName());
                     }
 
-                    if (!player.abilities.creativeMode) {
+                    if (!player.isCreative()) {
                         itemstack.decrement(1);
                     }
                 }
@@ -426,6 +456,8 @@ public abstract class BirdEntity extends AnimalEntity{
         public final BirdEntity leader;
 
         public BirdData(BirdEntity leader) {
+            // TODO: Minecraft demanded this next line, but I don't know where the proper values live...
+            super(false);
             this.leader = leader;
         }
     }

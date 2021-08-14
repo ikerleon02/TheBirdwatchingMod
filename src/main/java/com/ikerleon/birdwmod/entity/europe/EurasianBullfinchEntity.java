@@ -12,9 +12,11 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class EurasianBullfinchEntity extends DiurnalBirdEntity {
 
@@ -80,7 +82,7 @@ public class EurasianBullfinchEntity extends DiurnalBirdEntity {
     }
 
     @Override
-    public PassiveEntity createChild(PassiveEntity mate) {
-        return (EurasianBullfinchEntity)this.getType().create(this.world);
+    public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return (EurasianBullfinchEntity)this.getType().create(world);
     }
 }

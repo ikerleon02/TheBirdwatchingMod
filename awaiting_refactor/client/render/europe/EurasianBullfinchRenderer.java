@@ -23,7 +23,7 @@ public class EurasianBullfinchRenderer extends BirdBaseRenderer<EurasianBullfinc
     public static final Identifier TEXTUREBLINK = new Identifier("birdwmod" + ":textures/entity/europe/eurasianbullfinch_sleeping.png");
     private static final Identifier PASSERINE_RING = new Identifier("birdwmod" + ":textures/entity/rings/passerine_ring.png");
 
-    public EurasianBullfinchRenderer(EntityRenderDispatcher dispatcher) {
+    public EurasianBullfinchRenderer(EntityRenderDispatcher dispatcher, model_location, texture_location, animation_location) {
         super(dispatcher, EURASIAN_BULLFINCH, 0.15F);
         EURASIAN_BULLFINCH.setAnimator(EurasianBullfinchAnimator::new);
     }
