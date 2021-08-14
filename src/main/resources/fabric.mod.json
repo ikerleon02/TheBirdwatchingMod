@@ -18,8 +18,5 @@
     "client": [
       "com.ikerleon.birdwmod.MainClient"
     ]
-  },
-  "mixins": [
-    "birdwmod.mixins.json"
-  ]
+  }
 }

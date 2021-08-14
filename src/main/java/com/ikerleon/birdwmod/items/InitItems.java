@@ -1,6 +1,6 @@
 package com.ikerleon.birdwmod.items;
 
-import com.ikerleon.birdwmod.entity.InitEntities;
+//import com.ikerleon.birdwmod.entity.InitEntities;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
@@ -19,7 +19,7 @@ public class InitItems {
     public static final Item BIRD_GUIDE = new ItemBirdGuide();
 
     //Spawn eggs
-    public static final Item REDNECKEDNIGHTJAR_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_NECKED_NIGHTJAR_ENTITY);
+    /*public static final Item REDNECKEDNIGHTJAR_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_NECKED_NIGHTJAR_ENTITY);
     public static final Item EURASIANBULLFINCH_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.EURASIAN_BULLFINCH_ENTITY);
     public static final Item REDFLANKEDBLUETAIL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
     public static final Item STELLERSEIDER_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.STELLERS_EIDER_ENTITY);
@@ -38,7 +38,7 @@ public class InitItems {
 
     public static final Item RAZORBILL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RAZORBILL_ENTITY);
     public static final Item HIMALAYANMONAL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.HIMALAYAN_MONAL_ENTITY);
-    public static final Item SABINESGULL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.SABINES_GULL_ENTITY);
+    public static final Item SABINESGULL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.SABINES_GULL_ENTITY);*/
 
     //feathers
     public static final Item EASTERNBLUEBIRDFEATHER_FEMALE = new ItemBirdwmodBasic();
@@ -81,7 +81,7 @@ public class InitItems {
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "ring"), RING);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "bird_guide"), BIRD_GUIDE);
 
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_rednecked_nightjar"), REDNECKEDNIGHTJAR_SPAWNEGG);
+        /**Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_rednecked_nightjar"), REDNECKEDNIGHTJAR_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_eurasian_bullfinch"), EURASIANBULLFINCH_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_redflanked_bluetail"), REDFLANKEDBLUETAIL_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_stellers_eider"), STELLERSEIDER_SPAWNEGG);
@@ -100,7 +100,7 @@ public class InitItems {
 
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_razorbill"), RAZORBILL_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_himalayan_monal"), HIMALAYANMONAL_SPAWNEGG);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_sabines_gull"), SABINESGULL_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_sabines_gull"), SABINESGULL_SPAWNEGG);**/
 
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_easternbluebirdfemale"), EASTERNBLUEBIRDFEATHER_FEMALE);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_easternbluebirdmale"), EASTERNBLUEBIRDFEATHER_MALE);

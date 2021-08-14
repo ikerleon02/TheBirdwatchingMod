@@ -11,6 +11,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.server.world.ServerWorld;
 
 import java.util.Objects;
 
@@ -20,7 +21,7 @@ public class ItemBirdSpawnEgg extends Item {
     public EntityType<?> entityType;
 
     public ItemBirdSpawnEgg(EntityType<?> type) {
-        super(new Item.Settings().group(Main.THE_BIRDWATCHING_MOD_SPAWN_EGGS));
+        super(new Item.Settings());//.group(Main.THE_BIRDWATCHING_MOD_SPAWN_EGGS));
         this.entityType = type;
     }
 
@@ -42,7 +43,7 @@ public class ItemBirdSpawnEgg extends Item {
             }
 
             EntityType<?> entityType = this.entityType;
-            if (entityType.spawnFromItemStack(world, itemStack, context.getPlayer(), blockPos3, SpawnReason.SPAWN_EGG, true, !Objects.equals(blockPos, blockPos3) && direction == Direction.UP) != null) {
+            if (entityType.spawnFromItemStack((ServerWorld)world, itemStack, context.getPlayer(), blockPos3, SpawnReason.SPAWN_EGG, true, !Objects.equals(blockPos, blockPos3) && direction == Direction.UP) != null) {
                 itemStack.decrement(1);
             }
 
