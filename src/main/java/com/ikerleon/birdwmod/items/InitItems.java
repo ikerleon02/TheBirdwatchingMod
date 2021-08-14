@@ -22,19 +22,19 @@ public class InitItems {
     //Spawn eggs
     public static final Item EURASIANBULLFINCH_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.EURASIAN_BULLFINCH_ENTITY);
     public static final Item REDNECKEDNIGHTJAR_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_NECKED_NIGHTJAR_ENTITY);
-    /*public static final Item REDFLANKEDBLUETAIL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
+    public static final Item REDFLANKEDBLUETAIL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
     public static final Item STELLERSEIDER_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.STELLERS_EIDER_ENTITY);
 
-    public static final Item KILLDEER_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.KILLDEER_ENTITY);
+    /*public static final Item KILLDEER_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.KILLDEER_ENTITY);
     public static final Item EASTERNBLUEBIRD_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.EASTERN_BLUEBIRD_ENTITY);
     public static final Item NORTHERNMOCKINGBIRD_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.NORTHERN_MOCKINGBIRD_ENTITY);
-    public static final Item GREENHERON_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.GREEN_HERON_ENTITY);
+    public static final Item GREENHERON_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.GREEN_HERON_ENTITY);*/
 
     public static final Item HOATZIN_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.HOATZIN_ENTITY);
-    public static final Item TURQUOISEBROWEDMOTMOT_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.TURQUOISE_BROWED_MOTMOT_ENTITY);
+    public static final Item TURQUOISEBROWEDMOTMOT_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.MOTMOT_ENTITY);
     public static final Item KINGOFSAXONY_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.KING_OF_SAXONY_ENTITY);
 
-    public static final Item GREATGREYOWL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.GREAT_GREY_OWL_ENTITY);
+    /*public static final Item GREATGREYOWL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.GREAT_GREY_OWL_ENTITY);
     public static final Item BROWNBOOBY_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.BROWN_BOOBY_ENTITY);
 
     public static final Item RAZORBILL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RAZORBILL_ENTITY);
@@ -84,19 +84,20 @@ public class InitItems {
 
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_eurasian_bullfinch"), EURASIANBULLFINCH_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_rednecked_nightjar"), REDNECKEDNIGHTJAR_SPAWNEGG);
-        /**Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_redflanked_bluetail"), REDFLANKEDBLUETAIL_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_redflanked_bluetail"), REDFLANKEDBLUETAIL_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_stellers_eider"), STELLERSEIDER_SPAWNEGG);
 
+        /*
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_killdeer"), KILLDEER_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_eastern_bluebird"), EASTERNBLUEBIRD_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_northern_mockingbird"), NORTHERNMOCKINGBIRD_SPAWNEGG);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_green_heron"), GREENHERON_SPAWNEGG);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_green_heron"), GREENHERON_SPAWNEGG);*/
 
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_hoatzin"), HOATZIN_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_turquoisebrowed_motmot"), TURQUOISEBROWEDMOTMOT_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_kingofsaxony_bird_of_paradise"), KINGOFSAXONY_SPAWNEGG);
 
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_great_grey_owl"), GREATGREYOWL_SPAWNEGG);
+        /*Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_great_grey_owl"), GREATGREYOWL_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_brown_booby"), BROWNBOOBY_SPAWNEGG);
 
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_razorbill"), RAZORBILL_SPAWNEGG);
