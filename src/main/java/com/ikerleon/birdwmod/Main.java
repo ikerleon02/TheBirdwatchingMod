@@ -5,7 +5,6 @@ import com.ikerleon.birdwmod.blocks.InitBlocks;
 //import com.ikerleon.birdwmod.entity.InitEntities;
 import com.ikerleon.birdwmod.entity.BirdEntity;
 import com.ikerleon.birdwmod.entity.InitEntities;
-import com.ikerleon.birdwmod.entity.europe.EurasianBullfinchEntity;
 import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.util.SoundHandler;
 import net.fabricmc.api.ModInitializer;

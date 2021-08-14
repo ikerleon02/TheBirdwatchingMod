@@ -7,7 +7,6 @@ import com.ikerleon.birdwmod.blocks.RingingNetBlock;
 //import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
 //import com.ikerleon.birdwmod.entity.goal.FollowLeaderGoal;
 //import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
-import com.ikerleon.birdwmod.entity.europe.EurasianBullfinchEntity;
 import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
 import com.ikerleon.birdwmod.util.SoundHandler;
@@ -76,9 +75,12 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     static boolean doesGoInWater;
     static boolean doesGoToFeeders;
     static boolean doesGroupBird;
+    static float width;
+    static float height;
     static MeatSize meatSize;
     static CallType callType;
     static FeatherType featherType;
+    static AwakeTime awakeTime;
     static Item featherItem;
     static Item femaleSpecificFeatherItem;
 
@@ -88,16 +90,16 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     private byte nextBlink = 0;
     private byte blinkTime = 0;
     private byte blinkSec = 0;
-    private Random rando = new Random();
     private BirdEntity leader;
     private int groupSize = 1;
 
     public enum MeatSize{SMALL, MEDIUM, BIG};
     public enum CallType{BOTH_CALL, MALES_ONLY, GENDERED_CALLS};
-    public enum FeatherType{BOTH_DROP, MALES_ONLY, GENDERED_DROPS}
+    public enum FeatherType{BOTH_DROP, MALES_ONLY, GENDERED_DROPS};
+    public enum AwakeTime{DIURNAL, NOCTURNAL};
 
     //Entity constructor and stuff
-    public BirdEntity(EntityType type, World worldIn,  Settings settings) {
+    public BirdEntity(EntityType<? extends AnimalEntity> type, World worldIn,  Settings settings) {
         super(type, worldIn);
         birdVariants = settings.birdVariants;
         movementSpeed = settings.movementSpeed;
@@ -107,6 +109,9 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         doesGoToFeeders = settings.doesGoToFeeders;
         doesGroupBird = settings.doesGroupBird;
         meatSize = settings.meatSize;
+        awakeTime = settings.awakeTime;
+        width = settings.width;
+        height = settings.height;
         callType = settings.callType;
         featherType = settings.featherType;
         featherItem = settings.featherItem;
@@ -114,7 +119,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
         this.setGender(getRandom().nextInt(2));
         this.setVariant(getRandom().nextInt(setBirdVariants()));
-        this.timeUntilNextFeather = this.rando.nextInt(10000) + 10000;
+        this.timeUntilNextFeather = getRandom().nextInt(10000) + 10000;
         //this.moveControl = new MoveControlFlying(this, 30, false);
         //this.goalSelector.add(1, new BirdSwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0D));
@@ -130,16 +135,20 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     }
 
     public static class Settings {
+        // TODO: Remove the defaults for failfast
         int birdVariants = 1;
         double movementSpeed = 0.2D;
         double flightSpeed = 0.7D;
         double maxHealth = 5.0D;
+        float width = 0.3f;
+        float height = 0.3f;
         boolean doesGoInWater = false;
         boolean doesGoToFeeders = false;
         boolean doesGroupBird = false;
         MeatSize meatSize = MeatSize.SMALL;
         CallType callType = CallType.BOTH_CALL;
         FeatherType featherType = FeatherType.BOTH_DROP;
+        AwakeTime awakeTime = AwakeTime.DIURNAL;
         Item featherItem = InitItems.EASTERNBLUEBIRDFEATHER_MALE;
         Item femaleSpecificFeatherItem = InitItems.EASTERNBLUEBIRDFEATHER_FEMALE;
         SoundEvent callSound = SoundHandler.BLUEBIRD_CALL;
@@ -148,6 +157,12 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         public Settings withSound(SoundEvent callSound, @Nullable SoundEvent callSoundFemaleSpecific){
             this.callSound = callSound;
             this.callSoundFemaleSpecific = callSoundFemaleSpecific;
+            return this;
+        }
+
+        public Settings withDimensions(float width, float height){
+            this.width = width;
+            this.height = height;
             return this;
         }
 
@@ -196,6 +211,11 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
         public Settings withFeatherType(FeatherType featherType){
             this.featherType = featherType;
+            return this;
+        }
+
+        public Settings withAwakeTime(AwakeTime awakeTime){
+            this.awakeTime = awakeTime;
             return this;
         }
     }
@@ -371,6 +391,21 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     
     @Override
     public void tickMovement() {
+        switch(awakeTime) {
+            case DIURNAL:
+                if(this.onGround) {
+                    setSleeping(world.getTimeOfDay() >= 12969 && world.getTimeOfDay() <= 23031);
+                }
+                break;
+            case NOCTURNAL:
+                if(this.onGround) {
+                    setSleeping(world.getTimeOfDay() <= 12969);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown enum for awake time, check AwakeTime!");
+        }
+
         if(this.isInNet()){
             this.fallDistance = 0.0F;
             this.onGround = true;
@@ -384,7 +419,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         }
         if(!this.isSleeping()) {
             if (this.random.nextInt(5) == 3) {
-                this.blinkSec = ((byte) (this.rando.nextInt((byte) 50) + 30));
+                this.blinkSec = ((byte) (getRandom().nextInt((byte) 50) + 30));
             }
             if (!this.blink) {
                 this.nextBlink = ((byte) (this.nextBlink + 1));
@@ -561,16 +596,6 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         return 1;
     }
 
-    @Override
-    protected SoundEvent getAmbientSound() {
-        if(this.isOnGround() && !isSleeping()){
-            return SoundHandler.BULLFINCH_CALL;
-        }
-        else{
-            return null;
-        }
-    }
-
     public static DefaultAttributeContainer.Builder createBirdAttributes() {
         return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20D).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.70D).add(EntityAttributes.GENERIC_MAX_HEALTH, 5.0D);
     }
@@ -579,23 +604,66 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     public void mobTick() {
         if (!this.world.isClient() && !this.isBaby() && --this.timeUntilNextFeather <= 0)
         {
-            if(this.getGender()==0){
-                this.dropItem(InitItems.EURASIANBULLFINCHDFEATHER_MALE, 1);
+            switch(featherType) {
+                case GENDERED_DROPS:
+                    if (this.getGender() == 0) {
+                        this.dropItem(featherItem, 1);
+                    } else {
+                        this.dropItem(femaleSpecificFeatherItem, 1);
+                    }
+                case BOTH_DROP:
+                    this.dropItem(featherItem, 1);
+                    // TODO: the rest of the cases
             }
-            else{
-                this.dropItem(InitItems.EURASIANBULLFINCHDFEATHER_FEMALE, 1);
-            }
+
             this.timeUntilNextFeather = this.random.nextInt(10000) + 10000;
         }
         super.mobTick();
+        if(this.isAquatic() && this.isTouchingWater() && !this.isBaby()){
+            this.upwardSpeed=0;
+        }
     }
 
     @Override
     protected void dropLoot(DamageSource source, boolean causedByPlayer) {
+        Item cookedItem;
+        Item rawItem;
+        switch(meatSize){
+            case SMALL:
+                cookedItem = InitItems.SMALLCOOCKEDMEAT;
+                rawItem = InitItems.SMALLRAWMEAT;
+                break;
+            case MEDIUM:
+                cookedItem = InitItems.MEDIUMCOOCKEDMEAT;
+                rawItem = InitItems.MEDIUMRAWMEAT;
+                break;
+            case BIG:
+                cookedItem = InitItems.BIGCOOCKEDMEAT;
+                rawItem = InitItems.BIGRAWMEAT;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown enum for bird meat, check MeatSize!");
+        }
         if(this.isOnFire())
-            this.dropItem(InitItems.SMALLCOOCKEDMEAT, 1);
+            this.dropItem(cookedItem, 1);
         else
-            this.dropItem(InitItems.SMALLRAWMEAT, 1);
+            this.dropItem(rawItem, 1);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        switch(callType) {
+            case BOTH_CALL:
+                if (this.isOnGround() && !isSleeping()) {
+                    return callSound;
+                } else {
+                    return null;
+                }
+            case MALES_ONLY:
+            case GENDERED_CALLS:
+            default:
+                throw new IllegalArgumentException("Unknown enum for bird call, check CallType!");
+        }
     }
 
     public boolean goesToFeeders() {

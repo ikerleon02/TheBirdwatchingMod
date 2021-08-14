@@ -17,7 +17,6 @@ import com.ikerleon.birdwmod.client.render.release170.RazorbillRenderer;
 import com.ikerleon.birdwmod.client.render.release170.SabinesGullRenderer;*/
 import com.ikerleon.birdwmod.Main;
 import com.ikerleon.birdwmod.client.render.BirdBaseRenderer;
-import com.ikerleon.birdwmod.entity.europe.EurasianBullfinchEntity;
 /*import com.ikerleon.birdwmod.entity.europe.RedFlankedBluetailEntity;
 import com.ikerleon.birdwmod.entity.europe.RedNeckedNightjarEntity;
 import com.ikerleon.birdwmod.entity.europe.StellersEiderEntity;
@@ -33,6 +32,8 @@ import com.ikerleon.birdwmod.entity.release160.GreatGreyOwlEntity;
 import com.ikerleon.birdwmod.entity.release170.HimalayanMonalEntity;
 import com.ikerleon.birdwmod.entity.release170.RazorbillEntity;
 import com.ikerleon.birdwmod.entity.release170.SabinesGullEntity;*/
+import com.ikerleon.birdwmod.items.InitItems;
+import com.ikerleon.birdwmod.util.SoundHandler;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -45,17 +46,40 @@ import net.minecraft.world.World;
 
 public class InitEntities {
 
-    public static final EntityType<BirdEntity> EURASIAN_BULLFINCH_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "eurasian_bullfinch"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, (EntityType<BirdEntity> type, World worldIn)->new BirdEntity(type, worldIn, new BirdEntity.Settings())).dimensions(EntityDimensions.fixed(0.3f, 0.3f)).build()
-    );
-    /*public static final EntityType<RedNeckedNightjarEntity> RED_NECKED_NIGHTJAR_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "rednecked_nightjar"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RedNeckedNightjarEntity::new).dimensions(EntityDimensions.fixed(0.4f, 0.2f)).build()
-    );
-    public static final EntityType<RedFlankedBluetailEntity> RED_FLANKED_BLUETAIL_ENTITY= Registry.register(
+    private static final BirdEntity.Settings EURASIAN_BULLFINCH_SETTINGS = new BirdEntity.Settings()
+            .withMeatSize(BirdEntity.MeatSize.SMALL).withDimensions(0.3f, 0.3f)
+            .goesToFeeders().isGroupBird()
+            .withCallType(BirdEntity.CallType.BOTH_CALL).withSound(SoundHandler.BULLFINCH_CALL, null)
+            .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS).withFeather(InitItems.EURASIANBULLFINCHDFEATHER_MALE, InitItems.EURASIANBULLFINCHDFEATHER_FEMALE);
+    public static final EntityType<BirdEntity> EURASIAN_BULLFINCH_ENTITY = registerBirdEntity(EURASIAN_BULLFINCH_SETTINGS, "eurasian_bullfinch");
+
+    private static final BirdEntity.Settings RED_NECKED_NIGHTJAR_SETTINGS = new BirdEntity.Settings()
+            .withMeatSize(BirdEntity.MeatSize.MEDIUM).withDimensions(0.4f, 0.2f)
+            .goesToFeeders()
+            .withAwakeTime(BirdEntity.AwakeTime.NOCTURNAL)
+            .withVariants(3)
+            .withBirdAttributes(0.0D, 0.7D, 5.0D)
+            .withCallType(BirdEntity.CallType.BOTH_CALL).withSound(SoundHandler.EIDER_CALL, null)
+            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.EURASIANBULLFINCHDFEATHER_FEMALE, null);
+    public static final EntityType<BirdEntity> RED_NECKED_NIGHTJAR_ENTITY = registerBirdEntity(RED_NECKED_NIGHTJAR_SETTINGS, "rednecked_nightjar");
+
+
+
+    public static EntityType<BirdEntity> registerBirdEntity(BirdEntity.Settings birdSettings, String path) {
+        return Registry.register(
+                Registry.ENTITY_TYPE,
+                new Identifier("birdwmod", path),
+                FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, (EntityType<BirdEntity> type, World worldIn) -> new BirdEntity(type, worldIn, birdSettings)).dimensions(EntityDimensions.fixed(birdSettings.width, birdSettings.height)).build());
+    }
+
+    public static void registerRenderer(EntityType<BirdEntity> birdEntity, String path){
+        FabricDefaultAttributeRegistry.register(birdEntity, BirdEntity.createBirdAttributes());
+        EntityRendererRegistry.INSTANCE.register(birdEntity,
+                (context) -> new BirdBaseRenderer(context, "geo/"+path+".geo.json", "textures/entity/"+path+".png", "animations/"+path+".animation.json"));
+
+    }
+
+    /*public static final EntityType<RedFlankedBluetailEntity> RED_FLANKED_BLUETAIL_ENTITY= Registry.register(
             Registry.ENTITY_TYPE,
             new Identifier("birdwmod", "redflanked_bluetail"),
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RedFlankedBluetailEntity::new).dimensions(EntityDimensions.fixed(0.3f, 0.3f)).build()
@@ -132,9 +156,9 @@ public class InitEntities {
 
 
     public static void registerAttributes(){
-        FabricDefaultAttributeRegistry.register(EURASIAN_BULLFINCH_ENTITY, EurasianBullfinchEntity.createBirdAttributes());/*
-        FabricDefaultAttributeRegistry.register(RED_NECKED_NIGHTJAR_ENTITY, RedNeckedNightjarEntity.createBirdAttributes());
-        FabricDefaultAttributeRegistry.register(RED_FLANKED_BLUETAIL_ENTITY, RedFlankedBluetailEntity.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(EURASIAN_BULLFINCH_ENTITY, BirdEntity.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(RED_NECKED_NIGHTJAR_ENTITY, BirdEntity.createBirdAttributes());
+        /*FabricDefaultAttributeRegistry.register(RED_FLANKED_BLUETAIL_ENTITY, RedFlankedBluetailEntity.createBirdAttributes());
         FabricDefaultAttributeRegistry.register(STELLERS_EIDER_ENTITY, StellersEiderEntity.createBirdAttributes());
 
         FabricDefaultAttributeRegistry.register(KILLDEER_ENTITY, KilldeerEntity.createBirdAttributes());
@@ -155,13 +179,9 @@ public class InitEntities {
     }
 
     public static void registerRenderers(){
-        EntityRendererRegistry.INSTANCE.register(EURASIAN_BULLFINCH_ENTITY,
-                (context) -> new BirdBaseRenderer(context, "geo/eurasianbullfinch.geo.json", "textures/entity/europe/eurasianbullfinchfemale.png", "animations/eurasianbullfinch.animation.json"));
-        ;/*
-        EntityRendererRegistry.INSTANCE.register(InitEntities.RED_NECKED_NIGHTJAR_ENTITY, (dispatcher, context) -> {
-            return new RedNeckedNightjarRenderer(dispatcher);
-        });
-        EntityRendererRegistry.INSTANCE.register(InitEntities.RED_FLANKED_BLUETAIL_ENTITY, (dispatcher, context) -> {
+        registerRenderer(EURASIAN_BULLFINCH_ENTITY, "eurasian_bullfinch");
+        registerRenderer(RED_NECKED_NIGHTJAR_ENTITY, "eurasian_bullfinch");
+        /*EntityRendererRegistry.INSTANCE.register(InitEntities.RED_FLANKED_BLUETAIL_ENTITY, (dispatcher, context) -> {
             return new RedFlankedBluetailRenderer(dispatcher);
         });
         EntityRendererRegistry.INSTANCE.register(InitEntities.STELLERS_EIDER_ENTITY, (dispatcher, context) -> {
