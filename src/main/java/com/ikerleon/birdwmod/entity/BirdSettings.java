@@ -8,6 +8,7 @@ public class BirdSettings {
     public static final BirdEntity.Settings EURASIAN_BULLFINCH_SETTINGS = new BirdEntity.Settings()
             .withMeatSize(BirdEntity.MeatSize.SMALL).withDimensions(0.3f, 0.3f)
             .goesToFeeders().isGroupBird()
+            .isDimorphic()
             .withPath("eurasian_bullfinch")
             .withCallType(BirdEntity.CallType.BOTH_CALL).withCall(SoundHandler.BULLFINCH_CALL)
             .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS).withFeather(InitItems.EURASIANBULLFINCHDFEATHER_MALE, InitItems.EURASIANBULLFINCHDFEATHER_FEMALE);
@@ -26,6 +27,7 @@ public class BirdSettings {
             .withMeatSize(BirdEntity.MeatSize.SMALL).withDimensions(0.3f, 0.3f)
             .goesToFeeders()
             .withPath("red_flanked_bluetail")
+            .isDimorphic()
             .withCallType(BirdEntity.CallType.BOTH_CALL).withCall(SoundHandler.BLUETAIL_CALL)
             .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS).withFeather(InitItems.REDFLANCKEDBLUETAILFEATHER_MALE, InitItems.REDFLANCKEDBLUETAILFEATHER_FEMALE);
 
@@ -33,6 +35,7 @@ public class BirdSettings {
             .withMeatSize(BirdEntity.MeatSize.BIG).withDimensions(0.4f, 0.6f)
             .isGroupBird()
             .isWaterBird()
+            .isDimorphic()
             .withBirdAttributes(0.2, 0.7, 10.0)
             .withPath("stellers_eider")
             .withCallType(BirdEntity.CallType.MALES_ONLY).withCall(SoundHandler.EIDER_CALL)
@@ -49,6 +52,7 @@ public class BirdSettings {
             .withMeatSize(BirdEntity.MeatSize.MEDIUM).withDimensions(0.3f, 0.3f)
             .withPath("king_of_saxony")
             .goesToFeeders()
+            .isDimorphic()
             .withCallType(BirdEntity.CallType.GENDERED_CALLS).withCall(SoundHandler.KINGOFSAXONY_SONG, SoundHandler.KINGOFSAXONY_CALL)
             .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.KINGOFSAXONYFEATHER_MALE, InitItems.KINGOFSAXONYFEATHER_FEMALE);
 
@@ -64,6 +68,7 @@ public class BirdSettings {
             .withMeatSize(BirdEntity.MeatSize.SMALL).withDimensions(0.3f, 0.3f)
             .withPath("eastern_bluebird")
             .goesToFeeders().isGroupBird()
+            .isDimorphic()
             .withCallType(BirdEntity.CallType.GENDERED_CALLS).withCall(SoundHandler.BLUEBIRD_SONG, SoundHandler.BLUEBIRD_CALL)
             .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS).withFeather(InitItems.EASTERNBLUEBIRDFEATHER_MALE, InitItems.EASTERNBLUEBIRDFEATHER_FEMALE);
 
@@ -113,6 +118,7 @@ public class BirdSettings {
     public static final BirdEntity.Settings HIMALAYAN_MONAL_SETTINGS = new BirdEntity.Settings()
             .withMeatSize(BirdEntity.MeatSize.BIG).withDimensions(0.4f, 0.6f)
             .withPath("himalayan_monal")
+            .isDimorphic()
             .withBirdAttributes(0.2, 0.7, 10.0)
             .withCallType(BirdEntity.CallType.MALES_ONLY).withCall(SoundHandler.HIMALAYAN_MONAL_SONG)
             .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS).withFeather(InitItems.HIMALAYANMONALMALEFEATHER, InitItems.HIMALAYANMONALFEMALEFEATHER);
