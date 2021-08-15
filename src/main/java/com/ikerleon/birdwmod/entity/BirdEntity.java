@@ -166,6 +166,10 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             return this;
         }
 
+        public Settings withCall(SoundEvent callSound){
+            return this.withCall(callSound, null);
+        }
+
         public Settings withFlyingSound(SoundEvent flyingSound){
             this.flyingSound = flyingSound;
             return this;
@@ -188,6 +192,10 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             return this;
         }
 
+        public Settings withFeather(Item featherItem){
+            return this.withFeather(featherItem, null);
+        }
+
         public Settings withVariants(int numVariants){
             this.birdVariants = numVariants;
             return this;
@@ -205,7 +213,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             return this;
         }
 
-        public Settings goesInWater(){
+        public Settings isWaterBird(){
             this.doesGoInWater = true;
             return this;
         }
