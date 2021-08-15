@@ -25,10 +25,10 @@ public class InitItems {
     public static final Item REDFLANKEDBLUETAIL_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.RED_FLANKED_BLUETAIL_ENTITY);
     public static final Item STELLERSEIDER_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.STELLERS_EIDER_ENTITY);
 
-    /*public static final Item KILLDEER_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.KILLDEER_ENTITY);
+    public static final Item KILLDEER_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.KILLDEER_ENTITY);
     public static final Item EASTERNBLUEBIRD_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.EASTERN_BLUEBIRD_ENTITY);
     public static final Item NORTHERNMOCKINGBIRD_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.NORTHERN_MOCKINGBIRD_ENTITY);
-    public static final Item GREENHERON_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.GREEN_HERON_ENTITY);*/
+    public static final Item GREENHERON_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.GREEN_HERON_ENTITY);
 
     public static final Item HOATZIN_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.HOATZIN_ENTITY);
     public static final Item TURQUOISEBROWEDMOTMOT_SPAWNEGG = new ItemBirdSpawnEgg(InitEntities.MOTMOT_ENTITY);
@@ -87,11 +87,10 @@ public class InitItems {
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_redflanked_bluetail"), REDFLANKEDBLUETAIL_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_stellers_eider"), STELLERSEIDER_SPAWNEGG);
 
-        /*
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_killdeer"), KILLDEER_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_eastern_bluebird"), EASTERNBLUEBIRD_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_northern_mockingbird"), NORTHERNMOCKINGBIRD_SPAWNEGG);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_green_heron"), GREENHERON_SPAWNEGG);*/
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_green_heron"), GREENHERON_SPAWNEGG);
 
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_hoatzin"), HOATZIN_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_turquoisebrowed_motmot"), TURQUOISEBROWEDMOTMOT_SPAWNEGG);
