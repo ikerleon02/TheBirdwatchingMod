@@ -66,23 +66,24 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     static SoundEvent callSoundFemaleSpecific;
     static SoundEvent flyingSound;
 
-    // TODO Final? Static? Both for all?
-    static int birdVariants;
-    static double movementSpeed;
-    static double flightSpeed;
-    static double maxHealth;
-    static boolean doesGoInWater;
-    static boolean doesGoToFeeders;
-    static boolean doesGroupBird;
-    static float width;
-    static float height;
-    static MeatSize meatSize;
-    static CallType callType;
-    static FeatherType featherType;
-    static AwakeTime awakeTime;
-    static Item featherItem;
-    static Item featherItemFemaleSpecific;
-    String path;
+    private final int birdVariants;
+    private final int birdVariantsFemaleSpecific;
+    private final boolean dimorphic;
+    private static double movementSpeed;  // Currently only used to set BirdAttributes, which is handled by Settings
+    private static double flightSpeed;
+    private static double maxHealth;
+    private static boolean doesGoInWater;
+    private static boolean doesGoToFeeders;
+    private static boolean doesGroupBird;
+    private static float width;  // Currently only used to register dimensions
+    private static float height;
+    private static MeatSize meatSize;
+    private static CallType callType;
+    private static FeatherType featherType;
+    private static AwakeTime awakeTime;
+    private static Item featherItem;
+    private static Item featherItemFemaleSpecific;
+    private final String path;
 
     public float timer;
     public int timeUntilNextFeather;
@@ -102,6 +103,8 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     public BirdEntity(EntityType<? extends AnimalEntity> type, World worldIn,  Settings settings) {
         super(type, worldIn);
         birdVariants = settings.birdVariants;
+        birdVariantsFemaleSpecific = settings.birdVariantsFemaleSpecific;
+        dimorphic = settings.dimorphic;
         movementSpeed = settings.movementSpeed;
         flightSpeed = settings.flightSpeed;
         maxHealth = settings.maxHealth;
@@ -121,18 +124,18 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         flyingSound = settings.flyingSound;
         path = settings.path;
 
-        this.setGender(getRandom().nextInt(2));
-        this.setVariant(getRandom().nextInt(setBirdVariants()));
+        this.setGender(random.nextInt(2));
+        this.setVariant(getRandom().nextInt(getBirdVariants()));
         this.timeUntilNextFeather = getRandom().nextInt(10000) + 10000;
         //this.moveControl = new MoveControlFlying(this, 30, false);
-        //this.goalSelector.add(1, new BirdSwimGoal(this));
+        if (this.doesGoInWater) {} //this.goalSelector.add(1, new BirdSwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0D));
         this.goalSelector.add(2, new FleeEntityGoal(this, OcelotEntity.class, 15.0F, 1.5D, 2D));
         this.goalSelector.add(2, new FleeEntityGoal(this, CatEntity.class, 15.0F, 1.5D, 2D));
-        //this.goalSelector.add(3, new EatFromFeedersGoal(this));
+        if (this.doesGoToFeeders) {} //this.goalSelector.add(3, new EatFromFeedersGoal(this));
         this.goalSelector.add(4, new FleeEntityGoal(this, PlayerEntity.class, 15.0F, 1.0D, 1.2D));
         this.goalSelector.add(5, new FlyOntoTreeGoal(this, 1.0D));
-        //this.goalSelector.add(5, new FollowLeaderGoal(this));
+        if (this.doesGroupBird) {} //this.goalSelector.add(5, new FollowLeaderGoal(this));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 
@@ -141,12 +144,15 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     public static class Settings {
         // TODO: Remove the defaults for failfast
         int birdVariants = 1;
+        int birdVariantsFemaleSpecific = 1;
+        boolean dimorphic = false;
         double movementSpeed = 0.2D;
         double flightSpeed = 0.7D;
         double maxHealth = 5.0D;
         float width = 0.3f;
         float height = 0.3f;
         boolean doesGoInWater = false;
+        
         boolean doesGoToFeeders = false;
         boolean doesGroupBird = false;
         String path = "BIRD_HAS_UNSET_PATH_CHECK_SETTINGS";
@@ -180,6 +186,11 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             return this;
         }
 
+        public Settings isDimorphic(){
+            this.dimorphic = true;
+            return this;
+        }
+
         public Settings withDimensions(float width, float height){
             this.width = width;
             this.height = height;
@@ -198,6 +209,12 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
         public Settings withVariants(int numVariants){
             this.birdVariants = numVariants;
+            return this;
+        }
+
+        public Settings withVariants(int numVariants, int numVariantsFemaleSpecific){
+            this.birdVariants = numVariants;
+            this.birdVariants = numVariantsFemaleSpecific;
             return this;
         }
 
@@ -241,6 +258,10 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         public Settings withAwakeTime(AwakeTime awakeTime){
             this.awakeTime = awakeTime;
             return this;
+        }
+
+        public DefaultAttributeContainer.Builder createBirdAttributes() {
+            return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, this.movementSpeed).add(EntityAttributes.GENERIC_FLYING_SPEED, this.flightSpeed).add(EntityAttributes.GENERIC_MAX_HEALTH, this.maxHealth);
         }
     }
 
@@ -616,13 +637,15 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         }
     }
 
-    public int setBirdVariants() {
-        return 1;
+    public int getBirdVariants() {
+        return birdVariants;
     }
 
-    public static DefaultAttributeContainer.Builder createBirdAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20D).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.70D).add(EntityAttributes.GENERIC_MAX_HEALTH, 5.0D);
-    }
+    public int getBirdVariantsFemaleSpecific() { return birdVariantsFemaleSpecific; }
+
+    public boolean isDimorphic(){return dimorphic;}
+
+    public String getPath() { return path; }
 
     @Override
     public void mobTick() {

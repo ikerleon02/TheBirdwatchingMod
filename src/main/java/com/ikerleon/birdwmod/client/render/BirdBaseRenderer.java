@@ -15,8 +15,8 @@ import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class BirdBaseRenderer extends GeoEntityRenderer<BirdEntity> {
 
-    public BirdBaseRenderer(EntityRendererFactory.Context ctx, String model_location, String texture_location, String animation_location) {
-        super(ctx, new BirdBaseModel(model_location, texture_location, animation_location));
+    public BirdBaseRenderer(EntityRendererFactory.Context ctx) {
+        super(ctx, new BirdBaseModel());
         // TODO: Features?
         //this.features.add((BookwormFeatureRenderer<T>) new BlinkSleepingFeature(this));
         //this.features.add((BookwormFeatureRenderer<T>) new RingFeature(this));
