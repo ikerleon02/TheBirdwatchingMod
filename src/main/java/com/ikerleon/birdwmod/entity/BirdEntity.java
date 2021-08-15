@@ -26,7 +26,6 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -51,7 +50,6 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
@@ -64,8 +62,9 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     private static final TrackedData<Integer> RING_COLOR;
     private static final TrackedData<Boolean> RINGED;
 
-    protected static SoundEvent callSound;
-    protected static SoundEvent callSoundFemaleSpecific;
+    static SoundEvent callSound;
+    static SoundEvent callSoundFemaleSpecific;
+    static SoundEvent flyingSound;
 
     // TODO Final? Static? Both for all?
     static int birdVariants;
@@ -82,7 +81,8 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     static FeatherType featherType;
     static AwakeTime awakeTime;
     static Item featherItem;
-    static Item femaleSpecificFeatherItem;
+    static Item featherItemFemaleSpecific;
+    String path;
 
     public float timer;
     public int timeUntilNextFeather;
@@ -94,7 +94,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     private int groupSize = 1;
 
     public enum MeatSize{SMALL, MEDIUM, BIG};
-    public enum CallType{BOTH_CALL, MALES_ONLY, GENDERED_CALLS};
+    public enum CallType{BOTH_CALL, MALES_ONLY, GENDERED_CALLS, NO_CALL, MOCKINGBIRD};
     public enum FeatherType{BOTH_DROP, MALES_ONLY, GENDERED_DROPS};
     public enum AwakeTime{DIURNAL, NOCTURNAL};
 
@@ -112,10 +112,14 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         awakeTime = settings.awakeTime;
         width = settings.width;
         height = settings.height;
-        callType = settings.callType;
         featherType = settings.featherType;
         featherItem = settings.featherItem;
-        femaleSpecificFeatherItem = settings.femaleSpecificFeatherItem;
+        featherItemFemaleSpecific = settings.femaleSpecificFeatherItem;
+        callType = settings.callType;
+        callSound = settings.callSound;
+        callSoundFemaleSpecific = settings.callSoundFemaleSpecific;
+        flyingSound = settings.flyingSound;
+        path = settings.path;
 
         this.setGender(getRandom().nextInt(2));
         this.setVariant(getRandom().nextInt(setBirdVariants()));
@@ -145,6 +149,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         boolean doesGoInWater = false;
         boolean doesGoToFeeders = false;
         boolean doesGroupBird = false;
+        String path = "BIRD_HAS_UNSET_PATH_CHECK_SETTINGS";
         MeatSize meatSize = MeatSize.SMALL;
         CallType callType = CallType.BOTH_CALL;
         FeatherType featherType = FeatherType.BOTH_DROP;
@@ -153,10 +158,25 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         Item femaleSpecificFeatherItem = InitItems.EASTERNBLUEBIRDFEATHER_FEMALE;
         SoundEvent callSound = SoundHandler.BLUEBIRD_CALL;
         SoundEvent callSoundFemaleSpecific = null;
+        SoundEvent flyingSound = null;
 
-        public Settings withSound(SoundEvent callSound, @Nullable SoundEvent callSoundFemaleSpecific){
+        public Settings withCall(SoundEvent callSound, @Nullable SoundEvent callSoundFemaleSpecific){
             this.callSound = callSound;
             this.callSoundFemaleSpecific = callSoundFemaleSpecific;
+            return this;
+        }
+
+        public Settings withCall(SoundEvent callSound){
+            return this.withCall(callSound, null);
+        }
+
+        public Settings withFlyingSound(SoundEvent flyingSound){
+            this.flyingSound = flyingSound;
+            return this;
+        }
+
+        public Settings withPath(String path){
+            this.path = path;
             return this;
         }
 
@@ -170,6 +190,10 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             this.featherItem = featherItem;
             this.femaleSpecificFeatherItem = femaleSpecificFeatherItem;
             return this;
+        }
+
+        public Settings withFeather(Item featherItem){
+            return this.withFeather(featherItem, null);
         }
 
         public Settings withVariants(int numVariants){
@@ -189,7 +213,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             return this;
         }
 
-        public Settings goesInWater(){
+        public Settings isWaterBird(){
             this.doesGoInWater = true;
             return this;
         }
@@ -609,7 +633,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
                     if (this.getGender() == 0) {
                         this.dropItem(featherItem, 1);
                     } else {
-                        this.dropItem(femaleSpecificFeatherItem, 1);
+                        this.dropItem(featherItemFemaleSpecific, 1);
                     }
                 case BOTH_DROP:
                     this.dropItem(featherItem, 1);
@@ -652,6 +676,9 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
     @Override
     protected SoundEvent getAmbientSound() {
+        if(flyingSound != null && !isSleeping() && !this.isOnGround()){
+            return flyingSound;
+        }
         switch(callType) {
             case BOTH_CALL:
                 if (this.isOnGround() && !isSleeping()) {
@@ -660,7 +687,43 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
                     return null;
                 }
             case MALES_ONLY:
+                if (this.isOnGround() && !isSleeping() && this.getGender() == 0) {
+                    return callSound;
+                } else {
+                    return null;
+                }
             case GENDERED_CALLS:
+                if (this.isOnGround() && !isSleeping()) {
+                    if (this.getGender() == 0) {
+                        return callSound;
+                    } else {
+                        return callSoundFemaleSpecific;
+                    }
+                } else {
+                    return null;
+                }
+            case NO_CALL:
+                return null;
+            case MOCKINGBIRD:  // A very special case!
+                int mimic = this.random.nextInt(10) + 1;
+                if(!isSleeping()) {
+                    if (mimic <= 5) {
+                        if (this.getGender() == 0) {
+                            return SoundHandler.MOCKINGBIRD_SONG;
+                        } else {
+                            return SoundHandler.MOCKINGBIRD_CALL;
+                        }
+                    } else {
+                        if (mimic <= 7) {
+                            return SoundHandler.BLUEBIRD_CALL;
+                        } else {
+                            return SoundHandler.KILLDEER_CALL;
+                        }
+                    }
+                }
+                else{
+                    return null;
+                }
             default:
                 throw new IllegalArgumentException("Unknown enum for bird call, check CallType!");
         }
