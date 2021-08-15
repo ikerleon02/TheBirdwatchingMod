@@ -6,7 +6,7 @@ import com.ikerleon.birdwmod.blocks.RingingNetBlock;
 //import com.ikerleon.birdwmod.entity.goal.BirdSwimGoal;
 //import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
 //import com.ikerleon.birdwmod.entity.goal.FollowLeaderGoal;
-//import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
+import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
 import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
 import com.ikerleon.birdwmod.util.SoundHandler;
@@ -127,7 +127,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         this.setGender(random.nextInt(2));
         this.setVariant(getRandom().nextInt(getBirdVariants()));
         this.timeUntilNextFeather = getRandom().nextInt(10000) + 10000;
-        //this.moveControl = new MoveControlFlying(this, 30, false);
+        this.moveControl = new MoveControlFlying(this, 30, false);
         if (this.doesGoInWater) {} //this.goalSelector.add(1, new BirdSwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0D));
         this.goalSelector.add(2, new FleeEntityGoal(this, OcelotEntity.class, 15.0F, 1.5D, 2D));
