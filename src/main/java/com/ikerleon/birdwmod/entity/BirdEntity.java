@@ -6,6 +6,9 @@ import com.ikerleon.birdwmod.blocks.RingingNetBlock;
 //import com.ikerleon.birdwmod.entity.goal.BirdSwimGoal;
 //import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
 //import com.ikerleon.birdwmod.entity.goal.FollowLeaderGoal;
+import com.ikerleon.birdwmod.entity.goal.BirdSwimGoal;
+import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
+import com.ikerleon.birdwmod.entity.goal.FollowLeaderGoal;
 import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
 import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
@@ -50,6 +53,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
@@ -128,14 +132,14 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         this.setVariant(getRandom().nextInt(getBirdVariants()));
         this.timeUntilNextFeather = getRandom().nextInt(10000) + 10000;
         this.moveControl = new MoveControlFlying(this, 30, false);
-        if (this.doesGoInWater) {} //this.goalSelector.add(1, new BirdSwimGoal(this));
+        this.goalSelector.add(1, new BirdSwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0D));
         this.goalSelector.add(2, new FleeEntityGoal(this, OcelotEntity.class, 15.0F, 1.5D, 2D));
         this.goalSelector.add(2, new FleeEntityGoal(this, CatEntity.class, 15.0F, 1.5D, 2D));
-        if (this.doesGoToFeeders) {} //this.goalSelector.add(3, new EatFromFeedersGoal(this));
+        if (this.doesGoToFeeders) this.goalSelector.add(3, new EatFromFeedersGoal(this));
         this.goalSelector.add(4, new FleeEntityGoal(this, PlayerEntity.class, 15.0F, 1.0D, 1.2D));
         this.goalSelector.add(5, new FlyOntoTreeGoal(this, 1.0D));
-        if (this.doesGroupBird) {} //this.goalSelector.add(5, new FollowLeaderGoal(this));
+        if (this.doesGroupBird) this.goalSelector.add(5, new FollowLeaderGoal(this));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 
@@ -413,24 +417,22 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
     }
 
-    public void pullInOtherBird(Stream<BirdEntity> fish) {
-        fish.limit((long)(this.getMaxGroupSize() - this.groupSize)).filter((schoolingBirdEntity) -> {
-            return schoolingBirdEntity != this;
-        }).forEach((schoolingBirdEntity) -> {
-            schoolingBirdEntity.joinGroupOf(this);
+    public void pullInOtherBird(Stream<? extends BirdEntity> bird) {
+        bird.limit((long)(this.getMaxGroupSize() - this.groupSize)).filter((birdx) -> {
+            return birdx != this;
+        }).forEach((birdx) -> {
+            birdx.joinGroupOf(this);
         });
     }
 
     @Nullable
     public EntityData initialize(WorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
-        // TODO: do we need to check if client world? Literally in a folder called "client"
         super.initialize((ServerWorldAccess)world, difficulty, spawnReason, entityData, entityTag);
         if (entityData == null) {
             entityData = new BirdEntity.BirdData(this);
         } else {
             this.joinGroupOf(((BirdEntity.BirdData)entityData).leader);
         }
-
         return entityData;
     }
     
@@ -489,14 +491,12 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
     public void tick() {
         super.tick();
-        // TODO: Not sure what's going on here
-        /*if (this.hasOtherBirdInGroup() && this.world.random.nextInt(200) == 1) {
-            List<BirdEntity> list = this.world.getNonSpectatingEntities(this.getClass(), this.getBoundingBox().expand(8.0D, 8.0D, 8.0D));
+        if (this.hasOtherBirdInGroup() && this.world.random.nextInt(200) == 1) {
+            List<? extends BirdEntity> list = this.world.getNonSpectatingEntities(this.getClass(), this.getBoundingBox().expand(8.0D, 8.0D, 8.0D));
             if (list.size() <= 1) {
                 this.groupSize = 1;
             }
-        }*/
-
+        }
     }
 
     @Override
@@ -524,8 +524,6 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
                 if (!this.world.isClient())
                 {
                     Object mobEntity3;
-                    // TODO probably a bad idea making this change blind
-                    //mobEntity3 = ((PassiveEntity)this).createChild((PassiveEntity)this);
                     mobEntity3 = this.createChild((ServerWorld)this.world, this);
                     ((MobEntity)mobEntity3).setBaby(true);
                     ((MobEntity)mobEntity3).refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
@@ -631,8 +629,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         public final BirdEntity leader;
 
         public BirdData(BirdEntity leader) {
-            // TODO: Minecraft demanded this next line, but I don't know where the proper values live...
-            super(false);
+            super(true);
             this.leader = leader;
         }
     }
