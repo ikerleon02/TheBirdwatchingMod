@@ -2,10 +2,6 @@ package com.ikerleon.birdwmod.entity;
 
 import com.ikerleon.birdwmod.blocks.InitBlocks;
 import com.ikerleon.birdwmod.blocks.RingingNetBlock;
-// TODO: re-enable
-//import com.ikerleon.birdwmod.entity.goal.BirdSwimGoal;
-//import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
-//import com.ikerleon.birdwmod.entity.goal.FollowLeaderGoal;
 import com.ikerleon.birdwmod.entity.goal.BirdSwimGoal;
 import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
 import com.ikerleon.birdwmod.entity.goal.FollowLeaderGoal;

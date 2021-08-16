@@ -9,7 +9,7 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class BirdBaseModel extends AnimatedGeoModel
 {
-    public BirdBaseModel(){ super(); }
+    public BirdBaseModel(){ super();}
 
     private static String buildModelPath(String path){
         return "geo/"+path+".geo.json";
@@ -31,7 +31,7 @@ public class BirdBaseModel extends AnimatedGeoModel
     public Identifier getTextureLocation(Object rawEntity) {
         BirdEntity entity = (BirdEntity) rawEntity;
         String path = entity.getPath() + "/" + entity.getPath();
-        if ( entity.isDimorphic() && entity.getGender() == 1 ){path += "_female";}
+        if (entity.isDimorphic() && entity.getGender() == 1 ){path += "_female";}
         if (entity.getVariant() >= 2) { path += ("_"+entity.getVariant()); }
         return new Identifier(Main.ModID, buildTexturePath(path));
     }
