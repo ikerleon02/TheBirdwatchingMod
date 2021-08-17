@@ -1,39 +1,7 @@
 package com.ikerleon.birdwmod.entity;
 
-/*import com.ikerleon.birdwmod.client.render.europe.RedFlankedBluetailRenderer;
-import com.ikerleon.birdwmod.client.render.europe.RedNeckedNightjarRenderer;
-import com.ikerleon.birdwmod.client.render.europe.StellersEiderRenderer;
-import com.ikerleon.birdwmod.client.render.jungle.HoatzinRenderer;
-import com.ikerleon.birdwmod.client.render.jungle.KingOfSaxonyRenderer;
-import com.ikerleon.birdwmod.client.render.jungle.TurquoiseBrowedMotmotRenderer;
-import com.ikerleon.birdwmod.client.render.northamerica.EasternBluebirdRenderer;
-import com.ikerleon.birdwmod.client.render.northamerica.GreenHeronRenderer;
-import com.ikerleon.birdwmod.client.render.northamerica.KilldeerRenderer;
-import com.ikerleon.birdwmod.client.render.northamerica.NorthernMockingbirdRenderer;
-import com.ikerleon.birdwmod.client.render.release160.BrownBoobyRenderer;
-import com.ikerleon.birdwmod.client.render.release160.GreatGreyOwlRenderer;
-import com.ikerleon.birdwmod.client.render.release170.HimalayanMonalRenderer;
-import com.ikerleon.birdwmod.client.render.release170.RazorbillRenderer;
-import com.ikerleon.birdwmod.client.render.release170.SabinesGullRenderer;*/
 import com.ikerleon.birdwmod.Main;
 import com.ikerleon.birdwmod.client.render.BirdBaseRenderer;
-/*import com.ikerleon.birdwmod.entity.europe.RedFlankedBluetailEntity;
-import com.ikerleon.birdwmod.entity.europe.RedNeckedNightjarEntity;
-import com.ikerleon.birdwmod.entity.europe.StellersEiderEntity;
-import com.ikerleon.birdwmod.entity.jungle.HoatzinEntity;
-import com.ikerleon.birdwmod.entity.jungle.KingOfSaxonyEntity;
-import com.ikerleon.birdwmod.entity.jungle.TurquoiseBrowedMotmotEntity;
-import com.ikerleon.birdwmod.entity.northamerica.EasternBluebirdEntity;
-import com.ikerleon.birdwmod.entity.northamerica.GreenHeronEntity;
-import com.ikerleon.birdwmod.entity.northamerica.KilldeerEntity;
-import com.ikerleon.birdwmod.entity.northamerica.NorthernMockingbirdEntity;
-import com.ikerleon.birdwmod.entity.release160.BrownBoobyEntity;
-import com.ikerleon.birdwmod.entity.release160.GreatGreyOwlEntity;
-import com.ikerleon.birdwmod.entity.release170.HimalayanMonalEntity;
-import com.ikerleon.birdwmod.entity.release170.RazorbillEntity;
-import com.ikerleon.birdwmod.entity.release170.SabinesGullEntity;*/
-import com.ikerleon.birdwmod.items.InitItems;
-import com.ikerleon.birdwmod.util.SoundHandler;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -46,186 +14,73 @@ import net.minecraft.world.World;
 
 public class InitEntities {
 
-    private static final BirdEntity.Settings EURASIAN_BULLFINCH_SETTINGS = new BirdEntity.Settings()
-            .withMeatSize(BirdEntity.MeatSize.SMALL).withDimensions(0.3f, 0.3f)
-            .goesToFeeders().isGroupBird()
-            .withCallType(BirdEntity.CallType.BOTH_CALL).withSound(SoundHandler.BULLFINCH_CALL, null)
-            .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS).withFeather(InitItems.EURASIANBULLFINCHDFEATHER_MALE, InitItems.EURASIANBULLFINCHDFEATHER_FEMALE);
-    public static final EntityType<BirdEntity> EURASIAN_BULLFINCH_ENTITY = registerBirdEntity(EURASIAN_BULLFINCH_SETTINGS, "eurasian_bullfinch");
+    public static final EntityType<BirdEntity> EURASIAN_BULLFINCH_ENTITY = registerBirdEntity(BirdSettings.EURASIAN_BULLFINCH_SETTINGS);
+    public static final EntityType<BirdEntity> RED_NECKED_NIGHTJAR_ENTITY = registerBirdEntity(BirdSettings.RED_NECKED_NIGHTJAR_SETTINGS);
+    public static final EntityType<BirdEntity> RED_FLANKED_BLUETAIL_ENTITY = registerBirdEntity(BirdSettings.RED_FLANKED_BLUETAIL_SETTINGS);
+    public static final EntityType<BirdEntity> STELLERS_EIDER_ENTITY = registerBirdEntity(BirdSettings.STELLERS_EIDER_SETTINGS);
+    public static final EntityType<BirdEntity> HOATZIN_ENTITY = registerBirdEntity(BirdSettings.HOATZIN_SETTINGS);
+    public static final EntityType<BirdEntity> KING_OF_SAXONY_ENTITY = registerBirdEntity(BirdSettings.KING_OF_SAXONY_SETTINGS);
+    public static final EntityType<BirdEntity> MOTMOT_ENTITY = registerBirdEntity(BirdSettings.MOTMOT_SETTINGS);
+    public static final EntityType<BirdEntity> EASTERN_BLUEBIRD_ENTITY = registerBirdEntity(BirdSettings.EASTERN_BLUEBIRD_SETTINGS);
+    public static final EntityType<BirdEntity> GREEN_HERON_ENTITY = registerBirdEntity(BirdSettings.GREEN_HERON_SETTINGS);
+    public static final EntityType<BirdEntity> KILLDEER_ENTITY = registerBirdEntity(BirdSettings.KILLDEER_SETTINGS);
+    public static final EntityType<BirdEntity> NORTHERN_MOCKINGBIRD_ENTITY = registerBirdEntity(BirdSettings.NORTHERN_MOCKINGBIRD_SETTINGS);
+    public static final EntityType<BirdEntity> BROWN_BOOBY_ENTITY = registerBirdEntity(BirdSettings.BROWN_BOOBY_SETTINGS);
+    public static final EntityType<BirdEntity> GREAT_GREY_OWL_ENTITY = registerBirdEntity(BirdSettings.GREAT_GREY_OWL_SETTINGS);
+    public static final EntityType<BirdEntity> SABINES_GULL_ENTITY = registerBirdEntity(BirdSettings.SABINES_GULL_SETTINGS);
+    public static final EntityType<BirdEntity> RAZORBILL_ENTITY = registerBirdEntity(BirdSettings.RAZORBILL_SETTINGS);
+    public static final EntityType<BirdEntity> HIMALAYAN_MONAL_ENTITY = registerBirdEntity(BirdSettings.HIMALAYAN_MONAL_SETTINGS);
 
-    private static final BirdEntity.Settings RED_NECKED_NIGHTJAR_SETTINGS = new BirdEntity.Settings()
-            .withMeatSize(BirdEntity.MeatSize.MEDIUM).withDimensions(0.4f, 0.2f)
-            .goesToFeeders()
-            .withAwakeTime(BirdEntity.AwakeTime.NOCTURNAL)
-            .withVariants(3)
-            .withBirdAttributes(0.0D, 0.7D, 5.0D)
-            .withCallType(BirdEntity.CallType.BOTH_CALL).withSound(SoundHandler.EIDER_CALL, null)
-            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.EURASIANBULLFINCHDFEATHER_FEMALE, null);
-    public static final EntityType<BirdEntity> RED_NECKED_NIGHTJAR_ENTITY = registerBirdEntity(RED_NECKED_NIGHTJAR_SETTINGS, "rednecked_nightjar");
 
-
-
-    public static EntityType<BirdEntity> registerBirdEntity(BirdEntity.Settings birdSettings, String path) {
+    public static EntityType<BirdEntity> registerBirdEntity(BirdEntity.Settings birdSettings) {
         return Registry.register(
                 Registry.ENTITY_TYPE,
-                new Identifier("birdwmod", path),
+                new Identifier(Main.ModID, birdSettings.path),
                 FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, (EntityType<BirdEntity> type, World worldIn) -> new BirdEntity(type, worldIn, birdSettings)).dimensions(EntityDimensions.fixed(birdSettings.width, birdSettings.height)).build());
     }
 
-    public static void registerRenderer(EntityType<BirdEntity> birdEntity, String path){
-        FabricDefaultAttributeRegistry.register(birdEntity, BirdEntity.createBirdAttributes());
+    public static void registerRenderer(EntityType<BirdEntity> birdEntity){
         EntityRendererRegistry.INSTANCE.register(birdEntity,
-                (context) -> new BirdBaseRenderer(context, "geo/"+path+".geo.json", "textures/entity/"+path+".png", "animations/"+path+".animation.json"));
-
+                (context) -> new BirdBaseRenderer(context));
     }
-
-    /*public static final EntityType<RedFlankedBluetailEntity> RED_FLANKED_BLUETAIL_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "redflanked_bluetail"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RedFlankedBluetailEntity::new).dimensions(EntityDimensions.fixed(0.3f, 0.3f)).build()
-    );
-    public static final EntityType<StellersEiderEntity> STELLERS_EIDER_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "stellers_eider"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, StellersEiderEntity::new).dimensions(EntityDimensions.fixed(0.4f, 0.6f)).build()
-    );
-
-    public static final EntityType<KilldeerEntity> KILLDEER_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "killdeer"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, KilldeerEntity::new).dimensions(EntityDimensions.fixed(0.4f, 0.3f)).build()
-    );
-    public static final EntityType<EasternBluebirdEntity> EASTERN_BLUEBIRD_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "eastern_bluebird"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, EasternBluebirdEntity::new).dimensions(EntityDimensions.fixed(0.3f, 0.3f)).build()
-    );
-    public static final EntityType<NorthernMockingbirdEntity> NORTHERN_MOCKINGBIRD_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "northern_mockingbird"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, NorthernMockingbirdEntity::new).dimensions(EntityDimensions.fixed(0.3f, 0.3f)).build()
-    );
-    public static final EntityType<GreenHeronEntity> GREEN_HERON_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "green_heron"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, GreenHeronEntity::new).dimensions(EntityDimensions.fixed(0.3f, 0.5f)).build()
-    );
-
-    public static final EntityType<HoatzinEntity> HOATZIN_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "hoatzin"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HoatzinEntity::new).dimensions(EntityDimensions.fixed(0.4f, 0.4f)).build()
-    );
-    public static final EntityType<KingOfSaxonyEntity> KING_OF_SAXONY_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "kingofsaxony_bird_of_paradise"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, KingOfSaxonyEntity::new).dimensions(EntityDimensions.fixed(0.3f, 0.3f)).build()
-    );
-    public static final EntityType<TurquoiseBrowedMotmotEntity> TURQUOISE_BROWED_MOTMOT_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "turquoisebrowed_motmot"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, TurquoiseBrowedMotmotEntity::new).dimensions(EntityDimensions.fixed(0.3f, 0.3f)).build()
-    );
-
-    public static final EntityType<GreatGreyOwlEntity> GREAT_GREY_OWL_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "great_grey_owl"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, GreatGreyOwlEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.6f)).build()
-    );
-    public static final EntityType<BrownBoobyEntity> BROWN_BOOBY_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "brown_booby"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, BrownBoobyEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.6f)).build()
-    );
-
-    public static final EntityType<RazorbillEntity> RAZORBILL_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "razorbill"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RazorbillEntity::new).dimensions(EntityDimensions.fixed(0.3f, 0.5f)).build()
-    );
-    public static final EntityType<HimalayanMonalEntity> HIMALAYAN_MONAL_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "himalayan_monal"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HimalayanMonalEntity::new).dimensions(EntityDimensions.fixed(0.4f, 0.6f)).build()
-    );
-    public static final EntityType<SabinesGullEntity> SABINES_GULL_ENTITY= Registry.register(
-            Registry.ENTITY_TYPE,
-            new Identifier("birdwmod", "sabines_gull"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, SabinesGullEntity::new).dimensions(EntityDimensions.fixed(0.4f, 0.4f)).build()
-    );*/
 
 
     public static void registerAttributes(){
-        FabricDefaultAttributeRegistry.register(EURASIAN_BULLFINCH_ENTITY, BirdEntity.createBirdAttributes());
-        FabricDefaultAttributeRegistry.register(RED_NECKED_NIGHTJAR_ENTITY, BirdEntity.createBirdAttributes());
-        /*FabricDefaultAttributeRegistry.register(RED_FLANKED_BLUETAIL_ENTITY, RedFlankedBluetailEntity.createBirdAttributes());
-        FabricDefaultAttributeRegistry.register(STELLERS_EIDER_ENTITY, StellersEiderEntity.createBirdAttributes());
-
-        FabricDefaultAttributeRegistry.register(KILLDEER_ENTITY, KilldeerEntity.createBirdAttributes());
-        FabricDefaultAttributeRegistry.register(EASTERN_BLUEBIRD_ENTITY, EasternBluebirdEntity.createBirdAttributes());
-        FabricDefaultAttributeRegistry.register(NORTHERN_MOCKINGBIRD_ENTITY, NorthernMockingbirdEntity.createBirdAttributes());
-        FabricDefaultAttributeRegistry.register(GREEN_HERON_ENTITY, NorthernMockingbirdEntity.createBirdAttributes());
-
-        FabricDefaultAttributeRegistry.register(HOATZIN_ENTITY, HoatzinEntity.createBirdAttributes());
-        FabricDefaultAttributeRegistry.register(KING_OF_SAXONY_ENTITY, KingOfSaxonyEntity.createBirdAttributes());
-        FabricDefaultAttributeRegistry.register(TURQUOISE_BROWED_MOTMOT_ENTITY, TurquoiseBrowedMotmotEntity.createBirdAttributes());
-
+        FabricDefaultAttributeRegistry.register(EURASIAN_BULLFINCH_ENTITY, BirdSettings.EURASIAN_BULLFINCH_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(RED_NECKED_NIGHTJAR_ENTITY, BirdSettings.RED_NECKED_NIGHTJAR_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(RED_FLANKED_BLUETAIL_ENTITY, BirdSettings.RED_FLANKED_BLUETAIL_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(STELLERS_EIDER_ENTITY, BirdSettings.STELLERS_EIDER_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(HOATZIN_ENTITY, BirdSettings.HOATZIN_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(KING_OF_SAXONY_ENTITY, BirdSettings.KING_OF_SAXONY_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(MOTMOT_ENTITY, BirdSettings.MOTMOT_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(EASTERN_BLUEBIRD_ENTITY, BirdSettings.EASTERN_BLUEBIRD_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(GREEN_HERON_ENTITY, BirdSettings.GREEN_HERON_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(KILLDEER_ENTITY, BirdSettings.KILLDEER_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(NORTHERN_MOCKINGBIRD_ENTITY, BirdSettings.NORTHERN_MOCKINGBIRD_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(BROWN_BOOBY_ENTITY, BirdSettings.BROWN_BOOBY_SETTINGS.createBirdAttributes());
+        // Note custom createBirdAttributes on owl. It has attributes that Settings doesn't cover (currently? BirdOfPreyEntity.Settings?)
         FabricDefaultAttributeRegistry.register(GREAT_GREY_OWL_ENTITY, GreatGreyOwlEntity.createBirdAttributes());
-        FabricDefaultAttributeRegistry.register(BROWN_BOOBY_ENTITY, BrownBoobyEntity.createBirdAttributes());
-
-        FabricDefaultAttributeRegistry.register(RAZORBILL_ENTITY, RazorbillEntity.createBirdAttributes());
-        FabricDefaultAttributeRegistry.register(HIMALAYAN_MONAL_ENTITY, HimalayanMonalEntity.createBirdAttributes());
-        FabricDefaultAttributeRegistry.register(SABINES_GULL_ENTITY, SabinesGullEntity.createBirdAttributes());*/
+        FabricDefaultAttributeRegistry.register(SABINES_GULL_ENTITY, BirdSettings.SABINES_GULL_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(RAZORBILL_ENTITY, BirdSettings.RAZORBILL_SETTINGS.createBirdAttributes());
+        FabricDefaultAttributeRegistry.register(HIMALAYAN_MONAL_ENTITY, BirdSettings.HIMALAYAN_MONAL_SETTINGS.createBirdAttributes());
     }
 
     public static void registerRenderers(){
-        registerRenderer(EURASIAN_BULLFINCH_ENTITY, "eurasian_bullfinch");
-        registerRenderer(RED_NECKED_NIGHTJAR_ENTITY, "eurasian_bullfinch");
-        /*EntityRendererRegistry.INSTANCE.register(InitEntities.RED_FLANKED_BLUETAIL_ENTITY, (dispatcher, context) -> {
-            return new RedFlankedBluetailRenderer(dispatcher);
-        });
-        EntityRendererRegistry.INSTANCE.register(InitEntities.STELLERS_EIDER_ENTITY, (dispatcher, context) -> {
-            return new StellersEiderRenderer(dispatcher);
-        });
-
-        EntityRendererRegistry.INSTANCE.register(InitEntities.KILLDEER_ENTITY, (dispatcher, context) -> {
-            return new KilldeerRenderer(dispatcher);
-        });
-        EntityRendererRegistry.INSTANCE.register(InitEntities.EASTERN_BLUEBIRD_ENTITY, (dispatcher, context) -> {
-            return new EasternBluebirdRenderer(dispatcher);
-        });
-        EntityRendererRegistry.INSTANCE.register(InitEntities.NORTHERN_MOCKINGBIRD_ENTITY, (dispatcher, context) -> {
-            return new NorthernMockingbirdRenderer(dispatcher);
-        });
-        EntityRendererRegistry.INSTANCE.register(InitEntities.GREEN_HERON_ENTITY, (dispatcher, context) -> {
-            return new GreenHeronRenderer(dispatcher);
-        });
-
-        EntityRendererRegistry.INSTANCE.register(InitEntities.HOATZIN_ENTITY, (dispatcher, context) -> {
-            return new HoatzinRenderer(dispatcher);
-        });
-        EntityRendererRegistry.INSTANCE.register(InitEntities.KING_OF_SAXONY_ENTITY, (dispatcher, context) -> {
-            return new KingOfSaxonyRenderer(dispatcher);
-        });
-        EntityRendererRegistry.INSTANCE.register(InitEntities.TURQUOISE_BROWED_MOTMOT_ENTITY, (dispatcher, context) -> {
-            return new TurquoiseBrowedMotmotRenderer(dispatcher);
-        });
-
-        EntityRendererRegistry.INSTANCE.register(InitEntities.GREAT_GREY_OWL_ENTITY, (dispatcher, context) -> {
-            return new GreatGreyOwlRenderer(dispatcher);
-        });
-        EntityRendererRegistry.INSTANCE.register(InitEntities.BROWN_BOOBY_ENTITY, (dispatcher, context) -> {
-            return new BrownBoobyRenderer(dispatcher);
-        });
-
-        EntityRendererRegistry.INSTANCE.register(InitEntities.RAZORBILL_ENTITY, (dispatcher, context) -> {
-            return new RazorbillRenderer(dispatcher);
-        });
-        EntityRendererRegistry.INSTANCE.register(InitEntities.HIMALAYAN_MONAL_ENTITY, (dispatcher, context) -> {
-            return new HimalayanMonalRenderer(dispatcher);
-        });
-        EntityRendererRegistry.INSTANCE.register(InitEntities.SABINES_GULL_ENTITY, (dispatcher, context) -> {
-            return new SabinesGullRenderer(dispatcher);
-        });*/
+        registerRenderer(EURASIAN_BULLFINCH_ENTITY);
+        registerRenderer(RED_NECKED_NIGHTJAR_ENTITY);
+        registerRenderer(RED_FLANKED_BLUETAIL_ENTITY);
+        registerRenderer(STELLERS_EIDER_ENTITY);
+        registerRenderer(HOATZIN_ENTITY);
+        registerRenderer(KING_OF_SAXONY_ENTITY);
+        registerRenderer(MOTMOT_ENTITY);
+        registerRenderer(EASTERN_BLUEBIRD_ENTITY);
+        registerRenderer(GREEN_HERON_ENTITY);
+        registerRenderer(KILLDEER_ENTITY);
+        registerRenderer(NORTHERN_MOCKINGBIRD_ENTITY);
+        registerRenderer(BROWN_BOOBY_ENTITY);
+        registerRenderer(GREAT_GREY_OWL_ENTITY);
+        registerRenderer(SABINES_GULL_ENTITY);
+        registerRenderer(RAZORBILL_ENTITY);
+        registerRenderer(HIMALAYAN_MONAL_ENTITY);
     }
 }

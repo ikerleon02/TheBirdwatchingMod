@@ -2,16 +2,17 @@ package com.ikerleon.birdwmod.entity;
 
 import com.ikerleon.birdwmod.blocks.InitBlocks;
 import com.ikerleon.birdwmod.blocks.RingingNetBlock;
-// TODO: re-enable
-//import com.ikerleon.birdwmod.entity.goal.BirdSwimGoal;
-//import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
-//import com.ikerleon.birdwmod.entity.goal.FollowLeaderGoal;
-//import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
+import com.ikerleon.birdwmod.entity.goal.BirdSwimGoal;
+import com.ikerleon.birdwmod.entity.goal.EatFromFeedersGoal;
+import com.ikerleon.birdwmod.entity.goal.FollowLeaderGoal;
+import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
 import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
 import com.ikerleon.birdwmod.util.SoundHandler;
+import net.minecraft.MinecraftVersion;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -26,12 +27,13 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
@@ -42,13 +44,16 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import software.bernie.example.registry.SoundRegistry;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.SoundKeyframeEvent;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -64,25 +69,28 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     private static final TrackedData<Integer> RING_COLOR;
     private static final TrackedData<Boolean> RINGED;
 
-    protected static SoundEvent callSound;
-    protected static SoundEvent callSoundFemaleSpecific;
+    static SoundEvent callSound;
+    static SoundEvent callSoundFemaleSpecific;
+    static SoundEvent flyingSound;
 
-    // TODO Final? Static? Both for all?
-    static int birdVariants;
-    static double movementSpeed;
-    static double flightSpeed;
-    static double maxHealth;
-    static boolean doesGoInWater;
-    static boolean doesGoToFeeders;
-    static boolean doesGroupBird;
-    static float width;
-    static float height;
-    static MeatSize meatSize;
-    static CallType callType;
-    static FeatherType featherType;
-    static AwakeTime awakeTime;
-    static Item featherItem;
-    static Item femaleSpecificFeatherItem;
+    private final int birdVariants;
+    private final int birdVariantsFemaleSpecific;
+    private final boolean dimorphic;
+    private static double movementSpeed;  // Currently only used to set BirdAttributes, which is handled by Settings
+    private static double flightSpeed;
+    private static double maxHealth;
+    private static boolean doesGoInWater;
+    private static boolean doesGoToFeeders;
+    private static boolean doesGroupBird;
+    private static float width;  // Currently only used to register dimensions
+    private static float height;
+    private static MeatSize meatSize;
+    private static CallType callType;
+    private static FeatherType featherType;
+    private static AwakeTime awakeTime;
+    private static Item featherItem;
+    private static Item featherItemFemaleSpecific;
+    private final String path;
 
     public float timer;
     public int timeUntilNextFeather;
@@ -94,7 +102,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     private int groupSize = 1;
 
     public enum MeatSize{SMALL, MEDIUM, BIG};
-    public enum CallType{BOTH_CALL, MALES_ONLY, GENDERED_CALLS};
+    public enum CallType{BOTH_CALL, MALES_ONLY, GENDERED_CALLS, NO_CALL, MOCKINGBIRD};
     public enum FeatherType{BOTH_DROP, MALES_ONLY, GENDERED_DROPS};
     public enum AwakeTime{DIURNAL, NOCTURNAL};
 
@@ -102,6 +110,8 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     public BirdEntity(EntityType<? extends AnimalEntity> type, World worldIn,  Settings settings) {
         super(type, worldIn);
         birdVariants = settings.birdVariants;
+        birdVariantsFemaleSpecific = settings.birdVariantsFemaleSpecific;
+        dimorphic = settings.dimorphic;
         movementSpeed = settings.movementSpeed;
         flightSpeed = settings.flightSpeed;
         maxHealth = settings.maxHealth;
@@ -112,23 +122,27 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         awakeTime = settings.awakeTime;
         width = settings.width;
         height = settings.height;
-        callType = settings.callType;
         featherType = settings.featherType;
         featherItem = settings.featherItem;
-        femaleSpecificFeatherItem = settings.femaleSpecificFeatherItem;
+        featherItemFemaleSpecific = settings.femaleSpecificFeatherItem;
+        callType = settings.callType;
+        callSound = settings.callSound;
+        callSoundFemaleSpecific = settings.callSoundFemaleSpecific;
+        flyingSound = settings.flyingSound;
+        path = settings.path;
 
-        this.setGender(getRandom().nextInt(2));
-        this.setVariant(getRandom().nextInt(setBirdVariants()));
+        this.setGender(random.nextInt(2));
+        this.setVariant(getRandom().nextInt(getBirdVariants()));
         this.timeUntilNextFeather = getRandom().nextInt(10000) + 10000;
-        //this.moveControl = new MoveControlFlying(this, 30, false);
-        //this.goalSelector.add(1, new BirdSwimGoal(this));
+        this.moveControl = new MoveControlFlying(this, 30, false);
+        this.goalSelector.add(1, new BirdSwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0D));
         this.goalSelector.add(2, new FleeEntityGoal(this, OcelotEntity.class, 15.0F, 1.5D, 2D));
         this.goalSelector.add(2, new FleeEntityGoal(this, CatEntity.class, 15.0F, 1.5D, 2D));
-        //this.goalSelector.add(3, new EatFromFeedersGoal(this));
+        if (this.doesGoToFeeders) this.goalSelector.add(3, new EatFromFeedersGoal(this));
         this.goalSelector.add(4, new FleeEntityGoal(this, PlayerEntity.class, 15.0F, 1.0D, 1.2D));
         this.goalSelector.add(5, new FlyOntoTreeGoal(this, 1.0D));
-        //this.goalSelector.add(5, new FollowLeaderGoal(this));
+        if (this.doesGroupBird) this.goalSelector.add(5, new FollowLeaderGoal(this));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 
@@ -137,14 +151,18 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     public static class Settings {
         // TODO: Remove the defaults for failfast
         int birdVariants = 1;
+        int birdVariantsFemaleSpecific = 1;
+        boolean dimorphic = false;
         double movementSpeed = 0.2D;
         double flightSpeed = 0.7D;
         double maxHealth = 5.0D;
         float width = 0.3f;
         float height = 0.3f;
         boolean doesGoInWater = false;
+        
         boolean doesGoToFeeders = false;
         boolean doesGroupBird = false;
+        String path = "BIRD_HAS_UNSET_PATH_CHECK_SETTINGS";
         MeatSize meatSize = MeatSize.SMALL;
         CallType callType = CallType.BOTH_CALL;
         FeatherType featherType = FeatherType.BOTH_DROP;
@@ -153,10 +171,30 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         Item femaleSpecificFeatherItem = InitItems.EASTERNBLUEBIRDFEATHER_FEMALE;
         SoundEvent callSound = SoundHandler.BLUEBIRD_CALL;
         SoundEvent callSoundFemaleSpecific = null;
+        SoundEvent flyingSound = null;
 
-        public Settings withSound(SoundEvent callSound, @Nullable SoundEvent callSoundFemaleSpecific){
+        public Settings withCall(SoundEvent callSound, @Nullable SoundEvent callSoundFemaleSpecific){
             this.callSound = callSound;
             this.callSoundFemaleSpecific = callSoundFemaleSpecific;
+            return this;
+        }
+
+        public Settings withCall(SoundEvent callSound){
+            return this.withCall(callSound, null);
+        }
+
+        public Settings withFlyingSound(SoundEvent flyingSound){
+            this.flyingSound = flyingSound;
+            return this;
+        }
+
+        public Settings withPath(String path){
+            this.path = path;
+            return this;
+        }
+
+        public Settings isDimorphic(){
+            this.dimorphic = true;
             return this;
         }
 
@@ -172,8 +210,18 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             return this;
         }
 
+        public Settings withFeather(Item featherItem){
+            return this.withFeather(featherItem, null);
+        }
+
         public Settings withVariants(int numVariants){
             this.birdVariants = numVariants;
+            return this;
+        }
+
+        public Settings withVariants(int numVariants, int numVariantsFemaleSpecific){
+            this.birdVariants = numVariants;
+            this.birdVariants = numVariantsFemaleSpecific;
             return this;
         }
 
@@ -189,7 +237,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             return this;
         }
 
-        public Settings goesInWater(){
+        public Settings isWaterBird(){
             this.doesGoInWater = true;
             return this;
         }
@@ -218,6 +266,10 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             this.awakeTime = awakeTime;
             return this;
         }
+
+        public DefaultAttributeContainer.Builder createBirdAttributes() {
+            return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, this.movementSpeed).add(EntityAttributes.GENERIC_FLYING_SPEED, this.flightSpeed).add(EntityAttributes.GENERIC_MAX_HEALTH, this.maxHealth);
+        }
     }
 
     // Required by GeckoLib
@@ -226,12 +278,18 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     // TODO: need to pass something in here in place of predicate (https://geckolib.com/en/latest/3.0.0/entity_animations/)
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.bat.fly", true));
         return PlayState.CONTINUE;
     }
     public void registerControllers(AnimationData data)
     {
-        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+        AnimationController songcontroller = new AnimationController(this, "songcontroller", 1, this::predicate);
+
+        songcontroller.registerSoundListener(this::soundListener);
+        data.addAnimationController(songcontroller);
+    }
+
+    private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
+        this.world.playSoundFromEntity(null, this, callSound, SoundCategory.AMBIENT, this.getSoundVolume(),this.getPitch() );
     }
     @Override
     public AnimationFactory getFactory() { return this.factory; }
@@ -250,15 +308,15 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
     public void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(GENDER, Integer.valueOf(0));
-        this.dataTracker.startTracking(VARIANT, Integer.valueOf(0));
-        this.dataTracker.startTracking(SLEEPING, Boolean.valueOf(false));
-        this.dataTracker.startTracking(RING_COLOR,Integer.valueOf(DyeColor.GRAY.getId()));
-        this.dataTracker.startTracking(RINGED, Boolean.valueOf(false));
+        this.dataTracker.startTracking(GENDER, 0);
+        this.dataTracker.startTracking(VARIANT, 0);
+        this.dataTracker.startTracking(SLEEPING, Boolean.FALSE);
+        this.dataTracker.startTracking(RING_COLOR, DyeColor.GRAY.getId());
+        this.dataTracker.startTracking(RINGED, Boolean.FALSE);
     }
 
     //NBT write and read methods
-    public void writeCustomDataToTag(NbtCompound tagCompound) {
+    public void writeCustomDataToNbt(NbtCompound tagCompound) {
         super.writeCustomDataToNbt(tagCompound);
         tagCompound.putInt("Gender", this.getGender());
         tagCompound.putInt("Variant", this.getVariant());
@@ -267,7 +325,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         tagCompound.putBoolean("Ringed", this.hasBeenRinged());
     }
 
-    public void readCustomDataFromTag(NbtCompound tagCompound) {
+    public void readCustomDataFromNbt(NbtCompound tagCompound) {
         super.writeCustomDataToNbt(tagCompound);
         this.setGender(tagCompound.getInt("Gender"));
         this.setVariant(tagCompound.getInt("Variant"));
@@ -368,24 +426,22 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
     }
 
-    public void pullInOtherBird(Stream<BirdEntity> fish) {
-        fish.limit((long)(this.getMaxGroupSize() - this.groupSize)).filter((schoolingBirdEntity) -> {
-            return schoolingBirdEntity != this;
-        }).forEach((schoolingBirdEntity) -> {
-            schoolingBirdEntity.joinGroupOf(this);
+    public void pullInOtherBird(Stream<? extends BirdEntity> bird) {
+        bird.limit((long)(this.getMaxGroupSize() - this.groupSize)).filter((birdx) -> {
+            return birdx != this;
+        }).forEach((birdx) -> {
+            birdx.joinGroupOf(this);
         });
     }
 
     @Nullable
     public EntityData initialize(WorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
-        // TODO: do we need to check if client world? Literally in a folder called "client"
         super.initialize((ServerWorldAccess)world, difficulty, spawnReason, entityData, entityTag);
         if (entityData == null) {
             entityData = new BirdEntity.BirdData(this);
         } else {
             this.joinGroupOf(((BirdEntity.BirdData)entityData).leader);
         }
-
         return entityData;
     }
     
@@ -444,14 +500,12 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
     public void tick() {
         super.tick();
-        // TODO: Not sure what's going on here
-        /*if (this.hasOtherBirdInGroup() && this.world.random.nextInt(200) == 1) {
-            List<BirdEntity> list = this.world.getNonSpectatingEntities(this.getClass(), this.getBoundingBox().expand(8.0D, 8.0D, 8.0D));
+        if (this.hasOtherBirdInGroup() && this.world.random.nextInt(200) == 1) {
+            List<? extends BirdEntity> list = this.world.getNonSpectatingEntities(this.getClass(), this.getBoundingBox().expand(8.0D, 8.0D, 8.0D));
             if (list.size() <= 1) {
                 this.groupSize = 1;
             }
-        }*/
-
+        }
     }
 
     @Override
@@ -479,8 +533,6 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
                 if (!this.world.isClient())
                 {
                     Object mobEntity3;
-                    // TODO probably a bad idea making this change blind
-                    //mobEntity3 = ((PassiveEntity)this).createChild((PassiveEntity)this);
                     mobEntity3 = this.createChild((ServerWorld)this.world, this);
                     ((MobEntity)mobEntity3).setBaby(true);
                     ((MobEntity)mobEntity3).refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
@@ -553,7 +605,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     }
 
     public void setGender(int value) {
-        this.dataTracker.set(GENDER, Integer.valueOf(value));
+        this.dataTracker.set(GENDER, value);
     }
 
     public int getVariant() {
@@ -561,17 +613,17 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     }
 
     public void setVariant(int value) {
-        this.dataTracker.set(VARIANT, Integer.valueOf(value));
+        this.dataTracker.set(VARIANT, value);
     }
 
     public DyeColor getRingColor()
     {
-        return DyeColor.byId(this.dataTracker.get(RING_COLOR).intValue() & 15);
+        return DyeColor.byId(this.dataTracker.get(RING_COLOR) & 15);
     }
 
     public void setRingColor(DyeColor collarcolor)
     {
-        this.dataTracker.set(RING_COLOR, Integer.valueOf(collarcolor.getId()));
+        this.dataTracker.set(RING_COLOR, collarcolor.getId());
     }
 
     public boolean hasBeenRinged() {
@@ -586,19 +638,20 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         public final BirdEntity leader;
 
         public BirdData(BirdEntity leader) {
-            // TODO: Minecraft demanded this next line, but I don't know where the proper values live...
-            super(false);
+            super(true);
             this.leader = leader;
         }
     }
 
-    public int setBirdVariants() {
-        return 1;
+    public int getBirdVariants() {
+        return birdVariants;
     }
 
-    public static DefaultAttributeContainer.Builder createBirdAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20D).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.70D).add(EntityAttributes.GENERIC_MAX_HEALTH, 5.0D);
-    }
+    public int getBirdVariantsFemaleSpecific() { return birdVariantsFemaleSpecific; }
+
+    public boolean isDimorphic(){return dimorphic;}
+
+    public String getPath() { return path; }
 
     @Override
     public void mobTick() {
@@ -609,7 +662,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
                     if (this.getGender() == 0) {
                         this.dropItem(featherItem, 1);
                     } else {
-                        this.dropItem(femaleSpecificFeatherItem, 1);
+                        this.dropItem(featherItemFemaleSpecific, 1);
                     }
                 case BOTH_DROP:
                     this.dropItem(featherItem, 1);
@@ -628,21 +681,20 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     protected void dropLoot(DamageSource source, boolean causedByPlayer) {
         Item cookedItem;
         Item rawItem;
-        switch(meatSize){
-            case SMALL:
+        switch (meatSize) {
+            case SMALL -> {
                 cookedItem = InitItems.SMALLCOOCKEDMEAT;
                 rawItem = InitItems.SMALLRAWMEAT;
-                break;
-            case MEDIUM:
+            }
+            case MEDIUM -> {
                 cookedItem = InitItems.MEDIUMCOOCKEDMEAT;
                 rawItem = InitItems.MEDIUMRAWMEAT;
-                break;
-            case BIG:
+            }
+            case BIG -> {
                 cookedItem = InitItems.BIGCOOCKEDMEAT;
                 rawItem = InitItems.BIGRAWMEAT;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown enum for bird meat, check MeatSize!");
+            }
+            default -> throw new IllegalArgumentException("Unknown enum for bird meat, check MeatSize!");
         }
         if(this.isOnFire())
             this.dropItem(cookedItem, 1);
@@ -652,15 +704,57 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
     @Override
     protected SoundEvent getAmbientSound() {
+        final AnimationController controller = GeckoLibUtil.getControllerForID(this.factory, this.getId(), "songcontroller");
+
+        if(flyingSound != null && !isSleeping() && !this.isOnGround()){
+            return flyingSound;
+        }
         switch(callType) {
             case BOTH_CALL:
                 if (this.isOnGround() && !isSleeping()) {
-                    return callSound;
+                    controller.markNeedsReload();
+                    controller.setAnimation(new AnimationBuilder().addAnimation("song", false));
                 } else {
                     return null;
                 }
             case MALES_ONLY:
+                if (this.isOnGround() && !isSleeping() && this.getGender() == 0) {
+                    return callSound;
+                } else {
+                    return null;
+                }
             case GENDERED_CALLS:
+                if (this.isOnGround() && !isSleeping()) {
+                    if (this.getGender() == 0) {
+                        return callSound;
+                    } else {
+                        return callSoundFemaleSpecific;
+                    }
+                } else {
+                    return null;
+                }
+            case NO_CALL:
+                return null;
+            case MOCKINGBIRD:  // A very special case!
+                int mimic = this.random.nextInt(10) + 1;
+                if(!isSleeping()) {
+                    if (mimic <= 5) {
+                        if (this.getGender() == 0) {
+                            return SoundHandler.MOCKINGBIRD_SONG;
+                        } else {
+                            return SoundHandler.MOCKINGBIRD_CALL;
+                        }
+                    } else {
+                        if (mimic <= 7) {
+                            return SoundHandler.BLUEBIRD_CALL;
+                        } else {
+                            return SoundHandler.KILLDEER_CALL;
+                        }
+                    }
+                }
+                else{
+                    return null;
+                }
             default:
                 throw new IllegalArgumentException("Unknown enum for bird call, check CallType!");
         }
