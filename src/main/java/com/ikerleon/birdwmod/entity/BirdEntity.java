@@ -48,6 +48,7 @@ import software.bernie.geckolib3.core.event.SoundKeyframeEvent;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -272,12 +273,10 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     // TODO: need to pass something in here in place of predicate (https://geckolib.com/en/latest/3.0.0/entity_animations/)
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.bat.fly", true));
         return PlayState.CONTINUE;
     }
     public void registerControllers(AnimationData data)
     {
-        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
         AnimationController songcontroller = new AnimationController(this, "songcontroller", 1, this::predicate);
 
         songcontroller.registerSoundListener(this::soundListener);
@@ -285,7 +284,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     }
 
     private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
-        this.playSound(this.callSound, this.getSoundVolume(), this.getSoundPitch());
+        this.playSound(callSound, this.getSoundVolume(), this.getSoundPitch());
 
     }
     @Override
@@ -701,13 +700,16 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
     @Override
     protected SoundEvent getAmbientSound() {
+        final AnimationController controller = GeckoLibUtil.getControllerForID(this.factory, this.getId(), "songcontroller");
+
         if(flyingSound != null && !isSleeping() && !this.isOnGround()){
             return flyingSound;
         }
         switch(callType) {
             case BOTH_CALL:
                 if (this.isOnGround() && !isSleeping()) {
-                    return callSound;
+                    controller.markNeedsReload();
+                    controller.setAnimation(new AnimationBuilder().addAnimation("song", false));
                 } else {
                     return null;
                 }
