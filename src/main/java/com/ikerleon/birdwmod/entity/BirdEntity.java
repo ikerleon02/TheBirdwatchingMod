@@ -9,10 +9,8 @@ import com.ikerleon.birdwmod.entity.move.MoveControlFlying;
 import com.ikerleon.birdwmod.items.InitItems;
 import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
 import com.ikerleon.birdwmod.util.SoundHandler;
-import net.minecraft.MinecraftVersion;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -31,7 +29,6 @@ import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -44,7 +41,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import software.bernie.example.registry.SoundRegistry;
+import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -137,10 +134,10 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         this.moveControl = new MoveControlFlying(this, 30, false);
         this.goalSelector.add(1, new BirdSwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 2.0D));
-        this.goalSelector.add(2, new FleeEntityGoal(this, OcelotEntity.class, 15.0F, 1.5D, 2D));
-        this.goalSelector.add(2, new FleeEntityGoal(this, CatEntity.class, 15.0F, 1.5D, 2D));
+        this.goalSelector.add(2, new FleeEntityGoal<>(this, OcelotEntity.class, 15.0F, 1.5D, 2D));
+        this.goalSelector.add(2, new FleeEntityGoal<>(this, CatEntity.class, 15.0F, 1.5D, 2D));
         if (this.doesGoToFeeders) this.goalSelector.add(3, new EatFromFeedersGoal(this));
-        this.goalSelector.add(4, new FleeEntityGoal(this, PlayerEntity.class, 15.0F, 1.0D, 1.2D));
+        this.goalSelector.add(4, new FleeEntityGoal<>(this, PlayerEntity.class, 15.0F, 1.0D, 1.2D));
         this.goalSelector.add(5, new FlyOntoTreeGoal(this, 1.0D));
         if (this.doesGroupBird) this.goalSelector.add(5, new FollowLeaderGoal(this));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
@@ -289,7 +286,10 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     }
 
     private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
-        this.world.playSoundFromEntity(null, this, callSound, SoundCategory.AMBIENT, this.getSoundVolume(),this.getPitch() );
+        System.out.println("sound");
+
+        if(this.world.isClient())
+            this.playSound(callSound, 1, 1);
     }
     @Override
     public AnimationFactory getFactory() { return this.factory; }
@@ -702,62 +702,70 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             this.dropItem(rawItem, 1);
     }
 
+
     @Override
     protected SoundEvent getAmbientSound() {
-        final AnimationController controller = GeckoLibUtil.getControllerForID(this.factory, this.getId(), "songcontroller");
-
         if(flyingSound != null && !isSleeping() && !this.isOnGround()){
             return flyingSound;
         }
+        return null;
+    }
+
+    @Override
+    public void playAmbientSound() {
+        final AnimationController controller = GeckoLibUtil.getControllerForID(this.factory, this.getId(), "songcontroller");
+
         switch(callType) {
             case BOTH_CALL:
                 if (this.isOnGround() && !isSleeping()) {
-                    controller.markNeedsReload();
-                    controller.setAnimation(new AnimationBuilder().addAnimation("song", false));
-                } else {
-                    return null;
+                    if (controller.getAnimationState() == AnimationState.Stopped) {
+                        controller.markNeedsReload();
+                        System.out.println("anim");
+                        controller.setAnimation(new AnimationBuilder().addAnimation("song", false));
+                    }
+                }
+                else {
                 }
             case MALES_ONLY:
                 if (this.isOnGround() && !isSleeping() && this.getGender() == 0) {
-                    return callSound;
+                    //return callSound;
                 } else {
-                    return null;
+                    //return null;
                 }
             case GENDERED_CALLS:
                 if (this.isOnGround() && !isSleeping()) {
                     if (this.getGender() == 0) {
-                        return callSound;
+                        //return callSound;
                     } else {
-                        return callSoundFemaleSpecific;
+                        //return callSoundFemaleSpecific;
                     }
                 } else {
-                    return null;
+                    //return null;
                 }
             case NO_CALL:
-                return null;
+                //return null;
             case MOCKINGBIRD:  // A very special case!
                 int mimic = this.random.nextInt(10) + 1;
                 if(!isSleeping()) {
                     if (mimic <= 5) {
                         if (this.getGender() == 0) {
-                            return SoundHandler.MOCKINGBIRD_SONG;
+                            //return SoundHandler.MOCKINGBIRD_SONG;
                         } else {
-                            return SoundHandler.MOCKINGBIRD_CALL;
+                            //return SoundHandler.MOCKINGBIRD_CALL;
                         }
                     } else {
                         if (mimic <= 7) {
-                            return SoundHandler.BLUEBIRD_CALL;
+                            //return SoundHandler.BLUEBIRD_CALL;
                         } else {
-                            return SoundHandler.KILLDEER_CALL;
+                            //return SoundHandler.KILLDEER_CALL;
                         }
                     }
                 }
                 else{
-                    return null;
+                    //return null;
                 }
-            default:
-                throw new IllegalArgumentException("Unknown enum for bird call, check CallType!");
         }
+        super.playAmbientSound();
     }
 
     public boolean goesToFeeders() {
