@@ -277,10 +277,8 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     }
     public void registerControllers(AnimationData data)
     {
-
         data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
-
-        AnimationController songcontroller = new AnimationController(this, "songcontroller", 10, this::predicate);
+        AnimationController songcontroller = new AnimationController(this, "songcontroller", 1, this::predicate);
 
         songcontroller.registerSoundListener(this::soundListener);
         data.addAnimationController(songcontroller);
