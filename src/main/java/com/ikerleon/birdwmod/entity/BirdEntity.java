@@ -295,15 +295,15 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
     public void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(GENDER, Integer.valueOf(0));
-        this.dataTracker.startTracking(VARIANT, Integer.valueOf(0));
-        this.dataTracker.startTracking(SLEEPING, Boolean.valueOf(false));
-        this.dataTracker.startTracking(RING_COLOR,Integer.valueOf(DyeColor.GRAY.getId()));
-        this.dataTracker.startTracking(RINGED, Boolean.valueOf(false));
+        this.dataTracker.startTracking(GENDER, 0);
+        this.dataTracker.startTracking(VARIANT, 0);
+        this.dataTracker.startTracking(SLEEPING, Boolean.FALSE);
+        this.dataTracker.startTracking(RING_COLOR, DyeColor.GRAY.getId());
+        this.dataTracker.startTracking(RINGED, Boolean.FALSE);
     }
 
     //NBT write and read methods
-    public void writeCustomDataToTag(NbtCompound tagCompound) {
+    public void writeCustomDataToNbt(NbtCompound tagCompound) {
         super.writeCustomDataToNbt(tagCompound);
         tagCompound.putInt("Gender", this.getGender());
         tagCompound.putInt("Variant", this.getVariant());
@@ -312,7 +312,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         tagCompound.putBoolean("Ringed", this.hasBeenRinged());
     }
 
-    public void readCustomDataFromTag(NbtCompound tagCompound) {
+    public void readCustomDataFromNbt(NbtCompound tagCompound) {
         super.writeCustomDataToNbt(tagCompound);
         this.setGender(tagCompound.getInt("Gender"));
         this.setVariant(tagCompound.getInt("Variant"));
@@ -592,7 +592,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     }
 
     public void setGender(int value) {
-        this.dataTracker.set(GENDER, Integer.valueOf(value));
+        this.dataTracker.set(GENDER, value);
     }
 
     public int getVariant() {
@@ -600,17 +600,17 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     }
 
     public void setVariant(int value) {
-        this.dataTracker.set(VARIANT, Integer.valueOf(value));
+        this.dataTracker.set(VARIANT, value);
     }
 
     public DyeColor getRingColor()
     {
-        return DyeColor.byId(this.dataTracker.get(RING_COLOR).intValue() & 15);
+        return DyeColor.byId(this.dataTracker.get(RING_COLOR) & 15);
     }
 
     public void setRingColor(DyeColor collarcolor)
     {
-        this.dataTracker.set(RING_COLOR, Integer.valueOf(collarcolor.getId()));
+        this.dataTracker.set(RING_COLOR, collarcolor.getId());
     }
 
     public boolean hasBeenRinged() {
@@ -668,21 +668,20 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     protected void dropLoot(DamageSource source, boolean causedByPlayer) {
         Item cookedItem;
         Item rawItem;
-        switch(meatSize){
-            case SMALL:
+        switch (meatSize) {
+            case SMALL -> {
                 cookedItem = InitItems.SMALLCOOCKEDMEAT;
                 rawItem = InitItems.SMALLRAWMEAT;
-                break;
-            case MEDIUM:
+            }
+            case MEDIUM -> {
                 cookedItem = InitItems.MEDIUMCOOCKEDMEAT;
                 rawItem = InitItems.MEDIUMRAWMEAT;
-                break;
-            case BIG:
+            }
+            case BIG -> {
                 cookedItem = InitItems.BIGCOOCKEDMEAT;
                 rawItem = InitItems.BIGRAWMEAT;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown enum for bird meat, check MeatSize!");
+            }
+            default -> throw new IllegalArgumentException("Unknown enum for bird meat, check MeatSize!");
         }
         if(this.isOnFire())
             this.dropItem(cookedItem, 1);
