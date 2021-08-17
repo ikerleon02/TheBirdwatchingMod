@@ -44,6 +44,7 @@ import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.SoundKeyframeEvent;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
@@ -276,7 +277,18 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     }
     public void registerControllers(AnimationData data)
     {
+
         data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+
+        AnimationController songcontroller = new AnimationController(this, "songcontroller", 10, this::predicate);
+
+        songcontroller.registerSoundListener(this::soundListener);
+        data.addAnimationController(songcontroller);
+    }
+
+    private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
+        this.playSound(this.callSound, this.getSoundVolume(), this.getSoundPitch());
+
     }
     @Override
     public AnimationFactory getFactory() { return this.factory; }
