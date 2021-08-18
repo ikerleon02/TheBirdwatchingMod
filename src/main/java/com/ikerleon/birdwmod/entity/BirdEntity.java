@@ -420,12 +420,12 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
     @Override
     public void move(MovementType type, Vec3d movement) {
-        if(this.isInNet() && (type == MovementType.SELF || type == MovementType.PLAYER)){
+        if(this.isInNet()){
             if(this.world.getBlockState(new BlockPos(this.getX(), this.getY(), this.getZ())).get(RingingNetBlock.DIRECTION) == RingingNetBlock.EnumBlockDirection.NORTH) {
-                this.setPos(this.getPos().x, this.getPos().y, (this.getPos().z - this.getPos().z % 1) + 0.5);
+                this.setPos(this.getPos().x, this.getPos().y, (this.getPos().z - this.getPos().z % 1)-0.5);
             }
             else{
-                this.setPos((this.getPos().x - this.getPos().x % 1) + 0.5, this.getPos().y, this.getPos().z);
+                this.setPos((this.getPos().x - this.getPos().x % 1)-0.5, this.getPos().y, this.getPos().z);
             }
         }
         else{
@@ -786,13 +786,9 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
                         controller.setAnimation(new AnimationBuilder().addAnimation("song", false));
                     }
                 }
-                else {
-                }
             case MALES_ONLY:
                 if (this.isOnGround() && !isSleeping() && this.getGender() == 0) {
                     //return callSound;
-                } else {
-                    //return null;
                 }
             case GENDERED_CALLS:
                 if (this.isOnGround() && !isSleeping()) {
@@ -801,11 +797,8 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
                     } else {
                         //return callSoundFemaleSpecific;
                     }
-                } else {
-                    //return null;
                 }
             case NO_CALL:
-                //return null;
             case MOCKINGBIRD:  // A very special case!
                 if(!isSleeping()) {
                     // 50% chance to mimic
@@ -818,9 +811,6 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
                             //return SoundHandler.MOCKINGBIRD_CALL;
                         }
                     }
-                }
-                else{
-                    //return null;
                 }
         }
         super.playAmbientSound();
