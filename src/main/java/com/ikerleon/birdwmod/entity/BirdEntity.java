@@ -40,6 +40,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.biome.Biome;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -51,6 +52,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -71,14 +73,9 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     private final int birdVariants;
     private final int birdVariantsFemaleSpecific;
     private final boolean dimorphic;
-    private static double movementSpeed;  // Currently only used to set BirdAttributes, which is handled by Settings
-    private static double flightSpeed;
-    private static double maxHealth;
     private static boolean doesGoInWater;
     private static boolean doesGoToFeeders;
     private static boolean doesGroupBird;
-    private static float width;  // Currently only used to register dimensions
-    private static float height;
     private static MeatSize meatSize;
     private static CallType callType;
     private static FeatherType featherType;
@@ -107,16 +104,11 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         birdVariants = settings.birdVariants;
         birdVariantsFemaleSpecific = settings.birdVariantsFemaleSpecific;
         dimorphic = settings.dimorphic;
-        movementSpeed = settings.movementSpeed;
-        flightSpeed = settings.flightSpeed;
-        maxHealth = settings.maxHealth;
         doesGoInWater = settings.doesGoInWater;
         doesGoToFeeders = settings.doesGoToFeeders;
         doesGroupBird = settings.doesGroupBird;
         meatSize = settings.meatSize;
         awakeTime = settings.awakeTime;
-        width = settings.width;
-        height = settings.height;
         featherType = settings.featherType;
         featherItem = settings.featherItem;
         featherItemFemaleSpecific = settings.femaleSpecificFeatherItem;
@@ -144,7 +136,6 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     }
 
     public static class Settings {
-        // TODO: Remove the defaults for failfast
         int birdVariants = 1;
         int birdVariantsFemaleSpecific = 1;
         boolean dimorphic = false;
@@ -154,7 +145,6 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         float width = 0.3f;
         float height = 0.3f;
         boolean doesGoInWater = false;
-        
         boolean doesGoToFeeders = false;
         boolean doesGroupBird = false;
         String path = "BIRD_HAS_UNSET_PATH_CHECK_SETTINGS";
@@ -162,13 +152,72 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         CallType callType = CallType.BOTH_CALL;
         FeatherType featherType = FeatherType.BOTH_DROP;
         AwakeTime awakeTime = AwakeTime.DIURNAL;
-        Item featherItem = InitItems.EASTERNBLUEBIRDFEATHER_MALE;
-        Item femaleSpecificFeatherItem = InitItems.EASTERNBLUEBIRDFEATHER_FEMALE;
-        SoundEvent callSound = SoundHandler.BLUEBIRD_CALL;
+        Item featherItem = null;
+        Item femaleSpecificFeatherItem = null;
+        SoundEvent callSound = null;
         SoundEvent callSoundFemaleSpecific = null;
         SoundEvent flyingSound = null;
+        public enum BiomeTemperature{FROZEN, COLD, TEMPERATE, WARM, HOT, ALL_WARMER_THAN_COLD, UNSPECIFIED};
+        List<BiomeDescriptor> spawnBiomes = new ArrayList<>() {};
+        int prevalence = 15;
+        int minGroupSize = 1;
+        int maxGroupSize = 1;
 
-        public Settings withCall(SoundEvent callSound, @Nullable SoundEvent callSoundFemaleSpecific){
+        public static class BiomeDescriptor {
+            private Biome.Category biomeCategory = null;
+            private BiomeTemperature temperature = BiomeTemperature.UNSPECIFIED;
+
+            public BiomeDescriptor(Biome.Category biomeCategory, BiomeTemperature temperature) {
+                this.biomeCategory = biomeCategory;
+                this.temperature = temperature;
+            }
+
+            public Biome.Category getBiomeCategory() { return this.biomeCategory;}
+            public double[] getTemperatureRange() {
+                // These ranges are min ([0]) exclusive, max ([1]) inclusive. Overlap is OK.
+                double[] temperature = new double[2];
+                // for reference: https://minecraft.fandom.com/wiki/Biome#List_of_Overworld_climates
+                switch(this.temperature){
+                    case FROZEN:
+                        temperature[0] = -10;
+                        temperature[1] = 0.1;
+                    case COLD:
+                        temperature[0] = 0.1;
+                        temperature[1] = 0.55;
+                    case TEMPERATE:
+                        temperature[0] = 0.45;
+                        temperature[1] = 0.75;
+                    case WARM:
+                        temperature[0] = 0.75;
+                        temperature[1] = 0.95;
+                        break;
+                    case HOT:
+                        temperature[0] = 0.9;
+                        temperature[1] = 10;
+                        break;
+                    case ALL_WARMER_THAN_COLD: // Used if we don't care how hot it gets
+                        temperature[0] = 0.55;
+                        temperature[1] = 10;
+                    case UNSPECIFIED:
+                    default:
+                        temperature[0] = -10;
+                        temperature[1] = 10;
+                        break;
+                }
+                return temperature;}
+        }
+
+        public Settings withSpawnBiome(Biome.Category biome, BiomeTemperature temperature) {
+            this.spawnBiomes.add(new BiomeDescriptor(biome, temperature));
+            return this;
+        }
+
+        public Settings withSpawnBiome(Biome.Category biome) {
+            this.spawnBiomes.add(new BiomeDescriptor(biome, BiomeTemperature.UNSPECIFIED));
+            return this;
+        }
+
+        public Settings withCall(SoundEvent callSound, SoundEvent callSoundFemaleSpecific){
             this.callSound = callSound;
             this.callSoundFemaleSpecific = callSoundFemaleSpecific;
             return this;
@@ -199,7 +248,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             return this;
         }
 
-        public Settings withFeather(Item featherItem, @Nullable Item femaleSpecificFeatherItem){
+        public Settings withFeather(Item featherItem, Item femaleSpecificFeatherItem){
             this.featherItem = featherItem;
             this.femaleSpecificFeatherItem = femaleSpecificFeatherItem;
             return this;
@@ -262,9 +311,22 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             return this;
         }
 
+        public Settings withSpawnGroupSize(int minGroupSize, int maxGroupSize){
+            this.minGroupSize = minGroupSize;
+            this.maxGroupSize = maxGroupSize;
+            return this;
+        }
+
+        public Settings withPrevalence(int prevalence){
+            this.prevalence = prevalence;
+            return this;
+        }
+
         public DefaultAttributeContainer.Builder createBirdAttributes() {
             return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, this.movementSpeed).add(EntityAttributes.GENERIC_FLYING_SPEED, this.flightSpeed).add(EntityAttributes.GENERIC_MAX_HEALTH, this.maxHealth);
         }
+
+        public List<BiomeDescriptor> getSpawnBiomes(){ return this.spawnBiomes; }
     }
 
     // Required by GeckoLib
@@ -732,19 +794,15 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
             case NO_CALL:
                 return null;
             case MOCKINGBIRD:  // A very special case!
-                int mimic = this.random.nextInt(10) + 1;
                 if(!isSleeping()) {
-                    if (mimic <= 5) {
+                    // 50% chance to mimic
+                    if (getRandom().nextBoolean()) {
+                        return BirdSettings.MOCKINGBIRD_MIMICKABLE.get(getRandom().nextInt(BirdSettings.MOCKINGBIRD_MIMICKABLE.size()));
+                    } else {
                         if (this.getGender() == 0) {
                             return SoundHandler.MOCKINGBIRD_SONG;
                         } else {
                             return SoundHandler.MOCKINGBIRD_CALL;
-                        }
-                    } else {
-                        if (mimic <= 7) {
-                            return SoundHandler.BLUEBIRD_CALL;
-                        } else {
-                            return SoundHandler.KILLDEER_CALL;
                         }
                     }
                 }
