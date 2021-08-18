@@ -422,10 +422,10 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     public void move(MovementType type, Vec3d movement) {
         if(this.isInNet()){
             if(this.world.getBlockState(new BlockPos(this.getX(), this.getY(), this.getZ())).get(RingingNetBlock.DIRECTION) == RingingNetBlock.EnumBlockDirection.NORTH) {
-                this.setPos(this.getPos().x, this.getPos().y, (this.getPos().z - this.getPos().z % 1)-0.5);
+                this.setPos(this.getPos().x, this.getPos().y, (this.getPos().z - this.getPos().z % 1));
             }
             else{
-                this.setPos((this.getPos().x - this.getPos().x % 1)-0.5, this.getPos().y, this.getPos().z);
+                this.setPos((this.getPos().x - this.getPos().x % 1), this.getPos().y, this.getPos().z);
             }
         }
         else{
