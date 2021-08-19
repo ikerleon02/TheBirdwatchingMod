@@ -352,30 +352,34 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     }
 
     private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
-        switch(callType) {
-            case BOTH_CALL:
-                this.world.playSound(this.getX(), this.getY(), this.getZ(), callSound, this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
-                break;
-            case MALES_ONLY:
-                if (this.getGender() == 0)
-                    this.world.playSound(this.getX(), this.getY(), this.getZ(), callSound, this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
-                break;
-            case GENDERED_CALLS:
-                if (this.getGender() == 0)
-                    this.world.playSound(this.getX(), this.getY(), this.getZ(), callSound, this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
-                else
-                    this.world.playSound(this.getX(), this.getY(), this.getZ(), callSoundFemaleSpecific, this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
-                break;
+        event.getEntity();
+        if(this.world.isClient()) {
+            switch (callType) {
+                case BOTH_CALL:
+                    this.world.playSound(this.getX(), this.getY(), this.getZ(), callSound, SoundCategory.AMBIENT, this.getSoundVolume(), getSoundPitch(), false);
+                    break;
+                case MALES_ONLY:
+                    if (this.getGender() == 0)
+                        this.world.playSound(this.getX(), this.getY(), this.getZ(), callSound, SoundCategory.AMBIENT, this.getSoundVolume(), getSoundPitch(), false);
+                    break;
+                case GENDERED_CALLS:
+                    if (this.getGender() == 0)
+                        this.world.playSound(this.getX(), this.getY(), this.getZ(), callSound, SoundCategory.AMBIENT, this.getSoundVolume(), getSoundPitch(), false);
+                    else
+                        this.world.playSound(this.getX(), this.getY(), this.getZ(), callSoundFemaleSpecific, SoundCategory.AMBIENT, this.getSoundVolume(), getSoundPitch(), false);
+                    break;
                 case MOCKINGBIRD:  // A very special case!
                     // 50% chance to mimic
                     if (getRandom().nextBoolean())
-                        this.world.playSound(this.getX(), this.getY(), this.getZ(), BirdSettings.MOCKINGBIRD_MIMICKABLE.get(getRandom().nextInt(BirdSettings.MOCKINGBIRD_MIMICKABLE.size())), this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
+                        this.world.playSound(this.getX(), this.getY(), this.getZ(), BirdSettings.MOCKINGBIRD_MIMICKABLE.get(getRandom().nextInt(BirdSettings.MOCKINGBIRD_MIMICKABLE.size())), SoundCategory.AMBIENT, this.getSoundVolume(), getSoundPitch(), false);
                     else {
                         if (this.getGender() == 0)
-                            this.world.playSound(this.getX(), this.getY(), this.getZ(), SoundHandler.MOCKINGBIRD_SONG, this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
+                            this.world.playSound(this.getX(), this.getY(), this.getZ(), SoundHandler.MOCKINGBIRD_SONG, SoundCategory.AMBIENT, this.getSoundVolume(), getSoundPitch(), false);
                         else
-                            this.world.playSound(this.getX(), this.getY(), this.getZ(), SoundHandler.MOCKINGBIRD_CALL, this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
+                            this.world.playSound(this.getX(), this.getY(), this.getZ(), SoundHandler.MOCKINGBIRD_CALL, SoundCategory.AMBIENT, this.getSoundVolume(), getSoundPitch(), false);
                     }
+                    break;
+            }
         }
     }
     @Override
