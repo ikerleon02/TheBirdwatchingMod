@@ -11,6 +11,8 @@ import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
 import com.ikerleon.birdwmod.util.SoundHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -51,6 +53,8 @@ import software.bernie.geckolib3.core.event.SoundKeyframeEvent;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.network.GeckoLibNetwork;
+import software.bernie.geckolib3.network.ISyncable;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
@@ -348,10 +352,31 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     }
 
     private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
-        System.out.println("sound");
-
-        if(this.world.isClient())
-            this.playSound(callSound, 1, 1);
+        switch(callType) {
+            case BOTH_CALL:
+                this.world.playSound(this.getX(), this.getY(), this.getZ(), callSound, this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
+                break;
+            case MALES_ONLY:
+                if (this.getGender() == 0)
+                    this.world.playSound(this.getX(), this.getY(), this.getZ(), callSound, this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
+                break;
+            case GENDERED_CALLS:
+                if (this.getGender() == 0)
+                    this.world.playSound(this.getX(), this.getY(), this.getZ(), callSound, this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
+                else
+                    this.world.playSound(this.getX(), this.getY(), this.getZ(), callSoundFemaleSpecific, this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
+                break;
+                case MOCKINGBIRD:  // A very special case!
+                    // 50% chance to mimic
+                    if (getRandom().nextBoolean())
+                        this.world.playSound(this.getX(), this.getY(), this.getZ(), BirdSettings.MOCKINGBIRD_MIMICKABLE.get(getRandom().nextInt(BirdSettings.MOCKINGBIRD_MIMICKABLE.size())), this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
+                    else {
+                        if (this.getGender() == 0)
+                            this.world.playSound(this.getX(), this.getY(), this.getZ(), SoundHandler.MOCKINGBIRD_SONG, this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
+                        else
+                            this.world.playSound(this.getX(), this.getY(), this.getZ(), SoundHandler.MOCKINGBIRD_CALL, this.getSoundCategory(), this.getSoundVolume(), getSoundPitch(), false);
+                    }
+        }
     }
     @Override
     public AnimationFactory getFactory() { return this.factory; }
@@ -777,19 +802,21 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     public void playAmbientSound() {
         final AnimationController controller = GeckoLibUtil.getControllerForID(this.factory, this.getId(), "songcontroller");
 
+        controller.markNeedsReload();
+
         switch(callType) {
             case BOTH_CALL:
                 if (this.isOnGround() && !isSleeping()) {
                     if (controller.getAnimationState() == AnimationState.Stopped) {
-                        controller.markNeedsReload();
-                        System.out.println("anim");
                         controller.setAnimation(new AnimationBuilder().addAnimation("song", false));
                     }
                 }
+                break;
             case MALES_ONLY:
                 if (this.isOnGround() && !isSleeping() && this.getGender() == 0) {
                     //return callSound;
                 }
+                break;
             case GENDERED_CALLS:
                 if (this.isOnGround() && !isSleeping()) {
                     if (this.getGender() == 0) {
@@ -798,7 +825,9 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
                         //return callSoundFemaleSpecific;
                     }
                 }
+                break;
             case NO_CALL:
+                break;
             case MOCKINGBIRD:  // A very special case!
                 if(!isSleeping()) {
                     // 50% chance to mimic
@@ -812,6 +841,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
                         }
                     }
                 }
+                break;
         }
         super.playAmbientSound();
     }
@@ -832,6 +862,5 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     public @org.jetbrains.annotations.Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
         return (BirdEntity)this.getType().create(world);
     }
-
 }
 
