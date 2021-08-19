@@ -59,7 +59,7 @@ public class BirdSettings {
             .withMeatSize(BirdEntity.MeatSize.MEDIUM).withDimensions(0.4f, 0.4f)
             .withBirdAttributes(0.2, 0.7, 7.0)
             .withPath("hoatzin")
-            .withCallType(BirdEntity.CallType.BOTH_CALL).withCall(SoundHandler.EIDER_CALL)
+            .withCallType(BirdEntity.CallType.BOTH_CALL).withCall(SoundHandler.HOATZIN_CALL)
             .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.HOATZINFEATHER)
             .withSpawnGroupSize(1, 2).withPrevalence(15)
             .withSpawnBiome(Biome.Category.SWAMP).withSpawnBiome(Biome.Category.JUNGLE, BirdEntity.Settings.BiomeTemperature.ALL_WARMER_THAN_COLD);
@@ -177,7 +177,7 @@ public class BirdSettings {
             .withVariants(3)
             .isGroupBird().isWaterBird()
             .withBirdAttributes(0.2, 0.7, 6.0)
-            .withCallType(BirdEntity.CallType.BOTH_CALL).withCall(SoundHandler.SABINES_GULL_CALL)
+            .withCallType(BirdEntity.CallType.NO_CALL)
             .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.SABINESGULLFEATHER)
             .withSpawnGroupSize(1, 8).withPrevalence(15)
             .withSpawnBiome(Biome.Category.PLAINS, BirdEntity.Settings.BiomeTemperature.FROZEN).withSpawnBiome(Biome.Category.OCEAN);
