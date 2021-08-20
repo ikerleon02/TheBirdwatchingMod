@@ -18,9 +18,8 @@ import net.minecraft.world.World;
 
 public class GreatGreyOwlEntity extends BirdEntity {
 
-    public GreatGreyOwlEntity(EntityType<? extends AnimalEntity> type, World worldIn, BirdEntity.Settings settings) {
+    public GreatGreyOwlEntity(EntityType<? extends AnimalEntity> type, World worldIn, Settings settings) {
         super(type, worldIn, settings);
-
         this.goalSelector.add(3, new MeleeAttackGoal(this, 1.2, true));
         this.targetSelector.add(2, new FollowTargetGoal(this, RabbitEntity.class, true));
     }
