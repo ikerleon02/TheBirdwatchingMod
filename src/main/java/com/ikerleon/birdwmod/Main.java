@@ -1,5 +1,6 @@
 package com.ikerleon.birdwmod;
 
+import com.ikerleon.birdwmod.biome.InitBiomes;
 import com.ikerleon.birdwmod.blocks.InitBlocks;
 //import com.ikerleon.birdwmod.entity.EntityGeneration;
 //import com.ikerleon.birdwmod.entity.InitEntities;
@@ -35,5 +36,9 @@ public class Main implements ModInitializer {
 		InitBlocks.registerBlocks();
 		InitEntities.registerAttributes();
 		//EntityGeneration.init();
+		//InitSurfaceBuilders.register();
+		InitBiomes.register();
+		//InitGeneration.register();
+		//InitVillagerTypes.register();
 	}
 }
