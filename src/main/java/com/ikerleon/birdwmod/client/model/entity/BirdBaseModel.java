@@ -11,15 +11,15 @@ public class BirdBaseModel extends AnimatedGeoModel
 {
     public BirdBaseModel(){ super();}
 
-    private static String buildModelPath(String path){
+    protected static String buildModelPath(String path){
         return "geo/"+path+".geo.json";
     }
 
-    private static String buildTexturePath(String path){
+    protected static String buildTexturePath(String path){
         return "textures/entity/"+path+".png";
     }
 
-    private static String buildAnimationPath(String path){
+    protected static String buildAnimationPath(String path){
         return "animations/"+path+".animation.json";
     }
 

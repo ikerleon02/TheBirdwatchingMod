@@ -57,5 +57,9 @@
     "block.birdwmod.ringingnet": "Mist Net",
 
     "itemGroup.birdwmod.birdwatchingmodtab": "The Birdwatching Mod",
-    "itemGroup.birdwmod.birdwatchingmodspawneggstab": "The Birdwatching Mod: Spawn Eggs"
+    "itemGroup.birdwmod.birdwatchingmodspawneggstab": "The Birdwatching Mod: Spawn Eggs",
+
+    "gui.birdwmod.eurasian_bullfinch_title": "Eurasian Bullfinch",
+    "gui.birdwmod.eurasian_bullfinch_subtitle": "(Pyrrhula pyrrhula)",
+    "gui.birdwmod.eurasian_bullfinch_text": "A finch that breeds across Europe and temperate Asia. It is mainly resident, but many northern birds migrate further south in the winter. Mixed woodland with some conifers is favoured for breeding, including parkland and gardens. The food they eat is mainly seeds and buds of fruit trees."
 }

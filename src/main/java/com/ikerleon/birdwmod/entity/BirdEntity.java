@@ -68,7 +68,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     private static final TrackedData<Integer> RING_COLOR;
     private static final TrackedData<Boolean> RINGED;
 
-    private Settings settings;
+    private final Settings settings;
 
     public float timer;
     public int timeUntilNextFeather;
@@ -116,7 +116,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         boolean doesGoInWater = false;
         boolean doesGoToFeeders = false;
         boolean doesGroupBird = false;
-        String path = "BIRD_HAS_UNSET_PATH_CHECK_SETTINGS";
+        String path = "eurasian_bullfinch";
         MeatSize meatSize = MeatSize.SMALL;
         CallType callType = CallType.BOTH_CALL;
         FeatherType featherType = FeatherType.BOTH_DROP;
@@ -317,7 +317,6 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     private <ENTITY extends IAnimatable> void soundListener(SoundKeyframeEvent<ENTITY> event) {
         BirdEntity bird = (BirdEntity) event.getEntity();
         if(this.getId() != bird.getId()){ return; }
-        System.out.println(bird.getId());
         if(bird.world.isClient()) {
             switch (settings.callType) {
                 case BOTH_CALL:
@@ -709,22 +708,26 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
     public String getPath() { return settings.path; }
 
+    public Item getFeatherItem() {
+        switch(settings.featherType) {
+            case GENDERED_DROPS:
+                if (this.getGender() == 0) {
+                    return settings.featherItem;
+                } else {
+                    return settings.featherItemFemaleSpecific;
+                }
+            case BOTH_DROP:
+            default:
+                return settings.featherItem;
+                // TODO: was the third case a bug?
+        }
+    }
+
     @Override
     public void mobTick() {
         if (!this.world.isClient() && !this.isBaby() && --this.timeUntilNextFeather <= 0)
         {
-            switch(settings.featherType) {
-                case GENDERED_DROPS:
-                    if (this.getGender() == 0) {
-                        this.dropItem(settings.featherItem, 1);
-                    } else {
-                        this.dropItem(settings.featherItemFemaleSpecific, 1);
-                    }
-                case BOTH_DROP:
-                    this.dropItem(settings.featherItem, 1);
-                    // TODO: the rest of the cases
-            }
-
+            this.dropItem(getFeatherItem(), 1);
             this.timeUntilNextFeather = this.random.nextInt(10000) + 10000;
         }
         super.mobTick();
