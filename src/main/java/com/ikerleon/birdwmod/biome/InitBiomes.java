@@ -1,6 +1,8 @@
 package com.ikerleon.birdwmod.biome;
 
 import com.ikerleon.birdwmod.Main;
+import com.terraformersmc.terraform.biomebuilder.BiomeTemplate;
+import com.terraformersmc.terraform.biomebuilder.TerraformBiomeBuilder;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -14,7 +16,9 @@ import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InitBiomes {
+import static com.terraformersmc.terraform.biomebuilder.DefaultFeature.*;
+
+public class InitBiomes{
     private static int getSkyColor(float temperature) {
         float f = temperature / 3.0F;
         f = MathHelper.clamp(f, -1.0F, 1.0F);
@@ -23,13 +27,13 @@ public class InitBiomes {
 
     private static final Map<Identifier, Biome> BIOMES = new HashMap<>();
 
-    /*static final Biome BIOME_TEMPLATE = new Biome(Biome.create()
+    static final BiomeTemplate BIOME_TEMPLATE = new BiomeTemplate(TerraformBiomeBuilder.create()
             .configureSurfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_CONFIG)
             .addDefaultFeatures(LAND_CARVERS, DEFAULT_UNDERGROUND_STRUCTURES, DUNGEONS, MINEABLES, ORES, DISKS, DEFAULT_MUSHROOMS, DEFAULT_VEGETATION, SPRINGS, FROZEN_TOP_LAYER)
             .addStructureFeature(ConfiguredStructureFeatures.STRONGHOLD)
             .addStructureFeature(ConfiguredStructureFeatures.MINESHAFT)
             .precipitation(Biome.Precipitation.RAIN)
-            .effects(createDefaultBiomeEffects()));*/
+            .effects(createDefaultBiomeEffects()));
 
     public static BiomeEffects.Builder createDefaultBiomeEffects() {
         return new BiomeEffects.Builder()
@@ -39,7 +43,7 @@ public class InitBiomes {
                 .fogColor(0xC0D8FF);
     }
 
-    //protected static final RegistryKey<Biome> ARID_HIGHLANDS = add("arid_highlands", AridHighlandsBiomes.ARID_HIGHLANDS);
+    protected static final RegistryKey<Biome> MOUNTAIN_OLD_BIRCH_FOREST = add("mountain_old_birch_forest", MountainOldBirchForestBiome.MOUNTAIN_OLD_BIRCH_FOREST);
 
     static RegistryKey<Biome> add(String name, Biome biome) {
         Identifier id = new Identifier(Main.ModID, name);
