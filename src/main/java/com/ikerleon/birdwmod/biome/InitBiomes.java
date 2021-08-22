@@ -37,10 +37,7 @@ public class InitBiomes{
 
     public static BiomeEffects.Builder createDefaultBiomeEffects() {
         return new BiomeEffects.Builder()
-                .waterColor(0x3F76E4)
-                .waterFogColor(0x50533)
-                .skyColor(getSkyColor(0.2F))
-                .fogColor(0xC0D8FF);
+                .skyColor(getSkyColor(0.2F));
     }
 
     protected static final RegistryKey<Biome> MOUNTAIN_OLD_BIRCH_FOREST = add("mountain_old_birch_forest", MountainOldBirchForestBiome.MOUNTAIN_OLD_BIRCH_FOREST);
