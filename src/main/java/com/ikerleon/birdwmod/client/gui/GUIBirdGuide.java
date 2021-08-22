@@ -54,38 +54,6 @@ public class GUIBirdGuide extends Screen {
     private static String CharacteristicsTitle = Formatting.BOLD + "Characteristics";
     private static String BiomesTitle = Formatting.BOLD + "Vanilla Biomes";
 
-    private static String page1Title = Formatting.BOLD + "Steller's eider";
-    private static String page1Subtitle = Formatting.ITALIC + "(Polysticta stelleri)";
-    private static String page1Text = "It's a smallish sea duck that breeds along the Arctic coasts of eastern Siberia and Alaska. It winters somewhat farther south in the Bering Sea, northern Scandinavia and the Baltic Sea. It can form large flocks of up to 200,000 birds on suitable coastal waters. It is scarce south of its wintering range.";
-
-    private static String page2Title = Formatting.BOLD + "Himalayan Monal";
-    private static String page2Subtitle = Formatting.ITALIC + "(Lophophorus impejanus)";
-    private static String page2Text = "It's a high altitude bird, native to the Himalayan regions of China, India, Nepal, which have it as its national bird. It feeds mainly on seeds, fruits and different insects. Its most interesting fact is their wide range of calls, which allows them to differentiate between contentment, aggression or alarm";
-
-    private static String page3Title = Formatting.BOLD + "Green heron";
-    private static String page3Subtitle = Formatting.ITALIC + "(Butorides virescens)";
-    private static String page3Text = "It's a small heron of North and Central America. Green herons are one of the few species of bird known to use tools, they commonly use bread crusts, insects, or other items as bait. The habitat of the green heron is small wetlands in low-lying areas. The species is most conspicuous during dusk and dawn.";
-
-    private static String page4Title = Formatting.BOLD + "Killdeer";
-    private static String page4Subtitle = Formatting.ITALIC + "(Charadrius vociferus)";
-    private static String page4Text = "It's a large plover found in the Americas. The killdeer's common name comes from its often-heard call. It primarily feeds on insects, although other invertebrates and seeds are eaten. The non-breeding habitat of the killdeer includes coastal wetlands, beach habitats, and coastal fields.";
-
-    private static String page5Title = Formatting.BOLD + "Sabine's Gull";
-    private static String page5Subtitle = Formatting.ITALIC + "(Xema sabini)";
-    private static String page5Text = "It's a small gull that breeds in the Arctic, through northernmost North America and Eurasia. It migrates south in late summer. Most of the population winters at sea in the Pacific off western South America and in Atlantic central Africa. It has an extremely pelagic lifestyle out of its breeding grounds.";
-
-    private static String page6Title = Formatting.BOLD + "Brown booby";
-    private static String page6Subtitle = Formatting.ITALIC + "(Sula leucogaster)";
-    private static String page6Text = "It's a large seabird of the Sulidae family, this species breeds on islands and coasts in the pantropical areas of the Atlantic and Pacific oceans. This booby commutes and forages at low height over inshore waters, where they plunge-dive to take small fish, especially when these are driven near the surface.";
-
-    private static String page7Title = Formatting.BOLD + "Razorbill";
-    private static String page7Subtitle = Formatting.ITALIC + "(Alca torda)";
-    private static String page7Text = "It is a seabird, member of the Alcidae family. It is the closest living relative of the extinct great auk. Razorbills are distributed across the North Atlantic, where they feed on mid water fish such as cod, sprats and herring. Both genders are identical in plumage; however, males are larger than females.";
-
-    private static String page8Title = Formatting.BOLD + "Great grey owl";
-    private static String page8Subtitle = Formatting.ITALIC + "(Strix nebulosa)";
-    private static String page8Text = "It's the documented as the world's largest species of Strix genus. It breeds across the Northern Hemisphere, being the only species of Strix genus found in both Eastern and Western Hemispheres. Their habitat is often the dense coniferous forests of the taiga, near open areas, such as meadows or bogs.";
-
     private static String page9Title = Formatting.BOLD + "Red-necked nightjar";
     private static String page9Subtitle = Formatting.ITALIC + "(Caprimulgus ruficollis)";
     private static String page9Text = "It's the largest of the nightjars occurring in Europe. It breeds in Iberia and north Africa, and winters in tropical west Africa. Open sandy heaths with trees or bushes are the haunts of this crepuscular bird. In flight it presents a characteristic silhouette with silent flight and low altitude.";
@@ -102,10 +70,6 @@ public class GUIBirdGuide extends Screen {
     private static String page12Subtitle = Formatting.ITALIC + "(Tarsiger cyanurus)";
     private static String page12Text = "It's a small passerine bird that lives in the coniferous forests of Eurasia. It breeds in upper-middle and marginally in upper continental latitudes, exclusively boreal and mountain. Its diet is based on insects, also fruits and seeds outside breeding season.";
 
-    private static String page13Title = Formatting.BOLD + "Eurasian bullfinch";
-    private static String page13Subtitle = Formatting.ITALIC + "(Pyrrhula pyrrhula)";
-    private static String page13Text = "It's a finch that breeds across Europe and temperate Asia. It is mainly resident, but many northern birds migrate further south in the winter. Mixed woodland with some conifers is favoured for breeding, including parkland and gardens. The food they eat is mainly seeds and buds of fruit trees.";
-
     private static String page14Title1 = Formatting.BOLD + "King-of-Saxony";
     private static String page14Title2 = Formatting.BOLD + "bird of paradise";
     private static String page14Subtitle = Formatting.ITALIC + "(Pteridophora alberti)";
@@ -119,6 +83,7 @@ public class GUIBirdGuide extends Screen {
     private static String page16Title = Formatting.BOLD + "Hoatzin";
     private static String page16Subtitle = Formatting.ITALIC + "(Opisthocomus hoazin)";
     private static String page16Text = "It's a tropical, dinosaur-type bird that can be found in swamps, riparian forests, and mangroves of the Amazon and the Orinoco basins in South America. It is notable for having chicks that have claws on two of their wing digits. The hoatzin is a folivore, in other words it eats the leaves";
+
 
     public GUIBirdGuide() {
         super(NarratorManager.EMPTY);
@@ -195,7 +160,7 @@ public class GUIBirdGuide extends Screen {
         this.textRenderer.draw( matrices,Formatting.ITALIC + "Male", offLeft + 175, 80 + offTop, 0);
         this.textRenderer.draw( matrices,Formatting.ITALIC + "Female", offLeft + 232, 80 + offTop, 0);
         this.textRenderer.draw( matrices, BiomesTitle, offLeft + 175, 125 + offTop, 0);
-        this.textRenderer.drawTrimmed(StringVisitable.plain("- Snowy Beach, Frozen Ocean"), offLeft + 160, 140 + offTop,110,  0);
+        this.textRenderer.drawTrimmed(StringVisitable.plain(birdSettings.spawnBiomesAsString()), offLeft + 160, 140 + offTop,110,  0);
 
         BirdEntity female_entity = new BirdEntity(InitEntities.GUI_BIRD_ENTITY, MinecraftClient.getInstance().world, birdSettings);
         entity.setGender(0);

@@ -1,9 +1,7 @@
 package com.ikerleon.birdwmod.items;
 
-//import com.ikerleon.birdwmod.entity.InitEntities;
 import com.ikerleon.birdwmod.entity.InitEntities;
 import net.minecraft.item.FoodComponent;
-import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -103,28 +101,28 @@ public class InitItems {
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_himalayan_monal"), HIMALAYANMONAL_SPAWNEGG);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "spawnegg_sabines_gull"), SABINESGULL_SPAWNEGG);
 
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_easternbluebirdfemale"), EASTERNBLUEBIRDFEATHER_FEMALE);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_easternbluebirdmale"), EASTERNBLUEBIRDFEATHER_MALE);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_eurasianbullfinchfemale"), EURASIANBULLFINCHDFEATHER_FEMALE);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_eurasianbullfinchmale"), EURASIANBULLFINCHDFEATHER_MALE);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_greenheron"), GREENHERONFEATHER);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_eastern_bluebird_female"), EASTERNBLUEBIRDFEATHER_FEMALE);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_eastern_bluebird"), EASTERNBLUEBIRDFEATHER_MALE);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_eurasian_bullfinch_female"), EURASIANBULLFINCHDFEATHER_FEMALE);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_eurasian_bullfinch"), EURASIANBULLFINCHDFEATHER_MALE);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_green_heron"), GREENHERONFEATHER);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_killdeer"), KILLDEERFEATHER);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_northernmockingbird"), NORTHERNMOCKINGBIRDFEATHER);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_redflanckedbluetailfemale"), REDFLANCKEDBLUETAILFEATHER_FEMALE);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_redflanckedbluetailmale"), REDFLANCKEDBLUETAILFEATHER_MALE);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_redneckednightjar"), REDNECKEDNIGHTJARFEATHER);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_stellerseiderfemale"), STELLERSEIDERFEATHER_FEMALE);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_stellerseidermale"), STELLERSEIDERFEATHER_MALE);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_kingofsaxonymale"), KINGOFSAXONYFEATHER_MALE);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_kingofsaxonyfemale"), KINGOFSAXONYFEATHER_FEMALE);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_northern_mockingbird"), NORTHERNMOCKINGBIRDFEATHER);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_redflanked_bluetail_female"), REDFLANCKEDBLUETAILFEATHER_FEMALE);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_redflanked_bluetail"), REDFLANCKEDBLUETAILFEATHER_MALE);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_red_necked_nightjar"), REDNECKEDNIGHTJARFEATHER);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_stellers_eider_female"), STELLERSEIDERFEATHER_FEMALE);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_stellers_eider"), STELLERSEIDERFEATHER_MALE);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_king_of_saxony"), KINGOFSAXONYFEATHER_MALE);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_king_of_saxony_female"), KINGOFSAXONYFEATHER_FEMALE);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_motmot"), MOTMOTFEATHER);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_hoatzin"), HOATZINFEATHER);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_greatgreyowl"), GREATGREYOWLFEATHER);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_brownbooby"), BROWNBOOBYFEATHER);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_great_grey_owl"), GREATGREYOWLFEATHER);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_brown_booby"), BROWNBOOBYFEATHER);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_razorbill"), RAZORBILLFEATHER);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_himalayanmonalmale"), HIMALAYANMONALMALEFEATHER);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_himalayanmonalfemale"), HIMALAYANMONALFEMALEFEATHER);
-        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_sabinesgull"), SABINESGULLFEATHER);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_himalayan_monal"), HIMALAYANMONALMALEFEATHER);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_himalayan_monal_female"), HIMALAYANMONALFEMALEFEATHER);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "feather_sabines_gull"), SABINESGULLFEATHER);
 
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatraw_big"), BIGRAWMEAT);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "meatraw_small"), SMALLRAWMEAT);

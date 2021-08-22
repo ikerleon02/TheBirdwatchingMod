@@ -16,7 +16,7 @@ public class BirdSettings {
             .isDimorphic()
             .withPath("eurasian_bullfinch")
             .withCallType(BirdEntity.CallType.BOTH_CALL).withCall(SoundHandler.BULLFINCH_CALL)
-            .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS).withFeather(InitItems.EURASIANBULLFINCHDFEATHER_MALE, InitItems.EURASIANBULLFINCHDFEATHER_FEMALE)
+            .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS)
             .withPrevalence(20).withSpawnGroupSize(1, 4)
             .withSpawnBiome(Biome.Category.FOREST, BirdEntity.Settings.BiomeTemperature.COLD).withSpawnBiome(Biome.Category.FOREST, BirdEntity.Settings.BiomeTemperature.TEMPERATE);
 
@@ -28,7 +28,7 @@ public class BirdSettings {
             .withVariants(3)
             .withBirdAttributes(0.0D, 0.7D, 5.0D)
             .withCallType(BirdEntity.CallType.BOTH_CALL).withCall(SoundHandler.NIGHTJAR_SONG)
-            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.EURASIANBULLFINCHDFEATHER_FEMALE)
+            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP)
             .withPrevalence(15).withSpawnGroupSize(1, 2)
             .withSpawnBiome(Biome.Category.MESA).withSpawnBiome(Biome.Category.SAVANNA);
 
@@ -38,7 +38,7 @@ public class BirdSettings {
             .withPath("red_flanked_bluetail")
             .isDimorphic()
             .withCallType(BirdEntity.CallType.BOTH_CALL).withCall(SoundHandler.BLUETAIL_CALL)
-            .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS).withFeather(InitItems.REDFLANCKEDBLUETAILFEATHER_MALE, InitItems.REDFLANCKEDBLUETAILFEATHER_FEMALE)
+            .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS)
             .withPrevalence(15).withSpawnGroupSize(1, 2)
             .withSpawnBiome(Biome.Category.TAIGA, BirdEntity.Settings.BiomeTemperature.COLD);
 
@@ -50,7 +50,7 @@ public class BirdSettings {
             .withBirdAttributes(0.2, 0.7, 10.0)
             .withPath("stellers_eider")
             .withCallType(BirdEntity.CallType.MALES_ONLY).withCall(SoundHandler.EIDER_CALL)
-            .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS).withFeather(InitItems.STELLERSEIDERFEATHER_MALE, InitItems.STELLERSEIDERFEATHER_FEMALE)
+            .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS)
             .withPrevalence(15).withSpawnGroupSize(1, 5)
             .withSpawnBiome(Biome.Category.BEACH, BirdEntity.Settings.BiomeTemperature.FROZEN)
             .withSpawnBiome(Biome.Category.OCEAN, BirdEntity.Settings.BiomeTemperature.FROZEN);
@@ -60,7 +60,7 @@ public class BirdSettings {
             .withBirdAttributes(0.2, 0.7, 7.0)
             .withPath("hoatzin")
             .withCallType(BirdEntity.CallType.BOTH_CALL).withCall(SoundHandler.HOATZIN_CALL)
-            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.HOATZINFEATHER)
+            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP)
             .withSpawnGroupSize(1, 2).withPrevalence(15)
             .withSpawnBiome(Biome.Category.SWAMP).withSpawnBiome(Biome.Category.JUNGLE, BirdEntity.Settings.BiomeTemperature.ALL_WARMER_THAN_COLD);
 
@@ -70,7 +70,7 @@ public class BirdSettings {
             .goesToFeeders()
             .isDimorphic()
             .withCallType(BirdEntity.CallType.GENDERED_CALLS).withCall(SoundHandler.KINGOFSAXONY_SONG, SoundHandler.KINGOFSAXONY_CALL)
-            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.KINGOFSAXONYFEATHER_MALE, InitItems.KINGOFSAXONYFEATHER_FEMALE)
+            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP)
             .withSpawnGroupSize(1, 2).withPrevalence(20)
             .withSpawnBiome(Biome.Category.JUNGLE, BirdEntity.Settings.BiomeTemperature.ALL_WARMER_THAN_COLD);
 
@@ -80,7 +80,7 @@ public class BirdSettings {
             .withBirdAttributes(0.2, 0.7, 6.0)
             .withPath("motmot")
             .withCallType(BirdEntity.CallType.BOTH_CALL).withCall(SoundHandler.MOTMOT_CALL)
-            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.MOTMOTFEATHER)
+            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP)
             .withSpawnGroupSize(1, 5).withPrevalence(25)
             .withSpawnBiome(Biome.Category.JUNGLE, BirdEntity.Settings.BiomeTemperature.ALL_WARMER_THAN_COLD);
 
@@ -90,7 +90,7 @@ public class BirdSettings {
             .goesToFeeders().isGroupBird()
             .isDimorphic()
             .withCallType(BirdEntity.CallType.GENDERED_CALLS).withCall(SoundHandler.BLUEBIRD_SONG, SoundHandler.BLUEBIRD_CALL)
-            .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS).withFeather(InitItems.EASTERNBLUEBIRDFEATHER_MALE, InitItems.EASTERNBLUEBIRDFEATHER_FEMALE)
+            .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS)
             .withSpawnGroupSize(1, 4).withPrevalence(20)
             .withSpawnBiome(Biome.Category.PLAINS).withSpawnBiome(Biome.Category.FOREST, BirdEntity.Settings.BiomeTemperature.TEMPERATE);
 
@@ -100,7 +100,7 @@ public class BirdSettings {
             .withPath("green_heron")
             .withBirdAttributes(0.2, 0.7, 10)
             .withCallType(BirdEntity.CallType.NO_CALL).withFlyingSound(SoundHandler.HERON_FLYING)
-            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.GREENHERONFEATHER)
+            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP)
             .withSpawnGroupSize(1, 2).withPrevalence(15)
             .withSpawnBiome(Biome.Category.SWAMP).withSpawnBiome(Biome.Category.RIVER, BirdEntity.Settings.BiomeTemperature.TEMPERATE);
 
@@ -110,7 +110,7 @@ public class BirdSettings {
             .isGroupBird()
             .withPath("killdeer")
             .withCallType(BirdEntity.CallType.BOTH_CALL).withCall(SoundHandler.KILLDEER_CALL).withFlyingSound(SoundHandler.KILLDEER_FLYING)
-            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.KILLDEERFEATHER)
+            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP)
             .withSpawnGroupSize(1, 4).withPrevalence(15)
             .withSpawnBiome(Biome.Category.PLAINS, BirdEntity.Settings.BiomeTemperature.TEMPERATE);
 
@@ -124,7 +124,7 @@ public class BirdSettings {
             .withPath("northern_mockingbird")
             // The mockingbird song setup is unique and draws from MOCKINGBIRD_MIMICKABLE
             .withCallType(BirdEntity.CallType.MOCKINGBIRD)
-            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.NORTHERNMOCKINGBIRDFEATHER)
+            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP)
             .withSpawnGroupSize(1, 4).withPrevalence(20)
             .withSpawnBiome(Biome.Category.PLAINS).withSpawnBiome(Biome.Category.FOREST, BirdEntity.Settings.BiomeTemperature.TEMPERATE);
 
@@ -136,7 +136,7 @@ public class BirdSettings {
             .isGroupBird()
             .withPath("brown_booby")
             .withCallType(BirdEntity.CallType.MALES_ONLY).withCall(SoundHandler.BOOBY_CALL)
-            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.BROWNBOOBYFEATHER)
+            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP)
             .withSpawnGroupSize(1, 5).withPrevalence(15)
             .withSpawnBiome(Biome.Category.BEACH, BirdEntity.Settings.BiomeTemperature.ALL_WARMER_THAN_COLD).withSpawnBiome(Biome.Category.OCEAN, BirdEntity.Settings.BiomeTemperature.ALL_WARMER_THAN_COLD);
 
@@ -146,7 +146,7 @@ public class BirdSettings {
             .withAwakeTime(BirdEntity.AwakeTime.NOCTURNAL)
             .withPath("great_grey_owl")
             .withCallType(BirdEntity.CallType.MALES_ONLY).withCall(SoundHandler.GREATGREYOWL_SONG)
-            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.GREATGREYOWLFEATHER)
+            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP)
             .withSpawnGroupSize(1, 2).withPrevalence(20)
             .withSpawnBiome(Biome.Category.FOREST).withSpawnBiome(Biome.Category.TAIGA, BirdEntity.Settings.BiomeTemperature.COLD);
 
@@ -156,7 +156,7 @@ public class BirdSettings {
             .isDimorphic()
             .withBirdAttributes(0.2, 0.7, 10.0)
             .withCallType(BirdEntity.CallType.MALES_ONLY).withCall(SoundHandler.HIMALAYAN_MONAL_SONG)
-            .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS).withFeather(InitItems.HIMALAYANMONALMALEFEATHER, InitItems.HIMALAYANMONALFEMALEFEATHER)
+            .withFeatherType(BirdEntity.FeatherType.GENDERED_DROPS)
             .withSpawnGroupSize(1, 3).withPrevalence(20)
             .withSpawnBiome(Biome.Category.EXTREME_HILLS, BirdEntity.Settings.BiomeTemperature.COLD)
             .withSpawnBiome(Biome.Category.EXTREME_HILLS, BirdEntity.Settings.BiomeTemperature.FROZEN);
@@ -167,7 +167,7 @@ public class BirdSettings {
             .isGroupBird().isWaterBird()
             .withBirdAttributes(0.0, 0.7, 10.0)
             .withCallType(BirdEntity.CallType.BOTH_CALL).withCall(SoundHandler.RAZORBILL_CALL)
-            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.RAZORBILLFEATHER)
+            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP)
             .withSpawnGroupSize(1, 5).withPrevalence(20)
             .withSpawnBiome(Biome.Category.BEACH, BirdEntity.Settings.BiomeTemperature.FROZEN).withSpawnBiome(Biome.Category.OCEAN);
 
@@ -178,7 +178,12 @@ public class BirdSettings {
             .isGroupBird().isWaterBird()
             .withBirdAttributes(0.2, 0.7, 6.0)
             .withCallType(BirdEntity.CallType.NO_CALL)
-            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP).withFeather(InitItems.SABINESGULLFEATHER)
+            .withFeatherType(BirdEntity.FeatherType.BOTH_DROP)
             .withSpawnGroupSize(1, 8).withPrevalence(15)
             .withSpawnBiome(Biome.Category.PLAINS, BirdEntity.Settings.BiomeTemperature.FROZEN).withSpawnBiome(Biome.Category.OCEAN);
+
+    public static final ArrayList<BirdEntity.Settings> bookBirds = new ArrayList(Arrays.asList(EURASIAN_BULLFINCH_SETTINGS, RED_NECKED_NIGHTJAR_SETTINGS,
+            RED_FLANKED_BLUETAIL_SETTINGS, STELLERS_EIDER_SETTINGS, HOATZIN_SETTINGS, KING_OF_SAXONY_SETTINGS, MOTMOT_SETTINGS, EASTERN_BLUEBIRD_SETTINGS,
+            GREEN_HERON_SETTINGS, KILLDEER_SETTINGS, NORTHERN_MOCKINGBIRD_SETTINGS, BROWN_BOOBY_SETTINGS, GREAT_GREY_OWL_SETTINGS, HIMALAYAN_MONAL_SETTINGS,
+            RAZORBILL_SETTINGS, SABINES_GULL_SETTINGS));
 }
