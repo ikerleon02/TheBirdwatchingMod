@@ -2,9 +2,6 @@ package com.ikerleon.birdwmod;
 
 import com.ikerleon.birdwmod.biome.InitBiomes;
 import com.ikerleon.birdwmod.blocks.InitBlocks;
-//import com.ikerleon.birdwmod.entity.EntityGeneration;
-//import com.ikerleon.birdwmod.entity.InitEntities;
-import com.ikerleon.birdwmod.entity.BirdEntity;
 import com.ikerleon.birdwmod.entity.InitEntities;
 import com.ikerleon.birdwmod.generation.InitGeneration;
 import com.ikerleon.birdwmod.items.InitItems;
@@ -13,15 +10,9 @@ import com.ikerleon.birdwmod.util.SoundHandler;
 import com.terraformersmc.terraform.config.BiomeConfigHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import software.bernie.geckolib3.GeckoLib;
 
 public class Main implements ModInitializer {
@@ -40,7 +31,6 @@ public class Main implements ModInitializer {
 		InitItems.registerItems();
 		InitBlocks.registerBlocks();
 		InitEntities.registerAttributes();
-		//EntityGeneration.init();
 		InitSurfaceBuilders.register();
 		InitBiomes.register();
 		InitGeneration.register();

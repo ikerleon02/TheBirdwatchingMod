@@ -2,6 +2,8 @@ package com.ikerleon.birdwmod.entity;
 
 import com.ikerleon.birdwmod.Main;
 import com.ikerleon.birdwmod.client.render.BirdBaseRenderer;
+import com.ikerleon.birdwmod.client.render.GUIBirdRenderer;
+import com.ikerleon.birdwmod.util.SoundHandler;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
@@ -14,6 +16,9 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class InitEntities {
 
@@ -34,7 +39,13 @@ public class InitEntities {
     public static final EntityType<BirdEntity> RAZORBILL_ENTITY = registerBirdEntity(BirdSettings.RAZORBILL_SETTINGS);
     public static final EntityType<BirdEntity> HIMALAYAN_MONAL_ENTITY = registerBirdEntity(BirdSettings.HIMALAYAN_MONAL_SETTINGS);
 
+    // GUI bird uses a set of defaults that gets overridden anyways
+    public static final EntityType<BirdEntity> GUI_BIRD_ENTITY = Registry.register(
+                Registry.ENTITY_TYPE, new Identifier(Main.ModID, "gui_display_bird"),
+                FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, (EntityType<BirdEntity> type, World worldIn) -> new BirdEntity(type, worldIn, BirdSettings.EURASIAN_BULLFINCH_SETTINGS)).dimensions(EntityDimensions.fixed(0.3F, 0.3F)).build());
+
     public static void registerAttributes(){
+        FabricDefaultAttributeRegistry.register(GUI_BIRD_ENTITY, BirdSettings.EURASIAN_BULLFINCH_SETTINGS.createBirdAttributes());
         FabricDefaultAttributeRegistry.register(EURASIAN_BULLFINCH_ENTITY, BirdSettings.EURASIAN_BULLFINCH_SETTINGS.createBirdAttributes());
         FabricDefaultAttributeRegistry.register(RED_NECKED_NIGHTJAR_ENTITY, BirdSettings.RED_NECKED_NIGHTJAR_SETTINGS.createBirdAttributes());
         FabricDefaultAttributeRegistry.register(RED_FLANKED_BLUETAIL_ENTITY, BirdSettings.RED_FLANKED_BLUETAIL_SETTINGS.createBirdAttributes());
@@ -55,6 +66,7 @@ public class InitEntities {
     }
 
     public static void registerRenderers(){
+        EntityRendererRegistry.INSTANCE.register(GUI_BIRD_ENTITY, GUIBirdRenderer::new);
         registerRenderer(EURASIAN_BULLFINCH_ENTITY);
         registerRenderer(RED_NECKED_NIGHTJAR_ENTITY);
         registerRenderer(RED_FLANKED_BLUETAIL_ENTITY);

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "birdwmod:items/feathers/greatgreyowl"
+    "layer0": "birdwmod:items/feathers/green_heron"
   }
 }
