@@ -6,13 +6,12 @@ import com.terraformersmc.terraform.biomebuilder.BiomeTemplate;
 import com.terraformersmc.terraform.biomebuilder.DefaultFeature;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredStructureFeatures;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
 public class MountainOldBirchForestBiome {
     private static final BiomeTemplate OLD_BIRCH_FOREST_TEMPLATE = new BiomeTemplate(InitBiomes.BIOME_TEMPLATE.builder()
             .configureSurfaceBuilder(InitSurfaceBuilders.MOUNTAIN_OLD_BIRCH_FOREST, SurfaceBuilder.GRASS_CONFIG)
-            .addDefaultFeatures(DefaultFeature.LAKES, DefaultFeature.FOREST_GRASS, DefaultFeature.AMETHYST_GEODE)
+            .addDefaultFeatures(DefaultFeature.LAKES, DefaultFeature.FOREST_GRASS, DefaultFeature.AMETHYST_GEODE, DefaultFeature.EMERALD_ORE, DefaultFeature.GIANT_TAIGA_GRASS, DefaultFeature.LARGE_FERNS, DefaultFeature.MINEABLES_GLOW_LICHEN)
             .addFeature(GenerationStep.Feature.VEGETAL_DECORATION, TBMConfiguredFeatures.MOUNTAIN_OLD_BIRCH_TREES)
             .category(Biome.Category.FOREST)
             .addDefaultSpawnEntries()
@@ -24,13 +23,14 @@ public class MountainOldBirchForestBiome {
                     .waterColor(0x6dbac9)
                     .waterFogColor(0x6dbac9)
             )
+            .addDefaultFeature(DefaultFeature.EMERALD_ORE)
             .temperature(0.6F)
             .downfall(0.9F)
     );
 
     static final Biome MOUNTAIN_OLD_BIRCH_FOREST = OLD_BIRCH_FOREST_TEMPLATE.builder()
             .depth(1.8F)
-            .scale(0.5F)
+            .scale(0.1F)
             .temperature(0.3F)
             .playerSpawnFriendly()
             .build();

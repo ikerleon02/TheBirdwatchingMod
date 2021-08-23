@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.biome.v1.OverworldClimate;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
-import net.minecraft.world.biome.source.BiomeAccess;
 
 public class InitGeneration extends InitBiomes {
 
@@ -17,8 +16,8 @@ public class InitGeneration extends InitBiomes {
 
     public static void register() {
         config = Main.BIOME_CONFIG_HANDLER.getBiomeConfig();
-        addContinentalBiome(MOUNTAIN_OLD_BIRCH_FOREST, OverworldClimate.TEMPERATE, 0.2);
-        addContinentalBiome(MOUNTAIN_OLD_BIRCH_FOREST, OverworldClimate.COOL, 0.075);
+        addContinentalBiome(MOUNTAIN_OLD_BIRCH_FOREST, OverworldClimate.TEMPERATE, 0.075);
+        addContinentalBiome(MOUNTAIN_OLD_BIRCH_FOREST, OverworldClimate.COOL, 0.025);
         OverworldBiomes.addEdgeBiome(MOUNTAIN_OLD_BIRCH_FOREST, BiomeKeys.BIRCH_FOREST, 1.0);
         Main.BIOME_CONFIG_HANDLER.save();
     }
