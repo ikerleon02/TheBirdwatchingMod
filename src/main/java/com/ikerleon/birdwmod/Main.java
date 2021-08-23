@@ -44,6 +44,5 @@ public class Main implements ModInitializer {
 		InitSurfaceBuilders.register();
 		InitBiomes.register();
 		InitGeneration.register();
-		//InitVillagerTypes.register();
 	}
 }
