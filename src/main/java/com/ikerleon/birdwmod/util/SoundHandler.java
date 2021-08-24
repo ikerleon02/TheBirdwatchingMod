@@ -29,7 +29,6 @@ public class SoundHandler {
 
     public static SoundEvent RAZORBILL_CALL = register("entity.razorbill_call");
     public static SoundEvent HIMALAYAN_MONAL_SONG = register("entity.himonalmale_song");
-    public static SoundEvent SABINES_GULL_CALL = register("entity.sabinesgull_call");
 
     private static SoundEvent register(String id)
     {

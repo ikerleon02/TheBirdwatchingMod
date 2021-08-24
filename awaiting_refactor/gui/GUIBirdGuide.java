@@ -1,4 +1,4 @@
-package com.ikerleon.birdwmod.gui;
+package com.ikerleon.birdwmod.client.gui;
 
 import com.ikerleon.birdwmod.entity.InitEntities;
 import com.ikerleon.birdwmod.entity.europe.EurasianBullfinchEntity;

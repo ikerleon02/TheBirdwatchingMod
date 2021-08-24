@@ -2,15 +2,23 @@ package com.ikerleon.birdwmod.entity;
 
 import com.ikerleon.birdwmod.Main;
 import com.ikerleon.birdwmod.client.render.BirdBaseRenderer;
+import com.ikerleon.birdwmod.client.render.GUIBirdRenderer;
+import com.ikerleon.birdwmod.util.SoundHandler;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class InitEntities {
 
@@ -31,21 +39,13 @@ public class InitEntities {
     public static final EntityType<BirdEntity> RAZORBILL_ENTITY = registerBirdEntity(BirdSettings.RAZORBILL_SETTINGS);
     public static final EntityType<BirdEntity> HIMALAYAN_MONAL_ENTITY = registerBirdEntity(BirdSettings.HIMALAYAN_MONAL_SETTINGS);
 
-
-    public static EntityType<BirdEntity> registerBirdEntity(BirdEntity.Settings birdSettings) {
-        return Registry.register(
-                Registry.ENTITY_TYPE,
-                new Identifier(Main.ModID, birdSettings.path),
-                FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, (EntityType<BirdEntity> type, World worldIn) -> new BirdEntity(type, worldIn, birdSettings)).dimensions(EntityDimensions.fixed(birdSettings.width, birdSettings.height)).build());
-    }
-
-    public static void registerRenderer(EntityType<BirdEntity> birdEntity){
-        EntityRendererRegistry.INSTANCE.register(birdEntity,
-                (context) -> new BirdBaseRenderer(context));
-    }
-
+    // GUI bird uses a set of defaults that gets overridden anyways
+    public static final EntityType<BirdEntity> GUI_BIRD_ENTITY = Registry.register(
+                Registry.ENTITY_TYPE, new Identifier(Main.ModID, "gui_display_bird"),
+                FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, (EntityType<BirdEntity> type, World worldIn) -> new BirdEntity(type, worldIn, BirdSettings.EURASIAN_BULLFINCH_SETTINGS)).dimensions(EntityDimensions.fixed(0.3F, 0.3F)).build());
 
     public static void registerAttributes(){
+        FabricDefaultAttributeRegistry.register(GUI_BIRD_ENTITY, BirdSettings.EURASIAN_BULLFINCH_SETTINGS.createBirdAttributes());
         FabricDefaultAttributeRegistry.register(EURASIAN_BULLFINCH_ENTITY, BirdSettings.EURASIAN_BULLFINCH_SETTINGS.createBirdAttributes());
         FabricDefaultAttributeRegistry.register(RED_NECKED_NIGHTJAR_ENTITY, BirdSettings.RED_NECKED_NIGHTJAR_SETTINGS.createBirdAttributes());
         FabricDefaultAttributeRegistry.register(RED_FLANKED_BLUETAIL_ENTITY, BirdSettings.RED_FLANKED_BLUETAIL_SETTINGS.createBirdAttributes());
@@ -66,6 +66,7 @@ public class InitEntities {
     }
 
     public static void registerRenderers(){
+        EntityRendererRegistry.INSTANCE.register(GUI_BIRD_ENTITY, GUIBirdRenderer::new);
         registerRenderer(EURASIAN_BULLFINCH_ENTITY);
         registerRenderer(RED_NECKED_NIGHTJAR_ENTITY);
         registerRenderer(RED_FLANKED_BLUETAIL_ENTITY);
@@ -82,5 +83,30 @@ public class InitEntities {
         registerRenderer(SABINES_GULL_ENTITY);
         registerRenderer(RAZORBILL_ENTITY);
         registerRenderer(HIMALAYAN_MONAL_ENTITY);
+    }
+
+    private static boolean biomeCompatibleWithSettings(BiomeSelectionContext context, BirdEntity.Settings settings){
+        for(BirdEntity.Settings.BiomeDescriptor biomeDescriptor : settings.getSpawnBiomes()){
+            if (context.getBiome().getCategory().equals(biomeDescriptor.getBiomeCategory())){
+                double[] temperatureRange = biomeDescriptor.getTemperatureRange();
+                if (context.getBiome().getTemperature() > temperatureRange[0] && context.getBiome().getTemperature() <= temperatureRange[1]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static EntityType<BirdEntity> registerBirdEntity(BirdEntity.Settings birdSettings) {
+        EntityType<BirdEntity> bird = Registry.register(
+                Registry.ENTITY_TYPE,
+                new Identifier(Main.ModID, birdSettings.path),
+                FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, (EntityType<BirdEntity> type, World worldIn) -> new BirdEntity(type, worldIn, birdSettings)).dimensions(EntityDimensions.fixed(birdSettings.width, birdSettings.height)).build());
+        BiomeModifications.addSpawn(context -> biomeCompatibleWithSettings(context, birdSettings), SpawnGroup.CREATURE, bird, birdSettings.prevalence, birdSettings.minGroupSize, birdSettings.maxGroupSize);
+        return bird;
+    }
+
+    public static void registerRenderer(EntityType<BirdEntity> birdEntity){
+        EntityRendererRegistry.INSTANCE.register(birdEntity, BirdBaseRenderer::new);
     }
 }

@@ -1,10 +1,8 @@
 package com.ikerleon.birdwmod.items;
 
 import com.ikerleon.birdwmod.Main;
-//import com.ikerleon.birdwmod.gui.GUIBirdGuide;
+import com.ikerleon.birdwmod.client.gui.GUIBirdGuide;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.BookEditScreen;
-import net.minecraft.client.util.NarratorManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,9 +20,9 @@ public class ItemBirdGuide extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemstack = user.getStackInHand(hand);
 
-        /*if (world.isClient()) {
-            MinecraftClient.getInstance().openScreen(new GUIBirdGuide());
-        }*/
+        if (world.isClient()) {
+            MinecraftClient.getInstance().setScreen(new GUIBirdGuide());
+        }
         return new TypedActionResult<ItemStack>(ActionResult.PASS, itemstack);
     }
 }

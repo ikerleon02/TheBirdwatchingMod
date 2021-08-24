@@ -9,6 +9,8 @@
     "Ikerleon02"
   ],
 
+  "accessWidener" : "birdwmod.accesswidener",
+
   "icon": "assets/birdwmod/logo.png",
 
   "entrypoints": {
@@ -18,5 +20,8 @@
     "client": [
       "com.ikerleon.birdwmod.MainClient"
     ]
-  }
+  },
+  "mixins": [
+    "birdwmod.mixins.json"
+  ]
 }
