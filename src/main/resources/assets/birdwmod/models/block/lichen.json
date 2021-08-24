@@ -1,0 +1,15 @@
+{
+    "textures": {
+        "particle": "birdwmod:block/lichen/lichen",
+        "lichen": "birdwmod:block/lichen/lichen"
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0.8 ],
+            "to": [ 16, 16, 0.8 ],
+            "faces": {
+                "north": { "uv": [ 16, 0, 0, 16 ], "texture": "#lichen"},
+                "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#lichen"}
+            }
+        }
+    ]
+}

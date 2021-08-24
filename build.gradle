@@ -83,4 +83,8 @@ publishing {
 		// uncomment to publish to the local maven
 		// mavenLocal()
 	}
+
+	loom {
+		accessWidener = file("src/main/resources/birdwmod.accesswidener")
+	}
 }

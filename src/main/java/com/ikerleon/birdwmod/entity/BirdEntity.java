@@ -328,6 +328,13 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     // TODO: need to pass something in here in place of predicate (https://geckolib.com/en/latest/3.0.0/entity_animations/)
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
+        if(event.getController().getName() == "songcontroller"){
+            AnimationController controller = event.getController();
+            controller.markNeedsReload();
+            if (controller.getAnimationState() == AnimationState.Stopped && this.isOnGround() && random.nextInt(100)<2) {
+                controller.setAnimation(new AnimationBuilder().addAnimation("song", false));
+            }
+        }
         return PlayState.CONTINUE;
     }
 
@@ -795,14 +802,12 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     @Override
     public void playAmbientSound() {
         final AnimationController<BirdEntity> controller = GeckoLibUtil.getControllerForID(this.factory, this.getId(), "songcontroller");
-        controller.markNeedsReload();
+
 
         switch(settings.callType) {
             case BOTH_CALL:
                 if (this.isOnGround() && !isSleeping()) {
-                    if (controller.getAnimationState() == AnimationState.Stopped) {
-                        controller.setAnimation(new AnimationBuilder().addAnimation("song", false));
-                    }
+
                 }
                 break;
             case MALES_ONLY:

@@ -1,9 +1,9 @@
 package com.ikerleon.birdwmod.feature;
 
+import com.ikerleon.birdwmod.blocks.InitBlocks;
+import com.ikerleon.birdwmod.blocks.LichenBlock;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.VineBlock;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.TestableWorld;
@@ -17,14 +17,14 @@ import java.util.function.BiConsumer;
 
 public class TrunkLichenDecorator extends TreeDecorator {
 
-    public static final net.minecraft.world.gen.treedecorator.TrunkVineTreeDecorator INSTANCE = new net.minecraft.world.gen.treedecorator.TrunkVineTreeDecorator();
+    public static final TrunkLichenDecorator INSTANCE = new TrunkLichenDecorator();
 
-    public static final Codec<net.minecraft.world.gen.treedecorator.TrunkVineTreeDecorator> CODEC = Codec.unit(() -> {
+    public static final Codec<TrunkLichenDecorator> CODEC = Codec.unit(() -> {
         return INSTANCE;
     });
 
     protected TreeDecoratorType<?> getType() {
-        return TreeDecoratorType.TRUNK_VINE;
+        return TBMTreeDecoratorType.TRUNK_LICHEN;
     }
 
     public void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, List<BlockPos> logPositions, List<BlockPos> leavesPositions) {
@@ -33,28 +33,28 @@ public class TrunkLichenDecorator extends TreeDecorator {
             if (random.nextInt(3) > 0) {
                 blockPos4 = pos.west();
                 if (Feature.isAir(world, blockPos4)) {
-                    placeLichen(replacer, blockPos4, VineBlock.EAST);
+                    placeLichen(replacer, blockPos4, LichenBlock.EAST);
                 }
             }
 
             if (random.nextInt(3) > 0) {
                 blockPos4 = pos.east();
                 if (Feature.isAir(world, blockPos4)) {
-                    placeLichen(replacer, blockPos4, VineBlock.WEST);
+                    placeLichen(replacer, blockPos4, LichenBlock.WEST);
                 }
             }
 
             if (random.nextInt(3) > 0) {
                 blockPos4 = pos.north();
                 if (Feature.isAir(world, blockPos4)) {
-                    placeLichen(replacer, blockPos4, VineBlock.SOUTH);
+                    placeLichen(replacer, blockPos4, LichenBlock.SOUTH);
                 }
             }
 
             if (random.nextInt(3) > 0) {
                 blockPos4 = pos.south();
                 if (Feature.isAir(world, blockPos4)) {
-                    placeLichen(replacer, blockPos4, VineBlock.NORTH);
+                    placeLichen(replacer, blockPos4, LichenBlock.NORTH);
                 }
             }
 
@@ -62,6 +62,6 @@ public class TrunkLichenDecorator extends TreeDecorator {
     }
 
     protected static void placeLichen(BiConsumer<BlockPos, BlockState> replacer, BlockPos pos, BooleanProperty facing) {
-        replacer.accept(pos, (BlockState) Blocks.VINE.getDefaultState().with(facing, true));
+        replacer.accept(pos, (BlockState) InitBlocks.LICHEN.getDefaultState().with(facing, true));
     }
 }

@@ -10,6 +10,7 @@ public class InitBlocks {
 
     public static final RingingNetBlock RINGING_NET = new RingingNetBlock();
     public static final BirdFeederBlock BIRD_FEEDER = new BirdFeederBlock();
+    public static final LichenBlock LICHEN = new LichenBlock();
 
     public static void registerBlocks(){
         Registry.register(Registry.BLOCK, new Identifier("birdwmod", "ringingnet"), RINGING_NET);
@@ -17,5 +18,8 @@ public class InitBlocks {
 
         Registry.register(Registry.BLOCK, new Identifier("birdwmod", "birdfeeder"), BIRD_FEEDER);
         Registry.register(Registry.ITEM, new Identifier("birdwmod", "birdfeeder"), new BlockItem(BIRD_FEEDER, new Item.Settings().group(Main.THE_BIRDWATCHING_MOD)));
+
+        Registry.register(Registry.BLOCK, new Identifier("birdwmod", "lichen"), LICHEN);
+        Registry.register(Registry.ITEM, new Identifier("birdwmod", "lichen"), new BlockItem(LICHEN, new Item.Settings().group(Main.THE_BIRDWATCHING_MOD)));
     }
 }
