@@ -1,11 +1,11 @@
 package com.ikerleon.birdwmod;
 
-import com.ikerleon.birdwmod.biome.InitBiomes;
+import com.ikerleon.birdwmod.world.biome.InitBiomes;
 import com.ikerleon.birdwmod.blocks.InitBlocks;
 import com.ikerleon.birdwmod.entity.InitEntities;
-import com.ikerleon.birdwmod.generation.InitGeneration;
+import com.ikerleon.birdwmod.world.gen.InitGeneration;
 import com.ikerleon.birdwmod.items.InitItems;
-import com.ikerleon.birdwmod.surfacebuilder.InitSurfaceBuilders;
+import com.ikerleon.birdwmod.world.surfacebuilder.InitSurfaceBuilders;
 import com.ikerleon.birdwmod.util.SoundHandler;
 import com.terraformersmc.terraform.config.BiomeConfigHandler;
 import net.fabricmc.api.ModInitializer;

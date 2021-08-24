@@ -1,5 +1,6 @@
 package com.ikerleon.birdwmod.client.render;
 
+import com.ikerleon.birdwmod.Main;
 import com.ikerleon.birdwmod.client.model.entity.BirdBaseModel;
 import com.ikerleon.birdwmod.entity.BirdEntity;
 import net.fabricmc.api.EnvType;
@@ -11,53 +12,53 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import software.bernie.geckolib3.model.provider.GeoModelProvider;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 
-public class BirdBaseRenderer extends GeoEntityRenderer<BirdEntity> {
+public class BirdBaseRenderer extends GeoEntityRenderer< BirdEntity> {
 
     public BirdBaseRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new BirdBaseModel());
-        // TODO: Features?
-        //this.features.add((BookwormFeatureRenderer<T>) new BlinkSleepingFeature(this));
-        //this.features.add((BookwormFeatureRenderer<T>) new RingFeature(this));
+        this.layerRenderers.add(new BlinkSleepingFeature(this));
+        this.layerRenderers.add( new RingFeature(this));
     }
 
-    /*public Identifier getBlinkTexture(T entity)
+    public Identifier getBlinkTexture(BirdEntity entity)
     {
-        return null;
+        return new Identifier(Main.ModID, "textures/entity/"+entity.getPath()+"/" + entity.getPath() + "_sleeping.png");
     }
 
-    public Identifier getRingTexture(T entity)
+    public Identifier getRingTexture(BirdEntity entity)
     {
-        return null;
+        return new Identifier(Main.ModID, "textures/entity/rings/"+entity.getPath()+"_ring.png");
     }
 
     @Environment(EnvType.CLIENT)
-    public class BlinkSleepingFeature extends BookwormFeatureRenderer<BirdEntity> {
+    public class BlinkSleepingFeature extends GeoLayerRenderer<BirdEntity> {
         private final BirdBaseRenderer render;
 
-        public BlinkSleepingFeature(BookwormFeatureRendererContext ctx) {
+        public BlinkSleepingFeature(BirdBaseRenderer ctx) {
             super(ctx);
-            this.render = (BirdBaseRenderer) ctx;
+            this.render = ctx;
         }
 
         @Override
         public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, BirdEntity birdEntity, float limbAngle, float limbDistance, float tickDelta, float animationProgres, float headYaw, float headPitch) {
             if ((!birdEntity.isInvisible() && (birdEntity.getBlinking()) || birdEntity.isSleeping()) && birdEntity.isOnGround() && this.render.getBlinkTexture(birdEntity) != null)  {
-                this.render.model.animateModel(birdEntity, limbAngle, limbDistance, tickDelta, headYaw, headPitch);
-                this.render.model.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(this.render.getBlinkTexture(birdEntity))), i, LivingEntityRenderer.getOverlay(birdEntity, 0.0F), 1.0f, 1.0f, 1.0f, 1.0f);
-            }
+                renderModel(render.getGeoModelProvider(), getBlinkTexture(birdEntity), matrixStack, vertexConsumerProvider, i, birdEntity, LivingEntityRenderer.getOverlay(birdEntity, 0.0F), 1, 1, 1);
+                }
         }
     }
 
     @Environment(EnvType.CLIENT)
-    public class RingFeature extends BookwormFeatureRenderer<BirdEntity>{
+    public class RingFeature extends GeoLayerRenderer<BirdEntity>{
 
         private final BirdBaseRenderer birdRender;
 
-        public RingFeature(BookwormFeatureRendererContext ctx) {
+        public RingFeature(BirdBaseRenderer ctx) {
             super(ctx);
-            this.birdRender = (BirdBaseRenderer)ctx;
+            this.birdRender = ctx;
         }
 
         @Override
@@ -65,10 +66,8 @@ public class BirdBaseRenderer extends GeoEntityRenderer<BirdEntity> {
             if (!birdEntity.isInvisible() && birdEntity.hasBeenRinged() && birdRender.getRingTexture(birdEntity) != null)
             {
                 float[] fs = birdEntity.getRingColor().getColorComponents();
-                this.birdRender.model.animateModel(birdEntity, limbAngle, limbDistance, tickDelta, headYaw, headPitch);
-
-                this.birdRender.model.render(matrixStack, vertexConsumerProvider.getBuffer(RenderLayer.getEntityTranslucent(this.birdRender.getRingTexture(birdEntity))), i, LivingEntityRenderer.getOverlay(birdEntity, 0.0F), fs[0], fs[1], fs[2], 1.0F);
+                renderModel(birdRender.getGeoModelProvider(), getRingTexture(birdEntity), matrixStack, vertexConsumerProvider, i, birdEntity, 1, fs[0], fs[1], fs[2]);
             }
         }
-    }*/
+    }
 }

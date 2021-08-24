@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "birdwmod:block/lichen/lichen"
+    "layer0": "birdwmod:block/ericabush/ericabush"
   }
 }
