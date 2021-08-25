@@ -100,7 +100,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         this.goalSelector.add(2, new FleeEntityGoal<>(this, CatEntity.class, 15.0F, 1.5D, 2D));
         if (this.settings.doesGoToFeeders) this.goalSelector.add(3, new EatFromFeedersGoal(this));
         this.goalSelector.add(4, new FleeEntityGoal<>(this, PlayerEntity.class, 15.0F, 1.0D, 1.2D));
-        this.goalSelector.add(5, new FlyOntoTreeGoal(this, 1.0D));
+        //this.goalSelector.add(5, new FlyOntoTreeGoal(this, 1.0D));
         if (this.settings.doesGroupBird) this.goalSelector.add(5, new FollowLeaderGoal(this));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
@@ -115,6 +115,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         double maxHealth = 5.0D;
         float width = 0.3f;
         float height = 0.3f;
+        float factor = 1f;
         boolean doesGoInWater = false;
         boolean doesGoToFeeders = false;
         boolean doesGroupBird = false;
@@ -227,6 +228,11 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
 
         public Settings withPath(String path){
             this.path = path;
+            return this;
+        }
+
+        public Settings withScaleFactor(Float factor){
+            this.factor = factor;
             return this;
         }
 
@@ -738,6 +744,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     public boolean isDimorphic(){return settings.dimorphic;}
 
     public String getPath() { return settings.path; }
+    public float getScaleFactor() { return settings.factor; }
 
     public Item getFeatherItem() {
         String featherPath = "birdwmod:feather_"+getPath();

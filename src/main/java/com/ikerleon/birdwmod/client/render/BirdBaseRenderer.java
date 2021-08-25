@@ -6,12 +6,14 @@ import com.ikerleon.birdwmod.entity.BirdEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.model.provider.GeoModelProvider;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
@@ -32,6 +34,15 @@ public class BirdBaseRenderer extends GeoEntityRenderer< BirdEntity> {
     public Identifier getRingTexture(BirdEntity entity)
     {
         return new Identifier(Main.ModID, "textures/entity/rings/"+entity.getPath()+"_ring.png");
+    }
+
+    @Override
+    public void render(BirdEntity entity, float entityYaw, float partialTicks, MatrixStack stack, VertexConsumerProvider bufferIn, int packedLightIn) {
+        stack.scale(entity.getScaleFactor(),entity.getScaleFactor(),entity.getScaleFactor());
+        if(entity.isBaby()){
+            stack.scale(0.5F,0.5F,0.5F);
+        }
+        super.render(entity, entityYaw, partialTicks, stack, bufferIn, packedLightIn);
     }
 
     @Environment(EnvType.CLIENT)
