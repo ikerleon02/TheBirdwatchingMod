@@ -3,6 +3,8 @@ package com.ikerleon.birdwmod.client.render;
 import com.ikerleon.birdwmod.Main;
 import com.ikerleon.birdwmod.client.model.entity.BirdBaseModel;
 import com.ikerleon.birdwmod.entity.BirdEntity;
+import com.ikerleon.birdwmod.entity.BirdSettings;
+import com.ikerleon.birdwmod.entity.InitEntities;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.RenderLayer;
@@ -41,6 +43,9 @@ public class BirdBaseRenderer extends GeoEntityRenderer< BirdEntity> {
         stack.scale(entity.getScaleFactor(),entity.getScaleFactor(),entity.getScaleFactor());
         if(entity.isBaby()){
             stack.scale(0.5F,0.5F,0.5F);
+        }
+        if(entity.getPath() == "hoatzin"){
+            stack.translate(0F, -0.075, 0F);
         }
         super.render(entity, entityYaw, partialTicks, stack, bufferIn, packedLightIn);
     }

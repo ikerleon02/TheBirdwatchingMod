@@ -160,7 +160,6 @@ public class GUIBirdGuide extends Screen {
         this.textRenderer.draw( matrices,Formatting.ITALIC + "Male", offLeft + 175, 80 + offTop, 0);
         this.textRenderer.draw( matrices,Formatting.ITALIC + "Female", offLeft + 232, 80 + offTop, 0);
         this.textRenderer.draw( matrices, BiomesTitle, offLeft + 175, 125 + offTop, 0);
-        this.textRenderer.draw( matrices, BiomesTitle, offLeft + 175, 125 + offTop, 0);
         this.textRenderer.drawTrimmed(StringVisitable.plain(birdSettings.spawnBiomesAsString()), offLeft + 160, 140 + offTop,110,  0);
 
         BirdEntity female_entity = new BirdEntity(InitEntities.GUI_BIRD_ENTITY, MinecraftClient.getInstance().world, birdSettings);
@@ -174,8 +173,8 @@ public class GUIBirdGuide extends Screen {
         this.itemRenderer.renderInGui(new ItemStack(female_entity.getFeatherItem(), 1), offLeft + 240, 95 + offTop);
         int i = (this.width - this.bookImageWidth) / 2;
         int j = (this.height - this.bookImageHeight) / 2;
-        InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
-        InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, 60, (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, female_entity);
+        InventoryScreen.drawEntity(offLeft + 185, 75 + offTop, (int)(entity.getScaleFactor() * 100), (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, entity);
+        InventoryScreen.drawEntity(offLeft + 250, 75 + offTop, (int)(entity.getScaleFactor() * 100), (float)(i) - mousePosX, (float)(j + 75 - 50) - mousePosY, female_entity);
 
         super.render(matrices, mouseX, mouseY, delta);
     }
