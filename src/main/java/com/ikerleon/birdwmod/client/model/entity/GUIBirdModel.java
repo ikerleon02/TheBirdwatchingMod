@@ -6,7 +6,7 @@ import net.minecraft.util.Identifier;
 
 public class GUIBirdModel extends BirdBaseModel
 {
-    private static final int ticksTilShift = 60;
+    private static final int ticksTilShift = 50;
 
     public GUIBirdModel(){ super();}
 
