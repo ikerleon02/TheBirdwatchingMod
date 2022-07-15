@@ -4,7 +4,8 @@ import com.mojang.serialization.Codec;
 import net.minecraft.world.gen.treedecorator.*;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
-public class TBMTreeDecoratorType<P extends TreeDecorator> {
+//TODO
+/*public class TBMTreeDecoratorType<P extends TreeDecorator> {
     public static final TreeDecoratorType<TrunkLichenDecorator> TRUNK_LICHEN;
     private final Codec<P> codec;
 
@@ -19,5 +20,5 @@ public class TBMTreeDecoratorType<P extends TreeDecorator> {
     static {
         TRUNK_LICHEN = TreeDecoratorType.register("trunk_lichen", TrunkLichenDecorator.CODEC);
     }
-}
+}*/
 

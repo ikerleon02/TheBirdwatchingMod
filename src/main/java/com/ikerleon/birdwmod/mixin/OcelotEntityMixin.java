@@ -2,7 +2,7 @@ package com.ikerleon.birdwmod.mixin;
 
 import com.ikerleon.birdwmod.entity.BirdEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
+//import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.OcelotEntity;
@@ -22,6 +22,7 @@ public class OcelotEntityMixin extends MobEntity {
     @Inject(at = @At("RETURN"), method = "initGoals()V", cancellable = true)
     private void attackBirdsAI(CallbackInfo info) {
         this.goalSelector.add(3, new MeleeAttackGoal((OcelotEntity) (Object) this, 0.7D, true));
-        this.targetSelector.add(2, new FollowTargetGoal((OcelotEntity) (Object) this, BirdEntity.class, true));
+        //TODO
+        //this.targetSelector.add(2, new FollowTargetGoal((OcelotEntity) (Object) this, BirdEntity.class, true));
     }
 }

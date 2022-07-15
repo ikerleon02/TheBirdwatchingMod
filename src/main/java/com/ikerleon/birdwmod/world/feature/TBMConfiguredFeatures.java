@@ -1,5 +1,6 @@
 package com.ikerleon.birdwmod.world.feature;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.ikerleon.birdwmod.Main;
@@ -10,33 +11,40 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.CountConfig;
-import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.AcaciaFoliagePlacer;
-import net.minecraft.world.gen.placer.SimpleBlockPlacer;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
 
+import java.util.List;
+
 public class TBMConfiguredFeatures{
 
-    public static final ConfiguredFeature<TreeFeatureConfig, ?> OLDBIRCH = register("oldbirch", Feature.TREE.configure((new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.BIRCH_LOG.getDefaultState()), new ForkingTrunkPlacer(4, 2, 2), new SimpleBlockStateProvider(Blocks.BIRCH_LEAVES.getDefaultState()), new SimpleBlockStateProvider(Blocks.BIRCH_SAPLING.getDefaultState()), new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 0, 2))).decorators(ImmutableList.of(TrunkLichenDecorator.INSTANCE)).ignoreVines().build()));
-    public static final TreeFeatureConfig FALLEN_OAK_TREE_CONFIG = new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.BIRCH_LOG.getDefaultState()), new FallenTrunkPlacer(2, 1, 0), new SimpleBlockStateProvider(Blocks.BIRCH_LEAVES.getDefaultState()), new SimpleBlockStateProvider(Blocks.OAK_SAPLING.getDefaultState()), new NoneFoliagePlacer(), new TwoLayersFeatureSize(0, 0, 0)).decorators(ImmutableList.of(TrunkLichenDecorator.INSTANCE)).ignoreVines().build();
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> OLDBIRCH = register("oldbirch", Feature.TREE,
+            new TreeFeatureConfig.Builder(
+            BlockStateProvider.of(Blocks.BIRCH_LOG.getDefaultState()),
+            new ForkingTrunkPlacer(4, 2, 2),
+            BlockStateProvider.of(Blocks.BIRCH_LEAVES.getDefaultState()),
+            new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)),
+            new TwoLayersFeatureSize(0, 0, 0)
+    ).decorators(ImmutableList.of(TrunkLichenDecorator.INSTANCE)).ignoreVines().build());
+
+    public static final TreeFeatureConfig FALLEN_OAK_TREE_CONFIG = new TreeFeatureConfig.Builder(BlockStateProvider.of(Blocks.OAK_LOG.getDefaultState()), new FallenTrunkPlacer(3, 2, 0), BlockStateProvider.of(Blocks.OAK_LEAVES.getDefaultState()), new NoneFoliagePlacer(), new TwoLayersFeatureSize(0, 0, 0)).build();
+
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> ERICA_BUSH = register("erica_bush", Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(InitBlocks.ERICA_BUSH)), List.of(), 32));;
 
 
-    public static final ConfiguredFeature<?, ?> MOUNTAIN_OLD_BIRCH_TREES = register("mountain_old_birch_trees", Feature.RANDOM_SELECTOR.configure(
-            new RandomFeatureConfig(
-                    ImmutableList.of(
-                            OLDBIRCH.withChance(0.6F),
-                            Feature.TREE.configure(TBMConfiguredFeatures.FALLEN_OAK_TREE_CONFIG).withChance(0.4F)
-                    ), TBMConfiguredFeatures.OLDBIRCH))
-            .decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
-            .decorate(Decorator.COUNT.configure(new CountConfig(35))));
+    static  <FC extends FeatureConfig, F extends Feature<FC>> RegistryEntry<ConfiguredFeature<FC, ?>> register(String id, F feature, FC config) {
+        return register(id, new ConfiguredFeature<>(feature, config));
+    }
 
-    public static final ConfiguredFeature<?, ?> PATCH_ERICA_BUSH = register("patch_erica_bush", Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(InitBlocks.ERICA_BUSH.getDefaultState()), SimpleBlockPlacer.INSTANCE).tries(32).whitelist(ImmutableSet.of(Blocks.MOSS_BLOCK)).build()).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(4));
-    private static <FC extends FeatureConfig> ConfiguredFeature<FC, ?> register(String id, ConfiguredFeature<FC, ?> feature) {
-        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Main.ModID, id), feature);
+    private static <FC extends FeatureConfig, F extends Feature<FC>> RegistryEntry<ConfiguredFeature<FC, ?>> register(String id, ConfiguredFeature<FC, F> cf) {
+        Identifier realId = new Identifier(Main.ModID, id);
+        Preconditions.checkState(!BuiltinRegistries.CONFIGURED_FEATURE.getIds().contains(realId), "Duplicate ID: %s", id);
+        return BuiltinRegistries.addCasted(BuiltinRegistries.CONFIGURED_FEATURE, realId.toString(), cf);
     }
 }

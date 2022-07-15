@@ -10,7 +10,6 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import net.fabricmc.fabric.impl.object.builder.FabricEntityType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.PageTurnWidget;
@@ -20,6 +19,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -101,7 +101,7 @@ public class GUIBirdGuide extends Screen {
         });
 
         this.addDrawableChild(buttonDone);
-        this.addDrawableChild(buttonNextPage = new ButtonWidget(offLeft+bookImageWidth+15, offTop, 50, 20, new LiteralText("->"), (buttonWidget) -> {
+        this.addDrawableChild(buttonNextPage = new ButtonWidget(offLeft+bookImageWidth+15, offTop, 50, 20, Text.literal("->"), (buttonWidget) -> {
             if (currPage < bookTotalPages - 1)
             {
                 ++currPage;
@@ -109,7 +109,7 @@ public class GUIBirdGuide extends Screen {
                 buttonPreviousPage.visible = currPage > 0;
             }
         }));
-        this.addDrawableChild(buttonPreviousPage = new ButtonWidget( offLeft-65, offTop, 50, 20, new LiteralText("<-"), (buttonWidget) -> {
+        this.addDrawableChild(buttonPreviousPage = new ButtonWidget( offLeft-65, offTop, 50, 20, Text.literal("<-"), (buttonWidget) -> {
             if (currPage > 0)
             {
                 --currPage;
@@ -121,7 +121,7 @@ public class GUIBirdGuide extends Screen {
     }
 
     public static MutableText getTranslatedText(@Nullable Formatting format, BirdEntity bird, String section){
-        MutableText text = new TranslatableText("gui."+Main.ModID+"."+bird.getPath()+"_" + section);
+        MutableText text = Text.translatable("gui." + Main.ModID + "." + bird.getPath() + "_" + section);
         if(format!=null){return text.formatted(format);}
         return text;
     }
@@ -173,7 +173,7 @@ public class GUIBirdGuide extends Screen {
     }
 
     @Override
-    public boolean isPauseScreen() {
+    public boolean shouldPause() {
         return false;
     }
 }

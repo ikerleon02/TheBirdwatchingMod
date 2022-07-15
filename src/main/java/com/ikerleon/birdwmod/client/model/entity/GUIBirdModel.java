@@ -16,7 +16,7 @@ public class GUIBirdModel extends BirdBaseModel
     }
 
     @Override
-    public Identifier getTextureLocation(Object rawEntity) {
+    public Identifier getTextureResource(Object rawEntity) {
 
         BirdEntity entity = (BirdEntity) rawEntity;
         String path = entity.getPath() + "/" + entity.getPath();

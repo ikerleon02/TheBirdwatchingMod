@@ -11,6 +11,7 @@ import com.ikerleon.birdwmod.items.ItemBirdSpawnEgg;
 import com.ikerleon.birdwmod.util.SoundHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -38,6 +39,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -53,12 +55,14 @@ import software.bernie.geckolib3.core.event.SoundKeyframeEvent;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.network.GeckoLibNetwork;
+import software.bernie.geckolib3.network.ISyncable;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class BirdEntity extends AnimalEntity implements IAnimatable {
@@ -104,6 +108,8 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         if (this.settings.doesGroupBird) this.goalSelector.add(5, new FollowLeaderGoal(this));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+
+        this.ignoreCameraFrustum = true;
     }
 
     public static class Settings {
@@ -136,15 +142,15 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         int maxGroupSize = 1;
 
         public static class BiomeDescriptor {
-            private final Biome.Category biomeCategory;
+            //private final Biome.Category biomeCategory;
             private final BiomeTemperature temperature;
 
-            public BiomeDescriptor(Biome.Category biomeCategory, BiomeTemperature temperature) {
-                this.biomeCategory = biomeCategory;
+            public BiomeDescriptor(/*Biome.Category biomeCategory,*/ BiomeTemperature temperature) {
+                //this.biomeCategory = biomeCategory;
                 this.temperature = temperature;
             }
 
-            public Biome.Category getBiomeCategory() { return this.biomeCategory;}
+            //public Biome.Category getBiomeCategory() { return this.biomeCategory;}
             public double[] getTemperatureRange() {
                 // These ranges are min ([0]) exclusive, max ([1]) inclusive. Overlap is OK.
                 double[] temperature = new double[2];
@@ -178,8 +184,8 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
                 }
                 return temperature;}
         }
-
-        public Settings withSpawnBiome(Biome.Category biome, BiomeTemperature temperature) {
+//TODO
+        /*public Settings withSpawnBiome(Biome.Category biome, BiomeTemperature temperature) {
             this.spawnBiomes.add(new BiomeDescriptor(biome, temperature));
             return this;
         }
@@ -187,7 +193,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         public Settings withSpawnBiome(Biome.Category biome) {
             this.spawnBiomes.add(new BiomeDescriptor(biome, BiomeTemperature.UNSPECIFIED));
             return this;
-        }
+        }*/
 
         public String spawnBiomesAsString() {
             StringBuilder builder = new StringBuilder();
@@ -203,9 +209,10 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
                     case UNSPECIFIED -> builder.append("Any");
                 }
                 builder.append(" ");
-                String rawName = descriptor.biomeCategory.asString();
-                builder.append(rawName.substring(0, 1).toUpperCase());
-                builder.append(rawName.substring(1).replaceAll("_", " "));
+                //TODO
+                //String rawName = descriptor.biomeCategory.asString();
+                //builder.append(rawName.substring(0, 1).toUpperCase());
+                //builder.append(rawName.substring(1).replaceAll("_", " "));
                 if(i != spawnBiomes.size() - 1){builder.append(", ");}
             }
             return builder.toString();
@@ -334,7 +341,8 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
     // TODO: need to pass something in here in place of predicate (https://geckolib.com/en/latest/3.0.0/entity_animations/)
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
-        if(event.getController().getName() == "songcontroller"){
+
+        if(Objects.equals(event.getController().getName(), "songcontroller")){
             AnimationController controller = event.getController();
             controller.markNeedsReload();
             if (controller.getAnimationState() == AnimationState.Stopped && this.isOnGround() && random.nextInt(100)<2) {
@@ -355,6 +363,7 @@ public class BirdEntity extends AnimalEntity implements IAnimatable {
         BirdEntity bird = (BirdEntity) event.getEntity();
         if(this.getId() != bird.getId()){ return; }
         if(bird.world.isClient()) {
+            System.out.println("3");
             switch (settings.callType) {
                 case BOTH_CALL:
                     bird.world.playSound(bird.getX(), bird.getY(), bird.getZ(), settings.callSound, SoundCategory.AMBIENT, bird.getSoundVolume(), getSoundPitch(), false);

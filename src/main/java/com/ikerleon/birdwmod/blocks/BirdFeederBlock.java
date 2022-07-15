@@ -120,9 +120,10 @@ public class BirdFeederBlock extends Block{
         return true;
     }
 
-    @Override
+    //TODO
+    //@Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        super.randomTick(state, world, pos, random);
+        //super.randomTick(state, world, pos, random);
 
         if(random.nextInt(10)==1) {
             if (state.get(HALF) == EnumBlockHalf.UPPER) {

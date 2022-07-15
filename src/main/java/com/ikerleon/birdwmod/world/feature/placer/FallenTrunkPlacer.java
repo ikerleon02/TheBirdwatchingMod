@@ -32,7 +32,7 @@ public class FallenTrunkPlacer extends StraightTrunkPlacer {
     }
 
     @Override
-    public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int trunkHeight, BlockPos pos, TreeFeatureConfig treeFeatureConfig) {
+    public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, net.minecraft.util.math.random.Random random, int trunkHeight, BlockPos pos, TreeFeatureConfig treeFeatureConfig) {
         setToDirt(world, replacer, random, pos.down(), treeFeatureConfig);
 
         List<FoliagePlacer.TreeNode> treeNodes = Lists.newArrayList();
@@ -48,7 +48,7 @@ public class FallenTrunkPlacer extends StraightTrunkPlacer {
         return ImmutableList.of(new FoliagePlacer.TreeNode(pos, 0, false));
     }
 
-    protected static boolean placeTrunkBlock(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos blockPos, TreeFeatureConfig treeFeatureConfig, Direction.Axis axis, List<FoliagePlacer.TreeNode> treeNodes) {
+    protected static boolean placeTrunkBlock(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, net.minecraft.util.math.random.Random random, BlockPos blockPos, TreeFeatureConfig treeFeatureConfig, Direction.Axis axis, List<FoliagePlacer.TreeNode> treeNodes) {
         if (TreeFeature.canReplace(world, blockPos)) {
             replacer.accept(blockPos, treeFeatureConfig.trunkProvider.getBlockState(random, blockPos).with(PillarBlock.AXIS, axis));
             treeNodes.add(new FoliagePlacer.TreeNode(blockPos.toImmutable(), 0, false));

@@ -21,7 +21,6 @@ public class MainClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(InitBlocks.LICHEN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(InitBlocks.ERICA_BUSH, RenderLayer.getCutout());
 
-        InitEntities.registerRenderers();
         FabricModelPredicateProviderRegistry.register(InitItems.BINOCULAR_BASIC, new Identifier("pulling"), (itemStack, clientWorld, livingEntity, seed) -> {
             return livingEntity != null && MinecraftClient.getInstance().options.getPerspective() == Perspective.FIRST_PERSON && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
         });

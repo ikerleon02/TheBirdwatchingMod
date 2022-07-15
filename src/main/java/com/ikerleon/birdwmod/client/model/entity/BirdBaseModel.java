@@ -5,6 +5,7 @@ import com.ikerleon.birdwmod.Main;
 import com.ikerleon.birdwmod.entity.BirdEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class BirdBaseModel extends AnimatedGeoModel
@@ -24,11 +25,11 @@ public class BirdBaseModel extends AnimatedGeoModel
     }
 
     @Override
-    public Identifier getModelLocation(Object entity)
+    public Identifier getModelResource(Object entity)
     {return new Identifier(Main.ModID, buildModelPath(((BirdEntity) entity).getPath()));}
 
     @Override
-    public Identifier getTextureLocation(Object rawEntity) {
+    public Identifier getTextureResource(Object rawEntity) {
         BirdEntity entity = (BirdEntity) rawEntity;
         String path = entity.getPath() + "/" + entity.getPath();
         if (entity.isDimorphic() && entity.getGender() == 1 ){path += "_female";}
@@ -37,7 +38,28 @@ public class BirdBaseModel extends AnimatedGeoModel
     }
 
     @Override
-    public Identifier getAnimationFileLocation(Object entity)
+    public Identifier getAnimationResource(Object entity)
     {return new Identifier(Main.ModID, buildAnimationPath(((BirdEntity) entity).getPath()));}
 
+    //TODO
+
+    @Override
+    public double getCurrentTick() {
+        return super.getCurrentTick();
+    }
+
+    @Override
+    public void setLivingAnimations(Object entity, Integer uniqueID) {
+        super.setLivingAnimations(entity, uniqueID);
+    }
+
+    @Override
+    public void setLivingAnimations(Object o, Integer integer, AnimationEvent animationEvent) {
+
+    }
+
+    @Override
+    public IBone getBone(String boneName) {
+        return super.getBone(boneName);
+    }
 }

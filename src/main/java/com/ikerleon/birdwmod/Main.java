@@ -31,7 +31,8 @@ public class Main implements ModInitializer {
 		InitItems.registerItems();
 		InitBlocks.registerBlocks();
 		InitEntities.registerAttributes();
-		InitSurfaceBuilders.register();
+		//TODO
+		//InitSurfaceBuilders.register();
 		InitBiomes.register();
 		InitGeneration.register();
 	}

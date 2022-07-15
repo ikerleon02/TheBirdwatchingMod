@@ -6,7 +6,7 @@ import com.ikerleon.birdwmod.client.render.GUIBirdRenderer;
 import com.ikerleon.birdwmod.util.SoundHandler;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
@@ -66,7 +66,7 @@ public class InitEntities {
     }
 
     public static void registerRenderers(){
-        EntityRendererRegistry.INSTANCE.register(GUI_BIRD_ENTITY, GUIBirdRenderer::new);
+        EntityRendererRegistry.register(GUI_BIRD_ENTITY, GUIBirdRenderer::new);
         registerRenderer(EURASIAN_BULLFINCH_ENTITY);
         registerRenderer(RED_NECKED_NIGHTJAR_ENTITY);
         registerRenderer(RED_FLANKED_BLUETAIL_ENTITY);
@@ -87,12 +87,12 @@ public class InitEntities {
 
     private static boolean biomeCompatibleWithSettings(BiomeSelectionContext context, BirdEntity.Settings settings){
         for(BirdEntity.Settings.BiomeDescriptor biomeDescriptor : settings.getSpawnBiomes()){
-            if (context.getBiome().getCategory().equals(biomeDescriptor.getBiomeCategory())){
+            //if (context.getBiome().getCategory().equals(biomeDescriptor.getBiomeCategory())){
                 double[] temperatureRange = biomeDescriptor.getTemperatureRange();
                 if (context.getBiome().getTemperature() > temperatureRange[0] && context.getBiome().getTemperature() <= temperatureRange[1]){
                     return true;
                 }
-            }
+            //}
         }
         return false;
     }
@@ -107,6 +107,6 @@ public class InitEntities {
     }
 
     public static void registerRenderer(EntityType<BirdEntity> birdEntity){
-        EntityRendererRegistry.INSTANCE.register(birdEntity, BirdBaseRenderer::new);
+        EntityRendererRegistry.register(birdEntity, BirdBaseRenderer::new);
     }
 }

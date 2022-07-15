@@ -1,19 +1,13 @@
 package com.ikerleon.birdwmod.entity;
 
-import com.ikerleon.birdwmod.items.InitItems;
-import com.ikerleon.birdwmod.util.SoundHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.RabbitEntity;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 
 public class GreatGreyOwlEntity extends BirdEntity {
@@ -21,7 +15,7 @@ public class GreatGreyOwlEntity extends BirdEntity {
     public GreatGreyOwlEntity(EntityType<? extends AnimalEntity> type, World worldIn, Settings settings) {
         super(type, worldIn, settings);
         this.goalSelector.add(3, new MeleeAttackGoal(this, 1.2, true));
-        this.targetSelector.add(2, new FollowTargetGoal(this, RabbitEntity.class, true));
+        //this.targetSelector.add(2, new MoveToTargetPosGoal(this, RabbitEntity.class, true));
     }
 
     public boolean tryAttack(Entity target) {

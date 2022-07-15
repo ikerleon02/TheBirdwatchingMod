@@ -24,15 +24,17 @@ public class TrunkLichenDecorator extends TreeDecorator {
     });
 
     protected TreeDecoratorType<?> getType() {
-        return TBMTreeDecoratorType.TRUNK_LICHEN;
+        //TODO
+        return null;//TBMTreeDecoratorType.TRUNK_LICHEN;
     }
 
-    public void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, List<BlockPos> logPositions, List<BlockPos> leavesPositions) {
-        logPositions.forEach((pos) -> {
+    @Override
+    public void generate(Generator generator) {
+        /*generator.getLogPositions().forEach((pos) -> {
             BlockPos blockPos4;
-            if (random.nextInt(3) > 0) {
+            if (generator.getRandom().nextInt(3) > 0) {
                 blockPos4 = pos.west();
-                if (Feature.isAir(world, blockPos4)) {
+                if (Feature.isExposedToAir(world, blockPos4)) {
                     placeLichen(replacer, blockPos4, LichenBlock.EAST);
                 }
             }
@@ -58,7 +60,7 @@ public class TrunkLichenDecorator extends TreeDecorator {
                 }
             }
 
-        });
+        });*/
     }
 
     protected static void placeLichen(BiConsumer<BlockPos, BlockState> replacer, BlockPos pos, BooleanProperty facing) {
